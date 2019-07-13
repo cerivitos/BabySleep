@@ -1,5 +1,5 @@
 <script>
-  import HelloWorld from './components/HelloWorld.svelte';
+  import SignIn from './components/SignIn.svelte';
   import Router from './components/Router.svelte';
 
   if ('serviceWorker' in navigator) {
@@ -11,5 +11,5 @@
 
 <main class="overflow-hidden">
   <Router/>
-  <HelloWorld/>
+  <SignIn/>
 </main>
