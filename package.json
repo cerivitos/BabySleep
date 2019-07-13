@@ -52,5 +52,7 @@
     "svelte-preprocess-postcss": "^1.0.0",
     "tailwindcss": "^1.0.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "googleapis": "^39.2.0"
+  }
 }
