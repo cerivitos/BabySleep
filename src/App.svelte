@@ -1,6 +1,7 @@
 <script>
   import SignInModal from "./components/SignInModal.svelte";
   import Router from "./components/Router.svelte";
+  import SheetTest from "./components/SheetTest.svelte";
   import { onMount } from "svelte";
   import { signedInUser, gAPIInstance } from "./store/store.js";
   import { credentials } from "../credentials.js";
@@ -11,26 +12,34 @@
     const gapiScript = document.createElement("script");
 
     gapiScript.onload = () => {
-      gapi.load("auth2", () => {
-        gapi.auth2
+      gapi.load("client:auth2", () => {
+        gapi.client
           .init({
             clientID: credentials.CLIENT_ID,
+            apiKey: credentials.API_KEY,
             scope: credentials.SCOPES,
             discoveryDocs: credentials.DISCOVERY_DOCS
           })
-          .then(result => {
-            gAPIInstance.set(gapi);
+          .then(() => {
+            gapi.load("auth2", () => {
+              gapi.auth2
+                .init({
+                  client_id: credentials.CLIENT_ID,
+                  scope: credentials.SCOPES
+                })
+                .then(googleAuth => {
+                  gAPIInstance.set(gapi);
 
-            googleAuth = result;
+                  if (googleAuth.isSignedIn.get()) {
+                    signedInUser.set(googleAuth.currentUser.get());
 
-            if (googleAuth.isSignedIn.get()) {
-              signedInUser.set(googleAuth.currentUser.get());
-
-              console.log(
-                "Automatically signed in as " +
-                  $signedInUser.getBasicProfile().getName()
-              );
-            }
+                    console.log(
+                      "Automatically signed in as " +
+                        $signedInUser.getBasicProfile().getName()
+                    );
+                  }
+                });
+            });
           });
       });
     };
@@ -38,9 +47,9 @@
     document.head.appendChild(gapiScript);
   });
 
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/service-worker.js");
-  }
+  // if ("serviceWorker" in navigator) {
+  //   navigator.serviceWorker.register("/service-worker.js");
+  // }
 </script>
 
 <style lang="postcss">
@@ -52,7 +61,7 @@
 </svelte:head>
 
 <main class="overflow-hidden">
-  <Router />
+  <SheetTest />
   {#if $signedInUser === undefined || $gAPIInstance !== undefined}
     <SignInModal />
   {/if}
