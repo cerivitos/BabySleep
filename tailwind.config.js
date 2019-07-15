@@ -2,10 +2,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        backgroundColor: "#f6f5f5",
-        primaryColor: "#5bd1d7",
-        secondaryColor: "#248ea9",
-        accentColor: "#556fb5"
+        backgroundColor: "#2B2D42",
+        primaryColor: "#8D99AE",
+        secondaryColor: "#EDF2F4",
+        accentColor: "#EF233C"
       }
     }
   },

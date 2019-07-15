@@ -2,6 +2,7 @@
   import SignInModal from "./components/SignInModal.svelte";
   import Router from "./components/Router.svelte";
   import SheetTest from "./components/SheetTest.svelte";
+  import Entry from "./components/Entry.svelte";
   import { onMount } from "svelte";
   import { signedInUser, gAPIInstance } from "./store/store.js";
   import { credentials } from "../credentials.js";
@@ -21,25 +22,38 @@
             discoveryDocs: credentials.DISCOVERY_DOCS
           })
           .then(() => {
-            gapi.load("auth2", () => {
-              gapi.auth2
-                .init({
-                  client_id: credentials.CLIENT_ID,
-                  scope: credentials.SCOPES
-                })
-                .then(googleAuth => {
-                  gAPIInstance.set(gapi);
+            if (gapi.auth2.getAuthInstance() === null) {
+              gapi.load("auth2", () => {
+                gapi.auth2
+                  .init({
+                    client_id: credentials.CLIENT_ID,
+                    scope: credentials.SCOPES
+                  })
+                  .then(googleAuth => {
+                    gAPIInstance.set(gapi);
 
-                  if (googleAuth.isSignedIn.get()) {
-                    signedInUser.set(googleAuth.currentUser.get());
+                    if (googleAuth.isSignedIn.get()) {
+                      signedInUser.set(googleAuth.currentUser.get());
 
-                    console.log(
-                      "Automatically signed in as " +
-                        $signedInUser.getBasicProfile().getName()
-                    );
-                  }
-                });
-            });
+                      console.log(
+                        "Automatically signed in as " +
+                          $signedInUser.getBasicProfile().getName()
+                      );
+                    }
+                  });
+              });
+            } else {
+              gAPIInstance.set(gapi);
+
+              if (googleAuth.isSignedIn.get()) {
+                signedInUser.set(googleAuth.currentUser.get());
+
+                console.log(
+                  "Automatically signed in as " +
+                    $signedInUser.getBasicProfile().getName()
+                );
+              }
+            }
           });
       });
     };
@@ -62,6 +76,7 @@
 
 <main class="overflow-hidden">
   <SheetTest />
+  <Entry />
   {#if $signedInUser === undefined || $gAPIInstance !== undefined}
     <SignInModal />
   {/if}
