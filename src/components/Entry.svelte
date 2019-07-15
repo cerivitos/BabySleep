@@ -52,7 +52,7 @@
 
 <style>
   .input {
-    @apply text-3xl border-b-4 text-secondaryColor border-accentColor bg-transparent mb-4 w-auto;
+    @apply text-2xl lowercase border-b-4 text-secondaryColor border-accentColor bg-transparent mb-4 w-auto;
   }
 
   .background {
@@ -63,26 +63,31 @@
 <div class="background">
   <h1>
     Put down at
-    <input class="input" type="date" bind:value={putDownDate} />
-    <input class="input" type="time" bind:value={putDownTime} />
+    <body>
+      <input class="input" type="date" bind:value={putDownDate} />
+      <input class="input" type="time" bind:value={putDownTime} />
+    </body>
   </h1>
   <div class="w-full my-8 text-3xl text-center">▼</div>
 </div>
 <div class="background">
   <h1>
     Fell asleep at
-    <input
-      class="input"
-      type="date"
-      bind:value={sleepDate}
-      value={new Date().toDateInputValue()}
-      min={putDownDate} />
-    <input
-      class="input"
-      type="time"
-      bind:value={sleepTime}
-      value={new Date().toTimeInputValue()}
-      min={putDownTime} />
+    <body>
+      <input
+        class="input"
+        type="date"
+        bind:value={sleepDate}
+        value={new Date().toDateInputValue()}
+        min={putDownDate} />
+      <input
+        class="input"
+        type="time"
+        bind:value={sleepTime}
+        value={new Date().toTimeInputValue()}
+        min={putDownTime} />
+    </body>
+
   </h1>
   <div class="w-full my-8 text-3xl text-center">▼</div>
 </div>

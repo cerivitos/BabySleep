@@ -515,13 +515,14 @@
     const file$1 = "src\\components\\Entry.svelte";
 
     function create_fragment$2(ctx) {
-    	var div1, h10, t0, input0, t1, input1, t2, div0, t4, div3, h11, t5, input2, input2_value_value, t6, input3, input3_value_value, t7, div2, t9, div5, body, t10, div4, t11, t12, t13_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes', t13, t14, div6, t16, h12, t17, input4, t18, input5, t19, div7, t21, h13, t22, input6, t23, input7, dispose;
+    	var div1, h10, t0, body0, input0, t1, input1, t2, div0, t4, div3, h11, t5, body1, input2, input2_value_value, t6, input3, input3_value_value, t7, div2, t9, div5, body2, t10, div4, t11, t12, t13_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes', t13, t14, div6, t16, h12, t17, input4, t18, input5, t19, div7, t21, h13, t22, input6, t23, input7, dispose;
 
     	return {
     		c: function create() {
     			div1 = element("div");
     			h10 = element("h1");
     			t0 = text("Put down at\r\n    ");
+    			body0 = element("body");
     			input0 = element("input");
     			t1 = space();
     			input1 = element("input");
@@ -532,6 +533,7 @@
     			div3 = element("div");
     			h11 = element("h1");
     			t5 = text("Fell asleep at\r\n    ");
+    			body1 = element("body");
     			input2 = element("input");
     			t6 = space();
     			input3 = element("input");
@@ -540,7 +542,7 @@
     			div2.textContent = "▼";
     			t9 = space();
     			div5 = element("div");
-    			body = element("body");
+    			body2 = element("body");
     			t10 = text("Asleep for\r\n    ");
     			div4 = element("div");
     			t11 = text(ctx.elapsedSleepTime);
@@ -564,56 +566,58 @@
     			input6 = element("input");
     			t23 = space();
     			input7 = element("input");
-    			input0.className = "input svelte-1lpdcj3";
+    			input0.className = "input svelte-7i2xf4";
     			attr(input0, "type", "date");
-    			add_location(input0, file$1, 57, 4, 1499);
-    			input1.className = "input svelte-1lpdcj3";
+    			add_location(input0, file$1, 58, 6, 1536);
+    			input1.className = "input svelte-7i2xf4";
     			attr(input1, "type", "time");
-    			add_location(input1, file$1, 58, 4, 1565);
-    			add_location(h10, file$1, 55, 2, 1472);
+    			add_location(input1, file$1, 59, 6, 1604);
+    			add_location(body0, file$1, 57, 4, 1522);
+    			add_location(h10, file$1, 55, 2, 1495);
     			div0.className = "w-full my-8 text-3xl text-center";
-    			add_location(div0, file$1, 60, 2, 1638);
-    			div1.className = "background svelte-1lpdcj3";
-    			add_location(div1, file$1, 54, 0, 1444);
-    			input2.className = "input svelte-1lpdcj3";
+    			add_location(div0, file$1, 62, 2, 1690);
+    			div1.className = "background svelte-7i2xf4";
+    			add_location(div1, file$1, 54, 0, 1467);
+    			input2.className = "input svelte-7i2xf4";
     			attr(input2, "type", "date");
     			input2.value = input2_value_value = new ctx.Date().toDateInputValue();
     			input2.min = ctx.putDownDate;
-    			add_location(input2, file$1, 65, 4, 1759);
-    			input3.className = "input svelte-1lpdcj3";
+    			add_location(input2, file$1, 68, 6, 1825);
+    			input3.className = "input svelte-7i2xf4";
     			attr(input3, "type", "time");
     			input3.value = input3_value_value = new ctx.Date().toTimeInputValue();
     			input3.min = ctx.putDownTime;
-    			add_location(input3, file$1, 71, 4, 1914);
-    			add_location(h11, file$1, 63, 2, 1729);
+    			add_location(input3, file$1, 74, 6, 1992);
+    			add_location(body1, file$1, 67, 4, 1811);
+    			add_location(h11, file$1, 65, 2, 1781);
     			div2.className = "w-full my-8 text-3xl text-center";
-    			add_location(div2, file$1, 78, 2, 2076);
-    			div3.className = "background svelte-1lpdcj3";
-    			add_location(div3, file$1, 62, 0, 1701);
+    			add_location(div2, file$1, 83, 2, 2179);
+    			div3.className = "background svelte-7i2xf4";
+    			add_location(div3, file$1, 64, 0, 1753);
     			div4.className = "inline-block px-2 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-medium";
-    			add_location(div4, file$1, 83, 4, 2255);
-    			body.className = "text-2xl text-backgroundColor";
-    			add_location(body, file$1, 81, 2, 2189);
+    			add_location(div4, file$1, 88, 4, 2358);
+    			body2.className = "text-2xl text-backgroundColor";
+    			add_location(body2, file$1, 86, 2, 2292);
     			div5.className = "my-12 w-full justify-center flex";
-    			add_location(div5, file$1, 80, 0, 2139);
+    			add_location(div5, file$1, 85, 0, 2242);
     			div6.className = "w-full my-8 text-3xl text-center";
-    			add_location(div6, file$1, 92, 0, 2481);
-    			input4.className = "input svelte-1lpdcj3";
+    			add_location(div6, file$1, 97, 0, 2584);
+    			input4.className = "input svelte-7i2xf4";
     			attr(input4, "type", "date");
-    			add_location(input4, file$1, 95, 2, 2558);
-    			input5.className = "input svelte-1lpdcj3";
+    			add_location(input4, file$1, 100, 2, 2661);
+    			input5.className = "input svelte-7i2xf4";
     			attr(input5, "type", "time");
-    			add_location(input5, file$1, 96, 2, 2619);
-    			add_location(h12, file$1, 93, 0, 2536);
+    			add_location(input5, file$1, 101, 2, 2722);
+    			add_location(h12, file$1, 98, 0, 2639);
     			div7.className = "w-full my-8 text-3xl text-center";
-    			add_location(div7, file$1, 98, 0, 2685);
-    			input6.className = "input svelte-1lpdcj3";
+    			add_location(div7, file$1, 103, 0, 2788);
+    			input6.className = "input svelte-7i2xf4";
     			attr(input6, "type", "date");
-    			add_location(input6, file$1, 101, 2, 2764);
-    			input7.className = "input svelte-1lpdcj3";
+    			add_location(input6, file$1, 106, 2, 2867);
+    			input7.className = "input svelte-7i2xf4";
     			attr(input7, "type", "time");
-    			add_location(input7, file$1, 102, 2, 2827);
-    			add_location(h13, file$1, 99, 0, 2740);
+    			add_location(input7, file$1, 107, 2, 2930);
+    			add_location(h13, file$1, 104, 0, 2843);
 
     			dispose = [
     				listen(input0, "input", ctx.input0_input_handler),
@@ -635,12 +639,13 @@
     			insert(target, div1, anchor);
     			append(div1, h10);
     			append(h10, t0);
-    			append(h10, input0);
+    			append(h10, body0);
+    			append(body0, input0);
 
     			input0.value = ctx.putDownDate;
 
-    			append(h10, t1);
-    			append(h10, input1);
+    			append(body0, t1);
+    			append(body0, input1);
 
     			input1.value = ctx.putDownTime;
 
@@ -650,12 +655,13 @@
     			insert(target, div3, anchor);
     			append(div3, h11);
     			append(h11, t5);
-    			append(h11, input2);
+    			append(h11, body1);
+    			append(body1, input2);
 
     			input2.value = ctx.sleepDate;
 
-    			append(h11, t6);
-    			append(h11, input3);
+    			append(body1, t6);
+    			append(body1, input3);
 
     			input3.value = ctx.sleepTime;
 
@@ -663,12 +669,12 @@
     			append(div3, div2);
     			insert(target, t9, anchor);
     			insert(target, div5, anchor);
-    			append(div5, body);
-    			append(body, t10);
-    			append(body, div4);
+    			append(div5, body2);
+    			append(body2, t10);
+    			append(body2, div4);
     			append(div4, t11);
-    			append(body, t12);
-    			append(body, t13);
+    			append(body2, t12);
+    			append(body2, t13);
     			insert(target, t14, anchor);
     			insert(target, div6, anchor);
     			insert(target, t16, anchor);
