@@ -1,5 +1,4 @@
 <script>
-  //@ts-check
   import { onMount } from "svelte";
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
@@ -62,6 +61,9 @@
   $: wakeTime = addTime(sleepDate, sleepTime, 90, "time");
   $: pickUpDate = addTime(wakeDate, wakeTime, 5, "date");
   $: pickUpTime = addTime(wakeDate, wakeTime, 5, "time");
+  /**
+   * Calculates sleep time by taking the difference between falling asleep and either the current time or wake time (whichever is lower). Also animates the div height to show number of minutes asleep if it is more than zero.
+   */
   $: if (isAfter(time, new Date(sleepDate + " " + sleepTime))) {
     if (isAfter(new Date(wakeDate + " " + wakeTime), time)) {
       elapsedSleepTime = differenceInMinutes(
@@ -74,10 +76,15 @@
         new Date(sleepDate + " " + sleepTime)
       );
     }
-
+    /**
+     * Tween div height from 0 to 6rem
+     */
     elapsedSleepTimeDivHeight.set(6);
   } else {
     elapsedSleepTime = 0;
+    /**
+     * Tween div height to 0, hiding the div
+     */
     elapsedSleepTimeDivHeight.set(0);
   }
 </script>

@@ -3399,61 +3399,61 @@
     			button.textContent = "Submit";
     			input0.className = "input";
     			attr(input0, "type", "date");
-    			add_location(input0, file$1, 88, 6, 2683);
+    			add_location(input0, file$1, 95, 6, 3028);
     			input1.className = "input";
     			attr(input1, "type", "time");
-    			add_location(input1, file$1, 89, 6, 2751);
-    			add_location(body0, file$1, 87, 4, 2669);
-    			add_location(h10, file$1, 85, 2, 2642);
+    			add_location(input1, file$1, 96, 6, 3096);
+    			add_location(body0, file$1, 94, 4, 3014);
+    			add_location(h10, file$1, 92, 2, 2987);
     			div0.className = "w-full mt-8 text-3xl text-center";
-    			add_location(div0, file$1, 92, 2, 2837);
+    			add_location(div0, file$1, 99, 2, 3182);
     			div1.className = "background p-4";
-    			add_location(div1, file$1, 84, 0, 2610);
+    			add_location(div1, file$1, 91, 0, 2955);
     			input2.className = "input";
     			attr(input2, "type", "date");
     			input2.min = ctx.putDownDate;
-    			add_location(input2, file$1, 98, 6, 2988);
+    			add_location(input2, file$1, 105, 6, 3333);
     			input3.className = "input";
     			attr(input3, "type", "time");
     			input3.min = ctx.putDownTime;
-    			add_location(input3, file$1, 103, 6, 3108);
-    			add_location(body1, file$1, 97, 4, 2974);
-    			add_location(h11, file$1, 95, 2, 2944);
+    			add_location(input3, file$1, 110, 6, 3453);
+    			add_location(body1, file$1, 104, 4, 3319);
+    			add_location(h11, file$1, 102, 2, 3289);
     			div2.className = "background px-4 pt-4 pb-12";
-    			add_location(div2, file$1, 94, 0, 2900);
+    			add_location(div2, file$1, 101, 0, 3245);
     			div3.className = "inline-block mx-2 px-2 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div3, file$1, 116, 4, 3440);
+    			add_location(div3, file$1, 123, 4, 3785);
     			body2.className = "text-2xl justify-center items-center flex";
-    			add_location(body2, file$1, 114, 2, 3362);
+    			add_location(body2, file$1, 121, 2, 3707);
     			div4.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div4, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div4, file$1, 111, 0, 3252);
+    			add_location(div4, file$1, 118, 0, 3597);
     			input4.className = "input";
     			attr(input4, "type", "date");
-    			add_location(input4, file$1, 128, 6, 3751);
+    			add_location(input4, file$1, 135, 6, 4096);
     			input5.className = "input";
     			attr(input5, "type", "time");
-    			add_location(input5, file$1, 129, 6, 3816);
-    			add_location(body3, file$1, 127, 4, 3737);
-    			add_location(h12, file$1, 125, 2, 3711);
+    			add_location(input5, file$1, 136, 6, 4161);
+    			add_location(body3, file$1, 134, 4, 4082);
+    			add_location(h12, file$1, 132, 2, 4056);
     			div5.className = "w-full mt-8 text-3xl text-center";
-    			add_location(div5, file$1, 133, 2, 3901);
+    			add_location(div5, file$1, 140, 2, 4246);
     			div6.className = "background px-4 pb-4 pt-12";
-    			add_location(div6, file$1, 124, 0, 3667);
+    			add_location(div6, file$1, 131, 0, 4012);
     			input6.className = "input";
     			attr(input6, "type", "date");
-    			add_location(input6, file$1, 139, 6, 4038);
+    			add_location(input6, file$1, 146, 6, 4383);
     			input7.className = "input";
     			attr(input7, "type", "time");
-    			add_location(input7, file$1, 140, 6, 4105);
-    			add_location(body4, file$1, 138, 4, 4024);
-    			add_location(h13, file$1, 136, 2, 3996);
+    			add_location(input7, file$1, 147, 6, 4450);
+    			add_location(body4, file$1, 145, 4, 4369);
+    			add_location(h13, file$1, 143, 2, 4341);
     			button.className = "py-2 w-1/2 my-12 rounded-lg bg-accentColor2 text-white text-2xl\r\n      font-bold hover:shadow-lg border-b-4 border-teal-700";
-    			add_location(button, file$1, 144, 4, 4242);
+    			add_location(button, file$1, 151, 4, 4587);
     			div7.className = "flex items-center justify-center";
-    			add_location(div7, file$1, 143, 2, 4190);
+    			add_location(div7, file$1, 150, 2, 4535);
     			div8.className = "background p-4";
-    			add_location(div8, file$1, 135, 0, 3964);
+    			add_location(div8, file$1, 142, 0, 4309);
 
     			dispose = [
     				listen(input0, "input", ctx.input0_input_handler),
@@ -3699,10 +3699,15 @@
                 new Date(sleepDate + " " + sleepTime)
               ));
             }
-        
+            /**
+             * Tween div height from 0 to 6rem
+             */
             elapsedSleepTimeDivHeight.set(6);
           } else {
             $$invalidate('elapsedSleepTime', elapsedSleepTime = 0);
+            /**
+             * Tween div height to 0, hiding the div
+             */
             elapsedSleepTimeDivHeight.set(0);
           } }
     	};
