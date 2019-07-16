@@ -5,6 +5,13 @@
 
     function noop() {}
 
+    const identity = x => x;
+
+    function assign(tar, src) {
+    	for (const k in src) tar[k] = src[k];
+    	return tar;
+    }
+
     function add_location(element, file, line, column, char) {
     	element.__svelte_meta = {
     		loc: { file, line, column, char }
@@ -43,6 +50,39 @@
     	component.$$.on_destroy.push(unsub.unsubscribe
     		? () => unsub.unsubscribe()
     		: unsub);
+    }
+
+    const tasks = new Set();
+    let running = false;
+
+    function run_tasks() {
+    	tasks.forEach(task => {
+    		if (!task[0](window.performance.now())) {
+    			tasks.delete(task);
+    			task[1]();
+    		}
+    	});
+
+    	running = tasks.size > 0;
+    	if (running) requestAnimationFrame(run_tasks);
+    }
+
+    function loop(fn) {
+    	let task;
+
+    	if (!running) {
+    		running = true;
+    		requestAnimationFrame(run_tasks);
+    	}
+
+    	return {
+    		promise: new Promise(fulfil => {
+    			tasks.add(task = [fn, fulfil]);
+    		}),
+    		abort() {
+    			tasks.delete(task);
+    		}
+    	};
     }
 
     function append(target, node) {
@@ -86,6 +126,10 @@
     function set_data(text, data) {
     	data = '' + data;
     	if (text.data !== data) text.data = data;
+    }
+
+    function set_style(node, key, value) {
+    	node.style.setProperty(key, value);
     }
 
     let current_component;
@@ -510,6 +554,128 @@
     	}
     }
 
+    /*
+    Adapted from https://github.com/mattdesl
+    Distributed under MIT License https://github.com/mattdesl/eases/blob/master/LICENSE.md
+    */
+
+    function cubicOut(t) {
+    	const f = t - 1.0;
+    	return f * f * f + 1.0;
+    }
+
+    function is_date(obj) {
+    	return Object.prototype.toString.call(obj) === '[object Date]';
+    }
+
+    function get_interpolator(a, b) {
+    	if (a === b || a !== a) return () => a;
+
+    	const type = typeof a;
+
+    	if (type !== typeof b || Array.isArray(a) !== Array.isArray(b)) {
+    		throw new Error('Cannot interpolate values of different type');
+    	}
+
+    	if (Array.isArray(a)) {
+    		const arr = b.map((bi, i) => {
+    			return get_interpolator(a[i], bi);
+    		});
+
+    		return t => arr.map(fn => fn(t));
+    	}
+
+    	if (type === 'object') {
+    		if (!a || !b) throw new Error('Object cannot be null');
+
+    		if (is_date(a) && is_date(b)) {
+    			a = a.getTime();
+    			b = b.getTime();
+    			const delta = b - a;
+    			return t => new Date(a + t * delta);
+    		}
+
+    		const keys = Object.keys(b);
+    		const interpolators = {};
+
+    		keys.forEach(key => {
+    			interpolators[key] = get_interpolator(a[key], b[key]);
+    		});
+
+    		return t => {
+    			const result = {};
+    			keys.forEach(key => {
+    				result[key] = interpolators[key](t);
+    			});
+    			return result;
+    		};
+    	}
+
+    	if (type === 'number') {
+    		const delta = b - a;
+    		return t => a + t * delta;
+    	}
+
+    	throw new Error(`Cannot interpolate ${type} values`);
+    }
+
+    function tweened(value, defaults = {}) {
+    	const store = writable(value);
+
+    	let task;
+    	let target_value = value;
+
+    	function set(new_value, opts) {
+    		target_value = new_value;
+
+    		let previous_task = task;
+    		let started = false;
+
+    		let {
+    			delay = 0,
+    			duration = 400,
+    			easing = identity,
+    			interpolate = get_interpolator
+    		} = assign(assign({}, defaults), opts);
+
+    		const start = window.performance.now() + delay;
+    		let fn;
+
+    		task = loop(now => {
+    			if (now < start) return true;
+
+    			if (!started) {
+    				fn = interpolate(value, new_value);
+    				if (typeof duration === 'function') duration = duration(value, new_value);
+    				started = true;
+    			}
+
+    			if (previous_task) {
+    				previous_task.abort();
+    				previous_task = null;
+    			}
+
+    			const elapsed = now - start;
+
+    			if (elapsed > duration) {
+    				store.set(value = new_value);
+    				return false;
+    			}
+
+    			store.set(value = fn(easing(elapsed / duration)));
+    			return true;
+    		});
+
+    		return task.promise;
+    	}
+
+    	return {
+    		set,
+    		update: (fn, opts) => set(fn(target_value, value), opts),
+    		subscribe: store.subscribe
+    	};
+    }
+
     /**
      * @name toDate
      * @category Common Helpers
@@ -632,6 +798,39 @@
       return baseTimezoneOffset * MILLISECONDS_IN_MINUTE + millisecondsPartOfTimezoneOffset;
     }
 
+    var MILLISECONDS_IN_MINUTE$1 = 60000;
+    /**
+     * @name addMinutes
+     * @category Minute Helpers
+     * @summary Add the specified number of minutes to the given date.
+     *
+     * @description
+     * Add the specified number of minutes to the given date.
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} date - the date to be changed
+     * @param {Number} amount - the amount of minutes to be added
+     * @returns {Date} the new date with the minutes added
+     * @throws {TypeError} 2 arguments required
+     *
+     * @example
+     * // Add 30 minutes to 10 July 2014 12:00:00:
+     * var result = addMinutes(new Date(2014, 6, 10, 12, 0), 30)
+     * //=> Thu Jul 10 2014 12:30:00
+     */
+
+    function addMinutes(dirtyDate, dirtyAmount) {
+      if (arguments.length < 2) {
+        throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+      }
+
+      var amount = toInteger(dirtyAmount);
+      return addMilliseconds(dirtyDate, amount * MILLISECONDS_IN_MINUTE$1);
+    }
+
     /**
      * @name isValid
      * @category Common Helpers
@@ -697,6 +896,79 @@
 
       var date = toDate(dirtyDate);
       return !isNaN(date);
+    }
+
+    /**
+     * @name differenceInMilliseconds
+     * @category Millisecond Helpers
+     * @summary Get the number of milliseconds between the given dates.
+     *
+     * @description
+     * Get the number of milliseconds between the given dates.
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} dateLeft - the later date
+     * @param {Date|Number} dateRight - the earlier date
+     * @returns {Number} the number of milliseconds
+     * @throws {TypeError} 2 arguments required
+     *
+     * @example
+     * // How many milliseconds are between
+     * // 2 July 2014 12:30:20.600 and 2 July 2014 12:30:21.700?
+     * var result = differenceInMilliseconds(
+     *   new Date(2014, 6, 2, 12, 30, 21, 700),
+     *   new Date(2014, 6, 2, 12, 30, 20, 600)
+     * )
+     * //=> 1100
+     */
+
+    function differenceInMilliseconds(dirtyDateLeft, dirtyDateRight) {
+      if (arguments.length < 2) {
+        throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+      }
+
+      var dateLeft = toDate(dirtyDateLeft);
+      var dateRight = toDate(dirtyDateRight);
+      return dateLeft.getTime() - dateRight.getTime();
+    }
+
+    var MILLISECONDS_IN_MINUTE$2 = 60000;
+    /**
+     * @name differenceInMinutes
+     * @category Minute Helpers
+     * @summary Get the number of minutes between the given dates.
+     *
+     * @description
+     * Get the number of minutes between the given dates.
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} dateLeft - the later date
+     * @param {Date|Number} dateRight - the earlier date
+     * @returns {Number} the number of minutes
+     * @throws {TypeError} 2 arguments required
+     *
+     * @example
+     * // How many minutes are between 2 July 2014 12:07:59 and 2 July 2014 12:20:00?
+     * var result = differenceInMinutes(
+     *   new Date(2014, 6, 2, 12, 20, 0),
+     *   new Date(2014, 6, 2, 12, 7, 59)
+     * )
+     * //=> 12
+     */
+
+    function differenceInMinutes(dirtyDateLeft, dirtyDateRight) {
+      if (arguments.length < 2) {
+        throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+      }
+
+      var diff = differenceInMilliseconds(dirtyDateLeft, dirtyDateRight) / MILLISECONDS_IN_MINUTE$2;
+      return diff > 0 ? Math.floor(diff) : Math.ceil(diff);
     }
 
     /**
@@ -2941,6 +3213,39 @@
     }
 
     /**
+     * @name isAfter
+     * @category Common Helpers
+     * @summary Is the first date after the second one?
+     *
+     * @description
+     * Is the first date after the second one?
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} date - the date that should be after the other one to return true
+     * @param {Date|Number} dateToCompare - the date to compare with
+     * @returns {Boolean} the first date is after the second date
+     * @throws {TypeError} 2 arguments required
+     *
+     * @example
+     * // Is 10 July 1989 after 11 February 1987?
+     * var result = isAfter(new Date(1989, 6, 10), new Date(1987, 1, 11))
+     * //=> true
+     */
+
+    function isAfter(dirtyDate, dirtyDateToCompare) {
+      if (arguments.length < 2) {
+        throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+      }
+
+      var date = toDate(dirtyDate);
+      var dateToCompare = toDate(dirtyDateToCompare);
+      return date.getTime() > dateToCompare.getTime();
+    }
+
+    /**
      * @name isDate
      * @category Common Helpers
      * @summary Is the given value a date?
@@ -3039,7 +3344,7 @@
     const file$1 = "src\\components\\Entry.svelte";
 
     function create_fragment$2(ctx) {
-    	var div1, h10, t0, body0, input0, t1, input1, t2, div0, t4, div3, h11, t5, body1, input2, t6, input3, t7, div2, t9, div5, body2, t10, div4, t11, t12, t13_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes', t13, t14, div6, t16, h12, t17, input4, t18, input5, t19, div7, t21, h13, t22, input6, t23, input7, dispose;
+    	var div1, h10, t0, body0, input0, t1, input1, t2, div0, t4, div2, h11, t5, body1, input2, t6, input3, t7, div4, body2, t8, div3, t9, t10, t11_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes', t11, t12, div6, h12, t13, body3, input4, t14, input5, t15, div5, t17, div8, h13, t18, body4, input6, t19, input7, t20, div7, button, dispose;
 
     	return {
     		c: function create() {
@@ -3054,7 +3359,7 @@
     			div0 = element("div");
     			div0.textContent = "▼";
     			t4 = space();
-    			div3 = element("div");
+    			div2 = element("div");
     			h11 = element("h1");
     			t5 = text("Fell asleep at\r\n    ");
     			body1 = element("body");
@@ -3062,84 +3367,93 @@
     			t6 = space();
     			input3 = element("input");
     			t7 = space();
-    			div2 = element("div");
-    			div2.textContent = "▼";
-    			t9 = space();
-    			div5 = element("div");
-    			body2 = element("body");
-    			t10 = text("Asleep for\r\n    ");
     			div4 = element("div");
-    			t11 = text(ctx.elapsedSleepTime);
+    			body2 = element("body");
+    			t8 = text("Asleep for\r\n    ");
+    			div3 = element("div");
+    			t9 = text(ctx.elapsedSleepTime);
+    			t10 = space();
+    			t11 = text(t11_value);
     			t12 = space();
-    			t13 = text(t13_value);
-    			t14 = space();
     			div6 = element("div");
-    			div6.textContent = "▼";
-    			t16 = space();
     			h12 = element("h1");
-    			t17 = text("Woke up at\r\n  ");
+    			t13 = text("Woke up at\r\n    ");
+    			body3 = element("body");
     			input4 = element("input");
-    			t18 = space();
+    			t14 = space();
     			input5 = element("input");
-    			t19 = space();
-    			div7 = element("div");
-    			div7.textContent = "▼";
-    			t21 = space();
+    			t15 = space();
+    			div5 = element("div");
+    			div5.textContent = "▼";
+    			t17 = space();
+    			div8 = element("div");
     			h13 = element("h1");
-    			t22 = text("Picked up at\r\n  ");
+    			t18 = text("Picked up at\r\n    ");
+    			body4 = element("body");
     			input6 = element("input");
-    			t23 = space();
+    			t19 = space();
     			input7 = element("input");
+    			t20 = space();
+    			div7 = element("div");
+    			button = element("button");
+    			button.textContent = "Submit";
     			input0.className = "input";
     			attr(input0, "type", "date");
-    			add_location(input0, file$1, 67, 6, 1617);
+    			add_location(input0, file$1, 88, 6, 2683);
     			input1.className = "input";
     			attr(input1, "type", "time");
-    			add_location(input1, file$1, 68, 6, 1685);
-    			add_location(body0, file$1, 66, 4, 1603);
-    			add_location(h10, file$1, 64, 2, 1576);
-    			div0.className = "w-full my-8 text-3xl text-center";
-    			add_location(div0, file$1, 71, 2, 1771);
-    			div1.className = "background";
-    			add_location(div1, file$1, 63, 0, 1548);
+    			add_location(input1, file$1, 89, 6, 2751);
+    			add_location(body0, file$1, 87, 4, 2669);
+    			add_location(h10, file$1, 85, 2, 2642);
+    			div0.className = "w-full mt-8 text-3xl text-center";
+    			add_location(div0, file$1, 92, 2, 2837);
+    			div1.className = "background p-4";
+    			add_location(div1, file$1, 84, 0, 2610);
     			input2.className = "input";
     			attr(input2, "type", "date");
     			input2.min = ctx.putDownDate;
-    			add_location(input2, file$1, 77, 6, 1906);
+    			add_location(input2, file$1, 98, 6, 2988);
     			input3.className = "input";
     			attr(input3, "type", "time");
     			input3.min = ctx.putDownTime;
-    			add_location(input3, file$1, 82, 6, 2026);
-    			add_location(body1, file$1, 76, 4, 1892);
-    			add_location(h11, file$1, 74, 2, 1862);
-    			div2.className = "w-full my-8 text-3xl text-center";
-    			add_location(div2, file$1, 90, 2, 2166);
-    			div3.className = "background";
-    			add_location(div3, file$1, 73, 0, 1834);
-    			div4.className = "inline-block px-2 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-medium";
-    			add_location(div4, file$1, 95, 4, 2345);
-    			body2.className = "text-2xl text-backgroundColor";
-    			add_location(body2, file$1, 93, 2, 2279);
-    			div5.className = "my-12 w-full justify-center flex";
-    			add_location(div5, file$1, 92, 0, 2229);
-    			div6.className = "w-full my-8 text-3xl text-center";
-    			add_location(div6, file$1, 104, 0, 2571);
+    			add_location(input3, file$1, 103, 6, 3108);
+    			add_location(body1, file$1, 97, 4, 2974);
+    			add_location(h11, file$1, 95, 2, 2944);
+    			div2.className = "background px-4 pt-4 pb-12";
+    			add_location(div2, file$1, 94, 0, 2900);
+    			div3.className = "inline-block mx-2 px-2 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
+    			add_location(div3, file$1, 116, 4, 3440);
+    			body2.className = "text-2xl justify-center items-center flex";
+    			add_location(body2, file$1, 114, 2, 3362);
+    			div4.className = "w-full overflow-hidden bg-accentColor3";
+    			set_style(div4, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
+    			add_location(div4, file$1, 111, 0, 3252);
     			input4.className = "input";
     			attr(input4, "type", "date");
-    			add_location(input4, file$1, 107, 2, 2648);
+    			add_location(input4, file$1, 128, 6, 3751);
     			input5.className = "input";
     			attr(input5, "type", "time");
-    			add_location(input5, file$1, 108, 2, 2709);
-    			add_location(h12, file$1, 105, 0, 2626);
-    			div7.className = "w-full my-8 text-3xl text-center";
-    			add_location(div7, file$1, 110, 0, 2775);
+    			add_location(input5, file$1, 129, 6, 3816);
+    			add_location(body3, file$1, 127, 4, 3737);
+    			add_location(h12, file$1, 125, 2, 3711);
+    			div5.className = "w-full mt-8 text-3xl text-center";
+    			add_location(div5, file$1, 133, 2, 3901);
+    			div6.className = "background px-4 pb-4 pt-12";
+    			add_location(div6, file$1, 124, 0, 3667);
     			input6.className = "input";
     			attr(input6, "type", "date");
-    			add_location(input6, file$1, 113, 2, 2854);
+    			add_location(input6, file$1, 139, 6, 4038);
     			input7.className = "input";
     			attr(input7, "type", "time");
-    			add_location(input7, file$1, 114, 2, 2917);
-    			add_location(h13, file$1, 111, 0, 2830);
+    			add_location(input7, file$1, 140, 6, 4105);
+    			add_location(body4, file$1, 138, 4, 4024);
+    			add_location(h13, file$1, 136, 2, 3996);
+    			button.className = "py-2 w-1/2 my-12 rounded-lg bg-accentColor2 text-white text-2xl\r\n      font-bold hover:shadow-lg border-b-4 border-teal-700";
+    			add_location(button, file$1, 144, 4, 4242);
+    			div7.className = "flex items-center justify-center";
+    			add_location(div7, file$1, 143, 2, 4190);
+    			div8.className = "background p-4";
+    			add_location(div8, file$1, 135, 0, 3964);
 
     			dispose = [
     				listen(input0, "input", ctx.input0_input_handler),
@@ -3174,8 +3488,8 @@
     			append(div1, t2);
     			append(div1, div0);
     			insert(target, t4, anchor);
-    			insert(target, div3, anchor);
-    			append(div3, h11);
+    			insert(target, div2, anchor);
+    			append(div2, h11);
     			append(h11, t5);
     			append(h11, body1);
     			append(body1, input2);
@@ -3187,43 +3501,47 @@
 
     			input3.value = ctx.sleepTime;
 
-    			append(div3, t7);
-    			append(div3, div2);
-    			insert(target, t9, anchor);
-    			insert(target, div5, anchor);
-    			append(div5, body2);
+    			insert(target, t7, anchor);
+    			insert(target, div4, anchor);
+    			append(div4, body2);
+    			append(body2, t8);
+    			append(body2, div3);
+    			append(div3, t9);
     			append(body2, t10);
-    			append(body2, div4);
-    			append(div4, t11);
-    			append(body2, t12);
-    			append(body2, t13);
-    			insert(target, t14, anchor);
+    			append(body2, t11);
+    			insert(target, t12, anchor);
     			insert(target, div6, anchor);
-    			insert(target, t16, anchor);
-    			insert(target, h12, anchor);
-    			append(h12, t17);
-    			append(h12, input4);
+    			append(div6, h12);
+    			append(h12, t13);
+    			append(h12, body3);
+    			append(body3, input4);
 
     			input4.value = ctx.wakeDate;
 
-    			append(h12, t18);
-    			append(h12, input5);
+    			append(body3, t14);
+    			append(body3, input5);
 
     			input5.value = ctx.wakeTime;
 
-    			insert(target, t19, anchor);
-    			insert(target, div7, anchor);
-    			insert(target, t21, anchor);
-    			insert(target, h13, anchor);
-    			append(h13, t22);
-    			append(h13, input6);
+    			append(div6, t15);
+    			append(div6, div5);
+    			insert(target, t17, anchor);
+    			insert(target, div8, anchor);
+    			append(div8, h13);
+    			append(h13, t18);
+    			append(h13, body4);
+    			append(body4, input6);
 
     			input6.value = ctx.pickUpDate;
 
-    			append(h13, t23);
-    			append(h13, input7);
+    			append(body4, t19);
+    			append(body4, input7);
 
     			input7.value = ctx.pickUpTime;
+
+    			append(div8, t20);
+    			append(div8, div7);
+    			append(div7, button);
     		},
 
     		p: function update(changed, ctx) {
@@ -3242,11 +3560,15 @@
     			}
 
     			if (changed.elapsedSleepTime) {
-    				set_data(t11, ctx.elapsedSleepTime);
+    				set_data(t9, ctx.elapsedSleepTime);
     			}
 
-    			if ((changed.elapsedSleepTime) && t13_value !== (t13_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes')) {
-    				set_data(t13, t13_value);
+    			if ((changed.elapsedSleepTime) && t11_value !== (t11_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes')) {
+    				set_data(t11, t11_value);
+    			}
+
+    			if (changed.$elapsedSleepTimeDivHeight) {
+    				set_style(div4, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
     			}
 
     			if (changed.wakeDate) input4.value = ctx.wakeDate;
@@ -3262,17 +3584,13 @@
     			if (detaching) {
     				detach(div1);
     				detach(t4);
-    				detach(div3);
-    				detach(t9);
-    				detach(div5);
-    				detach(t14);
+    				detach(div2);
+    				detach(t7);
+    				detach(div4);
+    				detach(t12);
     				detach(div6);
-    				detach(t16);
-    				detach(h12);
-    				detach(t19);
-    				detach(div7);
-    				detach(t21);
-    				detach(h13);
+    				detach(t17);
+    				detach(div8);
     			}
 
     			run_all(dispose);
@@ -3280,35 +3598,35 @@
     	};
     }
 
+    function addTime(dateString, timeString, minutesToAdd, outputFormat) {
+      const newDate = addMinutes(
+        new Date(dateString + " " + timeString),
+        minutesToAdd
+      );
+      return outputFormat === "time"
+        ? format(newDate, "HH:mm")
+        : format(newDate, "yyyy-MM-dd");
+    }
+
     function instance$2($$self, $$props, $$invalidate) {
+    	let $elapsedSleepTimeDivHeight;
+
     	
 
-      Date.prototype.toDateInputValue = function() {
-        let local = new Date(this);
-        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-
-        return local.toJSON().slice(0, 10);
-      };
-
-      Date.prototype.toTimeInputValue = function() {
-        let local = new Date(this);
-        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-
-        return local.toJSON().slice(11, 16);
-      };
-
-      let putDownDate = format(new Date(), "dd/MM/yyyy");
-      let putDownTime = format(new Date(), "hh:mm a");
+      let putDownDate = format(new Date(), "yyyy-MM-dd");
+      let putDownTime = format(new Date(), "HH:mm");
       let sleepDate,
         sleepTime,
         wakeDate,
         wakeTime,
         pickUpDate,
         pickUpTime,
-        currentDateTime,
         elapsedSleepTime;
 
-      console.log(putDownDate);
+      const elapsedSleepTimeDivHeight = tweened(0, {
+        duration: 450,
+        easing: cubicOut
+      }); validate_store(elapsedSleepTimeDivHeight, 'elapsedSleepTimeDivHeight'); subscribe($$self, elapsedSleepTimeDivHeight, $$value => { $elapsedSleepTimeDivHeight = $$value; $$invalidate('$elapsedSleepTimeDivHeight', $elapsedSleepTimeDivHeight); });
 
       let time = new Date();
 
@@ -3334,44 +3652,58 @@
 
     	function input2_input_handler() {
     		sleepDate = this.value;
-    		$$invalidate('sleepDate', sleepDate);
+    		$$invalidate('sleepDate', sleepDate), $$invalidate('putDownDate', putDownDate), $$invalidate('putDownTime', putDownTime);
     	}
 
     	function input3_input_handler() {
     		sleepTime = this.value;
-    		$$invalidate('sleepTime', sleepTime);
+    		$$invalidate('sleepTime', sleepTime), $$invalidate('putDownDate', putDownDate), $$invalidate('putDownTime', putDownTime);
     	}
 
     	function input4_input_handler() {
     		wakeDate = this.value;
-    		$$invalidate('wakeDate', wakeDate);
+    		$$invalidate('wakeDate', wakeDate), $$invalidate('sleepDate', sleepDate), $$invalidate('sleepTime', sleepTime), $$invalidate('putDownDate', putDownDate), $$invalidate('putDownTime', putDownTime);
     	}
 
     	function input5_input_handler() {
     		wakeTime = this.value;
-    		$$invalidate('wakeTime', wakeTime);
+    		$$invalidate('wakeTime', wakeTime), $$invalidate('sleepDate', sleepDate), $$invalidate('sleepTime', sleepTime), $$invalidate('putDownDate', putDownDate), $$invalidate('putDownTime', putDownTime);
     	}
 
     	function input6_input_handler() {
     		pickUpDate = this.value;
-    		$$invalidate('pickUpDate', pickUpDate);
+    		$$invalidate('pickUpDate', pickUpDate), $$invalidate('wakeDate', wakeDate), $$invalidate('wakeTime', wakeTime), $$invalidate('sleepDate', sleepDate), $$invalidate('sleepTime', sleepTime), $$invalidate('putDownDate', putDownDate), $$invalidate('putDownTime', putDownTime);
     	}
 
     	function input7_input_handler() {
     		pickUpTime = this.value;
-    		$$invalidate('pickUpTime', pickUpTime);
+    		$$invalidate('pickUpTime', pickUpTime), $$invalidate('wakeDate', wakeDate), $$invalidate('wakeTime', wakeTime), $$invalidate('sleepDate', sleepDate), $$invalidate('sleepTime', sleepTime), $$invalidate('putDownDate', putDownDate), $$invalidate('putDownTime', putDownTime);
     	}
 
-    	$$self.$$.update = ($$dirty = { time: 1, sleepTime: 1, sleepDate: 1, currentDateTime: 1 }) => {
-    		if ($$dirty.time) { $$invalidate('currentDateTime', currentDateTime = time.getTime()); }
-    		if ($$dirty.sleepTime || $$dirty.sleepDate || $$dirty.currentDateTime) { if (sleepTime === undefined) {
-            $$invalidate('elapsedSleepTime', elapsedSleepTime = 0);
-          } else {
-            let sleepDateMillis = new Date(sleepDate + " " + sleepTime).getTime();
+    	$$self.$$.update = ($$dirty = { putDownDate: 1, putDownTime: 1, sleepDate: 1, sleepTime: 1, wakeDate: 1, wakeTime: 1, time: 1 }) => {
+    		if ($$dirty.putDownDate || $$dirty.putDownTime) { $$invalidate('sleepDate', sleepDate = addTime(putDownDate, putDownTime, 5, "date")); }
+    		if ($$dirty.putDownDate || $$dirty.putDownTime) { $$invalidate('sleepTime', sleepTime = addTime(putDownDate, putDownTime, 5, "time")); }
+    		if ($$dirty.sleepDate || $$dirty.sleepTime) { $$invalidate('wakeDate', wakeDate = addTime(sleepDate, sleepTime, 90, "date")); }
+    		if ($$dirty.sleepDate || $$dirty.sleepTime) { $$invalidate('wakeTime', wakeTime = addTime(sleepDate, sleepTime, 90, "time")); }
+    		if ($$dirty.wakeDate || $$dirty.wakeTime) { $$invalidate('pickUpDate', pickUpDate = addTime(wakeDate, wakeTime, 5, "date")); }
+    		if ($$dirty.wakeDate || $$dirty.wakeTime) { $$invalidate('pickUpTime', pickUpTime = addTime(wakeDate, wakeTime, 5, "time")); }
+    		if ($$dirty.time || $$dirty.sleepDate || $$dirty.sleepTime || $$dirty.wakeDate || $$dirty.wakeTime) { if (isAfter(time, new Date(sleepDate + " " + sleepTime))) {
+            if (isAfter(new Date(wakeDate + " " + wakeTime), time)) {
+              $$invalidate('elapsedSleepTime', elapsedSleepTime = differenceInMinutes(
+                time,
+                new Date(sleepDate + " " + sleepTime)
+              ));
+            } else {
+              $$invalidate('elapsedSleepTime', elapsedSleepTime = differenceInMinutes(
+                new Date(wakeDate + " " + wakeTime),
+                new Date(sleepDate + " " + sleepTime)
+              ));
+            }
         
-            $$invalidate('elapsedSleepTime', elapsedSleepTime = Math.round(
-              (currentDateTime - sleepDateMillis) / 1000 / 60
-            ));
+            elapsedSleepTimeDivHeight.set(6);
+          } else {
+            $$invalidate('elapsedSleepTime', elapsedSleepTime = 0);
+            elapsedSleepTimeDivHeight.set(0);
           } }
     	};
 
@@ -3385,6 +3717,8 @@
     		pickUpDate,
     		pickUpTime,
     		elapsedSleepTime,
+    		elapsedSleepTimeDivHeight,
+    		$elapsedSleepTimeDivHeight,
     		input0_input_handler,
     		input1_input_handler,
     		input2_input_handler,
