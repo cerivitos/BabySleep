@@ -7,8 +7,11 @@
     format,
     differenceInMinutes,
     compareAsc,
-    isAfter
+    isAfter,
+    isDate
   } from "date-fns";
+  import { gAPIInstance } from "../store/store.js";
+  import { credentials } from "../../credentials.js";
 
   let putDownDate = format(new Date(), "yyyy-MM-dd");
   let putDownTime = format(new Date(), "HH:mm");
@@ -20,6 +23,13 @@
     pickUpTime,
     currentDateTime,
     elapsedSleepTime;
+  /**
+   * Validation checks to verify if the inputted date time is after the date time of he previous field
+   * @type {boolean}
+   */
+  let check2v1 = true;
+  let check3v2 = true;
+  let check4v3 = true;
 
   const elapsedSleepTimeDivHeight = tweened(0, {
     duration: 450,
@@ -55,31 +65,119 @@
       : format(newDate, "yyyy-MM-dd");
   }
 
-  $: sleepDate = addTime(putDownDate, putDownTime, 5, "date");
-  $: sleepTime = addTime(putDownDate, putDownTime, 5, "time");
-  $: wakeDate = addTime(sleepDate, sleepTime, 90, "date");
-  $: wakeTime = addTime(sleepDate, sleepTime, 90, "time");
-  $: pickUpDate = addTime(wakeDate, wakeTime, 5, "date");
-  $: pickUpTime = addTime(wakeDate, wakeTime, 5, "time");
+  function validateAndSend() {
+    if (check2v1 && check3v2 && check4v3 && $gAPIInstance !== undefined) {
+      $gAPIInstance.client.sheets.spreadsheets.values
+        .append({
+          spreadsheetId: credentials.SHEET_ID,
+          range: "Sheet1",
+          valueInputOption: "USER_ENTERED",
+          resource: {
+            values: [
+              [
+                putDownDate + " " + putDownTime,
+                sleepDate + " " + sleepTime,
+                wakeDate + " " + wakeTime,
+                pickUpDate + " " + pickUpTime
+              ]
+            ]
+          }
+        })
+        .then(response => {
+          if (response.status == 200) {
+            $gAPIInstance.client.sheets.spreadsheets
+              .batchUpdate({
+                spreadsheetId: credentials.SHEET_ID,
+                requests: [
+                  {
+                    repeatCell: {
+                      range: {
+                        sheetId: 0,
+                        startRowIndex: 1,
+                        startColumnIndex: 0,
+                        endColumnIndex: 4
+                      },
+                      cell: {
+                        userEnteredFormat: {
+                          numberFormat: {
+                            type: "DATE",
+                            pattern: "d mmm, h:mm am/pm"
+                          }
+                        }
+                      },
+                      fields: "userEnteredFormat.numberFormat"
+                    }
+                  }
+                ]
+              })
+              .then(response => console.log(response));
+          }
+        });
+    } else {
+    }
+  }
+
+  $: if (
+    isAfter(
+      new Date(sleepDate + " " + sleepTime),
+      new Date(putDownDate + " " + putDownTime)
+    )
+  ) {
+    check2v1 = true;
+  } else {
+    check2v1 = false;
+  }
+
+  $: if (
+    isAfter(
+      new Date(wakeDate + " " + wakeTime),
+      new Date(sleepDate + " " + sleepTime)
+    )
+  ) {
+    check3v2 = true;
+  } else {
+    check3v2 = false;
+  }
+
+  $: if (
+    isAfter(
+      new Date(pickUpDate + " " + pickUpTime),
+      new Date(wakeDate + " " + wakeTime)
+    )
+  ) {
+    check4v3 = true;
+  } else {
+    check4v3 = false;
+  }
+
   /**
    * Calculates sleep time by taking the difference between falling asleep and either the current time or wake time (whichever is lower). Also animates the div height to show number of minutes asleep if it is more than zero.
    */
-  $: if (isAfter(time, new Date(sleepDate + " " + sleepTime))) {
-    if (isAfter(new Date(wakeDate + " " + wakeTime), time)) {
-      elapsedSleepTime = differenceInMinutes(
-        time,
-        new Date(sleepDate + " " + sleepTime)
-      );
-    } else {
-      elapsedSleepTime = differenceInMinutes(
-        new Date(wakeDate + " " + wakeTime),
-        new Date(sleepDate + " " + sleepTime)
-      );
-    }
+  $: if (
+    check2v1 &&
+    !check3v2 &&
+    isAfter(time, new Date(sleepDate + " " + sleepTime))
+  ) {
+    elapsedSleepTime = differenceInMinutes(
+      time,
+      new Date(sleepDate + " " + sleepTime)
+    );
     /**
      * Tween div height from 0 to 6rem
      */
     elapsedSleepTimeDivHeight.set(6);
+  } else if (
+    check2v1 &&
+    check3v2 &&
+    isAfter(
+      new Date(wakeDate + " " + wakeTime),
+      new Date(sleepDate + " " + sleepTime)
+    )
+  ) {
+    elapsedSleepTime = differenceInMinutes(
+      new Date(wakeDate + " " + wakeTime),
+      new Date(sleepDate + " " + sleepTime)
+    );
   } else {
     elapsedSleepTime = 0;
     /**
@@ -93,8 +191,8 @@
   <h1>
     Put down at
     <body>
-      <input class="input" type="date" bind:value={putDownDate} />
-      <input class="input" type="time" bind:value={putDownTime} />
+      <input class="input input-ok" type="date" bind:value={putDownDate} />
+      <input class="input input-ok" type="time" bind:value={putDownTime} />
     </body>
   </h1>
   <div class="w-full mt-8 text-3xl text-center">▼</div>
@@ -104,12 +202,12 @@
     Fell asleep at
     <body>
       <input
-        class="input"
+        class="input {check2v1 ? 'input-ok' : 'input-error'}"
         type="date"
         bind:value={sleepDate}
         min={putDownDate} />
       <input
-        class="input"
+        class="input {check2v1 ? 'input-ok' : 'input-error'}"
         type="time"
         bind:value={sleepTime}
         min={putDownTime} />
@@ -133,8 +231,14 @@
   <h1>
     Woke up at
     <body>
-      <input class="input" type="date" bind:value={wakeDate} />
-      <input class="input" type="time" bind:value={wakeTime} />
+      <input
+        class="input {check3v2 ? 'input-ok' : 'input-error'}"
+        type="date"
+        bind:value={wakeDate} />
+      <input
+        class="input {check3v2 ? 'input-ok' : 'input-error'}"
+        type="time"
+        bind:value={wakeTime} />
     </body>
 
   </h1>
@@ -144,14 +248,21 @@
   <h1>
     Picked up at
     <body>
-      <input class="input" type="date" bind:value={pickUpDate} />
-      <input class="input" type="time" bind:value={pickUpTime} />
+      <input
+        class="input {check4v3 ? 'input-ok' : 'input-error'}"
+        type="date"
+        bind:value={pickUpDate} />
+      <input
+        class="input {check4v3 ? 'input-ok' : 'input-error'}"
+        type="time"
+        bind:value={pickUpTime} />
     </body>
   </h1>
   <div class="flex items-center justify-center">
     <button
       class="py-2 w-1/2 my-12 rounded-lg bg-accentColor2 text-white text-2xl
-      font-bold hover:shadow-lg border-b-4 border-teal-700">
+      font-bold hover:shadow-lg border-b-4 border-teal-700"
+      on:click={() => validateAndSend()}>
       Submit
     </button>
   </div>

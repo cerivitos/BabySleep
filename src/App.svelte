@@ -8,6 +8,7 @@
   import { credentials } from "../credentials.js";
 
   let googleAuth;
+  let showSignInModal = false;
 
   onMount(() => {
     const gapiScript = document.createElement("script");
@@ -37,8 +38,12 @@
 
                       console.log(
                         "Automatically signed in as " +
-                          $signedInUser.getBasicProfile().getName()
+                          $signedInUser.getBasicProfile().getName() +
+                          " with scopes: " +
+                          $signedInUser.getGrantedScopes()
                       );
+                    } else {
+                      showSignInModal = true;
                     }
                   });
               });
@@ -52,6 +57,8 @@
                   "Automatically signed in as " +
                     $signedInUser.getBasicProfile().getName()
                 );
+              } else {
+                showSignInModal = true;
               }
             }
           });
@@ -75,9 +82,8 @@
 </svelte:head>
 
 <main class="overflow-hidden">
-  <SheetTest />
   <Entry />
-  {#if $signedInUser === undefined || $gAPIInstance !== undefined}
-    <SignInModal />
+  {#if showSignInModal}
+    <SignInModal class="absolute" />
   {/if}
 </main>
