@@ -1,5 +1,9 @@
 import { writable } from "svelte/store";
+import { write } from "fs";
 
-//Insert store variables here
-export const signedInUser = writable();
-export const gAPIInstance = writable();
+//Signed in user info
+export const userName = writable();
+export const userPic = writable();
+
+//gapi instance
+export const gapiInstance = writable();
