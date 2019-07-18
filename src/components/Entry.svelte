@@ -12,6 +12,7 @@
   } from "date-fns";
   import { gAPIInstance } from "../store/store.js";
   import { credentials } from "../../credentials.js";
+  import EntryBlock from "./EntryBlock.svelte";
 
   let putDownDate = format(new Date(), "yyyy-MM-dd");
   let putDownTime = format(new Date(), "HH:mm");
@@ -23,6 +24,7 @@
     pickUpTime,
     currentDateTime,
     elapsedSleepTime;
+
   /**
    * Validation checks to verify if the inputted date time is after the date time of he previous field
    * @type {boolean}
@@ -150,6 +152,12 @@
     check4v3 = false;
   }
 
+  $: sleepDate = putDownDate;
+
+  $: wakeDate = putDownDate;
+
+  $: pickUpDate = putDownDate;
+
   /**
    * Calculates sleep time by taking the difference between falling asleep and either the current time or wake time (whichever is lower). Also animates the div height to show number of minutes asleep if it is more than zero.
    */
@@ -187,51 +195,13 @@
   }
 </script>
 
-<style type="text/postcss">
-  .input {
-    @apply text-2xl lowercase border-b-4 text-secondaryColor bg-transparent mb-4 w-auto;
-  }
-
-  .input-ok {
-    @apply border-accentColor2;
-  }
-
-  .input-error {
-    @apply border-accentColor;
-  }
-
-  .background {
-    @apply bg-backgroundColor text-primaryColor;
-  }
-</style>
-
-<div class="background p-4">
-  <h1>
-    Put down at
-    <body>
-      <input class="input input-ok" type="date" bind:value={putDownDate} />
-      <input class="input input-ok" type="time" bind:value={putDownTime} />
-    </body>
-  </h1>
-  <div class="w-full mt-8 text-3xl text-center">▼</div>
-</div>
-<div class="background px-4 pt-4 pb-12">
-  <h1>
-    Fell asleep at
-    <body>
-      <input
-        class="input {check2v1 ? 'input-ok' : 'input-error'}"
-        type="date"
-        bind:value={sleepDate}
-        min={putDownDate} />
-      <input
-        class="input {check2v1 ? 'input-ok' : 'input-error'}"
-        type="time"
-        bind:value={sleepTime}
-        min={putDownTime} />
-    </body>
-  </h1>
-</div>
+<EntryBlock title="Put down at" date={putDownDate} time={putDownTime} />
+<EntryBlock
+  title="Fell asleep at"
+  date={sleepDate}
+  time={sleepTime}
+  check="check2v1"
+  minDate={putDownDate} />
 <div
   class="w-full overflow-hidden bg-accentColor3"
   style="height: {$elapsedSleepTimeDivHeight}rem">
@@ -245,37 +215,18 @@
     {elapsedSleepTime === 1 ? 'minute' : 'minutes'}
   </body>
 </div>
-<div class="background px-4 pb-4 pt-12">
-  <h1>
-    Woke up at
-    <body>
-      <input
-        class="input {check3v2 ? 'input-ok' : 'input-error'}"
-        type="date"
-        bind:value={wakeDate} />
-      <input
-        class="input {check3v2 ? 'input-ok' : 'input-error'}"
-        type="time"
-        bind:value={wakeTime} />
-    </body>
-
-  </h1>
-  <div class="w-full mt-8 text-3xl text-center">▼</div>
-</div>
-<div class="background p-4">
-  <h1>
-    Picked up at
-    <body>
-      <input
-        class="input {check4v3 ? 'input-ok' : 'input-error'}"
-        type="date"
-        bind:value={pickUpDate} />
-      <input
-        class="input {check4v3 ? 'input-ok' : 'input-error'}"
-        type="time"
-        bind:value={pickUpTime} />
-    </body>
-  </h1>
+<EntryBlock
+  title="Woke up at"
+  date={wakeDate}
+  time={wakeTime}
+  check="check3v2"
+  minDate={sleepDate} />
+<EntryBlock
+  title="Picked up at"
+  date={pickUpDate}
+  time={pickUpTime}
+  check="check4v3"
+  minDate={wakeDate}>
   <div class="flex items-center justify-center">
     <button
       class="py-2 w-1/2 my-12 rounded-lg bg-accentColor2 text-white text-2xl
@@ -284,4 +235,4 @@
       Submit
     </button>
   </div>
-</div>
+</EntryBlock>
