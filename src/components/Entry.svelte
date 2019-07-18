@@ -187,6 +187,24 @@
   }
 </script>
 
+<style type="text/postcss">
+  .input {
+    @apply text-2xl lowercase border-b-4 text-secondaryColor bg-transparent mb-4 w-auto;
+  }
+
+  .input-ok {
+    @apply border-accentColor2;
+  }
+
+  .input-error {
+    @apply border-accentColor;
+  }
+
+  .background {
+    @apply bg-backgroundColor text-primaryColor;
+  }
+</style>
+
 <div class="background p-4">
   <h1>
     Put down at

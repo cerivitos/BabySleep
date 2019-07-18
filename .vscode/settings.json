@@ -1,5 +1,3 @@
 {
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "JamesBirtles.svelte-vscode",
   "eslint.enable": false
 }
