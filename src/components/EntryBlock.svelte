@@ -1,4 +1,6 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
   export let date;
   export let time;
   export let title;
@@ -6,6 +8,15 @@
   export let minDate;
 
   let isFocused = false;
+
+  const dispatch = createEventDispatcher();
+
+  function dispatchValues() {
+    dispatch(title.replace(/\s+/g, "").toLowerCase(), {
+      date: date,
+      time: time
+    });
+  }
 </script>
 
 <style type="text/postcss">
@@ -34,9 +45,22 @@
   <h1>
     {title}
     <body>
-      <input class="input {check ? 'input-ok' : 'input-error'}" type="date" bind:value={date} on:focus={() => isFocused = true} on:blur={() => isFocused = false} min={minDate}/>
-      <input class="input {check ? 'input-ok' : 'input-error'}" type="time" bind:value={time} on:focus={() => isFocused = true} on:blur={() => isFocused = false} />
+      <input
+        class="input {check ? 'input-ok' : 'input-error'}"
+        type="date"
+        bind:value={date}
+        on:focus={() => (isFocused = true)}
+        on:blur={() => (isFocused = false)}
+        on:change={dispatchValues}
+        min={minDate} />
+      <input
+        class="input {check ? 'input-ok' : 'input-error'}"
+        type="time"
+        bind:value={time}
+        on:focus={() => (isFocused = true)}
+        on:blur={() => (isFocused = false)}
+        on:change={dispatchValues} />
     </body>
   </h1>
-  <slot></slot>
+  <slot />
 </div>

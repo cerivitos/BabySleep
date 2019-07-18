@@ -10,7 +10,7 @@
     isAfter,
     isDate
   } from "date-fns";
-  import { gAPIInstance } from "../store/store.js";
+  import { gapiInstance } from "../store/store.js";
   import { credentials } from "../../credentials.js";
   import EntryBlock from "./EntryBlock.svelte";
 
@@ -68,8 +68,13 @@
   }
 
   function validateAndSend() {
-    if (check2v1 && check3v2 && check4v3 && $gAPIInstance !== undefined) {
-      $gAPIInstance.client.sheets.spreadsheets.values
+    if (
+      check2v1 &&
+      check3v2 &&
+      check4v3 &&
+      $gapiInstance.client.sheets !== null
+    ) {
+      $gapiInstance.client.sheets.spreadsheets.values
         .append({
           spreadsheetId: credentials.SHEET_ID,
           range: "Sheet1",
@@ -87,7 +92,7 @@
         })
         .then(response => {
           if (response.status == 200) {
-            $gAPIInstance.client.sheets.spreadsheets
+            $gapiInstance.client.sheets.spreadsheets
               .batchUpdate({
                 spreadsheetId: credentials.SHEET_ID,
                 requests: [
@@ -117,6 +122,26 @@
         });
     } else {
     }
+  }
+
+  function receivePutDown(event) {
+    putDownDate = event.detail.date;
+    putDownTime = event.detail.time;
+  }
+
+  function receiveFellAsleep(event) {
+    sleepDate = event.detail.date;
+    sleepTime = event.detail.time;
+  }
+
+  function receiveWokeUp(event) {
+    wakeDate = event.detail.date;
+    wakeTime = event.detail.time;
+  }
+
+  function receivePickedUp(event) {
+    pickUpDate = event.detail.date;
+    pickUpTime = event.detail.time;
   }
 
   $: if (
@@ -195,13 +220,18 @@
   }
 </script>
 
-<EntryBlock title="Put down at" date={putDownDate} time={putDownTime} />
+<EntryBlock
+  title="Put down at"
+  date={putDownDate}
+  time={putDownTime}
+  on:putdownat={receivePutDown} />
 <EntryBlock
   title="Fell asleep at"
   date={sleepDate}
   time={sleepTime}
-  check="check2v1"
-  minDate={putDownDate} />
+  check={check2v1}
+  minDate={putDownDate}
+  on:fellasleepat={receiveFellAsleep} />
 <div
   class="w-full overflow-hidden bg-accentColor3"
   style="height: {$elapsedSleepTimeDivHeight}rem">
@@ -219,14 +249,16 @@
   title="Woke up at"
   date={wakeDate}
   time={wakeTime}
-  check="check3v2"
-  minDate={sleepDate} />
+  check={check3v2}
+  minDate={sleepDate}
+  on:wokeupat={receiveWokeUp} />
 <EntryBlock
   title="Picked up at"
   date={pickUpDate}
   time={pickUpTime}
-  check="check4v3"
-  minDate={wakeDate}>
+  check={check4v3}
+  minDate={wakeDate}
+  on:pickedupat={receivePickedUp}>
   <div class="flex items-center justify-center">
     <button
       class="py-2 w-1/2 my-12 rounded-lg bg-accentColor2 text-white text-2xl
