@@ -370,6 +370,82 @@
     	outros.callbacks.push(callback);
     }
 
+    function create_in_transition(node, fn, params) {
+    	let config = fn(node, params);
+    	let running = false;
+    	let animation_name;
+    	let task;
+    	let uid = 0;
+
+    	function cleanup() {
+    		if (animation_name) delete_rule(node, animation_name);
+    	}
+
+    	function go() {
+    		const {
+    			delay = 0,
+    			duration = 300,
+    			easing = identity,
+    			tick: tick$$1 = noop,
+    			css
+    		} = config;
+
+    		if (css) animation_name = create_rule(node, 0, 1, duration, delay, easing, css, uid++);
+    		tick$$1(0, 1);
+
+    		const start_time = window.performance.now() + delay;
+    		const end_time = start_time + duration;
+
+    		if (task) task.abort();
+    		running = true;
+
+    		task = loop(now => {
+    			if (running) {
+    				if (now >= end_time) {
+    					tick$$1(1, 0);
+    					cleanup();
+    					return running = false;
+    				}
+
+    				if (now >= start_time) {
+    					const t = easing((now - start_time) / duration);
+    					tick$$1(t, 1 - t);
+    				}
+    			}
+
+    			return running;
+    		});
+    	}
+
+    	let started = false;
+
+    	return {
+    		start() {
+    			if (started) return;
+
+    			delete_rule(node);
+
+    			if (typeof config === 'function') {
+    				config = config();
+    				wait().then(go);
+    			} else {
+    				go();
+    			}
+    		},
+
+    		invalidate() {
+    			started = false;
+    		},
+
+    		end() {
+    			if (running) {
+    				cleanup();
+    				running = false;
+    			}
+    		}
+    	};
+    }
+
     function create_bidirectional_transition(node, fn, params, intro) {
     	let config = fn(node, params);
 
@@ -4530,14 +4606,14 @@
 
     // (131:2) {:else}
     function create_else_block(ctx) {
-    	var div1, h2, t_1, div0, button, svg, defs, path0, clipPath, use, path1, path2, path3, path4, span, div1_transition, current, dispose;
+    	var div1, h2, t1, div0, button, svg, defs, path0, clipPath, use, path1, path2, path3, path4, t2, span, div1_intro, dispose;
 
     	return {
     		c: function create() {
     			div1 = element("div");
     			h2 = element("h2");
     			h2.textContent = "Sign in required";
-    			t_1 = space();
+    			t1 = space();
     			div0 = element("div");
     			button = element("button");
     			svg = svg_element("svg");
@@ -4549,54 +4625,55 @@
     			path2 = svg_element("path");
     			path3 = svg_element("path");
     			path4 = svg_element("path");
+    			t2 = space();
     			span = element("span");
     			span.textContent = "SIGN IN";
     			h2.className = "svelte-z01q45";
-    			add_location(h2, file$3, 132, 6, 4286);
+    			add_location(h2, file$3, 132, 6, 4270);
     			attr(path0, "id", "a");
-    			attr(path0, "d", "M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z");
-    			add_location(path0, file$3, 134, 243, 4597);
-    			add_location(defs, file$3, 134, 237, 4591);
+    			attr(path0, "d", "M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2\r\n                0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6\r\n                4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22\r\n                0-1.3-.2-2.7-.5-4z");
+    			add_location(path0, file$3, 143, 14, 4697);
+    			add_location(defs, file$3, 142, 12, 4675);
     			xlink_attr(use, "xlink:href", "#a");
     			attr(use, "overflow", "visible");
-    			add_location(use, file$3, 134, 481, 4835);
+    			add_location(use, file$3, 151, 14, 5065);
     			attr(clipPath, "id", "b");
-    			add_location(clipPath, file$3, 134, 464, 4818);
+    			add_location(clipPath, file$3, 150, 12, 5032);
     			attr(path1, "clip-path", "url(#b)");
     			attr(path1, "fill", "#FBBC05");
     			attr(path1, "d", "M0 37V11l17 13z");
-    			add_location(path1, file$3, 134, 533, 4887);
+    			add_location(path1, file$3, 153, 12, 5146);
     			attr(path2, "clip-path", "url(#b)");
     			attr(path2, "fill", "#EA4335");
     			attr(path2, "d", "M0 11l17 13 7-6.1L48 14V0H0z");
-    			add_location(path2, file$3, 134, 595, 4949);
+    			add_location(path2, file$3, 154, 12, 5223);
     			attr(path3, "clip-path", "url(#b)");
     			attr(path3, "fill", "#34A853");
     			attr(path3, "d", "M0 37l30-23 7.9 1L48 0v48H0z");
-    			add_location(path3, file$3, 134, 670, 5024);
+    			add_location(path3, file$3, 158, 12, 5358);
     			attr(path4, "clip-path", "url(#b)");
     			attr(path4, "fill", "#4285F4");
     			attr(path4, "d", "M48 48L17 24l-4-3 35-10z");
-    			add_location(path4, file$3, 134, 745, 5099);
+    			add_location(path4, file$3, 162, 12, 5493);
     			attr(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg, "xmlns:xlink", "http://www.w3.org/1999/xlink");
     			attr(svg, "viewBox", "0 0 48 48");
     			attr(svg, "class", "w-6 h-6 pr-2");
-    			add_location(svg, file$3, 134, 113, 4467);
-    			add_location(span, file$3, 134, 822, 5176);
+    			add_location(svg, file$3, 137, 10, 4485);
+    			add_location(span, file$3, 167, 10, 5640);
     			button.className = "flex bg-white rounded shadow text-gray-700 font-bold py-2 px-4";
-    			add_location(button, file$3, 134, 8, 4362);
+    			add_location(button, file$3, 134, 8, 4346);
     			div0.className = "flex justify-center";
-    			add_location(div0, file$3, 133, 6, 4319);
+    			add_location(div0, file$3, 133, 6, 4303);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$3, 131, 4, 4215);
+    			add_location(div1, file$3, 131, 4, 4207);
     			dispose = listen(button, "click", ctx.click_handler_1);
     		},
 
     		m: function mount(target, anchor) {
     			insert(target, div1, anchor);
     			append(div1, h2);
-    			append(div1, t_1);
+    			append(div1, t1);
     			append(div1, div0);
     			append(div0, button);
     			append(button, svg);
@@ -4608,33 +4685,26 @@
     			append(svg, path2);
     			append(svg, path3);
     			append(svg, path4);
+    			append(button, t2);
     			append(button, span);
-    			current = true;
     		},
 
     		p: noop,
 
     		i: function intro(local) {
-    			if (current) return;
-    			add_render_callback(() => {
-    				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, { duration: 130 }, true);
-    				div1_transition.run(1);
-    			});
-
-    			current = true;
+    			if (!div1_intro) {
+    				add_render_callback(() => {
+    					div1_intro = create_in_transition(div1, fade, { duration: 400 });
+    					div1_intro.start();
+    				});
+    			}
     		},
 
-    		o: function outro(local) {
-    			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, { duration: 130 }, false);
-    			div1_transition.run(0);
-
-    			current = false;
-    		},
+    		o: noop,
 
     		d: function destroy(detaching) {
     			if (detaching) {
     				detach(div1);
-    				if (div1_transition) div1_transition.end();
     			}
 
     			dispose();
@@ -4644,7 +4714,7 @@
 
     // (119:2) {#if $userName !== undefined && $userPic !== undefined}
     function create_if_block(ctx) {
-    	var div1, h2, t1, div0, img, t2, body, t3, t4, button, div1_transition, current, dispose;
+    	var div1, h2, t1, div0, img, t2, body, t3, t4, button, div1_intro, dispose;
 
     	return {
     		c: function create() {
@@ -4661,17 +4731,17 @@
     			button = element("button");
     			button.textContent = "SIGN OUT";
     			h2.className = "svelte-z01q45";
-    			add_location(h2, file$3, 120, 6, 3840);
+    			add_location(h2, file$3, 120, 6, 3832);
     			img.src = ctx.$userPic;
     			img.alt = "User profile picture";
     			img.className = "rounded-full w-8 h-8 mr-2 flex-none";
-    			add_location(img, file$3, 122, 8, 3910);
+    			add_location(img, file$3, 122, 8, 3902);
     			body.className = "flex-1 font-bold svelte-z01q45";
-    			add_location(body, file$3, 126, 8, 4046);
+    			add_location(body, file$3, 126, 8, 4038);
     			button.className = "button svelte-z01q45";
-    			add_location(button, file$3, 127, 8, 4105);
+    			add_location(button, file$3, 127, 8, 4097);
     			div0.className = "flex items-center";
-    			add_location(div0, file$3, 121, 6, 3869);
+    			add_location(div0, file$3, 121, 6, 3861);
     			div1.className = "mt-2 flex-col";
     			add_location(div1, file$3, 119, 4, 3769);
     			dispose = listen(button, "click", ctx.click_handler);
@@ -4688,40 +4758,32 @@
     			append(body, t3);
     			append(div0, t4);
     			append(div0, button);
-    			current = true;
     		},
 
     		p: function update(changed, ctx) {
-    			if (!current || changed.$userPic) {
+    			if (changed.$userPic) {
     				img.src = ctx.$userPic;
     			}
 
-    			if (!current || changed.$userName) {
+    			if (changed.$userName) {
     				set_data(t3, ctx.$userName);
     			}
     		},
 
     		i: function intro(local) {
-    			if (current) return;
-    			add_render_callback(() => {
-    				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, { duration: 130 }, true);
-    				div1_transition.run(1);
-    			});
-
-    			current = true;
+    			if (!div1_intro) {
+    				add_render_callback(() => {
+    					div1_intro = create_in_transition(div1, fade, { duration: 400 });
+    					div1_intro.start();
+    				});
+    			}
     		},
 
-    		o: function outro(local) {
-    			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, { duration: 130 }, false);
-    			div1_transition.run(0);
-
-    			current = false;
-    		},
+    		o: noop,
 
     		d: function destroy(detaching) {
     			if (detaching) {
     				detach(div1);
-    				if (div1_transition) div1_transition.end();
     			}
 
     			dispose();
@@ -4730,22 +4792,15 @@
     }
 
     function create_fragment$3(ctx) {
-    	var div6, current_block_type_index, if_block, t0, div1, h20, t2, div0, body0, t4, button, t6, div5, h21, t8, div2, body1, t10, input0, t11, body2, t13, input1, t14, body3, t16, div3, body4, t18, input2, t19, body5, t21, input3, t22, body6, t24, div4, body7, t26, input4, t27, body8, t29, input5, t30, body9, current, dispose;
-
-    	var if_block_creators = [
-    		create_if_block,
-    		create_else_block
-    	];
-
-    	var if_blocks = [];
+    	var div6, t0, div1, h20, t2, div0, body0, t4, button, t6, div5, h21, t8, div2, body1, t10, input0, t11, body2, t13, input1, t14, body3, t16, div3, body4, t18, input2, t19, body5, t21, input3, t22, body6, t24, div4, body7, t26, input4, t27, body8, t29, input5, t30, body9, dispose;
 
     	function select_block_type(ctx) {
-    		if (ctx.$userName !== ctx.undefined && ctx.$userPic !== ctx.undefined) return 0;
-    		return 1;
+    		if (ctx.$userName !== ctx.undefined && ctx.$userPic !== ctx.undefined) return create_if_block;
+    		return create_else_block;
     	}
 
-    	current_block_type_index = select_block_type(ctx);
-    	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    	var current_block_type = select_block_type(ctx);
+    	var if_block = current_block_type(ctx);
 
     	return {
     		c: function create() {
@@ -4809,74 +4864,74 @@
     			body9 = element("body");
     			body9.textContent = "min";
     			h20.className = "svelte-z01q45";
-    			add_location(h20, file$3, 139, 4, 5277);
+    			add_location(h20, file$3, 173, 4, 5751);
     			body0.className = "flex-1 font-bold svelte-z01q45";
-    			add_location(body0, file$3, 141, 6, 5343);
+    			add_location(body0, file$3, 175, 6, 5817);
     			button.className = "button svelte-z01q45";
-    			add_location(button, file$3, 142, 6, 5408);
+    			add_location(button, file$3, 176, 6, 5882);
     			div0.className = "flex items-center";
-    			add_location(div0, file$3, 140, 4, 5304);
+    			add_location(div0, file$3, 174, 4, 5778);
     			div1.className = "mt-8 flex-col";
-    			add_location(div1, file$3, 138, 2, 5244);
+    			add_location(div1, file$3, 172, 2, 5718);
     			h21.className = "svelte-z01q45";
-    			add_location(h21, file$3, 146, 4, 5532);
+    			add_location(h21, file$3, 180, 4, 6006);
     			body1.className = "w-3/4 font-bold svelte-z01q45";
-    			add_location(body1, file$3, 148, 6, 5582);
+    			add_location(body1, file$3, 182, 6, 6056);
     			attr(input0, "type", "number");
     			input0.max = "3";
     			input0.min = "0";
     			input0.className = "input svelte-z01q45";
-    			add_location(input0, file$3, 149, 6, 5641);
+    			add_location(input0, file$3, 183, 6, 6115);
     			body2.className = "ml-1 mr-2 svelte-z01q45";
-    			add_location(body2, file$3, 155, 6, 5773);
+    			add_location(body2, file$3, 189, 6, 6247);
     			attr(input1, "type", "number");
     			input1.max = "59";
     			input1.min = "0";
     			input1.className = "input svelte-z01q45";
-    			add_location(input1, file$3, 156, 6, 5814);
+    			add_location(input1, file$3, 190, 6, 6288);
     			body3.className = "ml-1 svelte-z01q45";
-    			add_location(body3, file$3, 162, 6, 5948);
+    			add_location(body3, file$3, 196, 6, 6422);
     			div2.className = "flex";
-    			add_location(div2, file$3, 147, 4, 5556);
+    			add_location(div2, file$3, 181, 4, 6030);
     			body4.className = "w-3/4 font-bold svelte-z01q45";
-    			add_location(body4, file$3, 165, 6, 6021);
+    			add_location(body4, file$3, 199, 6, 6495);
     			attr(input2, "type", "number");
     			input2.max = "3";
     			input2.min = "0";
     			input2.className = "input svelte-z01q45";
-    			add_location(input2, file$3, 166, 6, 6080);
+    			add_location(input2, file$3, 200, 6, 6554);
     			body5.className = "ml-1 mr-2 svelte-z01q45";
-    			add_location(body5, file$3, 172, 6, 6212);
+    			add_location(body5, file$3, 206, 6, 6686);
     			attr(input3, "type", "number");
     			input3.max = "59";
     			input3.min = "0";
     			input3.className = "input svelte-z01q45";
-    			add_location(input3, file$3, 173, 6, 6253);
+    			add_location(input3, file$3, 207, 6, 6727);
     			body6.className = "ml-1 svelte-z01q45";
-    			add_location(body6, file$3, 179, 6, 6387);
+    			add_location(body6, file$3, 213, 6, 6861);
     			div3.className = "flex";
-    			add_location(div3, file$3, 164, 4, 5995);
+    			add_location(div3, file$3, 198, 4, 6469);
     			body7.className = "w-3/4 font-bold svelte-z01q45";
-    			add_location(body7, file$3, 182, 6, 6465);
+    			add_location(body7, file$3, 216, 6, 6939);
     			attr(input4, "type", "number");
     			input4.max = "3";
     			input4.min = "0";
     			input4.className = "input svelte-z01q45";
     			input4.id = "Nap3ToSleepHr";
-    			add_location(input4, file$3, 183, 6, 6524);
+    			add_location(input4, file$3, 217, 6, 6998);
     			body8.className = "ml-1 mr-2 svelte-z01q45";
-    			add_location(body8, file$3, 190, 6, 6685);
+    			add_location(body8, file$3, 224, 6, 7159);
     			attr(input5, "type", "number");
     			input5.max = "59";
     			input5.min = "0";
     			input5.className = "input svelte-z01q45";
-    			add_location(input5, file$3, 191, 6, 6726);
+    			add_location(input5, file$3, 225, 6, 7200);
     			body9.className = "ml-1 svelte-z01q45";
-    			add_location(body9, file$3, 197, 6, 6861);
+    			add_location(body9, file$3, 231, 6, 7335);
     			div4.className = "flex pb-8";
-    			add_location(div4, file$3, 181, 4, 6434);
+    			add_location(div4, file$3, 215, 4, 6908);
     			div5.className = "mt-8 flex-col";
-    			add_location(div5, file$3, 145, 2, 5499);
+    			add_location(div5, file$3, 179, 2, 5973);
     			div6.className = "w-full bg-backgroundColor p-4";
     			add_location(div6, file$3, 117, 0, 3661);
 
@@ -4897,7 +4952,7 @@
 
     		m: function mount(target, anchor) {
     			insert(target, div6, anchor);
-    			if_blocks[current_block_type_index].m(div6, null);
+    			if_block.m(div6, null);
     			append(div6, t0);
     			append(div6, div1);
     			append(div1, h20);
@@ -4960,30 +5015,19 @@
 
     			append(div4, t30);
     			append(div4, body9);
-    			current = true;
     		},
 
     		p: function update(changed, ctx) {
-    			var previous_block_index = current_block_type_index;
-    			current_block_type_index = select_block_type(ctx);
-    			if (current_block_type_index === previous_block_index) {
-    				if_blocks[current_block_type_index].p(changed, ctx);
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(changed, ctx);
     			} else {
-    				group_outros();
-    				on_outro(() => {
-    					if_blocks[previous_block_index].d(1);
-    					if_blocks[previous_block_index] = null;
-    				});
-    				if_block.o(1);
-    				check_outros();
-
-    				if_block = if_blocks[current_block_type_index];
-    				if (!if_block) {
-    					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+    				if (if_block) {
     					if_block.c();
+    					if_block.i(1);
+    					if_block.m(div6, t0);
     				}
-    				if_block.i(1);
-    				if_block.m(div6, t0);
     			}
 
     			if (changed.Nap1ToNap2Hr) input0.value = ctx.Nap1ToNap2Hr;
@@ -4995,22 +5039,17 @@
     		},
 
     		i: function intro(local) {
-    			if (current) return;
     			if (if_block) if_block.i();
-    			current = true;
     		},
 
-    		o: function outro(local) {
-    			if (if_block) if_block.o();
-    			current = false;
-    		},
+    		o: noop,
 
     		d: function destroy(detaching) {
     			if (detaching) {
     				detach(div6);
     			}
 
-    			if_blocks[current_block_type_index].d();
+    			if_block.d();
     			run_all(dispose);
     		}
     	};
