@@ -3140,6 +3140,42 @@
      */
 
     /**
+     * @name isEqual
+     * @category Common Helpers
+     * @summary Are the given dates equal?
+     *
+     * @description
+     * Are the given dates equal?
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} dateLeft - the first date to compare
+     * @param {Date|Number} dateRight - the second date to compare
+     * @returns {Boolean} the dates are equal
+     * @throws {TypeError} 2 arguments required
+     *
+     * @example
+     * // Are 2 July 2014 06:30:45.000 and 2 July 2014 06:30:45.500 equal?
+     * var result = isEqual(
+     *   new Date(2014, 6, 2, 6, 30, 45, 0),
+     *   new Date(2014, 6, 2, 6, 30, 45, 500)
+     * )
+     * //=> false
+     */
+
+    function isEqual(dirtyLeftDate, dirtyRightDate) {
+      if (arguments.length < 2) {
+        throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+      }
+
+      var dateLeft = toDate(dirtyLeftDate);
+      var dateRight = toDate(dirtyRightDate);
+      return dateLeft.getTime() === dateRight.getTime();
+    }
+
+    /**
      * @name startOfTomorrow
      * @category Day Helpers
      * @summary Return the start of tomorrow.
@@ -3484,28 +3520,33 @@
 
     const file$1 = "src\\components\\Entry.svelte";
 
-    // (255:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
+    // (298:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
     function create_default_slot(ctx) {
-    	var div, button, dispose;
+    	var div, button, t, button_class_value, dispose;
 
     	return {
     		c: function create() {
     			div = element("div");
     			button = element("button");
-    			button.textContent = "Submit";
-    			button.className = "py-2 w-1/2 my-12 rounded-lg bg-accentColor2 text-white text-2xl\r\n      font-bold hover:shadow-lg border-b-4 border-teal-700";
-    			add_location(button, file$1, 262, 4, 7025);
+    			t = text("Submit");
+    			button.className = button_class_value = "py-2 w-1/2 my-12 rounded-lg bg-accentColor2 text-white text-2xl\r\n      font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50');
+    			add_location(button, file$1, 305, 4, 8182);
     			div.className = "flex items-center justify-center";
-    			add_location(div, file$1, 261, 2, 6973);
+    			add_location(div, file$1, 304, 2, 8130);
     			dispose = listen(button, "click", ctx.click_handler);
     		},
 
     		m: function mount(target, anchor) {
     			insert(target, div, anchor);
     			append(div, button);
+    			append(button, t);
     		},
 
-    		p: noop,
+    		p: function update(changed, ctx) {
+    			if ((changed.check2v1 || changed.check3v2 || changed.check4v3) && button_class_value !== (button_class_value = "py-2 w-1/2 my-12 rounded-lg bg-accentColor2 text-white text-2xl\r\n      font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50'))) {
+    				button.className = button_class_value;
+    			}
+    		},
 
     		d: function destroy(detaching) {
     			if (detaching) {
@@ -3586,12 +3627,12 @@
     			t7 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-2 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div0, file$1, 239, 4, 6437);
+    			add_location(div0, file$1, 282, 4, 7594);
     			body.className = "text-2xl justify-center items-center flex";
-    			add_location(body, file$1, 237, 2, 6359);
+    			add_location(body, file$1, 280, 2, 7516);
     			div1.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div1, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div1, file$1, 234, 0, 6249);
+    			add_location(div1, file$1, 277, 0, 7406);
     		},
 
     		l: function claim(nodes) {
@@ -3654,7 +3695,7 @@
     			if (changed.pickUpTime) entryblock3_changes.time = ctx.pickUpTime;
     			if (changed.check4v3) entryblock3_changes.check = ctx.check4v3;
     			if (changed.wakeDate) entryblock3_changes.minDate = ctx.wakeDate;
-    			if (changed.$$scope) entryblock3_changes.$$scope = { changed, ctx };
+    			if (changed.$$scope || changed.check2v1 || changed.check3v2 || changed.check4v3) entryblock3_changes.$$scope = { changed, ctx };
     			entryblock3.$set(entryblock3_changes);
     		},
 
@@ -3705,11 +3746,40 @@
     	};
     }
 
+    function signIn() {
+      gapi.auth2
+        .getAuthInstance()
+        .signIn()
+        .then(response => {
+          if (response.El.length > 0) {
+            gapiInstance.set(gapi);
+            userName.set(
+              gapi.auth2
+                .getAuthInstance()
+                .currentUser.get()
+                .getBasicProfile()
+                .getName()
+            );
+            userName.set(
+              gapi.auth2
+                .getAuthInstance()
+                .currentUser.get()
+                .getBasicProfile()
+                .getImageUrl()
+            );
+          } else {
+            console.log("Failed to sign in");
+          }
+        });
+    }
+
     function instance$1($$self, $$props, $$invalidate) {
-    	let $gapiInstance, $elapsedSleepTimeDivHeight;
+    	let $gapiInstance, $elapsedSleepTimeDivHeight, $userName;
 
     	validate_store(gapiInstance, 'gapiInstance');
     	subscribe($$self, gapiInstance, $$value => { $gapiInstance = $$value; $$invalidate('$gapiInstance', $gapiInstance); });
+    	validate_store(userName, 'userName');
+    	subscribe($$self, userName, $$value => { $userName = $$value; $$invalidate('$userName', $userName); });
 
     	
 
@@ -3825,13 +3895,17 @@
       }
 
     	function click_handler() {
-    		return validateAndSend();
+    		return ($userName !== undefined ? validateAndSend() : signIn());
     	}
 
     	$$self.$$.update = ($$dirty = { putDownDate: 1, sleepDate: 1, sleepTime: 1, putDownTime: 1, wakeDate: 1, wakeTime: 1, pickUpDate: 1, pickUpTime: 1, check2v1: 1, check3v2: 1, time: 1 }) => {
     		if ($$dirty.putDownDate) { $$invalidate('sleepDate', sleepDate = putDownDate); }
     		if ($$dirty.sleepDate || $$dirty.sleepTime || $$dirty.putDownDate || $$dirty.putDownTime) { if (
             isAfter(
+              new Date(sleepDate + " " + sleepTime),
+              new Date(putDownDate + " " + putDownTime)
+            ) ||
+            isEqual(
               new Date(sleepDate + " " + sleepTime),
               new Date(putDownDate + " " + putDownTime)
             )
@@ -3845,6 +3919,10 @@
             isAfter(
               new Date(wakeDate + " " + wakeTime),
               new Date(sleepDate + " " + sleepTime)
+            ) ||
+            isEqual(
+              new Date(wakeDate + " " + wakeTime),
+              new Date(sleepDate + " " + sleepTime)
             )
           ) {
             $$invalidate('check3v2', check3v2 = true);
@@ -3854,6 +3932,10 @@
     		if ($$dirty.putDownDate) { $$invalidate('pickUpDate', pickUpDate = putDownDate); }
     		if ($$dirty.pickUpDate || $$dirty.pickUpTime || $$dirty.wakeDate || $$dirty.wakeTime) { if (
             isAfter(
+              new Date(pickUpDate + " " + pickUpTime),
+              new Date(wakeDate + " " + wakeTime)
+            ) ||
+            isEqual(
               new Date(pickUpDate + " " + pickUpTime),
               new Date(wakeDate + " " + wakeTime)
             )
@@ -3916,6 +3998,7 @@
     		receiveWokeUp,
     		receivePickedUp,
     		$elapsedSleepTimeDivHeight,
+    		$userName,
     		click_handler
     	};
     }

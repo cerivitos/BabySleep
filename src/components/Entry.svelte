@@ -8,9 +8,10 @@
     differenceInMinutes,
     compareAsc,
     isAfter,
-    isDate
+    isDate,
+    isEqual
   } from "date-fns";
-  import { gapiInstance } from "../store/store.js";
+  import { gapiInstance, userName } from "../store/store.js";
   import { credentials } from "../../credentials.js";
   import EntryBlock from "./EntryBlock.svelte";
 
@@ -144,8 +145,15 @@
     pickUpTime = event.detail.time;
   }
 
+  /**
+   * Validation checks for form entry. Subsequent date times must be equal or later than previous date times.
+   */
   $: if (
     isAfter(
+      new Date(sleepDate + " " + sleepTime),
+      new Date(putDownDate + " " + putDownTime)
+    ) ||
+    isEqual(
       new Date(sleepDate + " " + sleepTime),
       new Date(putDownDate + " " + putDownTime)
     )
@@ -159,6 +167,10 @@
     isAfter(
       new Date(wakeDate + " " + wakeTime),
       new Date(sleepDate + " " + sleepTime)
+    ) ||
+    isEqual(
+      new Date(wakeDate + " " + wakeTime),
+      new Date(sleepDate + " " + sleepTime)
     )
   ) {
     check3v2 = true;
@@ -168,6 +180,10 @@
 
   $: if (
     isAfter(
+      new Date(pickUpDate + " " + pickUpTime),
+      new Date(wakeDate + " " + wakeTime)
+    ) ||
+    isEqual(
       new Date(pickUpDate + " " + pickUpTime),
       new Date(wakeDate + " " + wakeTime)
     )
@@ -218,6 +234,33 @@
      */
     elapsedSleepTimeDivHeight.set(0);
   }
+
+  function signIn() {
+    gapi.auth2
+      .getAuthInstance()
+      .signIn()
+      .then(response => {
+        if (response.El.length > 0) {
+          gapiInstance.set(gapi);
+          userName.set(
+            gapi.auth2
+              .getAuthInstance()
+              .currentUser.get()
+              .getBasicProfile()
+              .getName()
+          );
+          userName.set(
+            gapi.auth2
+              .getAuthInstance()
+              .currentUser.get()
+              .getBasicProfile()
+              .getImageUrl()
+          );
+        } else {
+          console.log("Failed to sign in");
+        }
+      });
+  }
 </script>
 
 <EntryBlock
@@ -262,8 +305,8 @@
   <div class="flex items-center justify-center">
     <button
       class="py-2 w-1/2 my-12 rounded-lg bg-accentColor2 text-white text-2xl
-      font-bold hover:shadow-lg border-b-4 border-teal-700"
-      on:click={() => validateAndSend()}>
+      font-bold hover:shadow-lg border-b-4 border-teal-700 {check2v1 && check3v2 && check4v3 ? '' : 'opacity-50'}"
+      on:click={() => ($userName !== undefined ? validateAndSend() : signIn())}>
       Submit
     </button>
   </div>
