@@ -1,5 +1,6 @@
 <script>
   import { showEntry, showSummary, showSettings } from "../store/store.js";
+  let innerHeight, contentHeight;
 
   function handleClick(target) {
     if (target === "entry") {
@@ -16,6 +17,10 @@
       showSettings.set(true);
     }
   }
+
+  $: contentHeight =
+    innerHeight -
+    2 * parseFloat(getComputedStyle(document.documentElement).fontSize);
 </script>
 
 <style type="text/postcss">
@@ -39,8 +44,12 @@
   }
 </style>
 
-<div class="w-full h-screen bg-backgroundColor overflow-scroll">
-  <slot />
+<svelte:window bind:innerHeight />
+
+<div class="w-full h-screen bg-backgroundColor overflow-scroll ">
+  <div class="mb-8">
+    <slot />
+  </div>
   <div class="bottom-bar">
     <button
       class="button {$showEntry ? 'selected' : ''}"
