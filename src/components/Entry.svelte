@@ -68,6 +68,9 @@
       : format(newDate, "yyyy-MM-dd");
   }
 
+  /**
+   * Ensures all validation criteria are met before sending to Sheets API
+   */
   function validateAndSend() {
     if (
       check2v1 &&
