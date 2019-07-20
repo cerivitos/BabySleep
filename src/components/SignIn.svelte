@@ -112,7 +112,7 @@
   <meta name="google-signin-client_id" content={credentials.CLIENT_ID} />
 </svelte:head>
 
-{#if !isSignedIn}
+<!-- {#if !isSignedIn}
   <button
     class="w-1/2 p-4 rounded {isSignedIn ? 'bg-secondaryColor opacity-50 cursor-not-allowed' : 'bg-accentColor'}
     text-center text-backgroundColor"
@@ -127,4 +127,4 @@
     on:click={() => signOut()}>
     Sign out
   </button>
-{/if}
+{/if} -->
