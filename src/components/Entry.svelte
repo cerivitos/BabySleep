@@ -14,6 +14,7 @@
   import { gapiInstance, userName } from "../store/store.js";
   import { credentials } from "../../credentials.js";
   import EntryBlock from "./EntryBlock.svelte";
+  import { signIn } from "../util.js";
 
   let putDownDate = format(new Date(), "yyyy-MM-dd");
   let putDownTime = format(new Date(), "HH:mm");
@@ -238,32 +239,32 @@
     elapsedSleepTimeDivHeight.set(0);
   }
 
-  function signIn() {
-    gapi.auth2
-      .getAuthInstance()
-      .signIn()
-      .then(response => {
-        if (response.El.length > 0) {
-          gapiInstance.set(gapi);
-          userName.set(
-            gapi.auth2
-              .getAuthInstance()
-              .currentUser.get()
-              .getBasicProfile()
-              .getName()
-          );
-          userName.set(
-            gapi.auth2
-              .getAuthInstance()
-              .currentUser.get()
-              .getBasicProfile()
-              .getImageUrl()
-          );
-        } else {
-          console.log("Failed to sign in");
-        }
-      });
-  }
+  // function signIn() {
+  //   gapi.auth2
+  //     .getAuthInstance()
+  //     .signIn()
+  //     .then(response => {
+  //       if (response.El.length > 0) {
+  //         gapiInstance.set(gapi);
+  //         userName.set(
+  //           gapi.auth2
+  //             .getAuthInstance()
+  //             .currentUser.get()
+  //             .getBasicProfile()
+  //             .getName()
+  //         );
+  //         userName.set(
+  //           gapi.auth2
+  //             .getAuthInstance()
+  //             .currentUser.get()
+  //             .getBasicProfile()
+  //             .getImageUrl()
+  //         );
+  //       } else {
+  //         console.log("Failed to sign in");
+  //       }
+  //     });
+  // }
 </script>
 
 <EntryBlock

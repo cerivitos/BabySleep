@@ -70,42 +70,42 @@
     }
   }
 
-  function signIn() {
-    gapi.auth2
-      .getAuthInstance()
-      .signIn()
-      .then(response => {
-        response.El.length > 0 ? (isSignedIn = true) : (isSignedIn = false);
+  // function signIn() {
+  //   gapi.auth2
+  //     .getAuthInstance()
+  //     .signIn()
+  //     .then(response => {
+  //       response.El.length > 0 ? (isSignedIn = true) : (isSignedIn = false);
 
-        gapiInstance.set(gapi);
-        userName.set(
-          gapi.auth2
-            .getAuthInstance()
-            .currentUser.get()
-            .getBasicProfile()
-            .getName()
-        );
-        userPic.set(
-          gapi.auth2
-            .getAuthInstance()
-            .currentUser.get()
-            .getBasicProfile()
-            .getImageUrl()
-        );
-      });
-  }
+  //       gapiInstance.set(gapi);
+  //       userName.set(
+  //         gapi.auth2
+  //           .getAuthInstance()
+  //           .currentUser.get()
+  //           .getBasicProfile()
+  //           .getName()
+  //       );
+  //       userPic.set(
+  //         gapi.auth2
+  //           .getAuthInstance()
+  //           .currentUser.get()
+  //           .getBasicProfile()
+  //           .getImageUrl()
+  //       );
+  //     });
+  // }
 
-  function signOut() {
-    gapi.auth2
-      .getAuthInstance()
-      .signOut()
-      .then(() => {
-        isSignedIn = false;
+  // function signOut() {
+  //   gapi.auth2
+  //     .getAuthInstance()
+  //     .signOut()
+  //     .then(() => {
+  //       isSignedIn = false;
 
-        userName.set();
-        userPic.set();
-      });
-  }
+  //       userName.set();
+  //       userPic.set();
+  //     });
+  // }
 </script>
 
 <svelte:head>
