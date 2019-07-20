@@ -75,57 +75,94 @@
    * Ensures all validation criteria are met before sending to Sheets API
    */
   function validateAndSend() {
+    let currentRow;
+
     if (
       check2v1 &&
       check3v2 &&
       check4v3 &&
       $gapiInstance.client.sheets !== null
     ) {
+      /**
+       * Get the row number after adding this current data. Needed for formulas.
+       */
       $gapiInstance.client.sheets.spreadsheets.values
-        .append({
-          spreadsheetId: credentials.SHEET_ID,
-          range: "Sheet1",
-          valueInputOption: "USER_ENTERED",
-          resource: {
-            values: [
-              [
-                putDownDate + " " + putDownTime,
-                sleepDate + " " + sleepTime,
-                wakeDate + " " + wakeTime,
-                pickUpDate + " " + pickUpTime
-              ]
-            ]
-          }
+        .get({
+          spreadsheetId: credentials.SPREADSHEET_ID,
+          range: credentials.SHEET_NAME + "!A1:A"
         })
         .then(response => {
-          if (response.status == 200) {
-            $gapiInstance.client.sheets.spreadsheets
-              .batchUpdate({
-                spreadsheetId: credentials.SHEET_ID,
-                requests: [
-                  {
-                    repeatCell: {
-                      range: {
-                        sheetId: 0,
-                        startRowIndex: 1,
-                        startColumnIndex: 0,
-                        endColumnIndex: 4
-                      },
-                      cell: {
-                        userEnteredFormat: {
-                          numberFormat: {
-                            type: "DATE",
-                            pattern: "d mmm, h:mm am/pm"
-                          }
-                        }
-                      },
-                      fields: "userEnteredFormat.numberFormat"
-                    }
-                  }
+          currentRow = response.result.values.length + 1;
+
+          /**
+           * Add data by appending after the last current row of data. Includes formulas to calculate other columns.
+           */
+          $gapiInstance.client.sheets.spreadsheets.values
+            .append({
+              spreadsheetId: credentials.SPREADSHEET_ID,
+              range: credentials.SHEET_NAME,
+              valueInputOption: "USER_ENTERED",
+              resource: {
+                values: [
+                  [
+                    putDownDate + " " + putDownTime,
+                    sleepDate + " " + sleepTime,
+                    pickUpDate + " " + pickUpTime,
+                    `=if(or(A${currentRow}="",B${currentRow}=""),"",B${currentRow}-A${currentRow})`,
+                    `=if(or(C${currentRow}="",B${currentRow}=""),"",C${currentRow}-B${currentRow})`,
+                    `=A${currentRow}-C${currentRow - 1}`,
+                    `=(A${currentRow}-C${currentRow - 1})+(D${currentRow}/2)`,
+                    `=B${currentRow}-C${currentRow - 1}`,
+                    `=if(and(day(B${currentRow})=day(B${currentRow -
+                      1}),month(B${currentRow})=month(B${currentRow -
+                      1})),G${currentRow}+I${currentRow - 1},G${currentRow})`,
+                    isNap ? "Nap" : "Sleep",
+                    `=if(and(day(B${currentRow})=DAY(B${currentRow -
+                      1}),month(B${currentRow})=month(B${currentRow -
+                      1}),J${currentRow}=J${currentRow - 1}),K${currentRow -
+                      1}+1,1)`,
+                    `=if(and(day(B${currentRow})=day(B${currentRow -
+                      2}),month(B${currentRow})=month(B${currentRow -
+                      2})),E${currentRow}+L${currentRow - 2},E${currentRow})`,
+                    `=if(hour(A${currentRow}) < Rules!$B$5, date(year(A${currentRow}), month(A${currentRow}), day(A${currentRow})) - 1, date(year(A${currentRow}), month(A${currentRow}), day(A${currentRow})))`,
+                    `=E${currentRow}`
+                  ]
                 ]
-              })
-              .then(response => console.log(response));
-          }
+              }
+            })
+            .then(response => {
+              if (response.status == 200) {
+                /**
+                 * Update cell format to date time for the first three columns.
+                 */
+                $gapiInstance.client.sheets.spreadsheets
+                  .batchUpdate({
+                    spreadsheetId: credentials.SPREADSHEET_ID,
+                    requests: [
+                      {
+                        repeatCell: {
+                          range: {
+                            sheetId: credentials.SHEET_ID,
+                            startRowIndex: 1,
+                            startColumnIndex: 0,
+                            endColumnIndex: 2
+                          },
+                          cell: {
+                            userEnteredFormat: {
+                              numberFormat: {
+                                type: "DATE",
+                                pattern: "d mmm, h:mm am/pm"
+                              }
+                            }
+                          },
+                          fields: "userEnteredFormat.numberFormat"
+                        }
+                      }
+                    ]
+                  })
+                  .then(response => {});
+              }
+            });
         });
     } else {
     }
