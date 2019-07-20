@@ -56,7 +56,7 @@
           .getBasicProfile()
           .getName()
       );
-      userName.set(
+      userPic.set(
         gapi.auth2
           .getAuthInstance()
           .currentUser.get()
@@ -66,7 +66,7 @@
     } else {
       isSignedIn = false;
       userName.set();
-      userName.set();
+      userPic.set();
     }
   }
 
@@ -85,7 +85,7 @@
             .getBasicProfile()
             .getName()
         );
-        userName.set(
+        userPic.set(
           gapi.auth2
             .getAuthInstance()
             .currentUser.get()
@@ -103,7 +103,7 @@
         isSignedIn = false;
 
         userName.set();
-        userName.set();
+        userPic.set();
       });
   }
 </script>
