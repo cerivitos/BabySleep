@@ -3798,40 +3798,79 @@
 
     const file$1 = "src\\components\\Entry.svelte";
 
-    // (302:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
+    // (277:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
     function create_default_slot(ctx) {
-    	var div, button, t, button_class_value, dispose;
+    	var div1, div0, button0, t0, button0_class_value, t1, button1, t2, button1_class_value, t3, div2, button2, t4, button2_class_value, dispose;
 
     	return {
     		c: function create() {
-    			div = element("div");
-    			button = element("button");
-    			t = text("Submit");
-    			button.className = button_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      text-2xl font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50');
-    			add_location(button, file$1, 309, 4, 8389);
-    			div.className = "flex items-center justify-center";
-    			add_location(div, file$1, 308, 2, 8337);
-    			dispose = listen(button, "click", ctx.click_handler);
+    			div1 = element("div");
+    			div0 = element("div");
+    			button0 = element("button");
+    			t0 = text(" Nap ");
+    			t1 = space();
+    			button1 = element("button");
+    			t2 = text("Sleep");
+    			t3 = space();
+    			div2 = element("div");
+    			button2 = element("button");
+    			t4 = text("Submit");
+    			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white font-bold\r\n        py-2 px-4 rounded-l outline-none";
+    			add_location(button0, file$1, 285, 6, 7705);
+    			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white font-bold\r\n        py-2 px-4 rounded-r outline-none";
+    			add_location(button1, file$1, 291, 6, 7928);
+    			div0.className = "inline-flex";
+    			add_location(div0, file$1, 284, 4, 7672);
+    			div1.className = "w-full flex justify-center mt-8";
+    			add_location(div1, file$1, 283, 2, 7621);
+    			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      text-2xl font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50');
+    			add_location(button2, file$1, 300, 4, 8213);
+    			div2.className = "flex items-center justify-center";
+    			add_location(div2, file$1, 299, 2, 8161);
+
+    			dispose = [
+    				listen(button0, "click", ctx.click_handler),
+    				listen(button1, "click", ctx.click_handler_1),
+    				listen(button2, "click", ctx.click_handler_2)
+    			];
     		},
 
     		m: function mount(target, anchor) {
-    			insert(target, div, anchor);
-    			append(div, button);
-    			append(button, t);
+    			insert(target, div1, anchor);
+    			append(div1, div0);
+    			append(div0, button0);
+    			append(button0, t0);
+    			append(div0, t1);
+    			append(div0, button1);
+    			append(button1, t2);
+    			insert(target, t3, anchor);
+    			insert(target, div2, anchor);
+    			append(div2, button2);
+    			append(button2, t4);
     		},
 
     		p: function update(changed, ctx) {
-    			if ((changed.check2v1 || changed.check3v2 || changed.check4v3) && button_class_value !== (button_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      text-2xl font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50'))) {
-    				button.className = button_class_value;
+    			if ((changed.isNap) && button0_class_value !== (button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white font-bold\r\n        py-2 px-4 rounded-l outline-none")) {
+    				button0.className = button0_class_value;
+    			}
+
+    			if ((changed.isNap) && button1_class_value !== (button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white font-bold\r\n        py-2 px-4 rounded-r outline-none")) {
+    				button1.className = button1_class_value;
+    			}
+
+    			if ((changed.check2v1 || changed.check3v2 || changed.check4v3) && button2_class_value !== (button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      text-2xl font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50'))) {
+    				button2.className = button2_class_value;
     			}
     		},
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach(div);
+    				detach(div1);
+    				detach(t3);
+    				detach(div2);
     			}
 
-    			dispose();
+    			run_all(dispose);
     		}
     	};
     }
@@ -3905,12 +3944,12 @@
     			t7 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-2 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div0, file$1, 286, 4, 7801);
+    			add_location(div0, file$1, 261, 4, 7085);
     			body.className = "text-2xl justify-center items-center flex";
-    			add_location(body, file$1, 284, 2, 7723);
+    			add_location(body, file$1, 259, 2, 7007);
     			div1.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div1, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div1, file$1, 281, 0, 7613);
+    			add_location(div1, file$1, 256, 0, 6897);
     		},
 
     		l: function claim(nodes) {
@@ -3973,7 +4012,7 @@
     			if (changed.pickUpTime) entryblock3_changes.time = ctx.pickUpTime;
     			if (changed.check4v3) entryblock3_changes.check = ctx.check4v3;
     			if (changed.wakeDate) entryblock3_changes.minDate = ctx.wakeDate;
-    			if (changed.$$scope || changed.check2v1 || changed.check3v2 || changed.check4v3) entryblock3_changes.$$scope = { changed, ctx };
+    			if (changed.$$scope || changed.check2v1 || changed.check3v2 || changed.check4v3 || changed.isNap) entryblock3_changes.$$scope = { changed, ctx };
     			entryblock3.$set(entryblock3_changes);
     		},
 
@@ -4051,6 +4090,8 @@
       let check2v1 = true;
       let check3v2 = true;
       let check4v3 = true;
+
+      let isNap = true;
 
       const elapsedSleepTimeDivHeight = tweened(0, {
         duration: 450,
@@ -4148,34 +4189,19 @@
         $$invalidate('pickUpTime', pickUpTime = event.detail.time);
       }
 
-      // function signIn() {
-      //   gapi.auth2
-      //     .getAuthInstance()
-      //     .signIn()
-      //     .then(response => {
-      //       if (response.El.length > 0) {
-      //         gapiInstance.set(gapi);
-      //         userName.set(
-      //           gapi.auth2
-      //             .getAuthInstance()
-      //             .currentUser.get()
-      //             .getBasicProfile()
-      //             .getName()
-      //         );
-      //         userName.set(
-      //           gapi.auth2
-      //             .getAuthInstance()
-      //             .currentUser.get()
-      //             .getBasicProfile()
-      //             .getImageUrl()
-      //         );
-      //       } else {
-      //         console.log("Failed to sign in");
-      //       }
-      //     });
-      // }
-
     	function click_handler() {
+    		const $$result = (isNap = true);
+    		$$invalidate('isNap', isNap);
+    		return $$result;
+    	}
+
+    	function click_handler_1() {
+    		const $$result = (isNap = false);
+    		$$invalidate('isNap', isNap);
+    		return $$result;
+    	}
+
+    	function click_handler_2() {
     		return ($userName !== undefined ? validateAndSend() : signIn());
     	}
 
@@ -4272,6 +4298,7 @@
     		check2v1,
     		check3v2,
     		check4v3,
+    		isNap,
     		elapsedSleepTimeDivHeight,
     		validateAndSend,
     		receivePutDown,
@@ -4280,7 +4307,9 @@
     		receivePickedUp,
     		$elapsedSleepTimeDivHeight,
     		$userName,
-    		click_handler
+    		click_handler,
+    		click_handler_1,
+    		click_handler_2
     	};
     }
 

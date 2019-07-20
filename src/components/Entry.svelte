@@ -35,6 +35,8 @@
   let check3v2 = true;
   let check4v3 = true;
 
+  let isNap = true;
+
   const elapsedSleepTimeDivHeight = tweened(0, {
     duration: 450,
     easing: cubicOut
@@ -238,33 +240,6 @@
      */
     elapsedSleepTimeDivHeight.set(0);
   }
-
-  // function signIn() {
-  //   gapi.auth2
-  //     .getAuthInstance()
-  //     .signIn()
-  //     .then(response => {
-  //       if (response.El.length > 0) {
-  //         gapiInstance.set(gapi);
-  //         userName.set(
-  //           gapi.auth2
-  //             .getAuthInstance()
-  //             .currentUser.get()
-  //             .getBasicProfile()
-  //             .getName()
-  //         );
-  //         userName.set(
-  //           gapi.auth2
-  //             .getAuthInstance()
-  //             .currentUser.get()
-  //             .getBasicProfile()
-  //             .getImageUrl()
-  //         );
-  //       } else {
-  //         console.log("Failed to sign in");
-  //       }
-  //     });
-  // }
 </script>
 
 <EntryBlock
@@ -306,6 +281,22 @@
   check={check4v3}
   minDate={wakeDate}
   on:pickedupat={receivePickedUp}>
+  <div class="w-full flex justify-center mt-8">
+    <div class="inline-flex">
+      <button
+        class="{isNap ? '' : 'opacity-25'} bg-accentColor3 text-white font-bold
+        py-2 px-4 rounded-l outline-none"
+        on:click={() => (isNap = true)}>
+        &nbsp;Nap&nbsp;
+      </button>
+      <button
+        class="{!isNap ? '' : 'opacity-25'} bg-accentColor3 text-white font-bold
+        py-2 px-4 rounded-r outline-none"
+        on:click={() => (isNap = false)}>
+        Sleep
+      </button>
+    </div>
+  </div>
   <div class="flex items-center justify-center">
     <button
       class="py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white
