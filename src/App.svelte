@@ -4,9 +4,8 @@
   import Entry from "./components/Entry.svelte";
   import SignIn from "./components/SignIn.svelte";
   import Scaffold from "./components/Scaffold.svelte";
-  import { onMount } from "svelte";
-  import { userName, userPic } from "./store/store.js";
-  import { credentials } from "../credentials.js";
+  import { fade } from "svelte/transition";
+  import { showEntry, showSettings, showSummary } from "./store/store.js";
 
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/service-worker.js");
@@ -15,7 +14,11 @@
 
 <main class="overflow-hidden">
   <Scaffold>
-    <Entry />
+    {#if $showEntry}
+      <div transition:fade={{ duration: 180 }}>
+        <Entry />
+      </div>
+    {/if}
   </Scaffold>
   <SignIn class="absolute" />
 </main>

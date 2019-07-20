@@ -132,6 +132,10 @@
     	return text(' ');
     }
 
+    function empty() {
+    	return text('');
+    }
+
     function listen(node, event, handler, options) {
     	node.addEventListener(event, handler, options);
     	return () => node.removeEventListener(event, handler, options);
@@ -159,6 +163,70 @@
     	const e = document.createEvent('CustomEvent');
     	e.initCustomEvent(type, false, false, detail);
     	return e;
+    }
+
+    let stylesheet;
+    let active = 0;
+    let current_rules = {};
+
+    // https://github.com/darkskyapp/string-hash/blob/master/index.js
+    function hash(str) {
+    	let hash = 5381;
+    	let i = str.length;
+
+    	while (i--) hash = ((hash << 5) - hash) ^ str.charCodeAt(i);
+    	return hash >>> 0;
+    }
+
+    function create_rule(node, a, b, duration, delay, ease, fn, uid = 0) {
+    	const step = 16.666 / duration;
+    	let keyframes = '{\n';
+
+    	for (let p = 0; p <= 1; p += step) {
+    		const t = a + (b - a) * ease(p);
+    		keyframes += p * 100 + `%{${fn(t, 1 - t)}}\n`;
+    	}
+
+    	const rule = keyframes + `100% {${fn(b, 1 - b)}}\n}`;
+    	const name = `__svelte_${hash(rule)}_${uid}`;
+
+    	if (!current_rules[name]) {
+    		if (!stylesheet) {
+    			const style = element('style');
+    			document.head.appendChild(style);
+    			stylesheet = style.sheet;
+    		}
+
+    		current_rules[name] = true;
+    		stylesheet.insertRule(`@keyframes ${name} ${rule}`, stylesheet.cssRules.length);
+    	}
+
+    	const animation = node.style.animation || '';
+    	node.style.animation = `${animation ? `${animation}, ` : ``}${name} ${duration}ms linear ${delay}ms 1 both`;
+
+    	active += 1;
+    	return name;
+    }
+
+    function delete_rule(node, name) {
+    	node.style.animation = (node.style.animation || '')
+    		.split(', ')
+    		.filter(name
+    			? anim => anim.indexOf(name) < 0 // remove specific animation
+    			: anim => anim.indexOf('__svelte') === -1 // remove all Svelte animations
+    		)
+    		.join(', ');
+
+    	if (name && !--active) clear_rules();
+    }
+
+    function clear_rules() {
+    	requestAnimationFrame(() => {
+    		if (active) return;
+    		let i = stylesheet.cssRules.length;
+    		while (i--) stylesheet.deleteRule(i);
+    		current_rules = {};
+    	});
     }
 
     let current_component;
@@ -256,6 +324,167 @@
 
     		$$.after_render.forEach(add_render_callback);
     	}
+    }
+
+    let promise;
+
+    function wait() {
+    	if (!promise) {
+    		promise = Promise.resolve();
+    		promise.then(() => {
+    			promise = null;
+    		});
+    	}
+
+    	return promise;
+    }
+
+    function dispatch(node, direction, kind) {
+    	node.dispatchEvent(custom_event(`${direction ? 'intro' : 'outro'}${kind}`));
+    }
+
+    let outros;
+
+    function group_outros() {
+    	outros = {
+    		remaining: 0,
+    		callbacks: []
+    	};
+    }
+
+    function check_outros() {
+    	if (!outros.remaining) {
+    		run_all(outros.callbacks);
+    	}
+    }
+
+    function on_outro(callback) {
+    	outros.callbacks.push(callback);
+    }
+
+    function create_bidirectional_transition(node, fn, params, intro) {
+    	let config = fn(node, params);
+
+    	let t = intro ? 0 : 1;
+
+    	let running_program = null;
+    	let pending_program = null;
+    	let animation_name = null;
+
+    	function clear_animation() {
+    		if (animation_name) delete_rule(node, animation_name);
+    	}
+
+    	function init(program, duration) {
+    		const d = program.b - t;
+    		duration *= Math.abs(d);
+
+    		return {
+    			a: t,
+    			b: program.b,
+    			d,
+    			duration,
+    			start: program.start,
+    			end: program.start + duration,
+    			group: program.group
+    		};
+    	}
+
+    	function go(b) {
+    		const {
+    			delay = 0,
+    			duration = 300,
+    			easing = identity,
+    			tick: tick$$1 = noop,
+    			css
+    		} = config;
+
+    		const program = {
+    			start: window.performance.now() + delay,
+    			b
+    		};
+
+    		if (!b) {
+    			program.group = outros;
+    			outros.remaining += 1;
+    		}
+
+    		if (running_program) {
+    			pending_program = program;
+    		} else {
+    			// if this is an intro, and there's a delay, we need to do
+    			// an initial tick and/or apply CSS animation immediately
+    			if (css) {
+    				clear_animation();
+    				animation_name = create_rule(node, t, b, duration, delay, easing, css);
+    			}
+
+    			if (b) tick$$1(0, 1);
+
+    			running_program = init(program, duration);
+    			add_render_callback(() => dispatch(node, b, 'start'));
+
+    			loop(now => {
+    				if (pending_program && now > pending_program.start) {
+    					running_program = init(pending_program, duration);
+    					pending_program = null;
+
+    					dispatch(node, running_program.b, 'start');
+
+    					if (css) {
+    						clear_animation();
+    						animation_name = create_rule(node, t, running_program.b, running_program.duration, 0, easing, config.css);
+    					}
+    				}
+
+    				if (running_program) {
+    					if (now >= running_program.end) {
+    						tick$$1(t = running_program.b, 1 - t);
+    						dispatch(node, running_program.b, 'end');
+
+    						if (!pending_program) {
+    							// we're done
+    							if (running_program.b) {
+    								// intro — we can tidy up immediately
+    								clear_animation();
+    							} else {
+    								// outro — needs to be coordinated
+    								if (!--running_program.group.remaining) run_all(running_program.group.callbacks);
+    							}
+    						}
+
+    						running_program = null;
+    					}
+
+    					else if (now >= running_program.start) {
+    						const p = now - running_program.start;
+    						t = running_program.a + running_program.d * easing(p / running_program.duration);
+    						tick$$1(t, 1 - t);
+    					}
+    				}
+
+    				return !!(running_program || pending_program);
+    			});
+    		}
+    	}
+
+    	return {
+    		run(b) {
+    			if (typeof config === 'function') {
+    				wait().then(() => {
+    					config = config();
+    					go(b);
+    				});
+    			} else {
+    				go(b);
+    			}
+    		},
+
+    		end() {
+    			clear_animation();
+    			running_program = pending_program = null;
+    		}
+    	};
     }
 
     function mount_component(component, target, anchor) {
@@ -4371,23 +4600,39 @@
     	}
     }
 
+    function fade(node, {
+    	delay = 0,
+    	duration = 400
+    }) {
+    	const o = +getComputedStyle(node).opacity;
+
+    	return {
+    		delay,
+    		duration,
+    		css: t => `opacity: ${t * o}`
+    	};
+    }
+
     /* src\App.svelte generated by Svelte v3.4.0 */
 
     const file$4 = "src\\App.svelte";
 
-    // (17:2) <Scaffold>
-    function create_default_slot$1(ctx) {
-    	var current;
+    // (17:4) {#if $showEntry}
+    function create_if_block(ctx) {
+    	var div, div_transition, current;
 
     	var entry = new Entry({ $$inline: true });
 
     	return {
     		c: function create() {
+    			div = element("div");
     			entry.$$.fragment.c();
+    			add_location(div, file$4, 17, 6, 593);
     		},
 
     		m: function mount(target, anchor) {
-    			mount_component(entry, target, anchor);
+    			insert(target, div, anchor);
+    			mount_component(entry, div, null);
     			current = true;
     		},
 
@@ -4395,16 +4640,94 @@
     			if (current) return;
     			entry.$$.fragment.i(local);
 
+    			add_render_callback(() => {
+    				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, { duration: 180 }, true);
+    				div_transition.run(1);
+    			});
+
     			current = true;
     		},
 
     		o: function outro(local) {
     			entry.$$.fragment.o(local);
+
+    			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, { duration: 180 }, false);
+    			div_transition.run(0);
+
     			current = false;
     		},
 
     		d: function destroy(detaching) {
-    			entry.$destroy(detaching);
+    			if (detaching) {
+    				detach(div);
+    			}
+
+    			entry.$destroy();
+
+    			if (detaching) {
+    				if (div_transition) div_transition.end();
+    			}
+    		}
+    	};
+    }
+
+    // (16:2) <Scaffold>
+    function create_default_slot$1(ctx) {
+    	var if_block_anchor, current;
+
+    	var if_block = (ctx.$showEntry) && create_if_block(ctx);
+
+    	return {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			if_block_anchor = empty();
+    		},
+
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert(target, if_block_anchor, anchor);
+    			current = true;
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (ctx.$showEntry) {
+    				if (!if_block) {
+    					if_block = create_if_block(ctx);
+    					if_block.c();
+    					if_block.i(1);
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				} else {
+    									if_block.i(1);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+    				on_outro(() => {
+    					if_block.d(1);
+    					if_block = null;
+    				});
+
+    				if_block.o(1);
+    				check_outros();
+    			}
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			if (if_block) if_block.i();
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			if (if_block) if_block.o();
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+
+    			if (detaching) {
+    				detach(if_block_anchor);
+    			}
     		}
     	};
     }
@@ -4432,7 +4755,7 @@
     			t = space();
     			signin.$$.fragment.c();
     			main.className = "overflow-hidden";
-    			add_location(main, file$4, 15, 0, 544);
+    			add_location(main, file$4, 14, 0, 519);
     		},
 
     		l: function claim(nodes) {
@@ -4449,7 +4772,7 @@
 
     		p: function update(changed, ctx) {
     			var scaffold_changes = {};
-    			if (changed.$$scope) scaffold_changes.$$scope = { changed, ctx };
+    			if (changed.$$scope || changed.$showEntry) scaffold_changes.$$scope = { changed, ctx };
     			scaffold.$set(scaffold_changes);
     		},
 
@@ -4480,14 +4803,19 @@
     	};
     }
 
-    function instance$4($$self) {
+    function instance$4($$self, $$props, $$invalidate) {
+    	let $showEntry;
+
+    	validate_store(showEntry, 'showEntry');
+    	subscribe($$self, showEntry, $$value => { $showEntry = $$value; $$invalidate('$showEntry', $showEntry); });
+
     	
 
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/service-worker.js");
       }
 
-    	return {};
+    	return { $showEntry };
     }
 
     class App extends SvelteComponentDev {
