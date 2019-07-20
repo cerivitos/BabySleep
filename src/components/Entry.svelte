@@ -304,8 +304,8 @@
   on:pickedupat={receivePickedUp}>
   <div class="flex items-center justify-center">
     <button
-      class="py-2 w-1/2 my-12 rounded-lg bg-accentColor2 text-white text-2xl
-      font-bold hover:shadow-lg border-b-4 border-teal-700 {check2v1 && check3v2 && check4v3 ? '' : 'opacity-50'}"
+      class="py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white
+      text-2xl font-bold hover:shadow-lg border-b-4 border-teal-700 {check2v1 && check3v2 && check4v3 ? '' : 'opacity-50'}"
       on:click={() => ($userName !== undefined ? validateAndSend() : signIn())}>
       Submit
     </button>

@@ -26,7 +26,7 @@
   .bottom-bar {
     @apply fixed bottom-0 w-full bg-backgroundColor shadow-md flex justify-around
     items-center;
-    box-shadow: 0px -1px 2px 0px rgba(76, 76, 77, 1);
+    box-shadow: 0px -1px 2px 0px rgba(76, 76, 77, 0.2);
     filter: brightness(120%);
   }
 

@@ -3534,7 +3534,7 @@
     			div = element("div");
     			button = element("button");
     			t = text("Submit");
-    			button.className = button_class_value = "py-2 w-1/2 my-12 rounded-lg bg-accentColor2 text-white text-2xl\r\n      font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50');
+    			button.className = button_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      text-2xl font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50');
     			add_location(button, file$1, 305, 4, 8182);
     			div.className = "flex items-center justify-center";
     			add_location(div, file$1, 304, 2, 8130);
@@ -3548,7 +3548,7 @@
     		},
 
     		p: function update(changed, ctx) {
-    			if ((changed.check2v1 || changed.check3v2 || changed.check4v3) && button_class_value !== (button_class_value = "py-2 w-1/2 my-12 rounded-lg bg-accentColor2 text-white text-2xl\r\n      font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50'))) {
+    			if ((changed.check2v1 || changed.check3v2 || changed.check4v3) && button_class_value !== (button_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      text-2xl font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50'))) {
     				button.className = button_class_value;
     			}
     		},
@@ -4170,58 +4170,58 @@
     			span2.textContent = "Settings";
 
     			attr(path0, "d", "M80.197,44.939v-9.746c0-1.761,1.433-3.193,3.193-3.193h60.053c1.761,0,3.193,1.433,3.193,3.193v9.746\r\n          c0,1.761-1.433,3.193-3.193,3.193H83.391C81.63,48.133,80.197,46.7,80.197,44.939z\r\n          M131.841,17c-0.768-9.5-8.729-17-18.424-17\r\n          S95.761,7.5,94.993,17H131.841z\r\n          M192.309,55.334v151.333c0,11.12-9.047,20.167-20.167,20.167H54.692\r\n          c-11.12,0-20.167-9.047-20.167-20.167V55.334c0-11.12,9.047-20.167,20.167-20.167h10.506c0,0.009-0.001,0.018-0.001,0.026v9.746\r\n          c0,10.032,8.162,18.193,18.193,18.193h60.053c10.032,0,18.193-8.161,18.193-18.193v-9.746c0-0.009-0.001-0.018-0.001-0.026h10.506\r\n          C183.262,35.167,192.309,44.214,192.309,55.334z\r\n          M88.183,143.449c-3.526-2.173-8.147-1.077-10.32,2.449l-7.092,11.504l-3.661-2.884\r\n          c-3.252-2.563-7.97-2.002-10.532,1.252c-2.563,3.255-2.002,7.97,1.252,10.533l10.271,8.089c1.332,1.049,2.969,1.607,4.64,1.607\r\n          c0.436,0,0.875-0.038,1.311-0.115c2.105-0.374,3.952-1.629,5.074-3.449l11.506-18.666C92.806,150.243,91.709,145.623,88.183,143.449\r\n          z\r\n          M88.183,89.449c-3.526-2.174-8.147-1.076-10.32,2.449l-7.092,11.504l-3.661-2.884c-3.252-2.562-7.97-2.002-10.532,1.252\r\n          c-2.563,3.255-2.002,7.97,1.252,10.533l10.271,8.089c1.332,1.049,2.969,1.607,4.64,1.607c0.436,0,0.875-0.038,1.311-0.115\r\n          c2.105-0.374,3.952-1.629,5.074-3.449L90.632,99.77C92.806,96.243,91.709,91.623,88.183,89.449z\r\n          M165.858,168.5\r\n          c0-4.143-3.357-7.5-7.5-7.5h-49c-4.142,0-7.5,3.357-7.5,7.5s3.358,7.5,7.5,7.5h49C162.501,176,165.858,172.643,165.858,168.5z\r\n          M165.858,114.5c0-4.143-3.357-7.5-7.5-7.5h-49c-4.142,0-7.5,3.357-7.5,7.5s3.358,7.5,7.5,7.5h49\r\n          C162.501,122,165.858,118.643,165.858,114.5z");
-    			add_location(path0, file$3, 32, 8, 1462);
-    			attr(svg0, "class", "icon svelte-a5m3na");
+    			add_location(path0, file$3, 32, 8, 1472);
+    			attr(svg0, "class", "icon svelte-66w5rm");
     			attr(svg0, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg0, "viewBox", "0 0 226.834 226.834");
-    			add_location(svg0, file$3, 28, 6, 1342);
-    			add_location(span0, file$3, 53, 6, 3254);
-    			button0.className = button0_class_value = "button " + (ctx.$showEntry ? 'selected' : '') + " svelte-a5m3na";
-    			add_location(button0, file$3, 25, 4, 1228);
+    			add_location(svg0, file$3, 28, 6, 1352);
+    			add_location(span0, file$3, 53, 6, 3264);
+    			button0.className = button0_class_value = "button " + (ctx.$showEntry ? 'selected' : '') + " svelte-66w5rm";
+    			add_location(button0, file$3, 25, 4, 1238);
     			attr(path1, "d", "M534.75,68.238c-8.945-8.945-19.694-13.417-32.261-13.417H45.681c-12.562,0-23.313,4.471-32.264,13.417\r\n          C4.471,77.185,0,87.936,0,100.499v347.173c0,12.566,4.471,23.318,13.417,32.264c8.951,8.946,19.702,13.419,32.264,13.419h456.815\r\n          c12.56,0,23.312-4.473,32.258-13.419c8.945-8.945,13.422-19.697,13.422-32.264V100.499\r\n          C548.176,87.936,543.699,77.185,534.75,68.238z\r\n          M511.627,447.672c0,2.478-0.903,4.62-2.711,6.427\r\n          c-1.81,1.807-3.952,2.71-6.427,2.71H45.681c-2.473,0-4.615-0.903-6.423-2.71c-1.807-1.813-2.712-3.949-2.712-6.427V100.499\r\n          c0-2.474,0.902-4.611,2.712-6.423c1.809-1.804,3.951-2.708,6.423-2.708h456.815c2.471,0,4.613,0.902,6.42,2.708\r\n          c1.808,1.812,2.711,3.949,2.711,6.423V447.672L511.627,447.672z");
-    			add_location(path1, file$3, 62, 8, 3531);
+    			add_location(path1, file$3, 62, 8, 3541);
     			attr(rect0, "x", "73.092");
     			attr(rect0, "y", "310.635");
     			attr(rect0, "width", "73.089");
     			attr(rect0, "height", "109.632");
-    			add_location(rect0, file$3, 71, 8, 4333);
+    			add_location(rect0, file$3, 71, 8, 4343);
     			attr(rect1, "x", "182.728");
     			attr(rect1, "y", "164.452");
     			attr(rect1, "width", "73.085");
     			attr(rect1, "height", "255.814");
-    			add_location(rect1, file$3, 72, 8, 4406);
+    			add_location(rect1, file$3, 72, 8, 4416);
     			attr(rect2, "x", "292.362");
     			attr(rect2, "y", "237.541");
     			attr(rect2, "width", "73.083");
     			attr(rect2, "height", "182.726");
-    			add_location(rect2, file$3, 73, 8, 4480);
+    			add_location(rect2, file$3, 73, 8, 4490);
     			attr(rect3, "x", "401.994");
     			attr(rect3, "y", "127.907");
     			attr(rect3, "width", "73.091");
     			attr(rect3, "height", "292.36");
-    			add_location(rect3, file$3, 74, 8, 4554);
+    			add_location(rect3, file$3, 74, 8, 4564);
     			attr(svg1, "xmlns", "http://www.w3.org/2000/svg");
-    			attr(svg1, "class", "icon svelte-a5m3na");
+    			attr(svg1, "class", "icon svelte-66w5rm");
     			attr(svg1, "viewBox", "0 0 548.176 548.176");
-    			add_location(svg1, file$3, 58, 6, 3411);
-    			add_location(span1, file$3, 76, 6, 4639);
-    			button1.className = button1_class_value = "button " + (ctx.$showSummary ? 'selected' : '') + " svelte-a5m3na";
-    			add_location(button1, file$3, 55, 4, 3293);
+    			add_location(svg1, file$3, 58, 6, 3421);
+    			add_location(span1, file$3, 76, 6, 4649);
+    			button1.className = button1_class_value = "button " + (ctx.$showSummary ? 'selected' : '') + " svelte-66w5rm";
+    			add_location(button1, file$3, 55, 4, 3303);
     			set_style(path2, "fill-rule", "evenodd");
     			set_style(path2, "clip-rule", "evenodd");
     			attr(path2, "d", "M267.92,119.461c-0.425-3.778-4.83-6.617-8.639-6.617\r\n          c-12.315,0-23.243-7.231-27.826-18.414c-4.682-11.454-1.663-24.812,7.515-33.231c2.889-2.641,3.24-7.062,0.817-10.133\r\n          c-6.303-8.004-13.467-15.234-21.289-21.5c-3.063-2.458-7.557-2.116-10.213,0.825c-8.01,8.871-22.398,12.168-33.516,7.529\r\n          c-11.57-4.867-18.866-16.591-18.152-29.176c0.235-3.953-2.654-7.39-6.595-7.849c-10.038-1.161-20.164-1.197-30.232-0.08\r\n          c-3.896,0.43-6.785,3.786-6.654,7.689c0.438,12.461-6.946,23.98-18.401,28.672c-10.985,4.487-25.272,1.218-33.266-7.574\r\n          c-2.642-2.896-7.063-3.252-10.141-0.853c-8.054,6.319-15.379,13.555-21.74,21.493c-2.481,3.086-2.116,7.559,0.802,10.214\r\n          c9.353,8.47,12.373,21.944,7.514,33.53c-4.639,11.046-16.109,18.165-29.24,18.165c-4.261-0.137-7.296,2.723-7.762,6.597\r\n          c-1.182,10.096-1.196,20.383-0.058,30.561c0.422,3.794,4.961,6.608,8.812,6.608c11.702-0.299,22.937,6.946,27.65,18.415\r\n          c4.698,11.454,1.678,24.804-7.514,33.23c-2.875,2.641-3.24,7.055-0.817,10.126c6.244,7.953,13.409,15.19,21.259,21.508\r\n          c3.079,2.481,7.559,2.131,10.228-0.81c8.04-8.893,22.427-12.184,33.501-7.536c11.599,4.852,18.895,16.575,18.181,29.167\r\n          c-0.233,3.955,2.67,7.398,6.595,7.85c5.135,0.599,10.301,0.898,15.481,0.898c4.917,0,9.835-0.27,14.752-0.817\r\n          c3.897-0.43,6.784-3.786,6.653-7.696c-0.451-12.454,6.946-23.973,18.386-28.657c11.059-4.517,25.286-1.211,33.281,7.572\r\n          c2.657,2.89,7.047,3.239,10.142,0.848c8.039-6.304,15.349-13.534,21.74-21.494c2.48-3.079,2.13-7.559-0.803-10.213\r\n          c-9.353-8.47-12.388-21.946-7.529-33.524c4.568-10.899,15.612-18.217,27.491-18.217l1.662,0.043\r\n          c3.853,0.313,7.398-2.655,7.865-6.588C269.044,139.917,269.058,129.639,267.92,119.461z\r\n          M134.595,179.491\r\n          c-24.718,0-44.824-20.106-44.824-44.824c0-24.717,20.106-44.824,44.824-44.824c24.717,0,44.823,20.107,44.823,44.824\r\n          C179.418,159.385,159.312,179.491,134.595,179.491z");
-    			add_location(path2, file$3, 85, 8, 4920);
+    			add_location(path2, file$3, 85, 8, 4930);
     			attr(svg2, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg2, "viewBox", "0 0 268.765 268.765");
-    			attr(svg2, "class", "icon svelte-a5m3na");
-    			add_location(svg2, file$3, 81, 6, 4800);
-    			add_location(span2, file$3, 106, 6, 6994);
-    			button2.className = button2_class_value = "button " + (ctx.$showSettings ? 'selected' : '') + " svelte-a5m3na";
-    			add_location(button2, file$3, 78, 4, 4680);
-    			div0.className = "bottom-bar svelte-a5m3na";
-    			add_location(div0, file$3, 24, 2, 1198);
+    			attr(svg2, "class", "icon svelte-66w5rm");
+    			add_location(svg2, file$3, 81, 6, 4810);
+    			add_location(span2, file$3, 106, 6, 7004);
+    			button2.className = button2_class_value = "button " + (ctx.$showSettings ? 'selected' : '') + " svelte-66w5rm";
+    			add_location(button2, file$3, 78, 4, 4690);
+    			div0.className = "bottom-bar svelte-66w5rm";
+    			add_location(div0, file$3, 24, 2, 1208);
     			div1.className = "w-full h-screen bg-backgroundColor overflow-scroll";
-    			add_location(div1, file$3, 22, 0, 1118);
+    			add_location(div1, file$3, 22, 0, 1128);
 
     			dispose = [
     				listen(button0, "click", ctx.click_handler),
@@ -4273,15 +4273,15 @@
     				default_slot.p(get_slot_changes(default_slot_1, ctx, changed, null), get_slot_context(default_slot_1, ctx, null));
     			}
 
-    			if ((!current || changed.$showEntry) && button0_class_value !== (button0_class_value = "button " + (ctx.$showEntry ? 'selected' : '') + " svelte-a5m3na")) {
+    			if ((!current || changed.$showEntry) && button0_class_value !== (button0_class_value = "button " + (ctx.$showEntry ? 'selected' : '') + " svelte-66w5rm")) {
     				button0.className = button0_class_value;
     			}
 
-    			if ((!current || changed.$showSummary) && button1_class_value !== (button1_class_value = "button " + (ctx.$showSummary ? 'selected' : '') + " svelte-a5m3na")) {
+    			if ((!current || changed.$showSummary) && button1_class_value !== (button1_class_value = "button " + (ctx.$showSummary ? 'selected' : '') + " svelte-66w5rm")) {
     				button1.className = button1_class_value;
     			}
 
-    			if ((!current || changed.$showSettings) && button2_class_value !== (button2_class_value = "button " + (ctx.$showSettings ? 'selected' : '') + " svelte-a5m3na")) {
+    			if ((!current || changed.$showSettings) && button2_class_value !== (button2_class_value = "button " + (ctx.$showSettings ? 'selected' : '') + " svelte-66w5rm")) {
     				button2.className = button2_class_value;
     			}
     		},
