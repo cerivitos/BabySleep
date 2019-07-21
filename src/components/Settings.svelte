@@ -127,7 +127,7 @@
   }
 
   .input {
-    @apply w-8 lowercase border-b-4 text-secondaryColor bg-transparent mb-4 text-center;
+    @apply w-8 lowercase border-b-4 text-secondaryColor bg-transparent text-center w-auto;
   }
 </style>
 
@@ -181,7 +181,7 @@
               fill="#4285F4"
               d="M48 48L17 24l-4-3 35-10z" />
           </svg>
-          <span>SIGN IN</span>
+          <span>Sign in with Google</span>
         </button>
       </div>
     </div>
@@ -195,7 +195,7 @@
   </div>
   <div class="mt-8 flex-col">
     <h2>Intervals</h2>
-    <div class="flex">
+    <div class="flex items-center my-4">
       <body class="w-3/4 font-bold">Nap 1 to Nap 2</body>
       <input
         type="number"
@@ -212,7 +212,7 @@
         class="input" />
       <body class="ml-1">min</body>
     </div>
-    <div class="flex">
+    <div class="flex items-center mb-4">
       <body class="w-3/4 font-bold">Nap 2 to Nap 3</body>
       <input
         type="number"
@@ -229,7 +229,7 @@
         class="input" />
       <body class="ml-1">min</body>
     </div>
-    <div class="flex pb-8">
+    <div class="flex pb-8 items-center mb-4">
       <body class="w-3/4 font-bold">Nap 3 to Sleep</body>
       <input
         type="number"
