@@ -12,5 +12,14 @@
       "headers": { "cache-control": "max-age=0,must-revalidate" },
       "dest": "dist/$1"
     }
-  ]
+  ],
+  "env": {
+    "CLIENT_ID": "@client-id",
+    "API_KEY": "@api-key",
+    "SCOPES": "@scopes",
+    "DISCOVERY_DOCS": "@discovery-docs",
+    "SPREADSHEET_ID": "@spreadsheet-id",
+    "SHEET_NAME": "@sheet-name",
+    "SHEET_ID": "@sheet-id"
+  }
 }
