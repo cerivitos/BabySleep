@@ -426,13 +426,13 @@
   <div class="w-full flex justify-center mt-8">
     <div class="inline-flex">
       <button
-        class="{isNap ? '' : 'opacity-25'} bg-accentColor3 text-white font-bold
+        class="{isNap ? '' : 'opacity-25'} bg-accentColor3 text-white
         py-2 px-4 rounded-l outline-none"
         on:click={() => (isNap = true)}>
         &nbsp;Nap&nbsp;
       </button>
       <button
-        class="{!isNap ? '' : 'opacity-25'} bg-accentColor3 text-white font-bold
+        class="{!isNap ? '' : 'opacity-25'} bg-accentColor3 text-white
         py-2 px-4 rounded-r outline-none"
         on:click={() => (isNap = false)}>
         Sleep
@@ -442,7 +442,7 @@
   <div class="flex items-center justify-center">
     <button
       class="py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white
-      text-2xl font-bold hover:shadow-lg border-b-4 border-teal-700 {check2v1 && check3v2 && check4v3 ? '' : 'opacity-50'}"
+      text-2xl hover:shadow-lg border-b-4 border-teal-700 {check2v1 && check3v2 && check4v3 ? '' : 'opacity-50'}"
       on:click={() => ($userName !== undefined ? validateAndSend() : signIn())}>
       Submit
     </button>

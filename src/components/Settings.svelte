@@ -123,7 +123,7 @@
   }
 
   .button {
-    @apply text-primaryColor flex-none font-bold p-2 rounded fill-current;
+    @apply text-primaryColor flex-none p-2 rounded fill-current;
   }
 
   .input {
@@ -140,7 +140,7 @@
           src={$userPic}
           alt="User profile picture"
           class="rounded-full w-8 h-8 mr-2 flex-none" />
-        <body class="flex-1 font-bold">{$userName}</body>
+        <body class="flex-1">{$userName}</body>
         <button class="button" on:click={() => signOut()}>SIGN OUT</button>
       </div>
     </div>
@@ -149,7 +149,7 @@
       <h2>Sign in required</h2>
       <div class="flex justify-center">
         <button
-          class="flex bg-white rounded shadow text-gray-700 font-bold py-2 px-4"
+          class="flex bg-white rounded shadow text-gray-700 py-2 px-4"
           on:click={() => signIn()}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -189,14 +189,14 @@
   <div class="mt-8 flex-col">
     <h2>Connected to</h2>
     <div class="flex items-center">
-      <body class="flex-1 font-bold">Hongjun's Sleep Log</body>
+      <body class="flex-1">Hongjun's Sleep Log</body>
       <button class="button" on:click={() => openSheet()}>OPEN</button>
     </div>
   </div>
   <div class="mt-8 flex-col">
     <h2>Intervals</h2>
     <div class="flex items-center my-4">
-      <body class="w-3/4 font-bold">Nap 1 to Nap 2</body>
+      <body class="w-3/4">Nap 1 to Nap 2</body>
       <input
         type="number"
         bind:value={Nap1ToNap2Hr}
@@ -213,7 +213,7 @@
       <body class="ml-1">min</body>
     </div>
     <div class="flex items-center mb-4">
-      <body class="w-3/4 font-bold">Nap 2 to Nap 3</body>
+      <body class="w-3/4">Nap 2 to Nap 3</body>
       <input
         type="number"
         bind:value={Nap2ToNap3Hr}
@@ -230,7 +230,7 @@
       <body class="ml-1">min</body>
     </div>
     <div class="flex pb-8 items-center mb-4">
-      <body class="w-3/4 font-bold">Nap 3 to Sleep</body>
+      <body class="w-3/4">Nap 3 to Sleep</body>
       <input
         type="number"
         bind:value={Nap3ToSleepHr}
