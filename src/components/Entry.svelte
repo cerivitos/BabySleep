@@ -183,15 +183,13 @@
                   .then(response => {
                     nextPutDownTime = calculateNextPutDownTime(napNumber);
 
-                    putDownTime = "";
-                    sleepTime = "";
-                    wakeTime = "";
-                    pickUpTime = "";
+                    putDownTime = format(new Date(), "HH:mm");
+                    sleepTime = undefined;
+                    wakeTime = undefined;
+                    pickUpTime = undefined;
                     check2v1 = false;
                     check3v2 = false;
                     check4v3 = false;
-
-                    window.scrollTo({ top: 0, behavior: "smooth" });
                   });
               }
             });

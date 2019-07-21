@@ -3912,7 +3912,7 @@
 
     const file$1 = "src\\components\\Entry.svelte";
 
-    // (392:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
+    // (390:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
     function create_default_slot(ctx) {
     	var div1, div0, button0, t0, button0_class_value, t1, button1, t2, button1_class_value, t3, div2, button2, t4, button2_class_value, dispose;
 
@@ -3930,17 +3930,17 @@
     			button2 = element("button");
     			t4 = text("Submit");
     			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white font-bold\r\n        py-2 px-4 rounded-l outline-none";
-    			add_location(button0, file$1, 400, 6, 12494);
+    			add_location(button0, file$1, 398, 6, 12468);
     			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white font-bold\r\n        py-2 px-4 rounded-r outline-none";
-    			add_location(button1, file$1, 406, 6, 12717);
+    			add_location(button1, file$1, 404, 6, 12691);
     			div0.className = "inline-flex";
-    			add_location(div0, file$1, 399, 4, 12461);
+    			add_location(div0, file$1, 397, 4, 12435);
     			div1.className = "w-full flex justify-center mt-8";
-    			add_location(div1, file$1, 398, 2, 12410);
+    			add_location(div1, file$1, 396, 2, 12384);
     			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      text-2xl font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50');
-    			add_location(button2, file$1, 415, 4, 13002);
+    			add_location(button2, file$1, 413, 4, 12976);
     			div2.className = "flex items-center justify-center";
-    			add_location(div2, file$1, 414, 2, 12950);
+    			add_location(div2, file$1, 412, 2, 12924);
 
     			dispose = [
     				listen(button0, "click", ctx.click_handler),
@@ -4064,19 +4064,19 @@
     			t10 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold text-backgroundColor";
-    			add_location(div0, file$1, 352, 4, 11210);
+    			add_location(div0, file$1, 350, 4, 11184);
     			body0.className = "text-2xl justify-center items-center flex";
-    			add_location(body0, file$1, 350, 2, 11127);
+    			add_location(body0, file$1, 348, 2, 11101);
     			div1.className = "w-full overflow-hidden bg-accentColor text-white";
     			set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
-    			add_location(div1, file$1, 347, 0, 11008);
+    			add_location(div1, file$1, 345, 0, 10982);
     			div2.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div2, file$1, 376, 4, 11874);
+    			add_location(div2, file$1, 374, 4, 11848);
     			body1.className = "text-2xl justify-center items-center flex";
-    			add_location(body1, file$1, 374, 2, 11796);
+    			add_location(body1, file$1, 372, 2, 11770);
     			div3.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div3, file$1, 371, 0, 11686);
+    			add_location(div3, file$1, 369, 0, 11660);
     		},
 
     		l: function claim(nodes) {
@@ -4368,15 +4368,13 @@
                       .then(response => {
                         $$invalidate('nextPutDownTime', nextPutDownTime = calculateNextPutDownTime(napNumber));
 
-                        $$invalidate('putDownTime', putDownTime = "");
-                        $$invalidate('sleepTime', sleepTime = "");
-                        $$invalidate('wakeTime', wakeTime = "");
-                        $$invalidate('pickUpTime', pickUpTime = "");
+                        $$invalidate('putDownTime', putDownTime = format(new Date(), "HH:mm"));
+                        $$invalidate('sleepTime', sleepTime = undefined);
+                        $$invalidate('wakeTime', wakeTime = undefined);
+                        $$invalidate('pickUpTime', pickUpTime = undefined);
                         $$invalidate('check2v1', check2v1 = false);
                         $$invalidate('check3v2', check3v2 = false);
                         $$invalidate('check4v3', check4v3 = false);
-
-                        window.scrollTo({ top: 0, behavior: "smooth" });
                       });
                   }
                 });
