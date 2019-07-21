@@ -5,7 +5,7 @@ var filesToCache = [
   "/main.css",
   "/main.js",
   "/components.css",
-  "https://fonts.googleapis.com/css?family=Oswald|Lobster&display=swap",
+  "https://fonts.googleapis.com/css?family=Roboto|Lobster&display=swap",
   "https://apis.google.com/js/api.js"
 ];
 self.addEventListener("install", function(e) {

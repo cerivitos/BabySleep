@@ -3933,18 +3933,18 @@
     			div2 = element("div");
     			button2 = element("button");
     			t4 = text("Submit");
-    			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white font-bold\r\n        py-2 px-4 rounded-l outline-none";
+    			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white\r\n        py-2 px-4 rounded-l outline-none";
     			add_location(button0, file$1, 427, 6, 13318);
-    			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white font-bold\r\n        py-2 px-4 rounded-r outline-none";
-    			add_location(button1, file$1, 433, 6, 13541);
+    			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white\r\n        py-2 px-4 rounded-r outline-none";
+    			add_location(button1, file$1, 433, 6, 13531);
     			div0.className = "inline-flex";
     			add_location(div0, file$1, 426, 4, 13285);
     			div1.className = "w-full flex justify-center mt-8";
     			add_location(div1, file$1, 425, 2, 13234);
-    			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      text-2xl font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50');
-    			add_location(button2, file$1, 442, 4, 13826);
+    			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      text-2xl hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50');
+    			add_location(button2, file$1, 442, 4, 13806);
     			div2.className = "flex items-center justify-center";
-    			add_location(div2, file$1, 441, 2, 13774);
+    			add_location(div2, file$1, 441, 2, 13754);
 
     			dispose = [
     				listen(button0, "click", ctx.click_handler),
@@ -3968,15 +3968,15 @@
     		},
 
     		p: function update(changed, ctx) {
-    			if ((changed.isNap) && button0_class_value !== (button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white font-bold\r\n        py-2 px-4 rounded-l outline-none")) {
+    			if ((changed.isNap) && button0_class_value !== (button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white\r\n        py-2 px-4 rounded-l outline-none")) {
     				button0.className = button0_class_value;
     			}
 
-    			if ((changed.isNap) && button1_class_value !== (button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white font-bold\r\n        py-2 px-4 rounded-r outline-none")) {
+    			if ((changed.isNap) && button1_class_value !== (button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white\r\n        py-2 px-4 rounded-r outline-none")) {
     				button1.className = button1_class_value;
     			}
 
-    			if ((changed.check2v1 || changed.check3v2 || changed.check4v3) && button2_class_value !== (button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      text-2xl font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50'))) {
+    			if ((changed.check2v1 || changed.check3v2 || changed.check4v3) && button2_class_value !== (button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      text-2xl hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50'))) {
     				button2.className = button2_class_value;
     			}
     		},
@@ -4794,45 +4794,45 @@
     			t2 = space();
     			span = element("span");
     			span.textContent = "Sign in with Google";
-    			h2.className = "svelte-1cfinnr";
-    			add_location(h2, file$3, 132, 6, 4268);
+    			h2.className = "svelte-1k86l13";
+    			add_location(h2, file$3, 132, 6, 4242);
     			attr(path0, "id", "a");
     			attr(path0, "d", "M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2\r\n                0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6\r\n                4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22\r\n                0-1.3-.2-2.7-.5-4z");
-    			add_location(path0, file$3, 143, 14, 4695);
-    			add_location(defs, file$3, 142, 12, 4673);
+    			add_location(path0, file$3, 143, 14, 4659);
+    			add_location(defs, file$3, 142, 12, 4637);
     			xlink_attr(use, "xlink:href", "#a");
     			attr(use, "overflow", "visible");
-    			add_location(use, file$3, 151, 14, 5063);
+    			add_location(use, file$3, 151, 14, 5027);
     			attr(clipPath, "id", "b");
-    			add_location(clipPath, file$3, 150, 12, 5030);
+    			add_location(clipPath, file$3, 150, 12, 4994);
     			attr(path1, "clip-path", "url(#b)");
     			attr(path1, "fill", "#FBBC05");
     			attr(path1, "d", "M0 37V11l17 13z");
-    			add_location(path1, file$3, 153, 12, 5144);
+    			add_location(path1, file$3, 153, 12, 5108);
     			attr(path2, "clip-path", "url(#b)");
     			attr(path2, "fill", "#EA4335");
     			attr(path2, "d", "M0 11l17 13 7-6.1L48 14V0H0z");
-    			add_location(path2, file$3, 154, 12, 5221);
+    			add_location(path2, file$3, 154, 12, 5185);
     			attr(path3, "clip-path", "url(#b)");
     			attr(path3, "fill", "#34A853");
     			attr(path3, "d", "M0 37l30-23 7.9 1L48 0v48H0z");
-    			add_location(path3, file$3, 158, 12, 5356);
+    			add_location(path3, file$3, 158, 12, 5320);
     			attr(path4, "clip-path", "url(#b)");
     			attr(path4, "fill", "#4285F4");
     			attr(path4, "d", "M48 48L17 24l-4-3 35-10z");
-    			add_location(path4, file$3, 162, 12, 5491);
+    			add_location(path4, file$3, 162, 12, 5455);
     			attr(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg, "xmlns:xlink", "http://www.w3.org/1999/xlink");
     			attr(svg, "viewBox", "0 0 48 48");
     			attr(svg, "class", "w-6 h-6 pr-2");
-    			add_location(svg, file$3, 137, 10, 4483);
-    			add_location(span, file$3, 167, 10, 5638);
-    			button.className = "flex bg-white rounded shadow text-gray-700 font-bold py-2 px-4";
-    			add_location(button, file$3, 134, 8, 4344);
+    			add_location(svg, file$3, 137, 10, 4447);
+    			add_location(span, file$3, 167, 10, 5602);
+    			button.className = "flex bg-white rounded shadow text-gray-700 py-2 px-4";
+    			add_location(button, file$3, 134, 8, 4318);
     			div0.className = "flex justify-center";
-    			add_location(div0, file$3, 133, 6, 4301);
+    			add_location(div0, file$3, 133, 6, 4275);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$3, 131, 4, 4205);
+    			add_location(div1, file$3, 131, 4, 4179);
     			dispose = listen(button, "click", ctx.click_handler_1);
     		},
 
@@ -4896,20 +4896,20 @@
     			t4 = space();
     			button = element("button");
     			button.textContent = "SIGN OUT";
-    			h2.className = "svelte-1cfinnr";
-    			add_location(h2, file$3, 120, 6, 3830);
+    			h2.className = "svelte-1k86l13";
+    			add_location(h2, file$3, 120, 6, 3814);
     			img.src = ctx.$userPic;
     			img.alt = "User profile picture";
     			img.className = "rounded-full w-8 h-8 mr-2 flex-none";
-    			add_location(img, file$3, 122, 8, 3900);
-    			body.className = "flex-1 font-bold svelte-1cfinnr";
-    			add_location(body, file$3, 126, 8, 4036);
-    			button.className = "button svelte-1cfinnr";
-    			add_location(button, file$3, 127, 8, 4095);
+    			add_location(img, file$3, 122, 8, 3884);
+    			body.className = "flex-1 svelte-1k86l13";
+    			add_location(body, file$3, 126, 8, 4020);
+    			button.className = "button svelte-1k86l13";
+    			add_location(button, file$3, 127, 8, 4069);
     			div0.className = "flex items-center";
-    			add_location(div0, file$3, 121, 6, 3859);
+    			add_location(div0, file$3, 121, 6, 3843);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$3, 119, 4, 3767);
+    			add_location(div1, file$3, 119, 4, 3751);
     			dispose = listen(button, "click", ctx.click_handler);
     		},
 
@@ -5029,77 +5029,77 @@
     			t30 = space();
     			body9 = element("body");
     			body9.textContent = "min";
-    			h20.className = "svelte-1cfinnr";
-    			add_location(h20, file$3, 173, 4, 5761);
-    			body0.className = "flex-1 font-bold svelte-1cfinnr";
-    			add_location(body0, file$3, 175, 6, 5827);
-    			button.className = "button svelte-1cfinnr";
-    			add_location(button, file$3, 176, 6, 5892);
+    			h20.className = "svelte-1k86l13";
+    			add_location(h20, file$3, 173, 4, 5725);
+    			body0.className = "flex-1 svelte-1k86l13";
+    			add_location(body0, file$3, 175, 6, 5791);
+    			button.className = "button svelte-1k86l13";
+    			add_location(button, file$3, 176, 6, 5846);
     			div0.className = "flex items-center";
-    			add_location(div0, file$3, 174, 4, 5788);
+    			add_location(div0, file$3, 174, 4, 5752);
     			div1.className = "mt-8 flex-col";
-    			add_location(div1, file$3, 172, 2, 5728);
-    			h21.className = "svelte-1cfinnr";
-    			add_location(h21, file$3, 180, 4, 6016);
-    			body1.className = "w-3/4 font-bold svelte-1cfinnr";
-    			add_location(body1, file$3, 182, 6, 6084);
+    			add_location(div1, file$3, 172, 2, 5692);
+    			h21.className = "svelte-1k86l13";
+    			add_location(h21, file$3, 180, 4, 5970);
+    			body1.className = "w-3/4 svelte-1k86l13";
+    			add_location(body1, file$3, 182, 6, 6038);
     			attr(input0, "type", "number");
     			input0.max = "3";
     			input0.min = "0";
-    			input0.className = "input svelte-1cfinnr";
-    			add_location(input0, file$3, 183, 6, 6143);
-    			body2.className = "ml-1 mr-2 svelte-1cfinnr";
-    			add_location(body2, file$3, 189, 6, 6275);
+    			input0.className = "input svelte-1k86l13";
+    			add_location(input0, file$3, 183, 6, 6087);
+    			body2.className = "ml-1 mr-2 svelte-1k86l13";
+    			add_location(body2, file$3, 189, 6, 6219);
     			attr(input1, "type", "number");
     			input1.max = "59";
     			input1.min = "0";
-    			input1.className = "input svelte-1cfinnr";
-    			add_location(input1, file$3, 190, 6, 6316);
-    			body3.className = "ml-1 svelte-1cfinnr";
-    			add_location(body3, file$3, 196, 6, 6450);
+    			input1.className = "input svelte-1k86l13";
+    			add_location(input1, file$3, 190, 6, 6260);
+    			body3.className = "ml-1 svelte-1k86l13";
+    			add_location(body3, file$3, 196, 6, 6394);
     			div2.className = "flex items-center my-4";
-    			add_location(div2, file$3, 181, 4, 6040);
-    			body4.className = "w-3/4 font-bold svelte-1cfinnr";
-    			add_location(body4, file$3, 199, 6, 6541);
+    			add_location(div2, file$3, 181, 4, 5994);
+    			body4.className = "w-3/4 svelte-1k86l13";
+    			add_location(body4, file$3, 199, 6, 6485);
     			attr(input2, "type", "number");
     			input2.max = "3";
     			input2.min = "0";
-    			input2.className = "input svelte-1cfinnr";
-    			add_location(input2, file$3, 200, 6, 6600);
-    			body5.className = "ml-1 mr-2 svelte-1cfinnr";
-    			add_location(body5, file$3, 206, 6, 6732);
+    			input2.className = "input svelte-1k86l13";
+    			add_location(input2, file$3, 200, 6, 6534);
+    			body5.className = "ml-1 mr-2 svelte-1k86l13";
+    			add_location(body5, file$3, 206, 6, 6666);
     			attr(input3, "type", "number");
     			input3.max = "59";
     			input3.min = "0";
-    			input3.className = "input svelte-1cfinnr";
-    			add_location(input3, file$3, 207, 6, 6773);
-    			body6.className = "ml-1 svelte-1cfinnr";
-    			add_location(body6, file$3, 213, 6, 6907);
+    			input3.className = "input svelte-1k86l13";
+    			add_location(input3, file$3, 207, 6, 6707);
+    			body6.className = "ml-1 svelte-1k86l13";
+    			add_location(body6, file$3, 213, 6, 6841);
     			div3.className = "flex items-center mb-4";
-    			add_location(div3, file$3, 198, 4, 6497);
-    			body7.className = "w-3/4 font-bold svelte-1cfinnr";
-    			add_location(body7, file$3, 216, 6, 7003);
+    			add_location(div3, file$3, 198, 4, 6441);
+    			body7.className = "w-3/4 svelte-1k86l13";
+    			add_location(body7, file$3, 216, 6, 6937);
     			attr(input4, "type", "number");
     			input4.max = "3";
     			input4.min = "0";
-    			input4.className = "input svelte-1cfinnr";
+    			input4.className = "input svelte-1k86l13";
     			input4.id = "Nap3ToSleepHr";
-    			add_location(input4, file$3, 217, 6, 7062);
-    			body8.className = "ml-1 mr-2 svelte-1cfinnr";
-    			add_location(body8, file$3, 224, 6, 7223);
+    			add_location(input4, file$3, 217, 6, 6986);
+    			body8.className = "ml-1 mr-2 svelte-1k86l13";
+    			add_location(body8, file$3, 224, 6, 7147);
     			attr(input5, "type", "number");
     			input5.max = "59";
     			input5.min = "0";
-    			input5.className = "input svelte-1cfinnr";
-    			add_location(input5, file$3, 225, 6, 7264);
-    			body9.className = "ml-1 svelte-1cfinnr";
-    			add_location(body9, file$3, 231, 6, 7399);
+    			input5.className = "input svelte-1k86l13";
+    			add_location(input5, file$3, 225, 6, 7188);
+    			body9.className = "ml-1 svelte-1k86l13";
+    			add_location(body9, file$3, 231, 6, 7323);
     			div4.className = "flex pb-8 items-center mb-4";
-    			add_location(div4, file$3, 215, 4, 6954);
+    			add_location(div4, file$3, 215, 4, 6888);
     			div5.className = "mt-8 flex-col";
-    			add_location(div5, file$3, 179, 2, 5983);
+    			add_location(div5, file$3, 179, 2, 5937);
     			div6.className = "w-full bg-backgroundColor p-4";
-    			add_location(div6, file$3, 117, 0, 3659);
+    			add_location(div6, file$3, 117, 0, 3643);
 
     			dispose = [
     				listen(button, "click", ctx.click_handler_2),
@@ -5406,11 +5406,68 @@
     	}
     }
 
-    /* src\components\Scaffold.svelte generated by Svelte v3.4.0 */
+    /* src\components\Summary.svelte generated by Svelte v3.4.0 */
 
-    const file$4 = "src\\components\\Scaffold.svelte";
+    const file$4 = "src\\components\\Summary.svelte";
 
     function create_fragment$4(ctx) {
+    	var div1, div0, h1, t_1, h2;
+
+    	return {
+    		c: function create() {
+    			div1 = element("div");
+    			div0 = element("div");
+    			h1 = element("h1");
+    			h1.textContent = "Dashboard";
+    			t_1 = space();
+    			h2 = element("h2");
+    			h2.textContent = "Work in progress";
+    			h1.className = "text-primaryColor";
+    			add_location(h1, file$4, 2, 4, 89);
+    			h2.className = "text-secondaryColor";
+    			add_location(h2, file$4, 3, 4, 139);
+    			div0.className = "w-full text-center";
+    			add_location(div0, file$4, 1, 2, 51);
+    			div1.className = "h-screen w-full flex items-center";
+    			add_location(div1, file$4, 0, 0, 0);
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div1, anchor);
+    			append(div1, div0);
+    			append(div0, h1);
+    			append(div0, t_1);
+    			append(div0, h2);
+    		},
+
+    		p: noop,
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div1);
+    			}
+    		}
+    	};
+    }
+
+    class Summary extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, null, create_fragment$4, safe_not_equal, []);
+    	}
+    }
+
+    /* src\components\Scaffold.svelte generated by Svelte v3.4.0 */
+
+    const file$5 = "src\\components\\Scaffold.svelte";
+
+    function create_fragment$5(ctx) {
     	var div2, div0, t0, div1, button0, svg0, path0, t1, span0, button0_class_value, t3, button1, svg1, path1, rect0, rect1, rect2, rect3, t4, span1, button1_class_value, t6, button2, svg2, path2, t7, span2, button2_class_value, current, dispose;
 
     	add_render_callback(ctx.onwindowresize);
@@ -5452,60 +5509,60 @@
     			span2.textContent = "Settings";
 
     			div0.className = "mb-8";
-    			add_location(div0, file$4, 30, 2, 1387);
+    			add_location(div0, file$5, 30, 2, 1387);
     			attr(path0, "d", "M80.197,44.939v-9.746c0-1.761,1.433-3.193,3.193-3.193h60.053c1.761,0,3.193,1.433,3.193,3.193v9.746\r\n          c0,1.761-1.433,3.193-3.193,3.193H83.391C81.63,48.133,80.197,46.7,80.197,44.939z\r\n          M131.841,17c-0.768-9.5-8.729-17-18.424-17\r\n          S95.761,7.5,94.993,17H131.841z\r\n          M192.309,55.334v151.333c0,11.12-9.047,20.167-20.167,20.167H54.692\r\n          c-11.12,0-20.167-9.047-20.167-20.167V55.334c0-11.12,9.047-20.167,20.167-20.167h10.506c0,0.009-0.001,0.018-0.001,0.026v9.746\r\n          c0,10.032,8.162,18.193,18.193,18.193h60.053c10.032,0,18.193-8.161,18.193-18.193v-9.746c0-0.009-0.001-0.018-0.001-0.026h10.506\r\n          C183.262,35.167,192.309,44.214,192.309,55.334z\r\n          M88.183,143.449c-3.526-2.173-8.147-1.077-10.32,2.449l-7.092,11.504l-3.661-2.884\r\n          c-3.252-2.563-7.97-2.002-10.532,1.252c-2.563,3.255-2.002,7.97,1.252,10.533l10.271,8.089c1.332,1.049,2.969,1.607,4.64,1.607\r\n          c0.436,0,0.875-0.038,1.311-0.115c2.105-0.374,3.952-1.629,5.074-3.449l11.506-18.666C92.806,150.243,91.709,145.623,88.183,143.449\r\n          z\r\n          M88.183,89.449c-3.526-2.174-8.147-1.076-10.32,2.449l-7.092,11.504l-3.661-2.884c-3.252-2.562-7.97-2.002-10.532,1.252\r\n          c-2.563,3.255-2.002,7.97,1.252,10.533l10.271,8.089c1.332,1.049,2.969,1.607,4.64,1.607c0.436,0,0.875-0.038,1.311-0.115\r\n          c2.105-0.374,3.952-1.629,5.074-3.449L90.632,99.77C92.806,96.243,91.709,91.623,88.183,89.449z\r\n          M165.858,168.5\r\n          c0-4.143-3.357-7.5-7.5-7.5h-49c-4.142,0-7.5,3.357-7.5,7.5s3.358,7.5,7.5,7.5h49C162.501,176,165.858,172.643,165.858,168.5z\r\n          M165.858,114.5c0-4.143-3.357-7.5-7.5-7.5h-49c-4.142,0-7.5,3.357-7.5,7.5s3.358,7.5,7.5,7.5h49\r\n          C162.501,122,165.858,118.643,165.858,114.5z");
-    			add_location(path0, file$4, 41, 8, 1697);
+    			add_location(path0, file$5, 41, 8, 1697);
     			attr(svg0, "class", "icon svelte-66w5rm");
     			attr(svg0, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg0, "viewBox", "0 0 226.834 226.834");
-    			add_location(svg0, file$4, 37, 6, 1577);
-    			add_location(span0, file$4, 62, 6, 3489);
+    			add_location(svg0, file$5, 37, 6, 1577);
+    			add_location(span0, file$5, 62, 6, 3489);
     			button0.className = button0_class_value = "button " + (ctx.$showEntry ? 'selected' : '') + " svelte-66w5rm";
-    			add_location(button0, file$4, 34, 4, 1463);
+    			add_location(button0, file$5, 34, 4, 1463);
     			attr(path1, "d", "M534.75,68.238c-8.945-8.945-19.694-13.417-32.261-13.417H45.681c-12.562,0-23.313,4.471-32.264,13.417\r\n          C4.471,77.185,0,87.936,0,100.499v347.173c0,12.566,4.471,23.318,13.417,32.264c8.951,8.946,19.702,13.419,32.264,13.419h456.815\r\n          c12.56,0,23.312-4.473,32.258-13.419c8.945-8.945,13.422-19.697,13.422-32.264V100.499\r\n          C548.176,87.936,543.699,77.185,534.75,68.238z\r\n          M511.627,447.672c0,2.478-0.903,4.62-2.711,6.427\r\n          c-1.81,1.807-3.952,2.71-6.427,2.71H45.681c-2.473,0-4.615-0.903-6.423-2.71c-1.807-1.813-2.712-3.949-2.712-6.427V100.499\r\n          c0-2.474,0.902-4.611,2.712-6.423c1.809-1.804,3.951-2.708,6.423-2.708h456.815c2.471,0,4.613,0.902,6.42,2.708\r\n          c1.808,1.812,2.711,3.949,2.711,6.423V447.672L511.627,447.672z");
-    			add_location(path1, file$4, 71, 8, 3766);
+    			add_location(path1, file$5, 71, 8, 3766);
     			attr(rect0, "x", "73.092");
     			attr(rect0, "y", "310.635");
     			attr(rect0, "width", "73.089");
     			attr(rect0, "height", "109.632");
-    			add_location(rect0, file$4, 80, 8, 4568);
+    			add_location(rect0, file$5, 80, 8, 4568);
     			attr(rect1, "x", "182.728");
     			attr(rect1, "y", "164.452");
     			attr(rect1, "width", "73.085");
     			attr(rect1, "height", "255.814");
-    			add_location(rect1, file$4, 81, 8, 4641);
+    			add_location(rect1, file$5, 81, 8, 4641);
     			attr(rect2, "x", "292.362");
     			attr(rect2, "y", "237.541");
     			attr(rect2, "width", "73.083");
     			attr(rect2, "height", "182.726");
-    			add_location(rect2, file$4, 82, 8, 4715);
+    			add_location(rect2, file$5, 82, 8, 4715);
     			attr(rect3, "x", "401.994");
     			attr(rect3, "y", "127.907");
     			attr(rect3, "width", "73.091");
     			attr(rect3, "height", "292.36");
-    			add_location(rect3, file$4, 83, 8, 4789);
+    			add_location(rect3, file$5, 83, 8, 4789);
     			attr(svg1, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg1, "class", "icon svelte-66w5rm");
     			attr(svg1, "viewBox", "0 0 548.176 548.176");
-    			add_location(svg1, file$4, 67, 6, 3646);
-    			add_location(span1, file$4, 85, 6, 4874);
+    			add_location(svg1, file$5, 67, 6, 3646);
+    			add_location(span1, file$5, 85, 6, 4874);
     			button1.className = button1_class_value = "button " + (ctx.$showSummary ? 'selected' : '') + " svelte-66w5rm";
-    			add_location(button1, file$4, 64, 4, 3528);
+    			add_location(button1, file$5, 64, 4, 3528);
     			set_style(path2, "fill-rule", "evenodd");
     			set_style(path2, "clip-rule", "evenodd");
     			attr(path2, "d", "M267.92,119.461c-0.425-3.778-4.83-6.617-8.639-6.617\r\n          c-12.315,0-23.243-7.231-27.826-18.414c-4.682-11.454-1.663-24.812,7.515-33.231c2.889-2.641,3.24-7.062,0.817-10.133\r\n          c-6.303-8.004-13.467-15.234-21.289-21.5c-3.063-2.458-7.557-2.116-10.213,0.825c-8.01,8.871-22.398,12.168-33.516,7.529\r\n          c-11.57-4.867-18.866-16.591-18.152-29.176c0.235-3.953-2.654-7.39-6.595-7.849c-10.038-1.161-20.164-1.197-30.232-0.08\r\n          c-3.896,0.43-6.785,3.786-6.654,7.689c0.438,12.461-6.946,23.98-18.401,28.672c-10.985,4.487-25.272,1.218-33.266-7.574\r\n          c-2.642-2.896-7.063-3.252-10.141-0.853c-8.054,6.319-15.379,13.555-21.74,21.493c-2.481,3.086-2.116,7.559,0.802,10.214\r\n          c9.353,8.47,12.373,21.944,7.514,33.53c-4.639,11.046-16.109,18.165-29.24,18.165c-4.261-0.137-7.296,2.723-7.762,6.597\r\n          c-1.182,10.096-1.196,20.383-0.058,30.561c0.422,3.794,4.961,6.608,8.812,6.608c11.702-0.299,22.937,6.946,27.65,18.415\r\n          c4.698,11.454,1.678,24.804-7.514,33.23c-2.875,2.641-3.24,7.055-0.817,10.126c6.244,7.953,13.409,15.19,21.259,21.508\r\n          c3.079,2.481,7.559,2.131,10.228-0.81c8.04-8.893,22.427-12.184,33.501-7.536c11.599,4.852,18.895,16.575,18.181,29.167\r\n          c-0.233,3.955,2.67,7.398,6.595,7.85c5.135,0.599,10.301,0.898,15.481,0.898c4.917,0,9.835-0.27,14.752-0.817\r\n          c3.897-0.43,6.784-3.786,6.653-7.696c-0.451-12.454,6.946-23.973,18.386-28.657c11.059-4.517,25.286-1.211,33.281,7.572\r\n          c2.657,2.89,7.047,3.239,10.142,0.848c8.039-6.304,15.349-13.534,21.74-21.494c2.48-3.079,2.13-7.559-0.803-10.213\r\n          c-9.353-8.47-12.388-21.946-7.529-33.524c4.568-10.899,15.612-18.217,27.491-18.217l1.662,0.043\r\n          c3.853,0.313,7.398-2.655,7.865-6.588C269.044,139.917,269.058,129.639,267.92,119.461z\r\n          M134.595,179.491\r\n          c-24.718,0-44.824-20.106-44.824-44.824c0-24.717,20.106-44.824,44.824-44.824c24.717,0,44.823,20.107,44.823,44.824\r\n          C179.418,159.385,159.312,179.491,134.595,179.491z");
-    			add_location(path2, file$4, 94, 8, 5155);
+    			add_location(path2, file$5, 94, 8, 5155);
     			attr(svg2, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg2, "viewBox", "0 0 268.765 268.765");
     			attr(svg2, "class", "icon svelte-66w5rm");
-    			add_location(svg2, file$4, 90, 6, 5035);
-    			add_location(span2, file$4, 115, 6, 7229);
+    			add_location(svg2, file$5, 90, 6, 5035);
+    			add_location(span2, file$5, 115, 6, 7229);
     			button2.className = button2_class_value = "button " + (ctx.$showSettings ? 'selected' : '') + " svelte-66w5rm";
-    			add_location(button2, file$4, 87, 4, 4915);
+    			add_location(button2, file$5, 87, 4, 4915);
     			div1.className = "bottom-bar svelte-66w5rm";
-    			add_location(div1, file$4, 33, 2, 1433);
+    			add_location(div1, file$5, 33, 2, 1433);
     			div2.className = "w-full h-screen bg-backgroundColor overflow-scroll ";
-    			add_location(div2, file$4, 29, 0, 1318);
+    			add_location(div2, file$5, 29, 0, 1318);
 
     			dispose = [
     				listen(window, "resize", ctx.onwindowresize),
@@ -5667,16 +5724,16 @@
     class Scaffold extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$4, create_fragment$4, safe_not_equal, []);
+    		init(this, options, instance$4, create_fragment$5, safe_not_equal, []);
     	}
     }
 
     /* src\App.svelte generated by Svelte v3.4.0 */
 
-    const file$5 = "src\\App.svelte";
+    const file$6 = "src\\App.svelte";
 
-    // (18:4) {#if $showEntry}
-    function create_if_block_1(ctx) {
+    // (19:4) {#if $showEntry}
+    function create_if_block_2(ctx) {
     	var div, div_transition, current;
 
     	var entry = new Entry({ $$inline: true });
@@ -5685,7 +5742,7 @@
     		c: function create() {
     			div = element("div");
     			entry.$$.fragment.c();
-    			add_location(div, file$5, 18, 6, 649);
+    			add_location(div, file$6, 19, 6, 703);
     		},
 
     		m: function mount(target, anchor) {
@@ -5729,8 +5786,8 @@
     	};
     }
 
-    // (23:4) {#if $showSettings}
-    function create_if_block$1(ctx) {
+    // (24:4) {#if $showSettings}
+    function create_if_block_1(ctx) {
     	var div, div_transition, current;
 
     	var settings = new Settings({ $$inline: true });
@@ -5739,7 +5796,7 @@
     		c: function create() {
     			div = element("div");
     			settings.$$.fragment.c();
-    			add_location(div, file$5, 23, 6, 767);
+    			add_location(div, file$6, 24, 6, 821);
     		},
 
     		m: function mount(target, anchor) {
@@ -5783,37 +5840,97 @@
     	};
     }
 
-    // (17:2) <Scaffold>
+    // (29:4) {#if $showSummary}
+    function create_if_block$1(ctx) {
+    	var div, div_transition, current;
+
+    	var summary = new Summary({ $$inline: true });
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			summary.$$.fragment.c();
+    			add_location(div, file$6, 29, 6, 941);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    			mount_component(summary, div, null);
+    			current = true;
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			summary.$$.fragment.i(local);
+
+    			add_render_callback(() => {
+    				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, { duration: 180 }, true);
+    				div_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			summary.$$.fragment.o(local);
+
+    			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, { duration: 180 }, false);
+    			div_transition.run(0);
+
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    			}
+
+    			summary.$destroy();
+
+    			if (detaching) {
+    				if (div_transition) div_transition.end();
+    			}
+    		}
+    	};
+    }
+
+    // (18:2) <Scaffold>
     function create_default_slot$1(ctx) {
-    	var t, if_block1_anchor, current;
+    	var t0, t1, if_block2_anchor, current;
 
-    	var if_block0 = (ctx.$showEntry) && create_if_block_1(ctx);
+    	var if_block0 = (ctx.$showEntry) && create_if_block_2(ctx);
 
-    	var if_block1 = (ctx.$showSettings) && create_if_block$1(ctx);
+    	var if_block1 = (ctx.$showSettings) && create_if_block_1(ctx);
+
+    	var if_block2 = (ctx.$showSummary) && create_if_block$1(ctx);
 
     	return {
     		c: function create() {
     			if (if_block0) if_block0.c();
-    			t = space();
+    			t0 = space();
     			if (if_block1) if_block1.c();
-    			if_block1_anchor = empty();
+    			t1 = space();
+    			if (if_block2) if_block2.c();
+    			if_block2_anchor = empty();
     		},
 
     		m: function mount(target, anchor) {
     			if (if_block0) if_block0.m(target, anchor);
-    			insert(target, t, anchor);
+    			insert(target, t0, anchor);
     			if (if_block1) if_block1.m(target, anchor);
-    			insert(target, if_block1_anchor, anchor);
+    			insert(target, t1, anchor);
+    			if (if_block2) if_block2.m(target, anchor);
+    			insert(target, if_block2_anchor, anchor);
     			current = true;
     		},
 
     		p: function update(changed, ctx) {
     			if (ctx.$showEntry) {
     				if (!if_block0) {
-    					if_block0 = create_if_block_1(ctx);
+    					if_block0 = create_if_block_2(ctx);
     					if_block0.c();
     					if_block0.i(1);
-    					if_block0.m(t.parentNode, t);
+    					if_block0.m(t0.parentNode, t0);
     				} else {
     									if_block0.i(1);
     				}
@@ -5830,10 +5947,10 @@
 
     			if (ctx.$showSettings) {
     				if (!if_block1) {
-    					if_block1 = create_if_block$1(ctx);
+    					if_block1 = create_if_block_1(ctx);
     					if_block1.c();
     					if_block1.i(1);
-    					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+    					if_block1.m(t1.parentNode, t1);
     				} else {
     									if_block1.i(1);
     				}
@@ -5847,18 +5964,40 @@
     				if_block1.o(1);
     				check_outros();
     			}
+
+    			if (ctx.$showSummary) {
+    				if (!if_block2) {
+    					if_block2 = create_if_block$1(ctx);
+    					if_block2.c();
+    					if_block2.i(1);
+    					if_block2.m(if_block2_anchor.parentNode, if_block2_anchor);
+    				} else {
+    									if_block2.i(1);
+    				}
+    			} else if (if_block2) {
+    				group_outros();
+    				on_outro(() => {
+    					if_block2.d(1);
+    					if_block2 = null;
+    				});
+
+    				if_block2.o(1);
+    				check_outros();
+    			}
     		},
 
     		i: function intro(local) {
     			if (current) return;
     			if (if_block0) if_block0.i();
     			if (if_block1) if_block1.i();
+    			if (if_block2) if_block2.i();
     			current = true;
     		},
 
     		o: function outro(local) {
     			if (if_block0) if_block0.o();
     			if (if_block1) if_block1.o();
+    			if (if_block2) if_block2.o();
     			current = false;
     		},
 
@@ -5866,19 +6005,25 @@
     			if (if_block0) if_block0.d(detaching);
 
     			if (detaching) {
-    				detach(t);
+    				detach(t0);
     			}
 
     			if (if_block1) if_block1.d(detaching);
 
     			if (detaching) {
-    				detach(if_block1_anchor);
+    				detach(t1);
+    			}
+
+    			if (if_block2) if_block2.d(detaching);
+
+    			if (detaching) {
+    				detach(if_block2_anchor);
     			}
     		}
     	};
     }
 
-    function create_fragment$5(ctx) {
+    function create_fragment$6(ctx) {
     	var main, t, current;
 
     	var scaffold = new Scaffold({
@@ -5901,7 +6046,7 @@
     			t = space();
     			signin.$$.fragment.c();
     			main.className = "overflow-hidden";
-    			add_location(main, file$5, 15, 0, 575);
+    			add_location(main, file$6, 16, 0, 629);
     		},
 
     		l: function claim(nodes) {
@@ -5918,7 +6063,7 @@
 
     		p: function update(changed, ctx) {
     			var scaffold_changes = {};
-    			if (changed.$$scope || changed.$showSettings || changed.$showEntry) scaffold_changes.$$scope = { changed, ctx };
+    			if (changed.$$scope || changed.$showSummary || changed.$showSettings || changed.$showEntry) scaffold_changes.$$scope = { changed, ctx };
     			scaffold.$set(scaffold_changes);
     		},
 
@@ -5950,12 +6095,14 @@
     }
 
     function instance$5($$self, $$props, $$invalidate) {
-    	let $showEntry, $showSettings;
+    	let $showEntry, $showSettings, $showSummary;
 
     	validate_store(showEntry, 'showEntry');
     	subscribe($$self, showEntry, $$value => { $showEntry = $$value; $$invalidate('$showEntry', $showEntry); });
     	validate_store(showSettings, 'showSettings');
     	subscribe($$self, showSettings, $$value => { $showSettings = $$value; $$invalidate('$showSettings', $showSettings); });
+    	validate_store(showSummary, 'showSummary');
+    	subscribe($$self, showSummary, $$value => { $showSummary = $$value; $$invalidate('$showSummary', $showSummary); });
 
     	
 
@@ -5963,13 +6110,13 @@
         navigator.serviceWorker.register("/service-worker.js");
       }
 
-    	return { $showEntry, $showSettings };
+    	return { $showEntry, $showSettings, $showSummary };
     }
 
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$5, create_fragment$5, safe_not_equal, []);
+    		init(this, options, instance$5, create_fragment$6, safe_not_equal, []);
     	}
     }
 

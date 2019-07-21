@@ -1,8 +1,8 @@
 {
   "name": "Baby Sleep Tracker",
   "short_name": "Baby Sleep Tracker",
-  "theme_color": "#5bd1d7",
-  "background_color": "#f6f5f5",
+  "theme_color": "#2B2D42",
+  "background_color": "#2B2D42",
   "display": "standalone",
   "Scope": "/",
   "start_url": "/index.html",
