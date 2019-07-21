@@ -4,6 +4,7 @@
   import Entry from "./components/Entry.svelte";
   import SignIn from "./components/SignIn.svelte";
   import Settings from "./components/Settings.svelte";
+  import Summary from "./components/Summary.svelte";
   import Scaffold from "./components/Scaffold.svelte";
   import { fade } from "svelte/transition";
   import { showEntry, showSettings, showSummary } from "./store/store.js";
@@ -22,7 +23,12 @@
     {/if}
     {#if $showSettings}
       <div transition:fade={{ duration: 180 }}>
-        <Settings/>
+        <Settings />
+      </div>
+    {/if}
+    {#if $showSummary}
+      <div transition:fade={{ duration: 180 }}>
+        <Summary />
       </div>
     {/if}
   </Scaffold>
