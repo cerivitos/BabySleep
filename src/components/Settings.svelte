@@ -59,7 +59,7 @@
 
   function openSheet() {
     window.open(
-      `https://docs.google.com/spreadsheets/d/${credentials.SHEET_ID}`,
+      `https://docs.google.com/spreadsheets/d/${credentials.SPREADSHEET_ID}`,
       "_blank"
     );
   }
