@@ -14,12 +14,12 @@
     }
   ],
   "env": {
-    "CLIENT_ID": "@client-id",
-    "API_KEY": "@api-key",
-    "SCOPES": "@scopes",
-    "DISCOVERY_DOCS": "@discovery-docs",
-    "SPREADSHEET_ID": "@spreadsheet-id",
-    "SHEET_NAME": "@sheet-name",
-    "SHEET_ID": "@sheet-id"
+    "CLIENT_ID": "@CLIENT_ID",
+    "API_KEY": "@API_KEY",
+    "SCOPES": "@SCOPES",
+    "DISCOVERY_DOCS": "@DISCOVERY_DOCS",
+    "SPREADSHEET_ID": "@SPREADSHEET_ID",
+    "SHEET_NAME": "@SHEET_NAME",
+    "SHEET_ID": "@SHEET_ID"
   }
 }
