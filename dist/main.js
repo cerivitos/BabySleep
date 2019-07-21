@@ -1001,6 +1001,39 @@
       return baseTimezoneOffset * MILLISECONDS_IN_MINUTE + millisecondsPartOfTimezoneOffset;
     }
 
+    var MILLISECONDS_IN_MINUTE$1 = 60000;
+    /**
+     * @name addMinutes
+     * @category Minute Helpers
+     * @summary Add the specified number of minutes to the given date.
+     *
+     * @description
+     * Add the specified number of minutes to the given date.
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} date - the date to be changed
+     * @param {Number} amount - the amount of minutes to be added
+     * @returns {Date} the new date with the minutes added
+     * @throws {TypeError} 2 arguments required
+     *
+     * @example
+     * // Add 30 minutes to 10 July 2014 12:00:00:
+     * var result = addMinutes(new Date(2014, 6, 10, 12, 0), 30)
+     * //=> Thu Jul 10 2014 12:30:00
+     */
+
+    function addMinutes(dirtyDate, dirtyAmount) {
+      if (arguments.length < 2) {
+        throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+      }
+
+      var amount = toInteger(dirtyAmount);
+      return addMilliseconds(dirtyDate, amount * MILLISECONDS_IN_MINUTE$1);
+    }
+
     /**
      * @name isValid
      * @category Common Helpers
@@ -1105,7 +1138,7 @@
       return dateLeft.getTime() - dateRight.getTime();
     }
 
-    var MILLISECONDS_IN_MINUTE$1 = 60000;
+    var MILLISECONDS_IN_MINUTE$2 = 60000;
     /**
      * @name differenceInMinutes
      * @category Minute Helpers
@@ -1137,7 +1170,7 @@
         throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
       }
 
-      var diff = differenceInMilliseconds(dirtyDateLeft, dirtyDateRight) / MILLISECONDS_IN_MINUTE$1;
+      var diff = differenceInMilliseconds(dirtyDateLeft, dirtyDateRight) / MILLISECONDS_IN_MINUTE$2;
       return diff > 0 ? Math.floor(diff) : Math.ceil(diff);
     }
 
@@ -3879,7 +3912,7 @@
 
     const file$1 = "src\\components\\Entry.svelte";
 
-    // (314:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
+    // (392:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
     function create_default_slot(ctx) {
     	var div1, div0, button0, t0, button0_class_value, t1, button1, t2, button1_class_value, t3, div2, button2, t4, button2_class_value, dispose;
 
@@ -3897,17 +3930,17 @@
     			button2 = element("button");
     			t4 = text("Submit");
     			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white font-bold\r\n        py-2 px-4 rounded-l outline-none";
-    			add_location(button0, file$1, 322, 6, 9949);
+    			add_location(button0, file$1, 400, 6, 12494);
     			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white font-bold\r\n        py-2 px-4 rounded-r outline-none";
-    			add_location(button1, file$1, 328, 6, 10172);
+    			add_location(button1, file$1, 406, 6, 12717);
     			div0.className = "inline-flex";
-    			add_location(div0, file$1, 321, 4, 9916);
+    			add_location(div0, file$1, 399, 4, 12461);
     			div1.className = "w-full flex justify-center mt-8";
-    			add_location(div1, file$1, 320, 2, 9865);
+    			add_location(div1, file$1, 398, 2, 12410);
     			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      text-2xl font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50');
-    			add_location(button2, file$1, 337, 4, 10457);
+    			add_location(button2, file$1, 415, 4, 13002);
     			div2.className = "flex items-center justify-center";
-    			add_location(div2, file$1, 336, 2, 10405);
+    			add_location(div2, file$1, 414, 2, 12950);
 
     			dispose = [
     				listen(button0, "click", ctx.click_handler),
@@ -3957,7 +3990,7 @@
     }
 
     function create_fragment$1(ctx) {
-    	var t0, t1, div1, body, t2, div0, t3, t4, t5_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes', t5, t6, t7, current;
+    	var div1, body0, t0, div0, t1, t2, t3, t4, div3, body1, t5, div2, t6, t7, t8_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes', t8, t9, t10, current;
 
     	var entryblock0 = new EntryBlock({
     		props: {
@@ -4009,28 +4042,41 @@
 
     	return {
     		c: function create() {
-    			entryblock0.$$.fragment.c();
-    			t0 = space();
-    			entryblock1.$$.fragment.c();
-    			t1 = space();
     			div1 = element("div");
-    			body = element("body");
-    			t2 = text("Asleep for\r\n    ");
+    			body0 = element("body");
+    			t0 = text("Next put down ~\r\n    ");
     			div0 = element("div");
-    			t3 = text(ctx.elapsedSleepTime);
+    			t1 = text(ctx.nextPutDownTime);
+    			t2 = space();
+    			entryblock0.$$.fragment.c();
+    			t3 = space();
+    			entryblock1.$$.fragment.c();
     			t4 = space();
-    			t5 = text(t5_value);
-    			t6 = space();
-    			entryblock2.$$.fragment.c();
+    			div3 = element("div");
+    			body1 = element("body");
+    			t5 = text("Asleep for\r\n    ");
+    			div2 = element("div");
+    			t6 = text(ctx.elapsedSleepTime);
     			t7 = space();
+    			t8 = text(t8_value);
+    			t9 = space();
+    			entryblock2.$$.fragment.c();
+    			t10 = space();
     			entryblock3.$$.fragment.c();
-    			div0.className = "inline-block mx-2 px-2 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div0, file$1, 298, 4, 9329);
-    			body.className = "text-2xl justify-center items-center flex";
-    			add_location(body, file$1, 296, 2, 9251);
-    			div1.className = "w-full overflow-hidden bg-accentColor3";
-    			set_style(div1, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div1, file$1, 293, 0, 9141);
+    			div0.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold text-backgroundColor";
+    			add_location(div0, file$1, 352, 4, 11210);
+    			body0.className = "text-2xl justify-center items-center flex";
+    			add_location(body0, file$1, 350, 2, 11127);
+    			div1.className = "w-full overflow-hidden bg-accentColor text-white";
+    			set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
+    			add_location(div1, file$1, 347, 0, 11008);
+    			div2.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
+    			add_location(div2, file$1, 376, 4, 11874);
+    			body1.className = "text-2xl justify-center items-center flex";
+    			add_location(body1, file$1, 374, 2, 11796);
+    			div3.className = "w-full overflow-hidden bg-accentColor3";
+    			set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
+    			add_location(div3, file$1, 371, 0, 11686);
     		},
 
     		l: function claim(nodes) {
@@ -4038,25 +4084,39 @@
     		},
 
     		m: function mount(target, anchor) {
-    			mount_component(entryblock0, target, anchor);
-    			insert(target, t0, anchor);
-    			mount_component(entryblock1, target, anchor);
-    			insert(target, t1, anchor);
     			insert(target, div1, anchor);
-    			append(div1, body);
-    			append(body, t2);
-    			append(body, div0);
-    			append(div0, t3);
-    			append(body, t4);
-    			append(body, t5);
-    			insert(target, t6, anchor);
+    			append(div1, body0);
+    			append(body0, t0);
+    			append(body0, div0);
+    			append(div0, t1);
+    			insert(target, t2, anchor);
+    			mount_component(entryblock0, target, anchor);
+    			insert(target, t3, anchor);
+    			mount_component(entryblock1, target, anchor);
+    			insert(target, t4, anchor);
+    			insert(target, div3, anchor);
+    			append(div3, body1);
+    			append(body1, t5);
+    			append(body1, div2);
+    			append(div2, t6);
+    			append(body1, t7);
+    			append(body1, t8);
+    			insert(target, t9, anchor);
     			mount_component(entryblock2, target, anchor);
-    			insert(target, t7, anchor);
+    			insert(target, t10, anchor);
     			mount_component(entryblock3, target, anchor);
     			current = true;
     		},
 
     		p: function update(changed, ctx) {
+    			if (!current || changed.nextPutDownTime) {
+    				set_data(t1, ctx.nextPutDownTime);
+    			}
+
+    			if (!current || changed.$nextPutDownTimeDivHeight) {
+    				set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
+    			}
+
     			var entryblock0_changes = {};
     			if (changed.putDownDate) entryblock0_changes.date = ctx.putDownDate;
     			if (changed.putDownTime) entryblock0_changes.time = ctx.putDownTime;
@@ -4070,15 +4130,15 @@
     			entryblock1.$set(entryblock1_changes);
 
     			if (!current || changed.elapsedSleepTime) {
-    				set_data(t3, ctx.elapsedSleepTime);
+    				set_data(t6, ctx.elapsedSleepTime);
     			}
 
-    			if ((!current || changed.elapsedSleepTime) && t5_value !== (t5_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes')) {
-    				set_data(t5, t5_value);
+    			if ((!current || changed.elapsedSleepTime) && t8_value !== (t8_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes')) {
+    				set_data(t8, t8_value);
     			}
 
     			if (!current || changed.$elapsedSleepTimeDivHeight) {
-    				set_style(div1, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
+    				set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
     			}
 
     			var entryblock2_changes = {};
@@ -4119,24 +4179,29 @@
     		},
 
     		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div1);
+    				detach(t2);
+    			}
+
     			entryblock0.$destroy(detaching);
 
     			if (detaching) {
-    				detach(t0);
+    				detach(t3);
     			}
 
     			entryblock1.$destroy(detaching);
 
     			if (detaching) {
-    				detach(t1);
-    				detach(div1);
-    				detach(t6);
+    				detach(t4);
+    				detach(div3);
+    				detach(t9);
     			}
 
     			entryblock2.$destroy(detaching);
 
     			if (detaching) {
-    				detach(t7);
+    				detach(t10);
     			}
 
     			entryblock3.$destroy(detaching);
@@ -4145,7 +4210,7 @@
     }
 
     function instance$1($$self, $$props, $$invalidate) {
-    	let $gapiInstance, $elapsedSleepTimeDivHeight, $userName;
+    	let $gapiInstance, $nextPutDownTimeDivHeight, $elapsedSleepTimeDivHeight, $userName;
 
     	validate_store(gapiInstance, 'gapiInstance');
     	subscribe($$self, gapiInstance, $$value => { $gapiInstance = $$value; $$invalidate('$gapiInstance', $gapiInstance); });
@@ -4173,11 +4238,17 @@
       let check4v3 = true;
 
       let isNap = true;
+      let nextPutDownTime;
 
       const elapsedSleepTimeDivHeight = tweened(0, {
         duration: 450,
         easing: cubicOut
       }); validate_store(elapsedSleepTimeDivHeight, 'elapsedSleepTimeDivHeight'); subscribe($$self, elapsedSleepTimeDivHeight, $$value => { $elapsedSleepTimeDivHeight = $$value; $$invalidate('$elapsedSleepTimeDivHeight', $elapsedSleepTimeDivHeight); });
+
+      const nextPutDownTimeDivHeight = tweened(0, {
+        duration: 450,
+        easing: cubicOut
+      }); validate_store(nextPutDownTimeDivHeight, 'nextPutDownTimeDivHeight'); subscribe($$self, nextPutDownTimeDivHeight, $$value => { $nextPutDownTimeDivHeight = $$value; $$invalidate('$nextPutDownTimeDivHeight', $nextPutDownTimeDivHeight); });
 
       let time = new Date();
 
@@ -4204,6 +4275,12 @@
           $gapiInstance.client.sheets !== null
         ) {
           /**
+           * Saves the nap number for use later when calculating estimated next put down time.
+           * @type {number}
+           */
+          let napNumber;
+
+          /**
            * Get the row number after adding this current data. Needed for formulas.
            */
           $gapiInstance.client.sheets.spreadsheets.values
@@ -4222,6 +4299,7 @@
                   spreadsheetId: credentials.SPREADSHEET_ID,
                   range: credentials.SHEET_NAME,
                   valueInputOption: "USER_ENTERED",
+                  includeValuesInResponse: true,
                   resource: {
                     values: [
                       [
@@ -4253,6 +4331,13 @@
                 .then(response => {
                   if (response.status == 200) {
                     /**
+                     * Save the nap number to calculate estimated next put down time. The nap number is taken from the sheet as it is calculated by the formula appended above.
+                     */
+                    napNumber = parseInt(
+                      response.result.updates.updatedData.values[0][10]
+                    );
+
+                    /**
                      * Update cell format to date time for the first three columns.
                      */
                     $gapiInstance.client.sheets.spreadsheets
@@ -4280,11 +4365,52 @@
                           }
                         ]
                       })
-                      .then(response => {});
+                      .then(response => {
+                        $$invalidate('nextPutDownTime', nextPutDownTime = calculateNextPutDownTime(napNumber));
+
+                        $$invalidate('putDownTime', putDownTime = "");
+                        $$invalidate('sleepTime', sleepTime = "");
+                        $$invalidate('wakeTime', wakeTime = "");
+                        $$invalidate('pickUpTime', pickUpTime = "");
+                        $$invalidate('check2v1', check2v1 = false);
+                        $$invalidate('check3v2', check3v2 = false);
+                        $$invalidate('check4v3', check4v3 = false);
+
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      });
                   }
                 });
             });
+        } else {
+          console.log(
+            `Failed to send:\nCheck 2 v 1: ${check2v1}\nCheck 3 v 2: ${check3v2}\nCheck 4 v 3: ${check4v3}\ngapi: ${gapiInstance}`
+          );
         }
+      }
+
+      function calculateNextPutDownTime(napNumber) {
+        let intervalHrKey, intervalMinKey;
+
+        if (napNumber === 1) {
+          intervalHrKey = "Nap1ToNap2Hr";
+          intervalMinKey = "Nap1ToNap2Min";
+        } else if (napNumber === 2) {
+          intervalHrKey = "Nap2ToNap3Hr";
+          intervalMinKey = "Nap2ToNap3Min";
+        } else {
+          intervalHrKey = "Nap3ToSleepHr";
+          intervalMinKey = "Nap3ToSleepMin";
+        }
+
+        const intervalInMins =
+          parseInt(localStorage.getItem(intervalHrKey) * 60) +
+          parseInt(localStorage.getItem(intervalMinKey));
+
+        const putDownDateTime = addMinutes(
+          new Date(pickUpDate + " " + pickUpTime),
+          intervalInMins
+        );
+        return format(putDownDateTime, "h:mm a");
       }
 
       function receivePutDown(event) {
@@ -4323,7 +4449,7 @@
     		return ($userName !== undefined ? validateAndSend() : signIn());
     	}
 
-    	$$self.$$.update = ($$dirty = { putDownDate: 1, sleepDate: 1, sleepTime: 1, putDownTime: 1, wakeDate: 1, wakeTime: 1, pickUpDate: 1, pickUpTime: 1, check2v1: 1, check3v2: 1, time: 1 }) => {
+    	$$self.$$.update = ($$dirty = { putDownDate: 1, sleepDate: 1, sleepTime: 1, putDownTime: 1, wakeDate: 1, wakeTime: 1, pickUpDate: 1, pickUpTime: 1, check2v1: 1, check3v2: 1, time: 1, nextPutDownTime: 1 }) => {
     		if ($$dirty.putDownDate) { $$invalidate('sleepDate', sleepDate = putDownDate); }
     		if ($$dirty.sleepDate || $$dirty.sleepTime || $$dirty.putDownDate || $$dirty.putDownTime) { if (
             isAfter(
@@ -4401,6 +4527,11 @@
              */
             elapsedSleepTimeDivHeight.set(0);
           } }
+    		if ($$dirty.nextPutDownTime) { if (nextPutDownTime !== undefined) {
+            nextPutDownTimeDivHeight.set(6);
+          } else {
+            nextPutDownTimeDivHeight.set(0);
+          } }
     	};
 
     	return {
@@ -4417,12 +4548,16 @@
     		check3v2,
     		check4v3,
     		isNap,
+    		nextPutDownTime,
     		elapsedSleepTimeDivHeight,
+    		nextPutDownTimeDivHeight,
     		validateAndSend,
     		receivePutDown,
     		receiveFellAsleep,
     		receiveWokeUp,
     		receivePickedUp,
+    		undefined,
+    		$nextPutDownTimeDivHeight,
     		$elapsedSleepTimeDivHeight,
     		$userName,
     		click_handler,
@@ -4629,44 +4764,44 @@
     			span = element("span");
     			span.textContent = "Sign in with Google";
     			h2.className = "svelte-1cfinnr";
-    			add_location(h2, file$3, 132, 6, 4262);
+    			add_location(h2, file$3, 132, 6, 4268);
     			attr(path0, "id", "a");
     			attr(path0, "d", "M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2\r\n                0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6\r\n                4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22\r\n                0-1.3-.2-2.7-.5-4z");
-    			add_location(path0, file$3, 143, 14, 4689);
-    			add_location(defs, file$3, 142, 12, 4667);
+    			add_location(path0, file$3, 143, 14, 4695);
+    			add_location(defs, file$3, 142, 12, 4673);
     			xlink_attr(use, "xlink:href", "#a");
     			attr(use, "overflow", "visible");
-    			add_location(use, file$3, 151, 14, 5057);
+    			add_location(use, file$3, 151, 14, 5063);
     			attr(clipPath, "id", "b");
-    			add_location(clipPath, file$3, 150, 12, 5024);
+    			add_location(clipPath, file$3, 150, 12, 5030);
     			attr(path1, "clip-path", "url(#b)");
     			attr(path1, "fill", "#FBBC05");
     			attr(path1, "d", "M0 37V11l17 13z");
-    			add_location(path1, file$3, 153, 12, 5138);
+    			add_location(path1, file$3, 153, 12, 5144);
     			attr(path2, "clip-path", "url(#b)");
     			attr(path2, "fill", "#EA4335");
     			attr(path2, "d", "M0 11l17 13 7-6.1L48 14V0H0z");
-    			add_location(path2, file$3, 154, 12, 5215);
+    			add_location(path2, file$3, 154, 12, 5221);
     			attr(path3, "clip-path", "url(#b)");
     			attr(path3, "fill", "#34A853");
     			attr(path3, "d", "M0 37l30-23 7.9 1L48 0v48H0z");
-    			add_location(path3, file$3, 158, 12, 5350);
+    			add_location(path3, file$3, 158, 12, 5356);
     			attr(path4, "clip-path", "url(#b)");
     			attr(path4, "fill", "#4285F4");
     			attr(path4, "d", "M48 48L17 24l-4-3 35-10z");
-    			add_location(path4, file$3, 162, 12, 5485);
+    			add_location(path4, file$3, 162, 12, 5491);
     			attr(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg, "xmlns:xlink", "http://www.w3.org/1999/xlink");
     			attr(svg, "viewBox", "0 0 48 48");
     			attr(svg, "class", "w-6 h-6 pr-2");
-    			add_location(svg, file$3, 137, 10, 4477);
-    			add_location(span, file$3, 167, 10, 5632);
+    			add_location(svg, file$3, 137, 10, 4483);
+    			add_location(span, file$3, 167, 10, 5638);
     			button.className = "flex bg-white rounded shadow text-gray-700 font-bold py-2 px-4";
-    			add_location(button, file$3, 134, 8, 4338);
+    			add_location(button, file$3, 134, 8, 4344);
     			div0.className = "flex justify-center";
-    			add_location(div0, file$3, 133, 6, 4295);
+    			add_location(div0, file$3, 133, 6, 4301);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$3, 131, 4, 4199);
+    			add_location(div1, file$3, 131, 4, 4205);
     			dispose = listen(button, "click", ctx.click_handler_1);
     		},
 
@@ -4731,19 +4866,19 @@
     			button = element("button");
     			button.textContent = "SIGN OUT";
     			h2.className = "svelte-1cfinnr";
-    			add_location(h2, file$3, 120, 6, 3824);
+    			add_location(h2, file$3, 120, 6, 3830);
     			img.src = ctx.$userPic;
     			img.alt = "User profile picture";
     			img.className = "rounded-full w-8 h-8 mr-2 flex-none";
-    			add_location(img, file$3, 122, 8, 3894);
+    			add_location(img, file$3, 122, 8, 3900);
     			body.className = "flex-1 font-bold svelte-1cfinnr";
-    			add_location(body, file$3, 126, 8, 4030);
+    			add_location(body, file$3, 126, 8, 4036);
     			button.className = "button svelte-1cfinnr";
-    			add_location(button, file$3, 127, 8, 4089);
+    			add_location(button, file$3, 127, 8, 4095);
     			div0.className = "flex items-center";
-    			add_location(div0, file$3, 121, 6, 3853);
+    			add_location(div0, file$3, 121, 6, 3859);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$3, 119, 4, 3761);
+    			add_location(div1, file$3, 119, 4, 3767);
     			dispose = listen(button, "click", ctx.click_handler);
     		},
 
@@ -4864,76 +4999,76 @@
     			body9 = element("body");
     			body9.textContent = "min";
     			h20.className = "svelte-1cfinnr";
-    			add_location(h20, file$3, 173, 4, 5755);
+    			add_location(h20, file$3, 173, 4, 5761);
     			body0.className = "flex-1 font-bold svelte-1cfinnr";
-    			add_location(body0, file$3, 175, 6, 5821);
+    			add_location(body0, file$3, 175, 6, 5827);
     			button.className = "button svelte-1cfinnr";
-    			add_location(button, file$3, 176, 6, 5886);
+    			add_location(button, file$3, 176, 6, 5892);
     			div0.className = "flex items-center";
-    			add_location(div0, file$3, 174, 4, 5782);
+    			add_location(div0, file$3, 174, 4, 5788);
     			div1.className = "mt-8 flex-col";
-    			add_location(div1, file$3, 172, 2, 5722);
+    			add_location(div1, file$3, 172, 2, 5728);
     			h21.className = "svelte-1cfinnr";
-    			add_location(h21, file$3, 180, 4, 6010);
+    			add_location(h21, file$3, 180, 4, 6016);
     			body1.className = "w-3/4 font-bold svelte-1cfinnr";
-    			add_location(body1, file$3, 182, 6, 6078);
+    			add_location(body1, file$3, 182, 6, 6084);
     			attr(input0, "type", "number");
     			input0.max = "3";
     			input0.min = "0";
     			input0.className = "input svelte-1cfinnr";
-    			add_location(input0, file$3, 183, 6, 6137);
+    			add_location(input0, file$3, 183, 6, 6143);
     			body2.className = "ml-1 mr-2 svelte-1cfinnr";
-    			add_location(body2, file$3, 189, 6, 6269);
+    			add_location(body2, file$3, 189, 6, 6275);
     			attr(input1, "type", "number");
     			input1.max = "59";
     			input1.min = "0";
     			input1.className = "input svelte-1cfinnr";
-    			add_location(input1, file$3, 190, 6, 6310);
+    			add_location(input1, file$3, 190, 6, 6316);
     			body3.className = "ml-1 svelte-1cfinnr";
-    			add_location(body3, file$3, 196, 6, 6444);
+    			add_location(body3, file$3, 196, 6, 6450);
     			div2.className = "flex items-center my-4";
-    			add_location(div2, file$3, 181, 4, 6034);
+    			add_location(div2, file$3, 181, 4, 6040);
     			body4.className = "w-3/4 font-bold svelte-1cfinnr";
-    			add_location(body4, file$3, 199, 6, 6535);
+    			add_location(body4, file$3, 199, 6, 6541);
     			attr(input2, "type", "number");
     			input2.max = "3";
     			input2.min = "0";
     			input2.className = "input svelte-1cfinnr";
-    			add_location(input2, file$3, 200, 6, 6594);
+    			add_location(input2, file$3, 200, 6, 6600);
     			body5.className = "ml-1 mr-2 svelte-1cfinnr";
-    			add_location(body5, file$3, 206, 6, 6726);
+    			add_location(body5, file$3, 206, 6, 6732);
     			attr(input3, "type", "number");
     			input3.max = "59";
     			input3.min = "0";
     			input3.className = "input svelte-1cfinnr";
-    			add_location(input3, file$3, 207, 6, 6767);
+    			add_location(input3, file$3, 207, 6, 6773);
     			body6.className = "ml-1 svelte-1cfinnr";
-    			add_location(body6, file$3, 213, 6, 6901);
+    			add_location(body6, file$3, 213, 6, 6907);
     			div3.className = "flex items-center mb-4";
-    			add_location(div3, file$3, 198, 4, 6491);
+    			add_location(div3, file$3, 198, 4, 6497);
     			body7.className = "w-3/4 font-bold svelte-1cfinnr";
-    			add_location(body7, file$3, 216, 6, 6997);
+    			add_location(body7, file$3, 216, 6, 7003);
     			attr(input4, "type", "number");
     			input4.max = "3";
     			input4.min = "0";
     			input4.className = "input svelte-1cfinnr";
     			input4.id = "Nap3ToSleepHr";
-    			add_location(input4, file$3, 217, 6, 7056);
+    			add_location(input4, file$3, 217, 6, 7062);
     			body8.className = "ml-1 mr-2 svelte-1cfinnr";
-    			add_location(body8, file$3, 224, 6, 7217);
+    			add_location(body8, file$3, 224, 6, 7223);
     			attr(input5, "type", "number");
     			input5.max = "59";
     			input5.min = "0";
     			input5.className = "input svelte-1cfinnr";
-    			add_location(input5, file$3, 225, 6, 7258);
+    			add_location(input5, file$3, 225, 6, 7264);
     			body9.className = "ml-1 svelte-1cfinnr";
-    			add_location(body9, file$3, 231, 6, 7393);
+    			add_location(body9, file$3, 231, 6, 7399);
     			div4.className = "flex pb-8 items-center mb-4";
-    			add_location(div4, file$3, 215, 4, 6948);
+    			add_location(div4, file$3, 215, 4, 6954);
     			div5.className = "mt-8 flex-col";
-    			add_location(div5, file$3, 179, 2, 5977);
+    			add_location(div5, file$3, 179, 2, 5983);
     			div6.className = "w-full bg-backgroundColor p-4";
-    			add_location(div6, file$3, 117, 0, 3653);
+    			add_location(div6, file$3, 117, 0, 3659);
 
     			dispose = [
     				listen(button, "click", ctx.click_handler_2),
@@ -5057,7 +5192,7 @@
 
     function openSheet() {
       window.open(
-        `https://docs.google.com/spreadsheets/d/${credentials.SHEET_ID}`,
+        `https://docs.google.com/spreadsheets/d/${credentials.SPREADSHEET_ID}`,
         "_blank"
       );
     }

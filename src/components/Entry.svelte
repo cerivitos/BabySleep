@@ -36,8 +36,14 @@
   let check4v3 = true;
 
   let isNap = true;
+  let nextPutDownTime;
 
   const elapsedSleepTimeDivHeight = tweened(0, {
+    duration: 450,
+    easing: cubicOut
+  });
+
+  const nextPutDownTimeDivHeight = tweened(0, {
     duration: 450,
     easing: cubicOut
   });
@@ -84,6 +90,12 @@
       $gapiInstance.client.sheets !== null
     ) {
       /**
+       * Saves the nap number for use later when calculating estimated next put down time.
+       * @type {number}
+       */
+      let napNumber;
+
+      /**
        * Get the row number after adding this current data. Needed for formulas.
        */
       $gapiInstance.client.sheets.spreadsheets.values
@@ -102,6 +114,7 @@
               spreadsheetId: credentials.SPREADSHEET_ID,
               range: credentials.SHEET_NAME,
               valueInputOption: "USER_ENTERED",
+              includeValuesInResponse: true,
               resource: {
                 values: [
                   [
@@ -133,6 +146,13 @@
             .then(response => {
               if (response.status == 200) {
                 /**
+                 * Save the nap number to calculate estimated next put down time. The nap number is taken from the sheet as it is calculated by the formula appended above.
+                 */
+                napNumber = parseInt(
+                  response.result.updates.updatedData.values[0][10]
+                );
+
+                /**
                  * Update cell format to date time for the first three columns.
                  */
                 $gapiInstance.client.sheets.spreadsheets
@@ -160,12 +180,52 @@
                       }
                     ]
                   })
-                  .then(response => {});
+                  .then(response => {
+                    nextPutDownTime = calculateNextPutDownTime(napNumber);
+
+                    putDownTime = "";
+                    sleepTime = "";
+                    wakeTime = "";
+                    pickUpTime = "";
+                    check2v1 = false;
+                    check3v2 = false;
+                    check4v3 = false;
+
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  });
               }
             });
         });
     } else {
+      console.log(
+        `Failed to send:\nCheck 2 v 1: ${check2v1}\nCheck 3 v 2: ${check3v2}\nCheck 4 v 3: ${check4v3}\ngapi: ${gapiInstance}`
+      );
     }
+  }
+
+  function calculateNextPutDownTime(napNumber) {
+    let intervalHrKey, intervalMinKey;
+
+    if (napNumber === 1) {
+      intervalHrKey = "Nap1ToNap2Hr";
+      intervalMinKey = "Nap1ToNap2Min";
+    } else if (napNumber === 2) {
+      intervalHrKey = "Nap2ToNap3Hr";
+      intervalMinKey = "Nap2ToNap3Min";
+    } else {
+      intervalHrKey = "Nap3ToSleepHr";
+      intervalMinKey = "Nap3ToSleepMin";
+    }
+
+    const intervalInMins =
+      parseInt(localStorage.getItem(intervalHrKey) * 60) +
+      parseInt(localStorage.getItem(intervalMinKey));
+
+    const putDownDateTime = addMinutes(
+      new Date(pickUpDate + " " + pickUpTime),
+      intervalInMins
+    );
+    return format(putDownDateTime, "h:mm a");
   }
 
   function receivePutDown(event) {
@@ -277,8 +337,26 @@
      */
     elapsedSleepTimeDivHeight.set(0);
   }
+
+  $: if (nextPutDownTime !== undefined) {
+    nextPutDownTimeDivHeight.set(6);
+  } else {
+    nextPutDownTimeDivHeight.set(0);
+  }
 </script>
 
+<div
+  class="w-full overflow-hidden bg-accentColor text-white"
+  style="height: {$nextPutDownTimeDivHeight}rem">
+  <body class="text-2xl justify-center items-center flex">
+    Next put down ~
+    <div
+      class="inline-block mx-2 px-3 py-1 rounded-full w-auto text-center
+      bg-secondaryColor font-bold text-backgroundColor">
+      {nextPutDownTime}
+    </div>
+  </body>
+</div>
 <EntryBlock
   title="Put down at"
   date={putDownDate}
@@ -297,7 +375,7 @@
   <body class="text-2xl justify-center items-center flex">
     Asleep for
     <div
-      class="inline-block mx-2 px-2 py-1 rounded-full w-auto text-center
+      class="inline-block mx-2 px-3 py-1 rounded-full w-auto text-center
       bg-secondaryColor font-bold">
       {elapsedSleepTime}
     </div>
