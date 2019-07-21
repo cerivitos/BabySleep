@@ -6,5 +6,5 @@ export const credentials = {
   DISCOVERY_DOCS: [process.env.DISCOVERY_DOCS],
   SPREADSHEET_ID: process.env.SPREADSHEET_ID,
   SHEET_NAME: process.env.SHEET_NAME,
-  SHEET_ID: parseInt(process.SHEET_ID)
+  SHEET_ID: parseInt(process.env.SHEET_ID)
 };
