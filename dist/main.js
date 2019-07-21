@@ -252,6 +252,10 @@
     	get_current_component().$$.on_mount.push(fn);
     }
 
+    function onDestroy(fn) {
+    	get_current_component().$$.on_destroy.push(fn);
+    }
+
     function createEventDispatcher() {
     	const component = current_component;
 
@@ -3912,7 +3916,7 @@
 
     const file$1 = "src\\components\\Entry.svelte";
 
-    // (390:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
+    // (419:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
     function create_default_slot(ctx) {
     	var div1, div0, button0, t0, button0_class_value, t1, button1, t2, button1_class_value, t3, div2, button2, t4, button2_class_value, dispose;
 
@@ -3930,17 +3934,17 @@
     			button2 = element("button");
     			t4 = text("Submit");
     			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white font-bold\r\n        py-2 px-4 rounded-l outline-none";
-    			add_location(button0, file$1, 398, 6, 12468);
+    			add_location(button0, file$1, 427, 6, 13318);
     			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white font-bold\r\n        py-2 px-4 rounded-r outline-none";
-    			add_location(button1, file$1, 404, 6, 12691);
+    			add_location(button1, file$1, 433, 6, 13541);
     			div0.className = "inline-flex";
-    			add_location(div0, file$1, 397, 4, 12435);
+    			add_location(div0, file$1, 426, 4, 13285);
     			div1.className = "w-full flex justify-center mt-8";
-    			add_location(div1, file$1, 396, 2, 12384);
+    			add_location(div1, file$1, 425, 2, 13234);
     			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      text-2xl font-bold hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50');
-    			add_location(button2, file$1, 413, 4, 12976);
+    			add_location(button2, file$1, 442, 4, 13826);
     			div2.className = "flex items-center justify-center";
-    			add_location(div2, file$1, 412, 2, 12924);
+    			add_location(div2, file$1, 441, 2, 13774);
 
     			dispose = [
     				listen(button0, "click", ctx.click_handler),
@@ -4064,19 +4068,19 @@
     			t10 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold text-backgroundColor";
-    			add_location(div0, file$1, 350, 4, 11184);
+    			add_location(div0, file$1, 379, 4, 12034);
     			body0.className = "text-2xl justify-center items-center flex";
-    			add_location(body0, file$1, 348, 2, 11101);
+    			add_location(body0, file$1, 377, 2, 11951);
     			div1.className = "w-full overflow-hidden bg-accentColor text-white";
     			set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
-    			add_location(div1, file$1, 345, 0, 10982);
+    			add_location(div1, file$1, 374, 0, 11832);
     			div2.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div2, file$1, 374, 4, 11848);
+    			add_location(div2, file$1, 403, 4, 12698);
     			body1.className = "text-2xl justify-center items-center flex";
-    			add_location(body1, file$1, 372, 2, 11770);
+    			add_location(body1, file$1, 401, 2, 12620);
     			div3.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div3, file$1, 369, 0, 11660);
+    			add_location(div3, file$1, 398, 0, 12510);
     		},
 
     		l: function claim(nodes) {
@@ -4253,6 +4257,18 @@
       let time = new Date();
 
       onMount(() => {
+        if (localStorage.getItem("cache") != undefined) {
+          const cache = JSON.parse(localStorage.getItem("cache"));
+
+          $$invalidate('putDownDate', putDownDate = cache.putDownDate);
+          $$invalidate('putDownTime', putDownTime = cache.putDownTime);
+          $$invalidate('sleepDate', sleepDate = cache.sleepDate);
+          $$invalidate('sleepTime', sleepTime = cache.sleepTime);
+          $$invalidate('pickUpDate', pickUpDate = cache.pickUpDate);
+          $$invalidate('pickUpTime', pickUpTime = cache.pickUpTime);
+          $$invalidate('wakeDate', wakeDate = cache.wakeDate);
+          $$invalidate('wakeTime', wakeTime = cache.wakeTime);
+        }
         const interval = setInterval(() => {
           $$invalidate('time', time = new Date());
         }, 1000);
@@ -4260,6 +4276,21 @@
         return () => {
           clearInterval(interval);
         };
+      });
+
+      onDestroy(() => {
+        let cache = {
+          putDownDate: putDownDate,
+          putDownTime: putDownTime,
+          sleepDate: sleepDate,
+          sleepTime: sleepTime,
+          wakeDate: wakeDate,
+          wakeTime: wakeTime,
+          pickUpDate: pickUpDate,
+          pickUpTime: pickUpTime
+        };
+
+        localStorage.setItem("cache", JSON.stringify(cache));
       });
 
       /**
@@ -4375,6 +4406,8 @@
                         $$invalidate('check2v1', check2v1 = false);
                         $$invalidate('check3v2', check3v2 = false);
                         $$invalidate('check4v3', check4v3 = false);
+
+                        localStorage.setItem("cache", "");
                       });
                   }
                 });

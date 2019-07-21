@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
   import {
@@ -51,6 +51,18 @@
   let time = new Date();
 
   onMount(() => {
+    if (localStorage.getItem("cache") != undefined) {
+      const cache = JSON.parse(localStorage.getItem("cache"));
+
+      putDownDate = cache.putDownDate;
+      putDownTime = cache.putDownTime;
+      sleepDate = cache.sleepDate;
+      sleepTime = cache.sleepTime;
+      pickUpDate = cache.pickUpDate;
+      pickUpTime = cache.pickUpTime;
+      wakeDate = cache.wakeDate;
+      wakeTime = cache.wakeTime;
+    }
     const interval = setInterval(() => {
       time = new Date();
     }, 1000);
@@ -58,6 +70,21 @@
     return () => {
       clearInterval(interval);
     };
+  });
+
+  onDestroy(() => {
+    let cache = {
+      putDownDate: putDownDate,
+      putDownTime: putDownTime,
+      sleepDate: sleepDate,
+      sleepTime: sleepTime,
+      wakeDate: wakeDate,
+      wakeTime: wakeTime,
+      pickUpDate: pickUpDate,
+      pickUpTime: pickUpTime
+    };
+
+    localStorage.setItem("cache", JSON.stringify(cache));
   });
 
   /**
@@ -190,6 +217,8 @@
                     check2v1 = false;
                     check3v2 = false;
                     check4v3 = false;
+
+                    localStorage.setItem("cache", "");
                   });
               }
             });
