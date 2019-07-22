@@ -15,6 +15,8 @@ import dotenv from "dotenv";
 dotenv.config();
 const production = !process.env.ROLLUP_WATCH;
 
+console.log(process.env.client_id);
+
 export default {
   input: "src/main.js",
   output: {
@@ -26,7 +28,7 @@ export default {
 
   plugins: [
     replace({
-      include: ["components/SignIn.svelte", "credentials.js"],
+      include: "credentials.js",
       clientID: JSON.stringify(process.env.client_id),
       apiKey: JSON.stringify(process.env.api_key),
       scopes: JSON.stringify(process.env.scopes),
