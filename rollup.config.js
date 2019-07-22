@@ -22,6 +22,7 @@ export default {
   },
 
   plugins: [
+    dotenvPlugin(),
     svelte({
       dev: !production,
       preprocess: {
@@ -31,7 +32,6 @@ export default {
         css.write("dist/components.css");
       }
     }),
-    dotenvPlugin(),
     resolve(),
     commonjs(),
     globals(),
