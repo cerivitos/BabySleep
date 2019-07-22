@@ -21,7 +21,8 @@
 
 <style type="text/postcss">
   .input {
-    @apply text-2xl lowercase border-b-4 text-secondaryColor bg-transparent mb-4 w-auto;
+    @apply text-2xl lowercase border-b-4 text-secondaryColor bg-transparent mb-4;
+    min-width: 35%;
   }
 
   .input-ok {

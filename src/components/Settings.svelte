@@ -127,7 +127,8 @@
   }
 
   .input {
-    @apply w-8 lowercase border-b-4 text-secondaryColor bg-transparent text-center w-auto;
+    @apply w-8 lowercase border-b-4 text-secondaryColor bg-transparent text-center;
+    min-width: 10%;
   }
 </style>
 

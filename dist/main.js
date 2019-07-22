@@ -3633,18 +3633,18 @@
     			t3 = space();
 
     			if (default_slot) default_slot.c();
-    			input0.className = input0_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-g62c24";
+    			input0.className = input0_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-9wux0x";
     			attr(input0, "type", "date");
     			input0.min = ctx.minDate;
-    			add_location(input0, file, 27, 6, 850);
-    			input1.className = input1_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-g62c24";
+    			add_location(input0, file, 27, 6, 853);
+    			input1.className = input1_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-9wux0x";
     			attr(input1, "type", "time");
-    			add_location(input1, file, 35, 6, 1124);
-    			add_location(body, file, 26, 4, 836);
-    			add_location(h1, file, 24, 2, 813);
+    			add_location(input1, file, 35, 6, 1127);
+    			add_location(body, file, 26, 4, 839);
+    			add_location(h1, file, 24, 2, 816);
 
-    			div.className = div_class_value = "background p-4 " + (ctx.isFocused ? 'background-selected' : '') + " svelte-g62c24";
-    			add_location(div, file, 23, 0, 740);
+    			div.className = div_class_value = "background p-4 " + (ctx.isFocused ? 'background-selected' : '') + " svelte-9wux0x";
+    			add_location(div, file, 23, 0, 743);
 
     			dispose = [
     				listen(input0, "input", ctx.input0_input_handler),
@@ -3694,7 +3694,7 @@
 
     			if (changed.date) input0.value = ctx.date;
 
-    			if ((!current || changed.check) && input0_class_value !== (input0_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-g62c24")) {
+    			if ((!current || changed.check) && input0_class_value !== (input0_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-9wux0x")) {
     				input0.className = input0_class_value;
     			}
 
@@ -3704,7 +3704,7 @@
 
     			if (changed.time) input1.value = ctx.time;
 
-    			if ((!current || changed.check) && input1_class_value !== (input1_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-g62c24")) {
+    			if ((!current || changed.check) && input1_class_value !== (input1_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-9wux0x")) {
     				input1.className = input1_class_value;
     			}
 
@@ -3712,7 +3712,7 @@
     				default_slot.p(get_slot_changes(default_slot_1, ctx, changed, null), get_slot_context(default_slot_1, ctx, null));
     			}
 
-    			if ((!current || changed.isFocused) && div_class_value !== (div_class_value = "background p-4 " + (ctx.isFocused ? 'background-selected' : '') + " svelte-g62c24")) {
+    			if ((!current || changed.isFocused) && div_class_value !== (div_class_value = "background p-4 " + (ctx.isFocused ? 'background-selected' : '') + " svelte-9wux0x")) {
     				div.className = div_class_value;
     			}
     		},
@@ -4762,45 +4762,45 @@
     			t2 = space();
     			span = element("span");
     			span.textContent = "Sign in with Google";
-    			h2.className = "svelte-1k86l13";
-    			add_location(h2, file$3, 132, 6, 4242);
+    			h2.className = "svelte-1s5neyb";
+    			add_location(h2, file$3, 132, 6, 4245);
     			attr(path0, "id", "a");
     			attr(path0, "d", "M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2\r\n                0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6\r\n                4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22\r\n                0-1.3-.2-2.7-.5-4z");
-    			add_location(path0, file$3, 143, 14, 4659);
-    			add_location(defs, file$3, 142, 12, 4637);
+    			add_location(path0, file$3, 143, 14, 4662);
+    			add_location(defs, file$3, 142, 12, 4640);
     			xlink_attr(use, "xlink:href", "#a");
     			attr(use, "overflow", "visible");
-    			add_location(use, file$3, 151, 14, 5027);
+    			add_location(use, file$3, 151, 14, 5030);
     			attr(clipPath, "id", "b");
-    			add_location(clipPath, file$3, 150, 12, 4994);
+    			add_location(clipPath, file$3, 150, 12, 4997);
     			attr(path1, "clip-path", "url(#b)");
     			attr(path1, "fill", "#FBBC05");
     			attr(path1, "d", "M0 37V11l17 13z");
-    			add_location(path1, file$3, 153, 12, 5108);
+    			add_location(path1, file$3, 153, 12, 5111);
     			attr(path2, "clip-path", "url(#b)");
     			attr(path2, "fill", "#EA4335");
     			attr(path2, "d", "M0 11l17 13 7-6.1L48 14V0H0z");
-    			add_location(path2, file$3, 154, 12, 5185);
+    			add_location(path2, file$3, 154, 12, 5188);
     			attr(path3, "clip-path", "url(#b)");
     			attr(path3, "fill", "#34A853");
     			attr(path3, "d", "M0 37l30-23 7.9 1L48 0v48H0z");
-    			add_location(path3, file$3, 158, 12, 5320);
+    			add_location(path3, file$3, 158, 12, 5323);
     			attr(path4, "clip-path", "url(#b)");
     			attr(path4, "fill", "#4285F4");
     			attr(path4, "d", "M48 48L17 24l-4-3 35-10z");
-    			add_location(path4, file$3, 162, 12, 5455);
+    			add_location(path4, file$3, 162, 12, 5458);
     			attr(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg, "xmlns:xlink", "http://www.w3.org/1999/xlink");
     			attr(svg, "viewBox", "0 0 48 48");
     			attr(svg, "class", "w-6 h-6 pr-2");
-    			add_location(svg, file$3, 137, 10, 4447);
-    			add_location(span, file$3, 167, 10, 5602);
+    			add_location(svg, file$3, 137, 10, 4450);
+    			add_location(span, file$3, 167, 10, 5605);
     			button.className = "flex bg-white rounded shadow text-gray-700 py-2 px-4";
-    			add_location(button, file$3, 134, 8, 4318);
+    			add_location(button, file$3, 134, 8, 4321);
     			div0.className = "flex justify-center";
-    			add_location(div0, file$3, 133, 6, 4275);
+    			add_location(div0, file$3, 133, 6, 4278);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$3, 131, 4, 4179);
+    			add_location(div1, file$3, 131, 4, 4182);
     			dispose = listen(button, "click", ctx.click_handler_1);
     		},
 
@@ -4864,20 +4864,20 @@
     			t4 = space();
     			button = element("button");
     			button.textContent = "SIGN OUT";
-    			h2.className = "svelte-1k86l13";
-    			add_location(h2, file$3, 120, 6, 3814);
+    			h2.className = "svelte-1s5neyb";
+    			add_location(h2, file$3, 120, 6, 3817);
     			img.src = ctx.$userPic;
     			img.alt = "User profile picture";
     			img.className = "rounded-full w-8 h-8 mr-2 flex-none";
-    			add_location(img, file$3, 122, 8, 3884);
-    			body.className = "flex-1 svelte-1k86l13";
-    			add_location(body, file$3, 126, 8, 4020);
-    			button.className = "button svelte-1k86l13";
-    			add_location(button, file$3, 127, 8, 4069);
+    			add_location(img, file$3, 122, 8, 3887);
+    			body.className = "flex-1 svelte-1s5neyb";
+    			add_location(body, file$3, 126, 8, 4023);
+    			button.className = "button svelte-1s5neyb";
+    			add_location(button, file$3, 127, 8, 4072);
     			div0.className = "flex items-center";
-    			add_location(div0, file$3, 121, 6, 3843);
+    			add_location(div0, file$3, 121, 6, 3846);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$3, 119, 4, 3751);
+    			add_location(div1, file$3, 119, 4, 3754);
     			dispose = listen(button, "click", ctx.click_handler);
     		},
 
@@ -4997,77 +4997,77 @@
     			t30 = space();
     			body9 = element("body");
     			body9.textContent = "min";
-    			h20.className = "svelte-1k86l13";
-    			add_location(h20, file$3, 173, 4, 5725);
-    			body0.className = "flex-1 svelte-1k86l13";
-    			add_location(body0, file$3, 175, 6, 5791);
-    			button.className = "button svelte-1k86l13";
-    			add_location(button, file$3, 176, 6, 5846);
+    			h20.className = "svelte-1s5neyb";
+    			add_location(h20, file$3, 173, 4, 5728);
+    			body0.className = "flex-1 svelte-1s5neyb";
+    			add_location(body0, file$3, 175, 6, 5794);
+    			button.className = "button svelte-1s5neyb";
+    			add_location(button, file$3, 176, 6, 5849);
     			div0.className = "flex items-center";
-    			add_location(div0, file$3, 174, 4, 5752);
+    			add_location(div0, file$3, 174, 4, 5755);
     			div1.className = "mt-8 flex-col";
-    			add_location(div1, file$3, 172, 2, 5692);
-    			h21.className = "svelte-1k86l13";
-    			add_location(h21, file$3, 180, 4, 5970);
-    			body1.className = "w-3/4 svelte-1k86l13";
-    			add_location(body1, file$3, 182, 6, 6038);
+    			add_location(div1, file$3, 172, 2, 5695);
+    			h21.className = "svelte-1s5neyb";
+    			add_location(h21, file$3, 180, 4, 5973);
+    			body1.className = "w-3/4 svelte-1s5neyb";
+    			add_location(body1, file$3, 182, 6, 6041);
     			attr(input0, "type", "number");
     			input0.max = "3";
     			input0.min = "0";
-    			input0.className = "input svelte-1k86l13";
-    			add_location(input0, file$3, 183, 6, 6087);
-    			body2.className = "ml-1 mr-2 svelte-1k86l13";
-    			add_location(body2, file$3, 189, 6, 6219);
+    			input0.className = "input svelte-1s5neyb";
+    			add_location(input0, file$3, 183, 6, 6090);
+    			body2.className = "ml-1 mr-2 svelte-1s5neyb";
+    			add_location(body2, file$3, 189, 6, 6222);
     			attr(input1, "type", "number");
     			input1.max = "59";
     			input1.min = "0";
-    			input1.className = "input svelte-1k86l13";
-    			add_location(input1, file$3, 190, 6, 6260);
-    			body3.className = "ml-1 svelte-1k86l13";
-    			add_location(body3, file$3, 196, 6, 6394);
+    			input1.className = "input svelte-1s5neyb";
+    			add_location(input1, file$3, 190, 6, 6263);
+    			body3.className = "ml-1 svelte-1s5neyb";
+    			add_location(body3, file$3, 196, 6, 6397);
     			div2.className = "flex items-center my-4";
-    			add_location(div2, file$3, 181, 4, 5994);
-    			body4.className = "w-3/4 svelte-1k86l13";
-    			add_location(body4, file$3, 199, 6, 6485);
+    			add_location(div2, file$3, 181, 4, 5997);
+    			body4.className = "w-3/4 svelte-1s5neyb";
+    			add_location(body4, file$3, 199, 6, 6488);
     			attr(input2, "type", "number");
     			input2.max = "3";
     			input2.min = "0";
-    			input2.className = "input svelte-1k86l13";
-    			add_location(input2, file$3, 200, 6, 6534);
-    			body5.className = "ml-1 mr-2 svelte-1k86l13";
-    			add_location(body5, file$3, 206, 6, 6666);
+    			input2.className = "input svelte-1s5neyb";
+    			add_location(input2, file$3, 200, 6, 6537);
+    			body5.className = "ml-1 mr-2 svelte-1s5neyb";
+    			add_location(body5, file$3, 206, 6, 6669);
     			attr(input3, "type", "number");
     			input3.max = "59";
     			input3.min = "0";
-    			input3.className = "input svelte-1k86l13";
-    			add_location(input3, file$3, 207, 6, 6707);
-    			body6.className = "ml-1 svelte-1k86l13";
-    			add_location(body6, file$3, 213, 6, 6841);
+    			input3.className = "input svelte-1s5neyb";
+    			add_location(input3, file$3, 207, 6, 6710);
+    			body6.className = "ml-1 svelte-1s5neyb";
+    			add_location(body6, file$3, 213, 6, 6844);
     			div3.className = "flex items-center mb-4";
-    			add_location(div3, file$3, 198, 4, 6441);
-    			body7.className = "w-3/4 svelte-1k86l13";
-    			add_location(body7, file$3, 216, 6, 6937);
+    			add_location(div3, file$3, 198, 4, 6444);
+    			body7.className = "w-3/4 svelte-1s5neyb";
+    			add_location(body7, file$3, 216, 6, 6940);
     			attr(input4, "type", "number");
     			input4.max = "3";
     			input4.min = "0";
-    			input4.className = "input svelte-1k86l13";
+    			input4.className = "input svelte-1s5neyb";
     			input4.id = "Nap3ToSleepHr";
-    			add_location(input4, file$3, 217, 6, 6986);
-    			body8.className = "ml-1 mr-2 svelte-1k86l13";
-    			add_location(body8, file$3, 224, 6, 7147);
+    			add_location(input4, file$3, 217, 6, 6989);
+    			body8.className = "ml-1 mr-2 svelte-1s5neyb";
+    			add_location(body8, file$3, 224, 6, 7150);
     			attr(input5, "type", "number");
     			input5.max = "59";
     			input5.min = "0";
-    			input5.className = "input svelte-1k86l13";
-    			add_location(input5, file$3, 225, 6, 7188);
-    			body9.className = "ml-1 svelte-1k86l13";
-    			add_location(body9, file$3, 231, 6, 7323);
+    			input5.className = "input svelte-1s5neyb";
+    			add_location(input5, file$3, 225, 6, 7191);
+    			body9.className = "ml-1 svelte-1s5neyb";
+    			add_location(body9, file$3, 231, 6, 7326);
     			div4.className = "flex pb-8 items-center mb-4";
-    			add_location(div4, file$3, 215, 4, 6888);
+    			add_location(div4, file$3, 215, 4, 6891);
     			div5.className = "mt-8 flex-col";
-    			add_location(div5, file$3, 179, 2, 5937);
+    			add_location(div5, file$3, 179, 2, 5940);
     			div6.className = "w-full bg-backgroundColor p-4";
-    			add_location(div6, file$3, 117, 0, 3643);
+    			add_location(div6, file$3, 117, 0, 3646);
 
     			dispose = [
     				listen(button, "click", ctx.click_handler_2),
