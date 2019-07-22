@@ -22,10 +22,10 @@
   function initClient() {
     gapi.client
       .init({
-        clientID: credentials.CLIENT_ID,
-        apiKey: credentials.API_KEY,
-        scope: credentials.SCOPES,
-        discoveryDocs: credentials.DISCOVERY_DOCS
+        clientID: testclientID, //credentials.CLIENT_ID,
+        apiKey: testapiKey, //credentials.API_KEY,
+        scope: testscopes, //credentials.SCOPES,
+        discoveryDocs: testdiscoveryDocs //credentials.DISCOVERY_DOCS
       })
       .then(() => {
         gapi.load("auth2", initAuth2);
