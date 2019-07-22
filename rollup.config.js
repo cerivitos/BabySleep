@@ -25,13 +25,12 @@ export default {
   },
 
   plugins: [
-    //dotenvPlugin(),
     replace({
-      include: "components/SignIn.svelte",
-      testclientID: JSON.stringify(process.env.client_id),
-      testapiKey: JSON.stringify(process.env.api_key),
-      testscopes: JSON.stringify(process.env.scopes),
-      testdiscoveryDocs: JSON.stringify(process.env.discovery_docs),
+      include: ["components/SignIn.svelte", "credentials.js"],
+      clientID: JSON.stringify(process.env.client_id),
+      apiKey: JSON.stringify(process.env.api_key),
+      scopes: JSON.stringify(process.env.scopes),
+      discoveryDocs: JSON.stringify(process.env.discovery_docs),
       spreadsheetID: JSON.stringify(process.env.spreadsheet_id),
       sheetName: JSON.stringify(process.env.sheet_name),
       sheetID: JSON.stringify(process.env.sheet_id)

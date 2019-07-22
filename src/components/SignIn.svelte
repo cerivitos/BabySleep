@@ -22,10 +22,10 @@
   function initClient() {
     gapi.client
       .init({
-        clientID: testclientID, //credentials.CLIENT_ID,
-        apiKey: testapiKey, //credentials.API_KEY,
-        scope: testscopes, //credentials.SCOPES,
-        discoveryDocs: testdiscoveryDocs //credentials.DISCOVERY_DOCS
+        clientID: clientID, //credentials.CLIENT_ID,
+        apiKey: apiKey, //credentials.API_KEY,
+        scope: scopes, //credentials.SCOPES,
+        discoveryDocs: discoveryDocs //credentials.DISCOVERY_DOCS
       })
       .then(() => {
         gapi.load("auth2", initAuth2);
@@ -35,8 +35,8 @@
   function initAuth2() {
     gapi.auth2
       .init({
-        clientID: testclientID, //credentials.CLIENT_ID,
-        scope: testscopes //credentials.SCOPES
+        clientID: clientID, //credentials.CLIENT_ID,
+        scope: scopes //credentials.SCOPES
       })
       .then(() => {
         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
