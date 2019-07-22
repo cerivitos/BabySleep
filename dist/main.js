@@ -4613,7 +4613,7 @@
     			meta = element("meta");
     			meta.name = "google-signin-client_id";
     			meta.content = meta_content_value = credentials.CLIENT_ID;
-    			add_location(meta, file$2, 111, 2, 2635);
+    			add_location(meta, file$2, 74, 2, 1736);
     		},
 
     		l: function claim(nodes) {
@@ -4702,43 +4702,6 @@
           userPic.set();
         }
       }
-
-      // function signIn() {
-      //   gapi.auth2
-      //     .getAuthInstance()
-      //     .signIn()
-      //     .then(response => {
-      //       response.El.length > 0 ? (isSignedIn = true) : (isSignedIn = false);
-
-      //       gapiInstance.set(gapi);
-      //       userName.set(
-      //         gapi.auth2
-      //           .getAuthInstance()
-      //           .currentUser.get()
-      //           .getBasicProfile()
-      //           .getName()
-      //       );
-      //       userPic.set(
-      //         gapi.auth2
-      //           .getAuthInstance()
-      //           .currentUser.get()
-      //           .getBasicProfile()
-      //           .getImageUrl()
-      //       );
-      //     });
-      // }
-
-      // function signOut() {
-      //   gapi.auth2
-      //     .getAuthInstance()
-      //     .signOut()
-      //     .then(() => {
-      //       isSignedIn = false;
-
-      //       userName.set();
-      //       userPic.set();
-      //     });
-      // }
 
     	return {};
     }
