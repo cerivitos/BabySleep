@@ -15,6 +15,8 @@ import dotenv from "dotenv";
 dotenv.config();
 const production = !process.env.ROLLUP_WATCH;
 
+console.log(process.env.CLIENT_ID);
+
 export default {
   input: "src/main.js",
   output: {
