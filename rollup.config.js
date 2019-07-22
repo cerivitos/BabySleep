@@ -30,13 +30,13 @@ export default {
     //dotenvPlugin(),
     replace({
       include: "credentials.js",
-      clientID: JSON.stringify(process.env.CLIENT_ID),
-      apiKey: JSON.stringify(process.env.API_KEY),
-      scopes: JSON.stringify(process.env.SCOPES),
-      discoveryDocs: JSON.stringify(process.env.DISCOVERY_DOCS),
-      spreadsheetID: JSON.stringify(process.env.SPREADSHEET_ID),
-      sheetName: JSON.stringify(process.env.SHEET_NAME),
-      sheetID: JSON.stringify(process.env.SHEET_ID)
+      clientID: JSON.stringify(process.env.client_id),
+      apiKey: JSON.stringify(process.env.api_key),
+      scopes: JSON.stringify(process.env.scopes),
+      discoveryDocs: JSON.stringify(process.env.discovery_docs),
+      spreadsheetID: JSON.stringify(process.env.spreadsheet_id),
+      sheetName: JSON.stringify(process.env.sheet_name),
+      sheetID: JSON.stringify(process.env.sheet_id)
     }),
     svelte({
       dev: !production,
