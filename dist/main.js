@@ -3918,7 +3918,7 @@
 
     const file$1 = "src\\components\\Entry.svelte";
 
-    // (419:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
+    // (422:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
     function create_default_slot(ctx) {
     	var div1, div0, button0, t0, button0_class_value, t1, button1, t2, button1_class_value, t3, div2, button2, t4, button2_class_value, dispose;
 
@@ -3935,18 +3935,18 @@
     			div2 = element("div");
     			button2 = element("button");
     			t4 = text("Submit");
-    			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white\r\n        py-2 px-4 rounded-l outline-none";
-    			add_location(button0, file$1, 427, 6, 13318);
-    			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white\r\n        py-2 px-4 rounded-r outline-none";
-    			add_location(button1, file$1, 433, 6, 13531);
+    			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white py-2 px-4\r\n        rounded-l outline-none";
+    			add_location(button0, file$1, 430, 6, 13449);
+    			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white py-2 px-4\r\n        rounded-r outline-none";
+    			add_location(button1, file$1, 436, 6, 13662);
     			div0.className = "inline-flex";
-    			add_location(div0, file$1, 426, 4, 13285);
+    			add_location(div0, file$1, 429, 4, 13416);
     			div1.className = "w-full flex justify-center mt-8";
-    			add_location(div1, file$1, 425, 2, 13234);
+    			add_location(div1, file$1, 428, 2, 13365);
     			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      text-2xl hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50');
-    			add_location(button2, file$1, 442, 4, 13806);
+    			add_location(button2, file$1, 445, 4, 13937);
     			div2.className = "flex items-center justify-center";
-    			add_location(div2, file$1, 441, 2, 13754);
+    			add_location(div2, file$1, 444, 2, 13885);
 
     			dispose = [
     				listen(button0, "click", ctx.click_handler),
@@ -3970,11 +3970,11 @@
     		},
 
     		p: function update(changed, ctx) {
-    			if ((changed.isNap) && button0_class_value !== (button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white\r\n        py-2 px-4 rounded-l outline-none")) {
+    			if ((changed.isNap) && button0_class_value !== (button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white py-2 px-4\r\n        rounded-l outline-none")) {
     				button0.className = button0_class_value;
     			}
 
-    			if ((changed.isNap) && button1_class_value !== (button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white\r\n        py-2 px-4 rounded-r outline-none")) {
+    			if ((changed.isNap) && button1_class_value !== (button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " bg-accentColor3 text-white py-2 px-4\r\n        rounded-r outline-none")) {
     				button1.className = button1_class_value;
     			}
 
@@ -4070,19 +4070,19 @@
     			t10 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold text-backgroundColor";
-    			add_location(div0, file$1, 379, 4, 12034);
+    			add_location(div0, file$1, 382, 4, 12165);
     			body0.className = "text-2xl justify-center items-center flex";
-    			add_location(body0, file$1, 377, 2, 11951);
+    			add_location(body0, file$1, 380, 2, 12082);
     			div1.className = "w-full overflow-hidden bg-accentColor text-white";
     			set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
-    			add_location(div1, file$1, 374, 0, 11832);
+    			add_location(div1, file$1, 377, 0, 11963);
     			div2.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div2, file$1, 403, 4, 12698);
+    			add_location(div2, file$1, 406, 4, 12829);
     			body1.className = "text-2xl justify-center items-center flex";
-    			add_location(body1, file$1, 401, 2, 12620);
+    			add_location(body1, file$1, 404, 2, 12751);
     			div3.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div3, file$1, 398, 0, 12510);
+    			add_location(div3, file$1, 401, 0, 12641);
     		},
 
     		l: function claim(nodes) {
@@ -4270,6 +4270,7 @@
           $$invalidate('pickUpTime', pickUpTime = cache.pickUpTime);
           $$invalidate('wakeDate', wakeDate = cache.wakeDate);
           $$invalidate('wakeTime', wakeTime = cache.wakeTime);
+          cache.isNap !== undefined ? (isNap = cache.isNap) : (isNap = true); $$invalidate('isNap', isNap);
         }
         const interval = setInterval(() => {
           $$invalidate('time', time = new Date());
@@ -4289,7 +4290,8 @@
           wakeDate: wakeDate,
           wakeTime: wakeTime,
           pickUpDate: pickUpDate,
-          pickUpTime: pickUpTime
+          pickUpTime: pickUpTime,
+          isNap: isNap
         };
 
         localStorage.setItem("cache", JSON.stringify(cache));
@@ -4408,6 +4410,7 @@
                         $$invalidate('check2v1', check2v1 = false);
                         $$invalidate('check3v2', check3v2 = false);
                         $$invalidate('check4v3', check4v3 = false);
+                        $$invalidate('isNap', isNap = true);
 
                         localStorage.setItem("cache", "");
                       });

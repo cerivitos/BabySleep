@@ -62,6 +62,7 @@
       pickUpTime = cache.pickUpTime;
       wakeDate = cache.wakeDate;
       wakeTime = cache.wakeTime;
+      cache.isNap !== undefined ? (isNap = cache.isNap) : (isNap = true);
     }
     const interval = setInterval(() => {
       time = new Date();
@@ -81,7 +82,8 @@
       wakeDate: wakeDate,
       wakeTime: wakeTime,
       pickUpDate: pickUpDate,
-      pickUpTime: pickUpTime
+      pickUpTime: pickUpTime,
+      isNap: isNap
     };
 
     localStorage.setItem("cache", JSON.stringify(cache));
@@ -217,6 +219,7 @@
                     check2v1 = false;
                     check3v2 = false;
                     check4v3 = false;
+                    isNap = true;
 
                     localStorage.setItem("cache", "");
                   });
@@ -426,14 +429,14 @@
   <div class="w-full flex justify-center mt-8">
     <div class="inline-flex">
       <button
-        class="{isNap ? '' : 'opacity-25'} bg-accentColor3 text-white
-        py-2 px-4 rounded-l outline-none"
+        class="{isNap ? '' : 'opacity-25'} bg-accentColor3 text-white py-2 px-4
+        rounded-l outline-none"
         on:click={() => (isNap = true)}>
         &nbsp;Nap&nbsp;
       </button>
       <button
-        class="{!isNap ? '' : 'opacity-25'} bg-accentColor3 text-white
-        py-2 px-4 rounded-r outline-none"
+        class="{!isNap ? '' : 'opacity-25'} bg-accentColor3 text-white py-2 px-4
+        rounded-r outline-none"
         on:click={() => (isNap = false)}>
         Sleep
       </button>
