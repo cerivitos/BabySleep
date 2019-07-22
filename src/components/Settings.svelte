@@ -123,7 +123,7 @@
   }
 
   .button {
-    @apply text-primaryColor flex-none p-2 rounded fill-current;
+    @apply text-primaryColor flex-none p-2 rounded fill-current font-medium;
   }
 
   .input {
@@ -150,7 +150,8 @@
       <h2>Sign in required</h2>
       <div class="flex justify-center">
         <button
-          class="flex bg-white rounded shadow text-gray-700 py-2 px-4"
+          class="flex bg-white rounded shadow text-gray-700 py-2 px-4
+          font-medium"
           on:click={() => signIn()}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

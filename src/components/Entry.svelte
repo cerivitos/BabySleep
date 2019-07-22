@@ -375,6 +375,12 @@
   }
 </script>
 
+<style type="text/postcss">
+  .nap-button {
+    @apply bg-accentColor3 text-white text-lg font-medium py-2 px-4 outline-none;
+  }
+</style>
+
 <div
   class="w-full overflow-hidden bg-accentColor text-white"
   style="height: {$nextPutDownTimeDivHeight}rem">
@@ -429,14 +435,12 @@
   <div class="w-full flex justify-center mt-8">
     <div class="inline-flex">
       <button
-        class="{isNap ? '' : 'opacity-25'} bg-accentColor3 text-white py-2 px-4
-        rounded-l outline-none"
+        class="{isNap ? '' : 'opacity-25'} nap-button rounded-l"
         on:click={() => (isNap = true)}>
         &nbsp;Nap&nbsp;
       </button>
       <button
-        class="{!isNap ? '' : 'opacity-25'} bg-accentColor3 text-white py-2 px-4
-        rounded-r outline-none"
+        class="{!isNap ? '' : 'opacity-25'} nap-button rounded-r"
         on:click={() => (isNap = false)}>
         Sleep
       </button>
@@ -445,7 +449,7 @@
   <div class="flex items-center justify-center">
     <button
       class="py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white
-      text-2xl hover:shadow-lg border-b-4 border-teal-700 {check2v1 && check3v2 && check4v3 ? '' : 'opacity-50'}"
+      font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 {check2v1 && check3v2 && check4v3 ? '' : 'opacity-50'}"
       on:click={() => ($userName !== undefined ? validateAndSend() : signIn())}>
       Submit
     </button>
