@@ -35,8 +35,8 @@
   function initAuth2() {
     gapi.auth2
       .init({
-        clientID: credentials.CLIENT_ID,
-        scope: credentials.SCOPES
+        clientID: testclientID, //credentials.CLIENT_ID,
+        scope: testscopes //credentials.SCOPES
       })
       .then(() => {
         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
