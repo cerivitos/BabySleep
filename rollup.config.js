@@ -9,13 +9,7 @@ import svelte_preprocess_postcss from "svelte-preprocess-postcss";
 import builtins from "rollup-plugin-node-builtins";
 import globals from "rollup-plugin-node-globals";
 import copy from "rollup-plugin-copy-assets";
-import replace from "rollup-plugin-replace";
-import dotenv from "dotenv";
-
-dotenv.config();
 const production = !process.env.ROLLUP_WATCH;
-
-console.log(process.env.client_id);
 
 export default {
   input: "src/main.js",
@@ -27,16 +21,6 @@ export default {
   },
 
   plugins: [
-    replace({
-      include: "credentials.js",
-      clientID: JSON.stringify(process.env.client_id),
-      apiKey: JSON.stringify(process.env.api_key),
-      scopes: JSON.stringify(process.env.scopes),
-      discoveryDocs: JSON.stringify(process.env.discovery_docs),
-      spreadsheetID: JSON.stringify(process.env.spreadsheet_id),
-      sheetName: JSON.stringify(process.env.sheet_name),
-      sheetID: JSON.stringify(process.env.sheet_id)
-    }),
     svelte({
       dev: !production,
       preprocess: {

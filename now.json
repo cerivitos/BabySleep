@@ -13,13 +13,15 @@
       "dest": "dist/$1"
     }
   ],
-  "env": {
-    "CLIENT_ID": "@client_id",
-    "API_KEY": "@api_key",
-    "SCOPES": "@scopes",
-    "DISCOVERY_DOCS": "@discovery_docs",
-    "SPREADSHEET_ID": "@spreadsheet_id",
-    "SHEET_NAME": "@sheet_name",
-    "SHEET_ID": "@sheet_id"
+  "build": {
+    "env": {
+      "CLIENT_ID": "@client_id",
+      "API_KEY": "@api_key",
+      "SCOPES": "@scopes",
+      "DISCOVERY_DOCS": "@discovery_docs",
+      "SPREADSHEET_ID": "@spreadsheet_id",
+      "SHEET_NAME": "@sheet_name",
+      "SHEET_ID": "@sheet_id"
+    }
   }
 }

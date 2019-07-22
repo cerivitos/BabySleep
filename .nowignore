@@ -1,6 +1,3 @@
 README.md
 .next
 node_modules
-
-credentials.test.js
-.env
