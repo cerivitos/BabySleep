@@ -96,7 +96,7 @@
    */
   function addTime(dateString, timeString, minutesToAdd, outputFormat) {
     const newDate = addMinutes(
-      new Date(dateString + " " + timeString),
+      new Date(dateString + "T" + timeString),
       minutesToAdd
     );
     return outputFormat === "time"
@@ -249,7 +249,7 @@
       parseInt(localStorage.getItem(intervalMinKey));
 
     const putDownDateTime = addMinutes(
-      new Date(pickUpDate + " " + pickUpTime),
+      new Date(pickUpDate + "T" + pickUpTime),
       intervalInMins
     );
     return format(putDownDateTime, "h:mm a");
@@ -280,12 +280,12 @@
    */
   $: if (
     isAfter(
-      new Date(sleepDate + " " + sleepTime),
-      new Date(putDownDate + " " + putDownTime)
+      new Date(sleepDate + "T" + sleepTime),
+      new Date(putDownDate + "T" + putDownTime)
     ) ||
     isEqual(
-      new Date(sleepDate + " " + sleepTime),
-      new Date(putDownDate + " " + putDownTime)
+      new Date(sleepDate + "T" + sleepTime),
+      new Date(putDownDate + "T" + putDownTime)
     )
   ) {
     check2v1 = true;
@@ -295,12 +295,12 @@
 
   $: if (
     isAfter(
-      new Date(wakeDate + " " + wakeTime),
-      new Date(sleepDate + " " + sleepTime)
+      new Date(wakeDate + "T" + wakeTime),
+      new Date(sleepDate + "T" + sleepTime)
     ) ||
     isEqual(
-      new Date(wakeDate + " " + wakeTime),
-      new Date(sleepDate + " " + sleepTime)
+      new Date(wakeDate + "T" + wakeTime),
+      new Date(sleepDate + "T" + sleepTime)
     )
   ) {
     check3v2 = true;
@@ -310,12 +310,12 @@
 
   $: if (
     isAfter(
-      new Date(pickUpDate + " " + pickUpTime),
-      new Date(wakeDate + " " + wakeTime)
+      new Date(pickUpDate + "T" + pickUpTime),
+      new Date(wakeDate + "T" + wakeTime)
     ) ||
     isEqual(
-      new Date(pickUpDate + " " + pickUpTime),
-      new Date(wakeDate + " " + wakeTime)
+      new Date(pickUpDate + "T" + pickUpTime),
+      new Date(wakeDate + "T" + wakeTime)
     )
   ) {
     check4v3 = true;
@@ -335,11 +335,11 @@
   $: if (
     check2v1 &&
     !check3v2 &&
-    isAfter(time, new Date(sleepDate + " " + sleepTime))
+    isAfter(time, new Date(sleepDate + "T" + sleepTime))
   ) {
     elapsedSleepTime = differenceInMinutes(
       time,
-      new Date(sleepDate + " " + sleepTime)
+      new Date(sleepDate + "T" + sleepTime)
     );
     /**
      * Tween div height from 0 to 6rem
@@ -349,13 +349,13 @@
     check2v1 &&
     check3v2 &&
     isAfter(
-      new Date(wakeDate + " " + wakeTime),
-      new Date(sleepDate + " " + sleepTime)
+      new Date(wakeDate + "T" + wakeTime),
+      new Date(sleepDate + "T" + sleepTime)
     )
   ) {
     elapsedSleepTime = differenceInMinutes(
-      new Date(wakeDate + " " + wakeTime),
-      new Date(sleepDate + " " + sleepTime)
+      new Date(wakeDate + "T" + wakeTime),
+      new Date(sleepDate + "T" + sleepTime)
     );
   } else {
     elapsedSleepTime = 0;
