@@ -4,32 +4,44 @@
 
 <style type="text/postcss">
   .dot {
-    animation: scale 1s ease-out infinite, fade 1s ease-out infinite;
+    animation: scale 1s 1.4s infinite ease-in-out both,
+      fade 1s 1.4s infinite ease-in-out both;
     line-height: 0.5;
-    @apply text-secondaryColor text-5xl;
+    @apply text-secondaryColor text-5xl opacity-0;
   }
 
   .dot:nth-child(1) {
-    animation-delay: 1.7s;
+    animation-delay: 0s;
   }
 
   .dot:nth-child(2) {
-    animation-delay: 0.9s;
+    animation-delay: -0.32s;
   }
 
   .dot:nth-child(3) {
-    animation-delay: 0.2s;
+    animation-delay: -0.16s;
   }
 
   @keyframes scale {
-    to {
+    0%,
+    100% {
+      transform-origin: center;
+      transform: scale(1);
+    }
+    ,
+    50% {
       transform-origin: center;
       transform: scale(1.2);
     }
   }
 
   @keyframes fade {
-    to {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    ,
+    50% {
       opacity: 0;
     }
   }

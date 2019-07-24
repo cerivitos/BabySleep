@@ -4769,7 +4769,7 @@
     			body = element("body");
     			t = text(ctx.text);
     			body.className = "w-full text-center text-primaryColor aboslute bottom-0";
-    			add_location(body, file$3, 19, 4, 1092);
+    			add_location(body, file$3, 19, 4, 1410);
     		},
 
     		m: function mount(target, anchor) {
@@ -4813,19 +4813,19 @@
     			div4.textContent = "·";
     			t5 = space();
     			if (if_block) if_block.c();
-    			add_location(div0, file$3, 9, 6, 914);
-    			div1.className = "dot svelte-1yck950";
-    			add_location(div1, file$3, 8, 4, 889);
-    			add_location(div2, file$3, 12, 6, 969);
-    			div3.className = "dot svelte-1yck950";
-    			add_location(div3, file$3, 11, 4, 944);
-    			add_location(div4, file$3, 15, 6, 1024);
-    			div5.className = "dot svelte-1yck950";
-    			add_location(div5, file$3, 14, 4, 999);
+    			add_location(div0, file$3, 9, 6, 1232);
+    			div1.className = "dot svelte-pqda";
+    			add_location(div1, file$3, 8, 4, 1207);
+    			add_location(div2, file$3, 12, 6, 1287);
+    			div3.className = "dot svelte-pqda";
+    			add_location(div3, file$3, 11, 4, 1262);
+    			add_location(div4, file$3, 15, 6, 1342);
+    			div5.className = "dot svelte-pqda";
+    			add_location(div5, file$3, 14, 4, 1317);
     			div6.className = "flex text-center justify-center items-center";
-    			add_location(div6, file$3, 7, 2, 825);
+    			add_location(div6, file$3, 7, 2, 1143);
     			div7.className = "w-full h-auto";
-    			add_location(div7, file$3, 6, 0, 794);
+    			add_location(div7, file$3, 6, 0, 1112);
     		},
 
     		l: function claim(nodes) {
