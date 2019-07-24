@@ -1,5 +1,10 @@
 <script>
-  import { userName, userPic } from "../store/store.js";
+  import {
+    userName,
+    userPic,
+    gapiInstance,
+    sheetName
+  } from "../store/store.js";
   import { onMount } from "svelte";
   import { signOut, signIn } from "../util.js";
   import { fade } from "svelte/transition";
@@ -13,7 +18,13 @@
     Nap3ToSleepHr,
     Nap3ToSleepMin;
 
+  let loadingSheetName = false;
+
   onMount(() => {
+    if (($sheetName = "")) {
+      getSheetName(credentials.SPREADSHEET_ID);
+    }
+
     const intervals = [
       "Nap1ToNap2Hr",
       "Nap1ToNap2Min",
@@ -58,11 +69,21 @@
     }
   });
 
-  function openSheet() {
-    window.open(
-      `https://docs.google.com/spreadsheets/d/${credentials.SPREADSHEET_ID}`,
-      "_blank"
-    );
+  function getSheetName(id) {
+    loadingSheetName = true;
+
+    $gapiInstance.client.sheets.spreadsheets
+      .get({
+        spreadsheetId: id
+      })
+      .then(response => {
+        sheetName.set(response.result.properties.title);
+        loadingSheetName = false;
+      });
+  }
+
+  function openSheet(id) {
+    window.open(`https://docs.google.com/spreadsheets/d/${id}`, "_blank");
   }
 
   $: if (Nap1ToNap2Hr < 0) {
@@ -140,7 +161,6 @@
   }
 </style>
 
-<LoadingSpinner text="loading..." />
 <div class="w-full bg-backgroundColor p-4">
   {#if $userName !== undefined && $userPic !== undefined}
     <div class="mt-2 flex-col" in:fade={{ duration: 400 }}>
@@ -200,8 +220,16 @@
   <div class="mt-8 flex-col">
     <h2>Connected to</h2>
     <div class="flex items-center">
-      <body class="flex-1">Hongjun's Sleep Log</body>
-      <button class="button" on:click={() => openSheet()}>OPEN</button>
+      {#if loadingSheetName}
+        <LoadingSpinner />
+      {:else}
+        <body class="flex-1">{$sheetName}</body>
+        <button
+          class="button"
+          on:click={() => openSheet(credentials.SPREADSHEET_ID)}>
+          OPEN
+        </button>
+      {/if}
     </div>
   </div>
   <div class="mt-8 flex-col">
