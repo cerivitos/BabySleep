@@ -2,6 +2,7 @@
   import { onMount, onDestroy } from "svelte";
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
+  import { fade } from "svelte/transition";
   import {
     addMinutes,
     format,
@@ -15,6 +16,7 @@
   import { credentials } from "../../credentials.js";
   import EntryBlock from "./EntryBlock.svelte";
   import { signIn } from "../util.js";
+  import LoadingSpinner from "./LoadingSpinner.svelte";
 
   let putDownDate = format(new Date(), "yyyy-MM-dd");
   let putDownTime = format(new Date(), "HH:mm");
@@ -37,6 +39,8 @@
 
   let isNap = true;
   let nextPutDownTime;
+
+  let sending = false;
 
   const elapsedSleepTimeDivHeight = tweened(0, {
     duration: 450,
@@ -118,6 +122,11 @@
       check4v3 &&
       $gapiInstance.client.sheets !== null
     ) {
+      /**
+       * Set sending flag to true and show loading spinner
+       */
+      sending = true;
+
       /**
        * Saves the nap number for use later when calculating estimated next put down time.
        * @type {number}
@@ -210,6 +219,11 @@
                     ]
                   })
                   .then(response => {
+                    /**
+                     * Hide loading spinner
+                     */
+                    sending = false;
+
                     nextPutDownTime = calculateNextPutDownTime(napNumber);
 
                     putDownTime = format(new Date(), "HH:mm");
@@ -222,6 +236,10 @@
                     isNap = true;
 
                     localStorage.setItem("cache", "");
+
+                    document
+                      .getElementById("topBlock")
+                      .scrollIntoView({ behavior: smooth });
                   });
               }
             });
@@ -230,6 +248,10 @@
       console.log(
         `Failed to send:\nCheck 2 v 1: ${check2v1}\nCheck 3 v 2: ${check3v2}\nCheck 4 v 3: ${check4v3}\ngapi: ${gapiInstance}`
       );
+      /**
+       * Hide loading spinner
+       */
+      sending = false;
     }
   }
 
@@ -381,7 +403,17 @@
   }
 </style>
 
+{#if sending}
+  <div
+    transition:fade
+    class="w-full h-screen bg-black opacity-75 flex items-center justify-center
+    absolute"
+    on:click>
+    <LoadingSpinner text="Sending" />
+  </div>
+{/if}
 <div
+  id="topBlock"
   class="w-full overflow-hidden bg-accentColor text-white"
   style="height: {$nextPutDownTimeDivHeight}rem">
   <body class="text-2xl justify-center items-center flex">

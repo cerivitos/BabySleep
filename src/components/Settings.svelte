@@ -1,9 +1,15 @@
 <script>
-  import { userName, userPic } from "../store/store.js";
+  import {
+    userName,
+    userPic,
+    gapiInstance,
+    sheetName
+  } from "../store/store.js";
   import { onMount } from "svelte";
   import { signOut, signIn } from "../util.js";
   import { fade } from "svelte/transition";
   import { credentials } from "../../credentials.js";
+  import LoadingSpinner from "./LoadingSpinner.svelte";
 
   let Nap1ToNap2Hr,
     Nap1ToNap2Min,
@@ -12,7 +18,13 @@
     Nap3ToSleepHr,
     Nap3ToSleepMin;
 
+  let loadingSheetName = false;
+
   onMount(() => {
+    if ($sheetName.length === 0) {
+      getSheetName(credentials.SPREADSHEET_ID);
+    }
+
     const intervals = [
       "Nap1ToNap2Hr",
       "Nap1ToNap2Min",
@@ -57,11 +69,21 @@
     }
   });
 
-  function openSheet() {
-    window.open(
-      `https://docs.google.com/spreadsheets/d/${credentials.SPREADSHEET_ID}`,
-      "_blank"
-    );
+  function getSheetName(id) {
+    loadingSheetName = true;
+
+    $gapiInstance.client.sheets.spreadsheets
+      .get({
+        spreadsheetId: id
+      })
+      .then(response => {
+        sheetName.set(response.result.properties.title);
+        loadingSheetName = false;
+      });
+  }
+
+  function openSheet(id) {
+    window.open(`https://docs.google.com/spreadsheets/d/${id}`, "_blank");
   }
 
   $: if (Nap1ToNap2Hr < 0) {
@@ -130,6 +152,13 @@
     @apply w-8 lowercase border-b-4 text-secondaryColor bg-transparent text-center;
     min-width: 10%;
   }
+
+  label {
+    font-family: "Roboto", sans-serif;
+    font-size: 1em;
+    line-height: 1.5;
+    @apply text-secondaryColor;
+  }
 </style>
 
 <div class="w-full bg-backgroundColor p-4">
@@ -191,8 +220,16 @@
   <div class="mt-8 flex-col">
     <h2>Connected to</h2>
     <div class="flex items-center">
-      <body class="flex-1">Hongjun's Sleep Log</body>
-      <button class="button" on:click={() => openSheet()}>OPEN</button>
+      {#if loadingSheetName}
+        <LoadingSpinner />
+      {:else}
+        <body class="flex-1">{$sheetName}</body>
+        <button
+          class="button"
+          on:click={() => openSheet(credentials.SPREADSHEET_ID)}>
+          OPEN
+        </button>
+      {/if}
     </div>
   </div>
   <div class="mt-8 flex-col">
@@ -205,14 +242,14 @@
         max="3"
         min="0"
         class="input" />
-      <body class="ml-1 mr-2">hr</body>
+      <label class="ml-1 mr-2">hr</label>
       <input
         type="number"
         bind:value={Nap1ToNap2Min}
         max="59"
         min="0"
         class="input" />
-      <body class="ml-1">min</body>
+      <label class="ml-1">min</label>
     </div>
     <div class="flex items-center mb-4">
       <body class="w-3/4">Nap 2 to Nap 3</body>
@@ -222,14 +259,14 @@
         max="3"
         min="0"
         class="input" />
-      <body class="ml-1 mr-2">hr</body>
+      <label class="ml-1 mr-2">hr</label>
       <input
         type="number"
         bind:value={Nap2ToNap3Min}
         max="59"
         min="0"
         class="input" />
-      <body class="ml-1">min</body>
+      <label class="ml-1">min</label>
     </div>
     <div class="flex pb-8 items-center mb-4">
       <body class="w-3/4">Nap 3 to Sleep</body>
@@ -240,14 +277,14 @@
         min="0"
         class="input"
         id="Nap3ToSleepHr" />
-      <body class="ml-1 mr-2">hr</body>
+      <label class="ml-1 mr-2">hr</label>
       <input
         type="number"
         bind:value={Nap3ToSleepMin}
         max="59"
         min="0"
         class="input" />
-      <body class="ml-1">min</body>
+      <label class="ml-1">min</label>
     </div>
   </div>
 </div>
