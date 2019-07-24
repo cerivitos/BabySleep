@@ -11,61 +11,11 @@
   import { credentials } from "../../credentials.js";
   import LoadingSpinner from "./LoadingSpinner.svelte";
 
-  let Nap1ToNap2Hr,
-    Nap1ToNap2Min,
-    Nap2ToNap3Hr,
-    Nap2ToNap3Min,
-    Nap3ToSleepHr,
-    Nap3ToSleepMin;
-
   let loadingSheetName = false;
 
   onMount(() => {
     if ($sheetName.length === 0) {
       getSheetName(credentials.SPREADSHEET_ID);
-    }
-
-    const intervals = [
-      "Nap1ToNap2Hr",
-      "Nap1ToNap2Min",
-      "Nap2ToNap3Hr",
-      "Nap2ToNap3Min",
-      "Nap3ToSleepHr",
-      "Nap3ToSleepMin"
-    ];
-
-    for (let i = 0; i < intervals.length; i++) {
-      const stored = localStorage.getItem(intervals[i]);
-
-      if (stored !== undefined) {
-        if (intervals[i] === "Nap1ToNap2Hr") {
-          Nap1ToNap2Hr = stored;
-        } else if (intervals[i] === "Nap1ToNap2Min") {
-          Nap1ToNap2Min = stored;
-        } else if (intervals[i] === "Nap2ToNap3Hr") {
-          Nap2ToNap3Hr = stored;
-        } else if (intervals[i] === "Nap2ToNap3Min") {
-          Nap2ToNap3Min = stored;
-        } else if (intervals[i] === "Nap3ToSleepHr") {
-          Nap3ToSleepHr = stored;
-        } else if (intervals[i] === "Nap3ToSleepMin") {
-          Nap3ToSleepMin = stored;
-        }
-      } else {
-        if (intervals[i] === "Nap1ToNap2Hr") {
-          intervals[i] = "2";
-        } else if (intervals[i] === "Nap1ToNap2Min") {
-          intervals[i] = "0";
-        } else if (intervals[i] === "Nap2ToNap3Hr") {
-          intervals[i] = "1";
-        } else if (intervals[i] === "Nap2ToNap3Min") {
-          intervals[i] = "50";
-        } else if (intervals[i] === "Nap3ToSleepHr") {
-          intervals[i] = "1";
-        } else if (intervals[i] === "Nap3ToSleepMin") {
-          intervals[i] = "30";
-        }
-      }
     }
   });
 
@@ -84,54 +34,6 @@
 
   function openSheet(id) {
     window.open(`https://docs.google.com/spreadsheets/d/${id}`, "_blank");
-  }
-
-  $: if (Nap1ToNap2Hr < 0) {
-    Nap1ToNap2Hr = 0;
-  } else if (Nap1ToNap2Hr > 3) {
-    Nap1ToNap2Hr = 3;
-  } else if (Nap1ToNap2Hr !== undefined) {
-    localStorage.setItem("Nap1ToNap2Hr", Nap1ToNap2Hr);
-  }
-
-  $: if (Nap2ToNap3Hr < 0) {
-    Nap2ToNap3Hr = 0;
-  } else if (Nap2ToNap3Hr > 3) {
-    Nap2ToNap3Hr = 3;
-  } else if (Nap2ToNap3Hr !== undefined) {
-    localStorage.setItem("Nap2ToNap3Hr", Nap2ToNap3Hr);
-  }
-
-  $: if (Nap3ToSleepHr < 0) {
-    Nap3ToSleepHr = 0;
-  } else if (Nap3ToSleepHr > 3) {
-    Nap3ToSleepHr = 3;
-  } else if (Nap3ToSleepHr !== undefined) {
-    localStorage.setItem("Nap3ToSleepHr", Nap3ToSleepHr);
-  }
-
-  $: if (Nap1ToNap2Min < 0) {
-    Nap1ToNap2Min = 0;
-  } else if (Nap1ToNap2Min > 59) {
-    Nap1ToNap2Min = 59;
-  } else if (Nap1ToNap2Min !== undefined) {
-    localStorage.setItem("Nap1ToNap2Min", Nap1ToNap2Min);
-  }
-
-  $: if (Nap2ToNap3Min < 0) {
-    Nap2ToNap3Min = 0;
-  } else if (Nap2ToNap3Min > 59) {
-    Nap2ToNap3Min = 59;
-  } else if (Nap2ToNap3Min !== undefined) {
-    localStorage.setItem("Nap2ToNap3Min", Nap2ToNap3Min);
-  }
-
-  $: if (Nap3ToSleepMin < 0) {
-    Nap3ToSleepMin = 0;
-  } else if (Nap3ToSleepMin > 59) {
-    Nap3ToSleepMin = 59;
-  } else if (Nap3ToSleepMin !== undefined) {
-    localStorage.setItem("Nap3ToSleepMin", Nap3ToSleepMin);
   }
 </script>
 
@@ -230,61 +132,6 @@
           OPEN
         </button>
       {/if}
-    </div>
-  </div>
-  <div class="mt-8 flex-col">
-    <h2>Intervals</h2>
-    <div class="flex items-center my-4">
-      <body class="w-3/4">Nap 1 to Nap 2</body>
-      <input
-        type="number"
-        bind:value={Nap1ToNap2Hr}
-        max="3"
-        min="0"
-        class="input" />
-      <label class="ml-1 mr-2">hr</label>
-      <input
-        type="number"
-        bind:value={Nap1ToNap2Min}
-        max="59"
-        min="0"
-        class="input" />
-      <label class="ml-1">min</label>
-    </div>
-    <div class="flex items-center mb-4">
-      <body class="w-3/4">Nap 2 to Nap 3</body>
-      <input
-        type="number"
-        bind:value={Nap2ToNap3Hr}
-        max="3"
-        min="0"
-        class="input" />
-      <label class="ml-1 mr-2">hr</label>
-      <input
-        type="number"
-        bind:value={Nap2ToNap3Min}
-        max="59"
-        min="0"
-        class="input" />
-      <label class="ml-1">min</label>
-    </div>
-    <div class="flex pb-8 items-center mb-4">
-      <body class="w-3/4">Nap 3 to Sleep</body>
-      <input
-        type="number"
-        bind:value={Nap3ToSleepHr}
-        max="3"
-        min="0"
-        class="input"
-        id="Nap3ToSleepHr" />
-      <label class="ml-1 mr-2">hr</label>
-      <input
-        type="number"
-        bind:value={Nap3ToSleepMin}
-        max="59"
-        min="0"
-        class="input" />
-      <label class="ml-1">min</label>
     </div>
   </div>
 </div>

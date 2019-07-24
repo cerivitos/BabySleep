@@ -282,8 +282,6 @@
                      */
                     sending = false;
 
-                    // nextPutDownTime = calculateNextPutDownTime(napNumber);
-
                     putDownTime = format(new Date(), "HH:mm");
                     sleepTime = undefined;
                     wakeTime = undefined;
@@ -312,31 +310,6 @@
       sending = false;
     }
   }
-
-  // function calculateNextPutDownTime(napNumber) {
-  //   let intervalHrKey, intervalMinKey;
-
-  //   if (napNumber === 1) {
-  //     intervalHrKey = "Nap1ToNap2Hr";
-  //     intervalMinKey = "Nap1ToNap2Min";
-  //   } else if (napNumber === 2) {
-  //     intervalHrKey = "Nap2ToNap3Hr";
-  //     intervalMinKey = "Nap2ToNap3Min";
-  //   } else {
-  //     intervalHrKey = "Nap3ToSleepHr";
-  //     intervalMinKey = "Nap3ToSleepMin";
-  //   }
-
-  //   const intervalInMins =
-  //     parseInt(localStorage.getItem(intervalHrKey) * 60) +
-  //     parseInt(localStorage.getItem(intervalMinKey));
-
-  //   const putDownDateTime = addMinutes(
-  //     new Date(pickUpDate + "T" + pickUpTime),
-  //     intervalInMins
-  //   );
-  //   return format(putDownDateTime, "h:mm a");
-  // }
 
   function receivePutDown(event) {
     putDownDate = event.detail.date;

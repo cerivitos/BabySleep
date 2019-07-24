@@ -150,10 +150,6 @@
     	node.setAttributeNS('http://www.w3.org/1999/xlink', attribute, value);
     }
 
-    function to_number(value) {
-    	return value === '' ? undefined : +value;
-    }
-
     function children(element) {
     	return Array.from(element.childNodes);
     }
@@ -4076,7 +4072,7 @@
 
     const file$2 = "src\\components\\Entry.svelte";
 
-    // (460:0) {#if sending}
+    // (433:0) {#if sending}
     function create_if_block$1(ctx) {
     	var div, div_transition, current, dispose;
 
@@ -4090,7 +4086,7 @@
     			div = element("div");
     			loadingspinner.$$.fragment.c();
     			div.className = "w-full h-screen bg-black opacity-75 flex items-center justify-center\r\n    absolute";
-    			add_location(div, file$2, 460, 2, 14636);
+    			add_location(div, file$2, 433, 2, 13754);
     			dispose = listen(div, "click", ctx.click_handler);
     		},
 
@@ -4137,7 +4133,7 @@
     	};
     }
 
-    // (514:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
+    // (487:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
     function create_default_slot(ctx) {
     	var div1, div0, button0, t0, button0_class_value, t1, button1, t2, button1_class_value, t3, div2, button2, t4, button2_class_value, dispose;
 
@@ -4155,17 +4151,17 @@
     			button2 = element("button");
     			t4 = text("Submit");
     			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-l" + " svelte-cy5gki";
-    			add_location(button0, file$2, 522, 6, 16333);
+    			add_location(button0, file$2, 495, 6, 15451);
     			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-r" + " svelte-cy5gki";
-    			add_location(button1, file$2, 527, 6, 16498);
+    			add_location(button1, file$2, 500, 6, 15616);
     			div0.className = "inline-flex";
-    			add_location(div0, file$2, 521, 4, 16300);
+    			add_location(div0, file$2, 494, 4, 15418);
     			div1.className = "w-full flex justify-center mt-8";
-    			add_location(div1, file$2, 520, 2, 16249);
+    			add_location(div1, file$2, 493, 2, 15367);
     			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50') + " svelte-cy5gki";
-    			add_location(button2, file$2, 535, 4, 16725);
+    			add_location(button2, file$2, 508, 4, 15843);
     			div2.className = "flex items-center justify-center";
-    			add_location(div2, file$2, 534, 2, 16673);
+    			add_location(div2, file$2, 507, 2, 15791);
 
     			dispose = [
     				listen(button0, "click", ctx.click_handler_1),
@@ -4293,20 +4289,20 @@
     			t11 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold text-backgroundColor";
-    			add_location(div0, file$2, 474, 4, 15049);
+    			add_location(div0, file$2, 447, 4, 14167);
     			body0.className = "text-2xl justify-center items-center flex";
-    			add_location(body0, file$2, 472, 2, 14966);
+    			add_location(body0, file$2, 445, 2, 14084);
     			div1.id = "topBlock";
     			div1.className = "w-full overflow-hidden bg-accentColor text-white";
     			set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
-    			add_location(div1, file$2, 468, 0, 14830);
+    			add_location(div1, file$2, 441, 0, 13948);
     			div2.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div2, file$2, 498, 4, 15713);
+    			add_location(div2, file$2, 471, 4, 14831);
     			body1.className = "text-2xl justify-center items-center flex";
-    			add_location(body1, file$2, 496, 2, 15635);
+    			add_location(body1, file$2, 469, 2, 14753);
     			div3.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div3, file$2, 493, 0, 15525);
+    			add_location(div3, file$2, 466, 0, 14643);
     		},
 
     		l: function claim(nodes) {
@@ -4723,8 +4719,6 @@
                          */
                         $$invalidate('sending', sending = false);
 
-                        // nextPutDownTime = calculateNextPutDownTime(napNumber);
-
                         $$invalidate('putDownTime', putDownTime = format(new Date(), "HH:mm"));
                         $$invalidate('sleepTime', sleepTime = undefined);
                         $$invalidate('wakeTime', wakeTime = undefined);
@@ -4753,31 +4747,6 @@
           $$invalidate('sending', sending = false);
         }
       }
-
-      // function calculateNextPutDownTime(napNumber) {
-      //   let intervalHrKey, intervalMinKey;
-
-      //   if (napNumber === 1) {
-      //     intervalHrKey = "Nap1ToNap2Hr";
-      //     intervalMinKey = "Nap1ToNap2Min";
-      //   } else if (napNumber === 2) {
-      //     intervalHrKey = "Nap2ToNap3Hr";
-      //     intervalMinKey = "Nap2ToNap3Min";
-      //   } else {
-      //     intervalHrKey = "Nap3ToSleepHr";
-      //     intervalMinKey = "Nap3ToSleepMin";
-      //   }
-
-      //   const intervalInMins =
-      //     parseInt(localStorage.getItem(intervalHrKey) * 60) +
-      //     parseInt(localStorage.getItem(intervalMinKey));
-
-      //   const putDownDateTime = addMinutes(
-      //     new Date(pickUpDate + "T" + pickUpTime),
-      //     intervalInMins
-      //   );
-      //   return format(putDownDateTime, "h:mm a");
-      // }
 
       function receivePutDown(event) {
         $$invalidate('putDownDate', putDownDate = event.detail.date);
@@ -5061,7 +5030,7 @@
 
     const file$4 = "src\\components\\Settings.svelte";
 
-    // (153:2) {:else}
+    // (55:2) {:else}
     function create_else_block_1(ctx) {
     	var div1, h2, t1, div0, button, svg, defs, path0, clipPath, use, path1, path2, path3, path4, t2, span, div1_intro, dispose;
 
@@ -5086,44 +5055,44 @@
     			span = element("span");
     			span.textContent = "Sign in with Google";
     			h2.className = "svelte-13hyeae";
-    			add_location(h2, file$4, 154, 6, 4829);
+    			add_location(h2, file$4, 56, 6, 1926);
     			attr(path0, "id", "a");
     			attr(path0, "d", "M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2\r\n                0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6\r\n                4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22\r\n                0-1.3-.2-2.7-.5-4z");
-    			add_location(path0, file$4, 166, 14, 5269);
-    			add_location(defs, file$4, 165, 12, 5247);
+    			add_location(path0, file$4, 68, 14, 2366);
+    			add_location(defs, file$4, 67, 12, 2344);
     			xlink_attr(use, "xlink:href", "#a");
     			attr(use, "overflow", "visible");
-    			add_location(use, file$4, 174, 14, 5637);
+    			add_location(use, file$4, 76, 14, 2734);
     			attr(clipPath, "id", "b");
-    			add_location(clipPath, file$4, 173, 12, 5604);
+    			add_location(clipPath, file$4, 75, 12, 2701);
     			attr(path1, "clip-path", "url(#b)");
     			attr(path1, "fill", "#FBBC05");
     			attr(path1, "d", "M0 37V11l17 13z");
-    			add_location(path1, file$4, 176, 12, 5718);
+    			add_location(path1, file$4, 78, 12, 2815);
     			attr(path2, "clip-path", "url(#b)");
     			attr(path2, "fill", "#EA4335");
     			attr(path2, "d", "M0 11l17 13 7-6.1L48 14V0H0z");
-    			add_location(path2, file$4, 177, 12, 5795);
+    			add_location(path2, file$4, 79, 12, 2892);
     			attr(path3, "clip-path", "url(#b)");
     			attr(path3, "fill", "#34A853");
     			attr(path3, "d", "M0 37l30-23 7.9 1L48 0v48H0z");
-    			add_location(path3, file$4, 181, 12, 5930);
+    			add_location(path3, file$4, 83, 12, 3027);
     			attr(path4, "clip-path", "url(#b)");
     			attr(path4, "fill", "#4285F4");
     			attr(path4, "d", "M48 48L17 24l-4-3 35-10z");
-    			add_location(path4, file$4, 185, 12, 6065);
+    			add_location(path4, file$4, 87, 12, 3162);
     			attr(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg, "xmlns:xlink", "http://www.w3.org/1999/xlink");
     			attr(svg, "viewBox", "0 0 48 48");
     			attr(svg, "class", "w-6 h-6 pr-2");
-    			add_location(svg, file$4, 160, 10, 5057);
-    			add_location(span, file$4, 190, 10, 6212);
+    			add_location(svg, file$4, 62, 10, 2154);
+    			add_location(span, file$4, 92, 10, 3309);
     			button.className = "flex bg-white rounded shadow text-gray-700 py-2 px-4\r\n          font-medium";
-    			add_location(button, file$4, 156, 8, 4905);
+    			add_location(button, file$4, 58, 8, 2002);
     			div0.className = "flex justify-center";
-    			add_location(div0, file$4, 155, 6, 4862);
+    			add_location(div0, file$4, 57, 6, 1959);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$4, 153, 4, 4766);
+    			add_location(div1, file$4, 55, 4, 1863);
     			dispose = listen(button, "click", ctx.click_handler_1);
     		},
 
@@ -5169,7 +5138,7 @@
     	};
     }
 
-    // (141:2) {#if $userName !== undefined && $userPic !== undefined}
+    // (43:2) {#if $userName !== undefined && $userPic !== undefined}
     function create_if_block_1(ctx) {
     	var div1, h2, t1, div0, img, t2, body, t3, t4, button, div1_intro, dispose;
 
@@ -5188,19 +5157,19 @@
     			button = element("button");
     			button.textContent = "SIGN OUT";
     			h2.className = "svelte-13hyeae";
-    			add_location(h2, file$4, 142, 6, 4401);
+    			add_location(h2, file$4, 44, 6, 1498);
     			img.src = ctx.$userPic;
     			img.alt = "User profile picture";
     			img.className = "rounded-full w-8 h-8 mr-2 flex-none";
-    			add_location(img, file$4, 144, 8, 4471);
+    			add_location(img, file$4, 46, 8, 1568);
     			body.className = "flex-1 svelte-13hyeae";
-    			add_location(body, file$4, 148, 8, 4607);
+    			add_location(body, file$4, 50, 8, 1704);
     			button.className = "button svelte-13hyeae";
-    			add_location(button, file$4, 149, 8, 4656);
+    			add_location(button, file$4, 51, 8, 1753);
     			div0.className = "flex items-center";
-    			add_location(div0, file$4, 143, 6, 4430);
+    			add_location(div0, file$4, 45, 6, 1527);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$4, 141, 4, 4338);
+    			add_location(div1, file$4, 43, 4, 1435);
     			dispose = listen(button, "click", ctx.click_handler);
     		},
 
@@ -5248,7 +5217,7 @@
     	};
     }
 
-    // (201:6) {:else}
+    // (103:6) {:else}
     function create_else_block(ctx) {
     	var body, t0, t1, button, dispose;
 
@@ -5260,9 +5229,9 @@
     			button = element("button");
     			button.textContent = "OPEN";
     			body.className = "flex-1 svelte-13hyeae";
-    			add_location(body, file$4, 201, 8, 6476);
+    			add_location(body, file$4, 103, 8, 3573);
     			button.className = "button svelte-13hyeae";
-    			add_location(button, file$4, 202, 8, 6526);
+    			add_location(button, file$4, 104, 8, 3623);
     			dispose = listen(button, "click", ctx.click_handler_2);
     		},
 
@@ -5294,7 +5263,7 @@
     	};
     }
 
-    // (199:6) {#if loadingSheetName}
+    // (101:6) {#if loadingSheetName}
     function create_if_block$2(ctx) {
     	var current;
 
@@ -5331,10 +5300,10 @@
     }
 
     function create_fragment$4(ctx) {
-    	var div6, t0, div1, h20, t2, div0, current_block_type_index, if_block1, t3, div5, h21, t5, div2, body0, t7, input0, t8, label0, t10, input1, t11, label1, t13, div3, body1, t15, input2, t16, label2, t18, input3, t19, label3, t21, div4, body2, t23, input4, t24, label4, t26, input5, t27, label5, current, dispose;
+    	var div2, t0, div1, h2, t2, div0, current_block_type_index, if_block1, current;
 
     	function select_block_type(ctx) {
-    		if (ctx.$userName !== ctx.undefined && ctx.$userPic !== ctx.undefined) return create_if_block_1;
+    		if (ctx.$userName !== undefined && ctx.$userPic !== undefined) return create_if_block_1;
     		return create_else_block_1;
     	}
 
@@ -5358,137 +5327,23 @@
 
     	return {
     		c: function create() {
-    			div6 = element("div");
+    			div2 = element("div");
     			if_block0.c();
     			t0 = space();
     			div1 = element("div");
-    			h20 = element("h2");
-    			h20.textContent = "Connected to";
+    			h2 = element("h2");
+    			h2.textContent = "Connected to";
     			t2 = space();
     			div0 = element("div");
     			if_block1.c();
-    			t3 = space();
-    			div5 = element("div");
-    			h21 = element("h2");
-    			h21.textContent = "Intervals";
-    			t5 = space();
-    			div2 = element("div");
-    			body0 = element("body");
-    			body0.textContent = "Nap 1 to Nap 2";
-    			t7 = space();
-    			input0 = element("input");
-    			t8 = space();
-    			label0 = element("label");
-    			label0.textContent = "hr";
-    			t10 = space();
-    			input1 = element("input");
-    			t11 = space();
-    			label1 = element("label");
-    			label1.textContent = "min";
-    			t13 = space();
-    			div3 = element("div");
-    			body1 = element("body");
-    			body1.textContent = "Nap 2 to Nap 3";
-    			t15 = space();
-    			input2 = element("input");
-    			t16 = space();
-    			label2 = element("label");
-    			label2.textContent = "hr";
-    			t18 = space();
-    			input3 = element("input");
-    			t19 = space();
-    			label3 = element("label");
-    			label3.textContent = "min";
-    			t21 = space();
-    			div4 = element("div");
-    			body2 = element("body");
-    			body2.textContent = "Nap 3 to Sleep";
-    			t23 = space();
-    			input4 = element("input");
-    			t24 = space();
-    			label4 = element("label");
-    			label4.textContent = "hr";
-    			t26 = space();
-    			input5 = element("input");
-    			t27 = space();
-    			label5 = element("label");
-    			label5.textContent = "min";
-    			h20.className = "svelte-13hyeae";
-    			add_location(h20, file$4, 196, 4, 6335);
+    			h2.className = "svelte-13hyeae";
+    			add_location(h2, file$4, 98, 4, 3432);
     			div0.className = "flex items-center";
-    			add_location(div0, file$4, 197, 4, 6362);
+    			add_location(div0, file$4, 99, 4, 3459);
     			div1.className = "mt-8 flex-col";
-    			add_location(div1, file$4, 195, 2, 6302);
-    			h21.className = "svelte-13hyeae";
-    			add_location(h21, file$4, 211, 4, 6733);
-    			body0.className = "w-3/4 svelte-13hyeae";
-    			add_location(body0, file$4, 213, 6, 6801);
-    			attr(input0, "type", "number");
-    			input0.max = "3";
-    			input0.min = "0";
-    			input0.className = "input svelte-13hyeae";
-    			add_location(input0, file$4, 214, 6, 6850);
-    			label0.className = "ml-1 mr-2 svelte-13hyeae";
-    			add_location(label0, file$4, 220, 6, 6982);
-    			attr(input1, "type", "number");
-    			input1.max = "59";
-    			input1.min = "0";
-    			input1.className = "input svelte-13hyeae";
-    			add_location(input1, file$4, 221, 6, 7025);
-    			label1.className = "ml-1 svelte-13hyeae";
-    			add_location(label1, file$4, 227, 6, 7159);
-    			div2.className = "flex items-center my-4";
-    			add_location(div2, file$4, 212, 4, 6757);
-    			body1.className = "w-3/4 svelte-13hyeae";
-    			add_location(body1, file$4, 230, 6, 7252);
-    			attr(input2, "type", "number");
-    			input2.max = "3";
-    			input2.min = "0";
-    			input2.className = "input svelte-13hyeae";
-    			add_location(input2, file$4, 231, 6, 7301);
-    			label2.className = "ml-1 mr-2 svelte-13hyeae";
-    			add_location(label2, file$4, 237, 6, 7433);
-    			attr(input3, "type", "number");
-    			input3.max = "59";
-    			input3.min = "0";
-    			input3.className = "input svelte-13hyeae";
-    			add_location(input3, file$4, 238, 6, 7476);
-    			label3.className = "ml-1 svelte-13hyeae";
-    			add_location(label3, file$4, 244, 6, 7610);
-    			div3.className = "flex items-center mb-4";
-    			add_location(div3, file$4, 229, 4, 7208);
-    			body2.className = "w-3/4 svelte-13hyeae";
-    			add_location(body2, file$4, 247, 6, 7708);
-    			attr(input4, "type", "number");
-    			input4.max = "3";
-    			input4.min = "0";
-    			input4.className = "input svelte-13hyeae";
-    			input4.id = "Nap3ToSleepHr";
-    			add_location(input4, file$4, 248, 6, 7757);
-    			label4.className = "ml-1 mr-2 svelte-13hyeae";
-    			add_location(label4, file$4, 255, 6, 7918);
-    			attr(input5, "type", "number");
-    			input5.max = "59";
-    			input5.min = "0";
-    			input5.className = "input svelte-13hyeae";
-    			add_location(input5, file$4, 256, 6, 7961);
-    			label5.className = "ml-1 svelte-13hyeae";
-    			add_location(label5, file$4, 262, 6, 8096);
-    			div4.className = "flex pb-8 items-center mb-4";
-    			add_location(div4, file$4, 246, 4, 7659);
-    			div5.className = "mt-8 flex-col";
-    			add_location(div5, file$4, 210, 2, 6700);
-    			div6.className = "w-full bg-backgroundColor p-4";
-    			add_location(div6, file$4, 139, 0, 4230);
-
-    			dispose = [
-    				listen(input0, "input", ctx.input0_input_handler),
-    				listen(input1, "input", ctx.input1_input_handler),
-    				listen(input2, "input", ctx.input2_input_handler),
-    				listen(input3, "input", ctx.input3_input_handler),
-    				listen(input4, "input", ctx.input4_input_handler),
-    				listen(input5, "input", ctx.input5_input_handler)
-    			];
+    			add_location(div1, file$4, 97, 2, 3399);
+    			div2.className = "w-full bg-backgroundColor p-4";
+    			add_location(div2, file$4, 41, 0, 1327);
     		},
 
     		l: function claim(nodes) {
@@ -5496,68 +5351,14 @@
     		},
 
     		m: function mount(target, anchor) {
-    			insert(target, div6, anchor);
-    			if_block0.m(div6, null);
-    			append(div6, t0);
-    			append(div6, div1);
-    			append(div1, h20);
+    			insert(target, div2, anchor);
+    			if_block0.m(div2, null);
+    			append(div2, t0);
+    			append(div2, div1);
+    			append(div1, h2);
     			append(div1, t2);
     			append(div1, div0);
     			if_blocks[current_block_type_index].m(div0, null);
-    			append(div6, t3);
-    			append(div6, div5);
-    			append(div5, h21);
-    			append(div5, t5);
-    			append(div5, div2);
-    			append(div2, body0);
-    			append(div2, t7);
-    			append(div2, input0);
-
-    			input0.value = ctx.Nap1ToNap2Hr;
-
-    			append(div2, t8);
-    			append(div2, label0);
-    			append(div2, t10);
-    			append(div2, input1);
-
-    			input1.value = ctx.Nap1ToNap2Min;
-
-    			append(div2, t11);
-    			append(div2, label1);
-    			append(div5, t13);
-    			append(div5, div3);
-    			append(div3, body1);
-    			append(div3, t15);
-    			append(div3, input2);
-
-    			input2.value = ctx.Nap2ToNap3Hr;
-
-    			append(div3, t16);
-    			append(div3, label2);
-    			append(div3, t18);
-    			append(div3, input3);
-
-    			input3.value = ctx.Nap2ToNap3Min;
-
-    			append(div3, t19);
-    			append(div3, label3);
-    			append(div5, t21);
-    			append(div5, div4);
-    			append(div4, body2);
-    			append(div4, t23);
-    			append(div4, input4);
-
-    			input4.value = ctx.Nap3ToSleepHr;
-
-    			append(div4, t24);
-    			append(div4, label4);
-    			append(div4, t26);
-    			append(div4, input5);
-
-    			input5.value = ctx.Nap3ToSleepMin;
-
-    			append(div4, t27);
-    			append(div4, label5);
     			current = true;
     		},
 
@@ -5570,7 +5371,7 @@
     				if (if_block0) {
     					if_block0.c();
     					if_block0.i(1);
-    					if_block0.m(div6, t0);
+    					if_block0.m(div2, t0);
     				}
     			}
 
@@ -5595,13 +5396,6 @@
     				if_block1.i(1);
     				if_block1.m(div0, null);
     			}
-
-    			if (changed.Nap1ToNap2Hr) input0.value = ctx.Nap1ToNap2Hr;
-    			if (changed.Nap1ToNap2Min) input1.value = ctx.Nap1ToNap2Min;
-    			if (changed.Nap2ToNap3Hr) input2.value = ctx.Nap2ToNap3Hr;
-    			if (changed.Nap2ToNap3Min) input3.value = ctx.Nap2ToNap3Min;
-    			if (changed.Nap3ToSleepHr) input4.value = ctx.Nap3ToSleepHr;
-    			if (changed.Nap3ToSleepMin) input5.value = ctx.Nap3ToSleepMin;
     		},
 
     		i: function intro(local) {
@@ -5618,12 +5412,11 @@
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach(div6);
+    				detach(div2);
     			}
 
     			if_block0.d();
     			if_blocks[current_block_type_index].d();
-    			run_all(dispose);
     		}
     	};
     }
@@ -5646,61 +5439,11 @@
 
     	
 
-      let Nap1ToNap2Hr,
-        Nap1ToNap2Min,
-        Nap2ToNap3Hr,
-        Nap2ToNap3Min,
-        Nap3ToSleepHr,
-        Nap3ToSleepMin;
-
       let loadingSheetName = false;
 
       onMount(() => {
         if ($sheetName.length === 0) {
           getSheetName(credentials.SPREADSHEET_ID);
-        }
-
-        const intervals = [
-          "Nap1ToNap2Hr",
-          "Nap1ToNap2Min",
-          "Nap2ToNap3Hr",
-          "Nap2ToNap3Min",
-          "Nap3ToSleepHr",
-          "Nap3ToSleepMin"
-        ];
-
-        for (let i = 0; i < intervals.length; i++) {
-          const stored = localStorage.getItem(intervals[i]);
-
-          if (stored !== undefined) {
-            if (intervals[i] === "Nap1ToNap2Hr") {
-              $$invalidate('Nap1ToNap2Hr', Nap1ToNap2Hr = stored);
-            } else if (intervals[i] === "Nap1ToNap2Min") {
-              $$invalidate('Nap1ToNap2Min', Nap1ToNap2Min = stored);
-            } else if (intervals[i] === "Nap2ToNap3Hr") {
-              $$invalidate('Nap2ToNap3Hr', Nap2ToNap3Hr = stored);
-            } else if (intervals[i] === "Nap2ToNap3Min") {
-              $$invalidate('Nap2ToNap3Min', Nap2ToNap3Min = stored);
-            } else if (intervals[i] === "Nap3ToSleepHr") {
-              $$invalidate('Nap3ToSleepHr', Nap3ToSleepHr = stored);
-            } else if (intervals[i] === "Nap3ToSleepMin") {
-              $$invalidate('Nap3ToSleepMin', Nap3ToSleepMin = stored);
-            }
-          } else {
-            if (intervals[i] === "Nap1ToNap2Hr") {
-              intervals[i] = "2";
-            } else if (intervals[i] === "Nap1ToNap2Min") {
-              intervals[i] = "0";
-            } else if (intervals[i] === "Nap2ToNap3Hr") {
-              intervals[i] = "1";
-            } else if (intervals[i] === "Nap2ToNap3Min") {
-              intervals[i] = "50";
-            } else if (intervals[i] === "Nap3ToSleepHr") {
-              intervals[i] = "1";
-            } else if (intervals[i] === "Nap3ToSleepMin") {
-              intervals[i] = "30";
-            }
-          }
         }
       });
 
@@ -5729,102 +5472,14 @@
     		return openSheet(credentials.SPREADSHEET_ID);
     	}
 
-    	function input0_input_handler() {
-    		Nap1ToNap2Hr = to_number(this.value);
-    		$$invalidate('Nap1ToNap2Hr', Nap1ToNap2Hr);
-    	}
-
-    	function input1_input_handler() {
-    		Nap1ToNap2Min = to_number(this.value);
-    		$$invalidate('Nap1ToNap2Min', Nap1ToNap2Min);
-    	}
-
-    	function input2_input_handler() {
-    		Nap2ToNap3Hr = to_number(this.value);
-    		$$invalidate('Nap2ToNap3Hr', Nap2ToNap3Hr);
-    	}
-
-    	function input3_input_handler() {
-    		Nap2ToNap3Min = to_number(this.value);
-    		$$invalidate('Nap2ToNap3Min', Nap2ToNap3Min);
-    	}
-
-    	function input4_input_handler() {
-    		Nap3ToSleepHr = to_number(this.value);
-    		$$invalidate('Nap3ToSleepHr', Nap3ToSleepHr);
-    	}
-
-    	function input5_input_handler() {
-    		Nap3ToSleepMin = to_number(this.value);
-    		$$invalidate('Nap3ToSleepMin', Nap3ToSleepMin);
-    	}
-
-    	$$self.$$.update = ($$dirty = { Nap1ToNap2Hr: 1, Nap2ToNap3Hr: 1, Nap3ToSleepHr: 1, Nap1ToNap2Min: 1, Nap2ToNap3Min: 1, Nap3ToSleepMin: 1 }) => {
-    		if ($$dirty.Nap1ToNap2Hr) { if (Nap1ToNap2Hr < 0) {
-            $$invalidate('Nap1ToNap2Hr', Nap1ToNap2Hr = 0);
-          } else if (Nap1ToNap2Hr > 3) {
-            $$invalidate('Nap1ToNap2Hr', Nap1ToNap2Hr = 3);
-          } else if (Nap1ToNap2Hr !== undefined) {
-            localStorage.setItem("Nap1ToNap2Hr", Nap1ToNap2Hr);
-          } }
-    		if ($$dirty.Nap2ToNap3Hr) { if (Nap2ToNap3Hr < 0) {
-            $$invalidate('Nap2ToNap3Hr', Nap2ToNap3Hr = 0);
-          } else if (Nap2ToNap3Hr > 3) {
-            $$invalidate('Nap2ToNap3Hr', Nap2ToNap3Hr = 3);
-          } else if (Nap2ToNap3Hr !== undefined) {
-            localStorage.setItem("Nap2ToNap3Hr", Nap2ToNap3Hr);
-          } }
-    		if ($$dirty.Nap3ToSleepHr) { if (Nap3ToSleepHr < 0) {
-            $$invalidate('Nap3ToSleepHr', Nap3ToSleepHr = 0);
-          } else if (Nap3ToSleepHr > 3) {
-            $$invalidate('Nap3ToSleepHr', Nap3ToSleepHr = 3);
-          } else if (Nap3ToSleepHr !== undefined) {
-            localStorage.setItem("Nap3ToSleepHr", Nap3ToSleepHr);
-          } }
-    		if ($$dirty.Nap1ToNap2Min) { if (Nap1ToNap2Min < 0) {
-            $$invalidate('Nap1ToNap2Min', Nap1ToNap2Min = 0);
-          } else if (Nap1ToNap2Min > 59) {
-            $$invalidate('Nap1ToNap2Min', Nap1ToNap2Min = 59);
-          } else if (Nap1ToNap2Min !== undefined) {
-            localStorage.setItem("Nap1ToNap2Min", Nap1ToNap2Min);
-          } }
-    		if ($$dirty.Nap2ToNap3Min) { if (Nap2ToNap3Min < 0) {
-            $$invalidate('Nap2ToNap3Min', Nap2ToNap3Min = 0);
-          } else if (Nap2ToNap3Min > 59) {
-            $$invalidate('Nap2ToNap3Min', Nap2ToNap3Min = 59);
-          } else if (Nap2ToNap3Min !== undefined) {
-            localStorage.setItem("Nap2ToNap3Min", Nap2ToNap3Min);
-          } }
-    		if ($$dirty.Nap3ToSleepMin) { if (Nap3ToSleepMin < 0) {
-            $$invalidate('Nap3ToSleepMin', Nap3ToSleepMin = 0);
-          } else if (Nap3ToSleepMin > 59) {
-            $$invalidate('Nap3ToSleepMin', Nap3ToSleepMin = 59);
-          } else if (Nap3ToSleepMin !== undefined) {
-            localStorage.setItem("Nap3ToSleepMin", Nap3ToSleepMin);
-          } }
-    	};
-
     	return {
-    		Nap1ToNap2Hr,
-    		Nap1ToNap2Min,
-    		Nap2ToNap3Hr,
-    		Nap2ToNap3Min,
-    		Nap3ToSleepHr,
-    		Nap3ToSleepMin,
     		loadingSheetName,
     		$sheetName,
-    		undefined,
     		$userName,
     		$userPic,
     		click_handler,
     		click_handler_1,
-    		click_handler_2,
-    		input0_input_handler,
-    		input1_input_handler,
-    		input2_input_handler,
-    		input3_input_handler,
-    		input4_input_handler,
-    		input5_input_handler
+    		click_handler_2
     	};
     }
 
