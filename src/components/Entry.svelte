@@ -176,7 +176,7 @@
                     /**
                      * Next Put Down
                      */
-                    `=C${currentRow}+(D${currentRow}-C${currentRow})/2+if(M${currentRow}=1,Rules!$B$7,if(M${currentRow}=2,Rules!$B$8,if(M${currentRow}=3,Rules!$B$9)))`,
+                    `=C${currentRow}+(D${currentRow}-C${currentRow})/2+if(M${currentRow}=1,Rules!$B$7,if(M${currentRow}=2,Rules!$B$8,Rules!$B$9))`,
                     /**
                      * Time to fall asleep
                      */
