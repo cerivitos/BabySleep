@@ -130,6 +130,13 @@
     @apply w-8 lowercase border-b-4 text-secondaryColor bg-transparent text-center;
     min-width: 10%;
   }
+
+  label {
+    font-family: "Roboto", sans-serif;
+    font-size: 1em;
+    line-height: 1.5;
+    @apply text-secondaryColor;
+  }
 </style>
 
 <div class="w-full bg-backgroundColor p-4">
@@ -205,14 +212,14 @@
         max="3"
         min="0"
         class="input" />
-      <body class="ml-1 mr-2">hr</body>
+      <label class="ml-1 mr-2">hr</label>
       <input
         type="number"
         bind:value={Nap1ToNap2Min}
         max="59"
         min="0"
         class="input" />
-      <body class="ml-1">min</body>
+      <label class="ml-1">min</label>
     </div>
     <div class="flex items-center mb-4">
       <body class="w-3/4">Nap 2 to Nap 3</body>
@@ -222,14 +229,14 @@
         max="3"
         min="0"
         class="input" />
-      <body class="ml-1 mr-2">hr</body>
+      <label class="ml-1 mr-2">hr</label>
       <input
         type="number"
         bind:value={Nap2ToNap3Min}
         max="59"
         min="0"
         class="input" />
-      <body class="ml-1">min</body>
+      <label class="ml-1">min</label>
     </div>
     <div class="flex pb-8 items-center mb-4">
       <body class="w-3/4">Nap 3 to Sleep</body>
@@ -240,14 +247,14 @@
         min="0"
         class="input"
         id="Nap3ToSleepHr" />
-      <body class="ml-1 mr-2">hr</body>
+      <label class="ml-1 mr-2">hr</label>
       <input
         type="number"
         bind:value={Nap3ToSleepMin}
         max="59"
         min="0"
         class="input" />
-      <body class="ml-1">min</body>
+      <label class="ml-1">min</label>
     </div>
   </div>
 </div>
