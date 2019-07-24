@@ -4123,7 +4123,7 @@
     			div = element("div");
     			loadingspinner.$$.fragment.c();
     			div.className = "w-full h-screen bg-black opacity-75 flex items-center justify-center\r\n    absolute";
-    			add_location(div, file$2, 402, 2, 12723);
+    			add_location(div, file$2, 402, 2, 12725);
     			dispose = listen(div, "click", ctx.click_handler);
     		},
 
@@ -4188,17 +4188,17 @@
     			button2 = element("button");
     			t4 = text("Submit");
     			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-l" + " svelte-cy5gki";
-    			add_location(button0, file$2, 464, 6, 14420);
+    			add_location(button0, file$2, 464, 6, 14422);
     			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-r" + " svelte-cy5gki";
-    			add_location(button1, file$2, 469, 6, 14585);
+    			add_location(button1, file$2, 469, 6, 14587);
     			div0.className = "inline-flex";
-    			add_location(div0, file$2, 463, 4, 14387);
+    			add_location(div0, file$2, 463, 4, 14389);
     			div1.className = "w-full flex justify-center mt-8";
-    			add_location(div1, file$2, 462, 2, 14336);
+    			add_location(div1, file$2, 462, 2, 14338);
     			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50') + " svelte-cy5gki";
-    			add_location(button2, file$2, 477, 4, 14812);
+    			add_location(button2, file$2, 477, 4, 14814);
     			div2.className = "flex items-center justify-center";
-    			add_location(div2, file$2, 476, 2, 14760);
+    			add_location(div2, file$2, 476, 2, 14762);
 
     			dispose = [
     				listen(button0, "click", ctx.click_handler_1),
@@ -4326,20 +4326,20 @@
     			t11 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold text-backgroundColor";
-    			add_location(div0, file$2, 416, 4, 13136);
+    			add_location(div0, file$2, 416, 4, 13138);
     			body0.className = "text-2xl justify-center items-center flex";
-    			add_location(body0, file$2, 414, 2, 13053);
+    			add_location(body0, file$2, 414, 2, 13055);
     			div1.id = "topBlock";
     			div1.className = "w-full overflow-hidden bg-accentColor text-white";
     			set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
-    			add_location(div1, file$2, 410, 0, 12917);
+    			add_location(div1, file$2, 410, 0, 12919);
     			div2.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div2, file$2, 440, 4, 13800);
+    			add_location(div2, file$2, 440, 4, 13802);
     			body1.className = "text-2xl justify-center items-center flex";
-    			add_location(body1, file$2, 438, 2, 13722);
+    			add_location(body1, file$2, 438, 2, 13724);
     			div3.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div3, file$2, 435, 0, 13612);
+    			add_location(div3, file$2, 435, 0, 13614);
     		},
 
     		l: function claim(nodes) {
@@ -4713,7 +4713,7 @@
 
                         document
                           .getElementById("topBlock")
-                          .scrollIntoView({ behavior: smooth });
+                          .scrollIntoView({ behavior: "smooth" });
                       });
                   }
                 });

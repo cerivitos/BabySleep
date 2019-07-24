@@ -239,7 +239,7 @@
 
                     document
                       .getElementById("topBlock")
-                      .scrollIntoView({ behavior: smooth });
+                      .scrollIntoView({ behavior: "smooth" });
                   });
               }
             });
