@@ -21,7 +21,7 @@
   let loadingSheetName = false;
 
   onMount(() => {
-    if (($sheetName = "")) {
+    if ($sheetName.length === 0) {
       getSheetName(credentials.SPREADSHEET_ID);
     }
 

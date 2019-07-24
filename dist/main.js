@@ -5061,44 +5061,44 @@
     			span = element("span");
     			span.textContent = "Sign in with Google";
     			h2.className = "svelte-13hyeae";
-    			add_location(h2, file$4, 154, 6, 4823);
+    			add_location(h2, file$4, 154, 6, 4829);
     			attr(path0, "id", "a");
     			attr(path0, "d", "M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2\r\n                0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6\r\n                4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22\r\n                0-1.3-.2-2.7-.5-4z");
-    			add_location(path0, file$4, 166, 14, 5263);
-    			add_location(defs, file$4, 165, 12, 5241);
+    			add_location(path0, file$4, 166, 14, 5269);
+    			add_location(defs, file$4, 165, 12, 5247);
     			xlink_attr(use, "xlink:href", "#a");
     			attr(use, "overflow", "visible");
-    			add_location(use, file$4, 174, 14, 5631);
+    			add_location(use, file$4, 174, 14, 5637);
     			attr(clipPath, "id", "b");
-    			add_location(clipPath, file$4, 173, 12, 5598);
+    			add_location(clipPath, file$4, 173, 12, 5604);
     			attr(path1, "clip-path", "url(#b)");
     			attr(path1, "fill", "#FBBC05");
     			attr(path1, "d", "M0 37V11l17 13z");
-    			add_location(path1, file$4, 176, 12, 5712);
+    			add_location(path1, file$4, 176, 12, 5718);
     			attr(path2, "clip-path", "url(#b)");
     			attr(path2, "fill", "#EA4335");
     			attr(path2, "d", "M0 11l17 13 7-6.1L48 14V0H0z");
-    			add_location(path2, file$4, 177, 12, 5789);
+    			add_location(path2, file$4, 177, 12, 5795);
     			attr(path3, "clip-path", "url(#b)");
     			attr(path3, "fill", "#34A853");
     			attr(path3, "d", "M0 37l30-23 7.9 1L48 0v48H0z");
-    			add_location(path3, file$4, 181, 12, 5924);
+    			add_location(path3, file$4, 181, 12, 5930);
     			attr(path4, "clip-path", "url(#b)");
     			attr(path4, "fill", "#4285F4");
     			attr(path4, "d", "M48 48L17 24l-4-3 35-10z");
-    			add_location(path4, file$4, 185, 12, 6059);
+    			add_location(path4, file$4, 185, 12, 6065);
     			attr(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg, "xmlns:xlink", "http://www.w3.org/1999/xlink");
     			attr(svg, "viewBox", "0 0 48 48");
     			attr(svg, "class", "w-6 h-6 pr-2");
-    			add_location(svg, file$4, 160, 10, 5051);
-    			add_location(span, file$4, 190, 10, 6206);
+    			add_location(svg, file$4, 160, 10, 5057);
+    			add_location(span, file$4, 190, 10, 6212);
     			button.className = "flex bg-white rounded shadow text-gray-700 py-2 px-4\r\n          font-medium";
-    			add_location(button, file$4, 156, 8, 4899);
+    			add_location(button, file$4, 156, 8, 4905);
     			div0.className = "flex justify-center";
-    			add_location(div0, file$4, 155, 6, 4856);
+    			add_location(div0, file$4, 155, 6, 4862);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$4, 153, 4, 4760);
+    			add_location(div1, file$4, 153, 4, 4766);
     			dispose = listen(button, "click", ctx.click_handler_1);
     		},
 
@@ -5163,19 +5163,19 @@
     			button = element("button");
     			button.textContent = "SIGN OUT";
     			h2.className = "svelte-13hyeae";
-    			add_location(h2, file$4, 142, 6, 4395);
+    			add_location(h2, file$4, 142, 6, 4401);
     			img.src = ctx.$userPic;
     			img.alt = "User profile picture";
     			img.className = "rounded-full w-8 h-8 mr-2 flex-none";
-    			add_location(img, file$4, 144, 8, 4465);
+    			add_location(img, file$4, 144, 8, 4471);
     			body.className = "flex-1 svelte-13hyeae";
-    			add_location(body, file$4, 148, 8, 4601);
+    			add_location(body, file$4, 148, 8, 4607);
     			button.className = "button svelte-13hyeae";
-    			add_location(button, file$4, 149, 8, 4650);
+    			add_location(button, file$4, 149, 8, 4656);
     			div0.className = "flex items-center";
-    			add_location(div0, file$4, 143, 6, 4424);
+    			add_location(div0, file$4, 143, 6, 4430);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$4, 141, 4, 4332);
+    			add_location(div1, file$4, 141, 4, 4338);
     			dispose = listen(button, "click", ctx.click_handler);
     		},
 
@@ -5235,9 +5235,9 @@
     			button = element("button");
     			button.textContent = "OPEN";
     			body.className = "flex-1 svelte-13hyeae";
-    			add_location(body, file$4, 201, 8, 6470);
+    			add_location(body, file$4, 201, 8, 6476);
     			button.className = "button svelte-13hyeae";
-    			add_location(button, file$4, 202, 8, 6520);
+    			add_location(button, file$4, 202, 8, 6526);
     			dispose = listen(button, "click", ctx.click_handler_2);
     		},
 
@@ -5389,72 +5389,72 @@
     			label5 = element("label");
     			label5.textContent = "min";
     			h20.className = "svelte-13hyeae";
-    			add_location(h20, file$4, 196, 4, 6329);
+    			add_location(h20, file$4, 196, 4, 6335);
     			div0.className = "flex items-center";
-    			add_location(div0, file$4, 197, 4, 6356);
+    			add_location(div0, file$4, 197, 4, 6362);
     			div1.className = "mt-8 flex-col";
-    			add_location(div1, file$4, 195, 2, 6296);
+    			add_location(div1, file$4, 195, 2, 6302);
     			h21.className = "svelte-13hyeae";
-    			add_location(h21, file$4, 211, 4, 6727);
+    			add_location(h21, file$4, 211, 4, 6733);
     			body0.className = "w-3/4 svelte-13hyeae";
-    			add_location(body0, file$4, 213, 6, 6795);
+    			add_location(body0, file$4, 213, 6, 6801);
     			attr(input0, "type", "number");
     			input0.max = "3";
     			input0.min = "0";
     			input0.className = "input svelte-13hyeae";
-    			add_location(input0, file$4, 214, 6, 6844);
+    			add_location(input0, file$4, 214, 6, 6850);
     			label0.className = "ml-1 mr-2 svelte-13hyeae";
-    			add_location(label0, file$4, 220, 6, 6976);
+    			add_location(label0, file$4, 220, 6, 6982);
     			attr(input1, "type", "number");
     			input1.max = "59";
     			input1.min = "0";
     			input1.className = "input svelte-13hyeae";
-    			add_location(input1, file$4, 221, 6, 7019);
+    			add_location(input1, file$4, 221, 6, 7025);
     			label1.className = "ml-1 svelte-13hyeae";
-    			add_location(label1, file$4, 227, 6, 7153);
+    			add_location(label1, file$4, 227, 6, 7159);
     			div2.className = "flex items-center my-4";
-    			add_location(div2, file$4, 212, 4, 6751);
+    			add_location(div2, file$4, 212, 4, 6757);
     			body1.className = "w-3/4 svelte-13hyeae";
-    			add_location(body1, file$4, 230, 6, 7246);
+    			add_location(body1, file$4, 230, 6, 7252);
     			attr(input2, "type", "number");
     			input2.max = "3";
     			input2.min = "0";
     			input2.className = "input svelte-13hyeae";
-    			add_location(input2, file$4, 231, 6, 7295);
+    			add_location(input2, file$4, 231, 6, 7301);
     			label2.className = "ml-1 mr-2 svelte-13hyeae";
-    			add_location(label2, file$4, 237, 6, 7427);
+    			add_location(label2, file$4, 237, 6, 7433);
     			attr(input3, "type", "number");
     			input3.max = "59";
     			input3.min = "0";
     			input3.className = "input svelte-13hyeae";
-    			add_location(input3, file$4, 238, 6, 7470);
+    			add_location(input3, file$4, 238, 6, 7476);
     			label3.className = "ml-1 svelte-13hyeae";
-    			add_location(label3, file$4, 244, 6, 7604);
+    			add_location(label3, file$4, 244, 6, 7610);
     			div3.className = "flex items-center mb-4";
-    			add_location(div3, file$4, 229, 4, 7202);
+    			add_location(div3, file$4, 229, 4, 7208);
     			body2.className = "w-3/4 svelte-13hyeae";
-    			add_location(body2, file$4, 247, 6, 7702);
+    			add_location(body2, file$4, 247, 6, 7708);
     			attr(input4, "type", "number");
     			input4.max = "3";
     			input4.min = "0";
     			input4.className = "input svelte-13hyeae";
     			input4.id = "Nap3ToSleepHr";
-    			add_location(input4, file$4, 248, 6, 7751);
+    			add_location(input4, file$4, 248, 6, 7757);
     			label4.className = "ml-1 mr-2 svelte-13hyeae";
-    			add_location(label4, file$4, 255, 6, 7912);
+    			add_location(label4, file$4, 255, 6, 7918);
     			attr(input5, "type", "number");
     			input5.max = "59";
     			input5.min = "0";
     			input5.className = "input svelte-13hyeae";
-    			add_location(input5, file$4, 256, 6, 7955);
+    			add_location(input5, file$4, 256, 6, 7961);
     			label5.className = "ml-1 svelte-13hyeae";
-    			add_location(label5, file$4, 262, 6, 8090);
+    			add_location(label5, file$4, 262, 6, 8096);
     			div4.className = "flex pb-8 items-center mb-4";
-    			add_location(div4, file$4, 246, 4, 7653);
+    			add_location(div4, file$4, 246, 4, 7659);
     			div5.className = "mt-8 flex-col";
-    			add_location(div5, file$4, 210, 2, 6694);
+    			add_location(div5, file$4, 210, 2, 6700);
     			div6.className = "w-full bg-backgroundColor p-4";
-    			add_location(div6, file$4, 139, 0, 4224);
+    			add_location(div6, file$4, 139, 0, 4230);
 
     			dispose = [
     				listen(input0, "input", ctx.input0_input_handler),
@@ -5631,8 +5631,8 @@
       let loadingSheetName = false;
 
       onMount(() => {
-        if (($sheetName = "")) {
-          getSheetName(credentials.SPREADSHEET_ID); sheetName.set($sheetName);
+        if ($sheetName.length === 0) {
+          getSheetName(credentials.SPREADSHEET_ID);
         }
 
         const intervals = [
