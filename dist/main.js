@@ -12,6 +12,10 @@
     	return tar;
     }
 
+    function is_promise(value) {
+    	return value && typeof value.then === 'function';
+    }
+
     function add_location(element, file, line, column, char) {
     	element.__svelte_meta = {
     		loc: { file, line, column, char }
@@ -114,6 +118,12 @@
 
     function detach(node) {
     	node.parentNode.removeChild(node);
+    }
+
+    function destroy_each(iterations, detaching) {
+    	for (let i = 0; i < iterations.length; i += 1) {
+    		if (iterations[i]) iterations[i].d(detaching);
+    	}
     }
 
     function element(name) {
@@ -580,6 +590,67 @@
     			running_program = pending_program = null;
     		}
     	};
+    }
+
+    function handle_promise(promise, info) {
+    	const token = info.token = {};
+
+    	function update(type, index, key, value) {
+    		if (info.token !== token) return;
+
+    		info.resolved = key && { [key]: value };
+
+    		const child_ctx = assign(assign({}, info.ctx), info.resolved);
+    		const block = type && (info.current = type)(child_ctx);
+
+    		if (info.block) {
+    			if (info.blocks) {
+    				info.blocks.forEach((block, i) => {
+    					if (i !== index && block) {
+    						group_outros();
+    						on_outro(() => {
+    							block.d(1);
+    							info.blocks[i] = null;
+    						});
+    						block.o(1);
+    						check_outros();
+    					}
+    				});
+    			} else {
+    				info.block.d(1);
+    			}
+
+    			block.c();
+    			if (block.i) block.i(1);
+    			block.m(info.mount(), info.anchor);
+
+    			flush();
+    		}
+
+    		info.block = block;
+    		if (info.blocks) info.blocks[index] = block;
+    	}
+
+    	if (is_promise(promise)) {
+    		promise.then(value => {
+    			update(info.then, 1, info.value, value);
+    		}, error => {
+    			update(info.catch, 2, info.error, error);
+    		});
+
+    		// if we previously had a then/catch block, destroy it
+    		if (info.current !== info.pending) {
+    			update(info.pending, 0);
+    			return true;
+    		}
+    	} else {
+    		if (info.current !== info.then) {
+    			update(info.then, 1, info.value, promise);
+    			return true;
+    		}
+
+    		info.resolved = { [info.value]: promise };
+    	}
     }
 
     function mount_component(component, target, anchor) {
@@ -5494,26 +5565,284 @@
 
     const file$5 = "src\\components\\Summary.svelte";
 
+    function get_each_context(ctx, list, i) {
+    	const child_ctx = Object.create(ctx);
+    	child_ctx.todayData = list[i];
+    	return child_ctx;
+    }
+
+    // (1:0) <script>    import { onMount }
+    function create_catch_block(ctx) {
+    	return {
+    		c: noop,
+    		m: noop,
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: noop
+    	};
+    }
+
+    // (72:4) {:then}
+    function create_then_block(ctx) {
+    	var each_1_anchor;
+
+    	var each_value = ctx.todayDatas;
+
+    	var each_blocks = [];
+
+    	for (var i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    	}
+
+    	return {
+    		c: function create() {
+    			for (var i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			each_1_anchor = empty();
+    		},
+
+    		m: function mount(target, anchor) {
+    			for (var i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(target, anchor);
+    			}
+
+    			insert(target, each_1_anchor, anchor);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.todayDatas) {
+    				each_value = ctx.todayDatas;
+
+    				for (var i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(changed, child_ctx);
+    					} else {
+    						each_blocks[i] = create_each_block(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+    				each_blocks.length = each_value.length;
+    			}
+    		},
+
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			destroy_each(each_blocks, detaching);
+
+    			if (detaching) {
+    				detach(each_1_anchor);
+    			}
+    		}
+    	};
+    }
+
+    // (73:6) {#each todayDatas as todayData}
+    function create_each_block(ctx) {
+    	var div, t0_value = ctx.todayData[11], t0, t1, t2_value = ctx.todayData[12], t2, t3, table, thead, tr0, th0, h30, t5, th1, h31, t7, th2, h32, t9, th3, h33, t11, tbody, tr1, td0, t12_value = ctx.todayData[0].split(', ')[1].toLowerCase(), t12, t13, td1, t14_value = ctx.todayData[1].split(', ')[1].toLowerCase(), t14, t15, td2, t16_value = ctx.todayData[2].split(', ')[1].toLowerCase(), t16, t17, td3, t18_value = ctx.todayData[3].split(', ')[1].toLowerCase(), t18, t19;
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			t2 = text(t2_value);
+    			t3 = space();
+    			table = element("table");
+    			thead = element("thead");
+    			tr0 = element("tr");
+    			th0 = element("th");
+    			h30 = element("h3");
+    			h30.textContent = "Put down";
+    			t5 = space();
+    			th1 = element("th");
+    			h31 = element("h3");
+    			h31.textContent = "Fell asleep";
+    			t7 = space();
+    			th2 = element("th");
+    			h32 = element("h3");
+    			h32.textContent = "Woke up";
+    			t9 = space();
+    			th3 = element("th");
+    			h33 = element("h3");
+    			h33.textContent = "Picked up";
+    			t11 = space();
+    			tbody = element("tbody");
+    			tr1 = element("tr");
+    			td0 = element("td");
+    			t12 = text(t12_value);
+    			t13 = space();
+    			td1 = element("td");
+    			t14 = text(t14_value);
+    			t15 = space();
+    			td2 = element("td");
+    			t16 = text(t16_value);
+    			t17 = space();
+    			td3 = element("td");
+    			t18 = text(t18_value);
+    			t19 = space();
+    			div.className = "category svelte-16qayat";
+    			add_location(div, file$5, 73, 8, 2817);
+    			h30.className = "svelte-16qayat";
+    			add_location(h30, file$5, 78, 16, 2983);
+    			th0.className = "svelte-16qayat";
+    			add_location(th0, file$5, 77, 14, 2961);
+    			h31.className = "svelte-16qayat";
+    			add_location(h31, file$5, 81, 16, 3059);
+    			th1.className = "svelte-16qayat";
+    			add_location(th1, file$5, 80, 14, 3037);
+    			h32.className = "svelte-16qayat";
+    			add_location(h32, file$5, 84, 16, 3138);
+    			th2.className = "svelte-16qayat";
+    			add_location(th2, file$5, 83, 14, 3116);
+    			h33.className = "svelte-16qayat";
+    			add_location(h33, file$5, 87, 16, 3213);
+    			th3.className = "svelte-16qayat";
+    			add_location(th3, file$5, 86, 14, 3191);
+    			add_location(tr0, file$5, 76, 12, 2941);
+    			add_location(thead, file$5, 75, 10, 2920);
+    			td0.className = "svelte-16qayat";
+    			add_location(td0, file$5, 93, 14, 3357);
+    			td1.className = "svelte-16qayat";
+    			add_location(td1, file$5, 94, 14, 3425);
+    			td2.className = "svelte-16qayat";
+    			add_location(td2, file$5, 95, 14, 3493);
+    			td3.className = "svelte-16qayat";
+    			add_location(td3, file$5, 96, 14, 3561);
+    			tr1.className = "cell svelte-16qayat";
+    			add_location(tr1, file$5, 92, 12, 3324);
+    			add_location(tbody, file$5, 91, 10, 3303);
+    			table.className = "w-full";
+    			add_location(table, file$5, 74, 8, 2886);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    			append(div, t0);
+    			append(div, t1);
+    			append(div, t2);
+    			insert(target, t3, anchor);
+    			insert(target, table, anchor);
+    			append(table, thead);
+    			append(thead, tr0);
+    			append(tr0, th0);
+    			append(th0, h30);
+    			append(tr0, t5);
+    			append(tr0, th1);
+    			append(th1, h31);
+    			append(tr0, t7);
+    			append(tr0, th2);
+    			append(th2, h32);
+    			append(tr0, t9);
+    			append(tr0, th3);
+    			append(th3, h33);
+    			append(table, t11);
+    			append(table, tbody);
+    			append(tbody, tr1);
+    			append(tr1, td0);
+    			append(td0, t12);
+    			append(tr1, t13);
+    			append(tr1, td1);
+    			append(td1, t14);
+    			append(tr1, t15);
+    			append(tr1, td2);
+    			append(td2, t16);
+    			append(tr1, t17);
+    			append(tr1, td3);
+    			append(td3, t18);
+    			append(table, t19);
+    		},
+
+    		p: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    				detach(t3);
+    				detach(table);
+    			}
+    		}
+    	};
+    }
+
+    // (70:25)         <LoadingSpinner />      {:then}
+    function create_pending_block(ctx) {
+    	var current;
+
+    	var loadingspinner = new LoadingSpinner({ $$inline: true });
+
+    	return {
+    		c: function create() {
+    			loadingspinner.$$.fragment.c();
+    		},
+
+    		m: function mount(target, anchor) {
+    			mount_component(loadingspinner, target, anchor);
+    			current = true;
+    		},
+
+    		p: noop,
+
+    		i: function intro(local) {
+    			if (current) return;
+    			loadingspinner.$$.fragment.i(local);
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			loadingspinner.$$.fragment.o(local);
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			loadingspinner.$destroy(detaching);
+    		}
+    	};
+    }
+
     function create_fragment$5(ctx) {
-    	var div1, div0, h1, t_1, h2;
+    	var div1, div0, h2, t_1, promise, current;
+
+    	let info = {
+    		ctx,
+    		current: null,
+    		pending: create_pending_block,
+    		then: create_then_block,
+    		catch: create_catch_block,
+    		value: 'null',
+    		error: 'null',
+    		blocks: Array(3)
+    	};
+
+    	handle_promise(promise = ctx.getTodayData, info);
 
     	return {
     		c: function create() {
     			div1 = element("div");
     			div0 = element("div");
-    			h1 = element("h1");
-    			h1.textContent = "Dashboard";
-    			t_1 = space();
     			h2 = element("h2");
-    			h2.textContent = "Work in progress";
-    			h1.className = "text-primaryColor";
-    			add_location(h1, file$5, 2, 4, 89);
-    			h2.className = "text-secondaryColor";
-    			add_location(h2, file$5, 3, 4, 139);
-    			div0.className = "w-full text-center";
-    			add_location(div0, file$5, 1, 2, 51);
-    			div1.className = "h-screen w-full flex items-center";
-    			add_location(div1, file$5, 0, 0, 0);
+    			h2.textContent = "Today";
+    			t_1 = space();
+
+    			info.block.c();
+    			h2.className = "svelte-16qayat";
+    			add_location(h2, file$5, 68, 4, 2688);
+    			div0.className = "mt-8";
+    			add_location(div0, file$5, 67, 2, 2664);
+    			div1.className = "w-full bg-backgroundColor p-4";
+    			add_location(div1, file$5, 66, 0, 2617);
     		},
 
     		l: function claim(nodes) {
@@ -5523,27 +5852,121 @@
     		m: function mount(target, anchor) {
     			insert(target, div1, anchor);
     			append(div1, div0);
-    			append(div0, h1);
-    			append(div0, t_1);
     			append(div0, h2);
+    			append(div0, t_1);
+
+    			info.block.m(div0, info.anchor = null);
+    			info.mount = () => div0;
+    			info.anchor = null;
+
+    			current = true;
     		},
 
-    		p: noop,
-    		i: noop,
-    		o: noop,
+    		p: function update(changed, new_ctx) {
+    			ctx = new_ctx;
+    			info.ctx = ctx;
+
+    			if (('getTodayData' in changed) && promise !== (promise = ctx.getTodayData) && handle_promise(promise, info)) ; else {
+    				info.block.p(changed, assign(assign({}, ctx), info.resolved));
+    			}
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			info.block.i();
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			for (let i = 0; i < 3; i += 1) {
+    				const block = info.blocks[i];
+    				if (block) block.o();
+    			}
+
+    			current = false;
+    		},
 
     		d: function destroy(detaching) {
     			if (detaching) {
     				detach(div1);
     			}
+
+    			info.block.d();
+    			info = null;
     		}
     	};
+    }
+
+    const historicalRows = 20;
+
+    function instance$5($$self, $$props, $$invalidate) {
+    	let $gapiInstance;
+
+    	validate_store(gapiInstance, 'gapiInstance');
+    	subscribe($$self, gapiInstance, $$value => { $gapiInstance = $$value; $$invalidate('$gapiInstance', $gapiInstance); });
+
+    	
+      let loading = false;
+      let getTodayData;
+
+      let todayDatas = [];
+
+      onMount(() => {
+        if ($gapiInstance !== undefined) {
+          $$invalidate('loading', loading = true);
+
+          $gapiInstance.client.sheets.spreadsheets.values
+            .get({
+              spreadsheetId: credentials.SPREADSHEET_ID,
+              range: credentials.SHEET_NAME + "!A1:A"
+            })
+            .then(response => {
+              const lastRow = response.result.values.length;
+              const firstRow = lastRow - historicalRows + 1;
+
+              $$invalidate('getTodayData', getTodayData = $gapiInstance.client.sheets.spreadsheets.values
+                .get({
+                  spreadsheetId: credentials.SPREADSHEET_ID,
+                  range: credentials.SHEET_NAME + `!A${firstRow}:Q${lastRow}`
+                })
+                .then(response => {
+                  $$invalidate('loading', loading = false);
+                  console.log(response);
+                  const sheetData = response.result.values;
+                  /**
+                   * Need to add year to the data from Sheets as it is received as a string
+                   */
+                  const year = format(new Date(), "yyyy");
+
+                  for (let i = sheetData.length - 1; i > 15; i--) {
+                    const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
+                    todayDatas.push(sheetData[i]);
+                  }
+
+                  // for (let i = sheetData.length - 1; i > 0; i--) {
+                  //   const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
+
+                  //   if (isSameDay(date, new Date())) {
+                  //     todayDatas.push(sheetData[i]);
+                  //   } else {
+                  //     break;
+                  //   }
+                  // }
+
+                  todayDatas.reverse();
+                  console.log(todayDatas);
+                }));
+            });
+        }
+      });
+
+    	return { getTodayData, todayDatas };
     }
 
     class Summary extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, null, create_fragment$5, safe_not_equal, []);
+    		init(this, options, instance$5, create_fragment$5, safe_not_equal, []);
     	}
     }
 
@@ -5751,7 +6174,7 @@
       }
     }
 
-    function instance$5($$self, $$props, $$invalidate) {
+    function instance$6($$self, $$props, $$invalidate) {
     	let $showEntry, $showSummary, $showSettings;
 
     	validate_store(showEntry, 'showEntry');
@@ -5808,7 +6231,7 @@
     class Scaffold extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$5, create_fragment$6, safe_not_equal, []);
+    		init(this, options, instance$6, create_fragment$6, safe_not_equal, []);
     	}
     }
 
@@ -6178,7 +6601,7 @@
     	};
     }
 
-    function instance$6($$self, $$props, $$invalidate) {
+    function instance$7($$self, $$props, $$invalidate) {
     	let $showEntry, $showSettings, $showSummary;
 
     	validate_store(showEntry, 'showEntry');
@@ -6200,7 +6623,7 @@
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$6, create_fragment$7, safe_not_equal, []);
+    		init(this, options, instance$7, create_fragment$7, safe_not_equal, []);
     	}
     }
 
