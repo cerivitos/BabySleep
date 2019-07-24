@@ -40,27 +40,37 @@
   .background-selected {
     @apply text-accentColor3;
   }
+
+  label {
+    @apply text-sm font-medium;
+  }
 </style>
 
 <div class="background p-4 {isFocused ? 'background-selected' : ''}">
   <h1>
     {title}
     <body>
-      <input
-        class="input {check ? 'input-ok' : 'input-error'}"
-        type="date"
-        bind:value={date}
-        on:focus={() => (isFocused = true)}
-        on:blur={() => (isFocused = false)}
-        on:change={dispatchValues}
-        min={minDate} />
-      <input
-        class="input {check ? 'input-ok' : 'input-error'}"
-        type="time"
-        bind:value={time}
-        on:focus={() => (isFocused = true)}
-        on:blur={() => (isFocused = false)}
-        on:change={dispatchValues} />
+      <div class="flex-wrap">
+        <label>DATE</label>
+        <input
+          class="input {check ? 'input-ok' : 'input-error'}"
+          type="date"
+          bind:value={date}
+          on:focus={() => (isFocused = true)}
+          on:blur={() => (isFocused = false)}
+          on:change={dispatchValues}
+          min={minDate} />
+      </div>
+      <div class="flex-wrap">
+        <label>TIME</label>
+        <input
+          class="input {check ? 'input-ok' : 'input-error'}"
+          type="time"
+          bind:value={time}
+          on:focus={() => (isFocused = true)}
+          on:blur={() => (isFocused = false)}
+          on:change={dispatchValues} />
+      </div>
     </body>
   </h1>
   <slot />

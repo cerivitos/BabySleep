@@ -3615,36 +3615,52 @@
     const file = "src\\components\\EntryBlock.svelte";
 
     function create_fragment(ctx) {
-    	var div, h1, t0, t1, body, input0, input0_class_value, t2, input1, input1_class_value, t3, div_class_value, current, dispose;
+    	var div2, h1, t0, t1, body, div0, label0, t3, input0, input0_class_value, t4, div1, label1, t6, input1, input1_class_value, t7, div2_class_value, current, dispose;
 
     	const default_slot_1 = ctx.$$slots.default;
     	const default_slot = create_slot(default_slot_1, ctx, null);
 
     	return {
     		c: function create() {
-    			div = element("div");
+    			div2 = element("div");
     			h1 = element("h1");
     			t0 = text(ctx.title);
     			t1 = space();
     			body = element("body");
-    			input0 = element("input");
-    			t2 = space();
-    			input1 = element("input");
+    			div0 = element("div");
+    			label0 = element("label");
+    			label0.textContent = "DATE";
     			t3 = space();
+    			input0 = element("input");
+    			t4 = space();
+    			div1 = element("div");
+    			label1 = element("label");
+    			label1.textContent = "TIME";
+    			t6 = space();
+    			input1 = element("input");
+    			t7 = space();
 
     			if (default_slot) default_slot.c();
-    			input0.className = input0_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-9wux0x";
+    			label0.className = "svelte-5c0rb8";
+    			add_location(label0, file, 28, 8, 926);
+    			input0.className = input0_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-5c0rb8";
     			attr(input0, "type", "date");
     			input0.min = ctx.minDate;
-    			add_location(input0, file, 27, 6, 853);
-    			input1.className = input1_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-9wux0x";
+    			add_location(input0, file, 29, 8, 955);
+    			div0.className = "flex-wrap";
+    			add_location(div0, file, 27, 6, 893);
+    			label1.className = "svelte-5c0rb8";
+    			add_location(label1, file, 39, 8, 1290);
+    			input1.className = input1_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-5c0rb8";
     			attr(input1, "type", "time");
-    			add_location(input1, file, 35, 6, 1127);
-    			add_location(body, file, 26, 4, 839);
-    			add_location(h1, file, 24, 2, 816);
+    			add_location(input1, file, 40, 8, 1319);
+    			div1.className = "flex-wrap";
+    			add_location(div1, file, 38, 6, 1257);
+    			add_location(body, file, 26, 4, 879);
+    			add_location(h1, file, 24, 2, 856);
 
-    			div.className = div_class_value = "background p-4 " + (ctx.isFocused ? 'background-selected' : '') + " svelte-9wux0x";
-    			add_location(div, file, 23, 0, 743);
+    			div2.className = div2_class_value = "background p-4 " + (ctx.isFocused ? 'background-selected' : '') + " svelte-5c0rb8";
+    			add_location(div2, file, 23, 0, 783);
 
     			dispose = [
     				listen(input0, "input", ctx.input0_input_handler),
@@ -3659,29 +3675,35 @@
     		},
 
     		l: function claim(nodes) {
-    			if (default_slot) default_slot.l(div_nodes);
+    			if (default_slot) default_slot.l(div2_nodes);
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
 
     		m: function mount(target, anchor) {
-    			insert(target, div, anchor);
-    			append(div, h1);
+    			insert(target, div2, anchor);
+    			append(div2, h1);
     			append(h1, t0);
     			append(h1, t1);
     			append(h1, body);
-    			append(body, input0);
+    			append(body, div0);
+    			append(div0, label0);
+    			append(div0, t3);
+    			append(div0, input0);
 
     			input0.value = ctx.date;
 
-    			append(body, t2);
-    			append(body, input1);
+    			append(body, t4);
+    			append(body, div1);
+    			append(div1, label1);
+    			append(div1, t6);
+    			append(div1, input1);
 
     			input1.value = ctx.time;
 
-    			append(div, t3);
+    			append(div2, t7);
 
     			if (default_slot) {
-    				default_slot.m(div, null);
+    				default_slot.m(div2, null);
     			}
 
     			current = true;
@@ -3694,7 +3716,7 @@
 
     			if (changed.date) input0.value = ctx.date;
 
-    			if ((!current || changed.check) && input0_class_value !== (input0_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-9wux0x")) {
+    			if ((!current || changed.check) && input0_class_value !== (input0_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-5c0rb8")) {
     				input0.className = input0_class_value;
     			}
 
@@ -3704,7 +3726,7 @@
 
     			if (changed.time) input1.value = ctx.time;
 
-    			if ((!current || changed.check) && input1_class_value !== (input1_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-9wux0x")) {
+    			if ((!current || changed.check) && input1_class_value !== (input1_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-5c0rb8")) {
     				input1.className = input1_class_value;
     			}
 
@@ -3712,8 +3734,8 @@
     				default_slot.p(get_slot_changes(default_slot_1, ctx, changed, null), get_slot_context(default_slot_1, ctx, null));
     			}
 
-    			if ((!current || changed.isFocused) && div_class_value !== (div_class_value = "background p-4 " + (ctx.isFocused ? 'background-selected' : '') + " svelte-9wux0x")) {
-    				div.className = div_class_value;
+    			if ((!current || changed.isFocused) && div2_class_value !== (div2_class_value = "background p-4 " + (ctx.isFocused ? 'background-selected' : '') + " svelte-5c0rb8")) {
+    				div2.className = div2_class_value;
     			}
     		},
 
@@ -3730,7 +3752,7 @@
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach(div);
+    				detach(div2);
     			}
 
     			if (default_slot) default_slot.d(detaching);
