@@ -4,6 +4,7 @@
   import { signOut, signIn } from "../util.js";
   import { fade } from "svelte/transition";
   import { credentials } from "../../credentials.js";
+  import LoadingSpinner from "./LoadingSpinner.svelte";
 
   let Nap1ToNap2Hr,
     Nap1ToNap2Min,
@@ -139,6 +140,7 @@
   }
 </style>
 
+<LoadingSpinner text="loading..." />
 <div class="w-full bg-backgroundColor p-4">
   {#if $userName !== undefined && $userPic !== undefined}
     <div class="mt-2 flex-col" in:fade={{ duration: 400 }}>
