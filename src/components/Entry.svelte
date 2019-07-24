@@ -68,6 +68,7 @@
       wakeTime = cache.wakeTime;
       cache.isNap !== undefined ? (isNap = cache.isNap) : (isNap = true);
     }
+
     const interval = setInterval(() => {
       time = new Date();
     }, 1000);
@@ -156,27 +157,79 @@
               resource: {
                 values: [
                   [
+                    /**
+                     * Put Down (PD)
+                     * */
                     putDownDate + " " + putDownTime,
+                    /**
+                     * Sleep Start
+                     * */
                     sleepDate + " " + sleepTime,
+                    /**
+                     * Sleep End
+                     */
+                    wakeDate + " " + wakeTime,
+                    /**
+                     * Pick Up
+                     */
                     pickUpDate + " " + pickUpTime,
+                    /**
+                     * Next Put Down
+                     */
+                    `=C${currentRow}+(D${currentRow}-C${currentRow})/2+if(M${currentRow}=1,Rules!$B$7,if(M${currentRow}=2,Rules!$B$8,if(M${currentRow}=3,Rules!$B$9)))`,
+                    /**
+                     * Time to fall asleep
+                     */
                     `=if(or(A${currentRow}="",B${currentRow}=""),"",B${currentRow}-A${currentRow})`,
+                    /**
+                     * Sleep Duration
+                     */
                     `=if(or(C${currentRow}="",B${currentRow}=""),"",C${currentRow}-B${currentRow})`,
+                    /**
+                     * WT to PD
+                     */
                     `=A${currentRow}-C${currentRow - 1}`,
-                    `=(A${currentRow}-C${currentRow - 1})+(D${currentRow}/2)`,
+                    /**
+                     * Adjusted WT
+                     */
+                    `=(A${currentRow}-D${currentRow -
+                      1})+(F${currentRow}/2)+(D${currentRow - 1}-C${currentRow -
+                      1})/2`,
+                    /**
+                     * Actual WT
+                     */
                     `=B${currentRow}-C${currentRow - 1}`,
+                    /**
+                     * Total WT (TWT)
+                     */
                     `=if(and(day(B${currentRow})=day(B${currentRow -
                       1}),month(B${currentRow})=month(B${currentRow -
-                      1})),G${currentRow}+I${currentRow - 1},G${currentRow})`,
+                      1})),I${currentRow}+K${currentRow - 1},I${currentRow})`,
+                    /**
+                     * Type
+                     */
                     isNap ? "Nap" : "Sleep",
+                    /**
+                     * Count
+                     */
                     `=if(and(day(B${currentRow})=DAY(B${currentRow -
                       1}),month(B${currentRow})=month(B${currentRow -
-                      1}),J${currentRow}=J${currentRow - 1}),K${currentRow -
+                      1}),L${currentRow}=L${currentRow - 1}),M${currentRow -
                       1}+1,1)`,
+                    /**
+                     * Total Sleep
+                     */
                     `=if(and(day(B${currentRow})=day(B${currentRow -
-                      2}),month(B${currentRow})=month(B${currentRow -
-                      2})),E${currentRow}+L${currentRow - 2},E${currentRow})`,
+                      1}),month(B${currentRow})=month(B${currentRow -
+                      1})),G${currentRow}+N${currentRow - 1},G${currentRow})`,
+                    /**
+                     * Date
+                     */
                     `=if(hour(A${currentRow}) < Rules!$B$5, date(year(A${currentRow}), month(A${currentRow}), day(A${currentRow})) - 1, date(year(A${currentRow}), month(A${currentRow}), day(A${currentRow})))`,
-                    `=E${currentRow}`
+                    /**
+                     * Duration
+                     */
+                    `=G${currentRow}`
                   ]
                 ]
               }
@@ -187,11 +240,16 @@
                  * Save the nap number to calculate estimated next put down time. The nap number is taken from the sheet as it is calculated by the formula appended above.
                  */
                 napNumber = parseInt(
-                  response.result.updates.updatedData.values[0][10]
+                  response.result.updates.updatedData.values[0][12]
+                );
+
+                nextPutDownTime = format(
+                  Date.parse(response.result.updates.updatedData.values[0][4]),
+                  "h:mm a"
                 );
 
                 /**
-                 * Update cell format to date time for the first three columns.
+                 * Update cell format to date time for the first five columns.
                  */
                 $gapiInstance.client.sheets.spreadsheets
                   .batchUpdate({
@@ -203,7 +261,7 @@
                             sheetId: credentials.SHEET_ID,
                             startRowIndex: 1,
                             startColumnIndex: 0,
-                            endColumnIndex: 2
+                            endColumnIndex: 5
                           },
                           cell: {
                             userEnteredFormat: {
@@ -224,7 +282,7 @@
                      */
                     sending = false;
 
-                    nextPutDownTime = calculateNextPutDownTime(napNumber);
+                    // nextPutDownTime = calculateNextPutDownTime(napNumber);
 
                     putDownTime = format(new Date(), "HH:mm");
                     sleepTime = undefined;
@@ -255,30 +313,30 @@
     }
   }
 
-  function calculateNextPutDownTime(napNumber) {
-    let intervalHrKey, intervalMinKey;
+  // function calculateNextPutDownTime(napNumber) {
+  //   let intervalHrKey, intervalMinKey;
 
-    if (napNumber === 1) {
-      intervalHrKey = "Nap1ToNap2Hr";
-      intervalMinKey = "Nap1ToNap2Min";
-    } else if (napNumber === 2) {
-      intervalHrKey = "Nap2ToNap3Hr";
-      intervalMinKey = "Nap2ToNap3Min";
-    } else {
-      intervalHrKey = "Nap3ToSleepHr";
-      intervalMinKey = "Nap3ToSleepMin";
-    }
+  //   if (napNumber === 1) {
+  //     intervalHrKey = "Nap1ToNap2Hr";
+  //     intervalMinKey = "Nap1ToNap2Min";
+  //   } else if (napNumber === 2) {
+  //     intervalHrKey = "Nap2ToNap3Hr";
+  //     intervalMinKey = "Nap2ToNap3Min";
+  //   } else {
+  //     intervalHrKey = "Nap3ToSleepHr";
+  //     intervalMinKey = "Nap3ToSleepMin";
+  //   }
 
-    const intervalInMins =
-      parseInt(localStorage.getItem(intervalHrKey) * 60) +
-      parseInt(localStorage.getItem(intervalMinKey));
+  //   const intervalInMins =
+  //     parseInt(localStorage.getItem(intervalHrKey) * 60) +
+  //     parseInt(localStorage.getItem(intervalMinKey));
 
-    const putDownDateTime = addMinutes(
-      new Date(pickUpDate + "T" + pickUpTime),
-      intervalInMins
-    );
-    return format(putDownDateTime, "h:mm a");
-  }
+  //   const putDownDateTime = addMinutes(
+  //     new Date(pickUpDate + "T" + pickUpTime),
+  //     intervalInMins
+  //   );
+  //   return format(putDownDateTime, "h:mm a");
+  // }
 
   function receivePutDown(event) {
     putDownDate = event.detail.date;

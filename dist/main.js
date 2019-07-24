@@ -1029,39 +1029,6 @@
       return baseTimezoneOffset * MILLISECONDS_IN_MINUTE + millisecondsPartOfTimezoneOffset;
     }
 
-    var MILLISECONDS_IN_MINUTE$1 = 60000;
-    /**
-     * @name addMinutes
-     * @category Minute Helpers
-     * @summary Add the specified number of minutes to the given date.
-     *
-     * @description
-     * Add the specified number of minutes to the given date.
-     *
-     * ### v2.0.0 breaking changes:
-     *
-     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
-     *
-     * @param {Date|Number} date - the date to be changed
-     * @param {Number} amount - the amount of minutes to be added
-     * @returns {Date} the new date with the minutes added
-     * @throws {TypeError} 2 arguments required
-     *
-     * @example
-     * // Add 30 minutes to 10 July 2014 12:00:00:
-     * var result = addMinutes(new Date(2014, 6, 10, 12, 0), 30)
-     * //=> Thu Jul 10 2014 12:30:00
-     */
-
-    function addMinutes(dirtyDate, dirtyAmount) {
-      if (arguments.length < 2) {
-        throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
-      }
-
-      var amount = toInteger(dirtyAmount);
-      return addMilliseconds(dirtyDate, amount * MILLISECONDS_IN_MINUTE$1);
-    }
-
     /**
      * @name isValid
      * @category Common Helpers
@@ -1166,7 +1133,7 @@
       return dateLeft.getTime() - dateRight.getTime();
     }
 
-    var MILLISECONDS_IN_MINUTE$2 = 60000;
+    var MILLISECONDS_IN_MINUTE$1 = 60000;
     /**
      * @name differenceInMinutes
      * @category Minute Helpers
@@ -1198,7 +1165,7 @@
         throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
       }
 
-      var diff = differenceInMilliseconds(dirtyDateLeft, dirtyDateRight) / MILLISECONDS_IN_MINUTE$2;
+      var diff = differenceInMilliseconds(dirtyDateLeft, dirtyDateRight) / MILLISECONDS_IN_MINUTE$1;
       return diff > 0 ? Math.floor(diff) : Math.ceil(diff);
     }
 
@@ -4109,7 +4076,7 @@
 
     const file$2 = "src\\components\\Entry.svelte";
 
-    // (402:0) {#if sending}
+    // (460:0) {#if sending}
     function create_if_block$1(ctx) {
     	var div, div_transition, current, dispose;
 
@@ -4123,7 +4090,7 @@
     			div = element("div");
     			loadingspinner.$$.fragment.c();
     			div.className = "w-full h-screen bg-black opacity-75 flex items-center justify-center\r\n    absolute";
-    			add_location(div, file$2, 402, 2, 12725);
+    			add_location(div, file$2, 460, 2, 14636);
     			dispose = listen(div, "click", ctx.click_handler);
     		},
 
@@ -4170,7 +4137,7 @@
     	};
     }
 
-    // (456:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
+    // (514:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
     function create_default_slot(ctx) {
     	var div1, div0, button0, t0, button0_class_value, t1, button1, t2, button1_class_value, t3, div2, button2, t4, button2_class_value, dispose;
 
@@ -4188,17 +4155,17 @@
     			button2 = element("button");
     			t4 = text("Submit");
     			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-l" + " svelte-cy5gki";
-    			add_location(button0, file$2, 464, 6, 14422);
+    			add_location(button0, file$2, 522, 6, 16333);
     			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-r" + " svelte-cy5gki";
-    			add_location(button1, file$2, 469, 6, 14587);
+    			add_location(button1, file$2, 527, 6, 16498);
     			div0.className = "inline-flex";
-    			add_location(div0, file$2, 463, 4, 14389);
+    			add_location(div0, file$2, 521, 4, 16300);
     			div1.className = "w-full flex justify-center mt-8";
-    			add_location(div1, file$2, 462, 2, 14338);
+    			add_location(div1, file$2, 520, 2, 16249);
     			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50') + " svelte-cy5gki";
-    			add_location(button2, file$2, 477, 4, 14814);
+    			add_location(button2, file$2, 535, 4, 16725);
     			div2.className = "flex items-center justify-center";
-    			add_location(div2, file$2, 476, 2, 14762);
+    			add_location(div2, file$2, 534, 2, 16673);
 
     			dispose = [
     				listen(button0, "click", ctx.click_handler_1),
@@ -4326,20 +4293,20 @@
     			t11 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold text-backgroundColor";
-    			add_location(div0, file$2, 416, 4, 13138);
+    			add_location(div0, file$2, 474, 4, 15049);
     			body0.className = "text-2xl justify-center items-center flex";
-    			add_location(body0, file$2, 414, 2, 13055);
+    			add_location(body0, file$2, 472, 2, 14966);
     			div1.id = "topBlock";
     			div1.className = "w-full overflow-hidden bg-accentColor text-white";
     			set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
-    			add_location(div1, file$2, 410, 0, 12919);
+    			add_location(div1, file$2, 468, 0, 14830);
     			div2.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div2, file$2, 440, 4, 13802);
+    			add_location(div2, file$2, 498, 4, 15713);
     			body1.className = "text-2xl justify-center items-center flex";
-    			add_location(body1, file$2, 438, 2, 13724);
+    			add_location(body1, file$2, 496, 2, 15635);
     			div3.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div3, file$2, 435, 0, 13614);
+    			add_location(div3, file$2, 493, 0, 15525);
     		},
 
     		l: function claim(nodes) {
@@ -4559,6 +4526,7 @@
           $$invalidate('wakeTime', wakeTime = cache.wakeTime);
           cache.isNap !== undefined ? (isNap = cache.isNap) : (isNap = true); $$invalidate('isNap', isNap);
         }
+
         const interval = setInterval(() => {
           $$invalidate('time', time = new Date());
         }, 1000);
@@ -4630,27 +4598,79 @@
                   resource: {
                     values: [
                       [
+                        /**
+                         * Put Down (PD)
+                         * */
                         putDownDate + " " + putDownTime,
+                        /**
+                         * Sleep Start
+                         * */
                         sleepDate + " " + sleepTime,
+                        /**
+                         * Sleep End
+                         */
+                        wakeDate + " " + wakeTime,
+                        /**
+                         * Pick Up
+                         */
                         pickUpDate + " " + pickUpTime,
+                        /**
+                         * Next Put Down
+                         */
+                        `=C${currentRow}+(D${currentRow}-C${currentRow})/2+if(M${currentRow}=1,Rules!$B$7,if(M${currentRow}=2,Rules!$B$8,if(M${currentRow}=3,Rules!$B$9)))`,
+                        /**
+                         * Time to fall asleep
+                         */
                         `=if(or(A${currentRow}="",B${currentRow}=""),"",B${currentRow}-A${currentRow})`,
+                        /**
+                         * Sleep Duration
+                         */
                         `=if(or(C${currentRow}="",B${currentRow}=""),"",C${currentRow}-B${currentRow})`,
+                        /**
+                         * WT to PD
+                         */
                         `=A${currentRow}-C${currentRow - 1}`,
-                        `=(A${currentRow}-C${currentRow - 1})+(D${currentRow}/2)`,
+                        /**
+                         * Adjusted WT
+                         */
+                        `=(A${currentRow}-D${currentRow -
+                      1})+(F${currentRow}/2)+(D${currentRow - 1}-C${currentRow -
+                      1})/2`,
+                        /**
+                         * Actual WT
+                         */
                         `=B${currentRow}-C${currentRow - 1}`,
+                        /**
+                         * Total WT (TWT)
+                         */
                         `=if(and(day(B${currentRow})=day(B${currentRow -
                       1}),month(B${currentRow})=month(B${currentRow -
-                      1})),G${currentRow}+I${currentRow - 1},G${currentRow})`,
+                      1})),I${currentRow}+K${currentRow - 1},I${currentRow})`,
+                        /**
+                         * Type
+                         */
                         isNap ? "Nap" : "Sleep",
+                        /**
+                         * Count
+                         */
                         `=if(and(day(B${currentRow})=DAY(B${currentRow -
                       1}),month(B${currentRow})=month(B${currentRow -
-                      1}),J${currentRow}=J${currentRow - 1}),K${currentRow -
+                      1}),L${currentRow}=L${currentRow - 1}),M${currentRow -
                       1}+1,1)`,
+                        /**
+                         * Total Sleep
+                         */
                         `=if(and(day(B${currentRow})=day(B${currentRow -
-                      2}),month(B${currentRow})=month(B${currentRow -
-                      2})),E${currentRow}+L${currentRow - 2},E${currentRow})`,
+                      1}),month(B${currentRow})=month(B${currentRow -
+                      1})),G${currentRow}+N${currentRow - 1},G${currentRow})`,
+                        /**
+                         * Date
+                         */
                         `=if(hour(A${currentRow}) < Rules!$B$5, date(year(A${currentRow}), month(A${currentRow}), day(A${currentRow})) - 1, date(year(A${currentRow}), month(A${currentRow}), day(A${currentRow})))`,
-                        `=E${currentRow}`
+                        /**
+                         * Duration
+                         */
+                        `=G${currentRow}`
                       ]
                     ]
                   }
@@ -4661,11 +4681,16 @@
                      * Save the nap number to calculate estimated next put down time. The nap number is taken from the sheet as it is calculated by the formula appended above.
                      */
                     napNumber = parseInt(
-                      response.result.updates.updatedData.values[0][10]
+                      response.result.updates.updatedData.values[0][12]
                     );
 
+                    $$invalidate('nextPutDownTime', nextPutDownTime = format(
+                      Date.parse(response.result.updates.updatedData.values[0][4]),
+                      "h:mm a"
+                    ));
+
                     /**
-                     * Update cell format to date time for the first three columns.
+                     * Update cell format to date time for the first five columns.
                      */
                     $gapiInstance.client.sheets.spreadsheets
                       .batchUpdate({
@@ -4677,7 +4702,7 @@
                                 sheetId: credentials.SHEET_ID,
                                 startRowIndex: 1,
                                 startColumnIndex: 0,
-                                endColumnIndex: 2
+                                endColumnIndex: 5
                               },
                               cell: {
                                 userEnteredFormat: {
@@ -4698,7 +4723,7 @@
                          */
                         $$invalidate('sending', sending = false);
 
-                        $$invalidate('nextPutDownTime', nextPutDownTime = calculateNextPutDownTime(napNumber));
+                        // nextPutDownTime = calculateNextPutDownTime(napNumber);
 
                         $$invalidate('putDownTime', putDownTime = format(new Date(), "HH:mm"));
                         $$invalidate('sleepTime', sleepTime = undefined);
@@ -4729,30 +4754,30 @@
         }
       }
 
-      function calculateNextPutDownTime(napNumber) {
-        let intervalHrKey, intervalMinKey;
+      // function calculateNextPutDownTime(napNumber) {
+      //   let intervalHrKey, intervalMinKey;
 
-        if (napNumber === 1) {
-          intervalHrKey = "Nap1ToNap2Hr";
-          intervalMinKey = "Nap1ToNap2Min";
-        } else if (napNumber === 2) {
-          intervalHrKey = "Nap2ToNap3Hr";
-          intervalMinKey = "Nap2ToNap3Min";
-        } else {
-          intervalHrKey = "Nap3ToSleepHr";
-          intervalMinKey = "Nap3ToSleepMin";
-        }
+      //   if (napNumber === 1) {
+      //     intervalHrKey = "Nap1ToNap2Hr";
+      //     intervalMinKey = "Nap1ToNap2Min";
+      //   } else if (napNumber === 2) {
+      //     intervalHrKey = "Nap2ToNap3Hr";
+      //     intervalMinKey = "Nap2ToNap3Min";
+      //   } else {
+      //     intervalHrKey = "Nap3ToSleepHr";
+      //     intervalMinKey = "Nap3ToSleepMin";
+      //   }
 
-        const intervalInMins =
-          parseInt(localStorage.getItem(intervalHrKey) * 60) +
-          parseInt(localStorage.getItem(intervalMinKey));
+      //   const intervalInMins =
+      //     parseInt(localStorage.getItem(intervalHrKey) * 60) +
+      //     parseInt(localStorage.getItem(intervalMinKey));
 
-        const putDownDateTime = addMinutes(
-          new Date(pickUpDate + "T" + pickUpTime),
-          intervalInMins
-        );
-        return format(putDownDateTime, "h:mm a");
-      }
+      //   const putDownDateTime = addMinutes(
+      //     new Date(pickUpDate + "T" + pickUpTime),
+      //     intervalInMins
+      //   );
+      //   return format(putDownDateTime, "h:mm a");
+      // }
 
       function receivePutDown(event) {
         $$invalidate('putDownDate', putDownDate = event.detail.date);
