@@ -1,9 +1,19 @@
 <script>
   import { credentials } from "../../credentials.js";
   import { onMount } from "svelte";
-  import { userName, userPic, gapiInstance } from "../store/store.js";
+  import {
+    userName,
+    userPic,
+    gapiInstance,
+    showEntry,
+    showSettings,
+    showSummary
+  } from "../store/store.js";
+  import LoadingSpinner from "./LoadingSpinner.svelte";
+  import { fade } from "svelte/transition";
 
-  let isSignedIn = false;
+  let showErrorScreen = false;
+  let signingInPromise;
   let auth2;
 
   onMount(() => {
@@ -20,7 +30,7 @@
   });
 
   function initClient() {
-    gapi.client
+    signingInPromise = gapi.client
       .init({
         clientID: credentials.CLIENT_ID,
         apiKey: credentials.API_KEY,
@@ -29,6 +39,9 @@
       })
       .then(() => {
         gapi.load("auth2", initAuth2);
+      })
+      .catch(e => {
+        showErrorScreen = true;
       });
   }
 
@@ -46,7 +59,6 @@
   function updateSigninStatus(signedIn) {
     if (signedIn) {
       console.log("Signed in automatically");
-      isSignedIn = true;
 
       gapiInstance.set(gapi);
       userName.set(
@@ -64,7 +76,6 @@
           .getImageUrl()
       );
     } else {
-      isSignedIn = false;
       userName.set();
       userPic.set();
     }
@@ -75,19 +86,36 @@
   <meta name="google-signin-client_id" content={credentials.CLIENT_ID} />
 </svelte:head>
 
-<!-- {#if !isSignedIn}
-  <button
-    class="w-1/2 p-4 rounded {isSignedIn ? 'bg-secondaryColor opacity-50 cursor-not-allowed' : 'bg-accentColor'}
-    text-center text-backgroundColor"
-    on:click={() => signIn()}>
-    Sign In
-  </button>
+{#await signingInPromise}
+  <div
+    transition:fade
+    class="w-full h-screen bg-black opacity-75 flex items-center justify-center
+    absolute"
+    on:click>
+    <LoadingSpinner text="Signing in" />
+  </div>
+{:then}
+  <div />
+{/await}
+{#if showErrorScreen}
+  <div
+    transition:fade
+    class="w-full h-screen bg-black opacity-75 absolute"
+    on:click />
+  <div
+    class="w-full h-screen flex flex-col items-center justify-center absolute">
+    <p class="w-1/2 text-center text-secondaryColor mb-4">
+      Error signing in. Please try again.
+    </p>
+    <button
+      class="py-2 w-1/2 rounded-lg bg-accentColor2 text-white font-medium"
+      on:click={() => {
+        showEntry.set(false);
+        showSummary.set(false);
+        showSettings.set(true);
+        showErrorScreen = false;
+      }}>
+      Go to Settings
+    </button>
+  </div>
 {/if}
-{#if isSignedIn}
-  <button
-    class="w-1/2 p-4 rounded {!isSignedIn ? 'bg-secondaryColor opacity-50 cursor-not-allowed' : 'bg-accentColor'}
-    text-center text-backgroundColor"
-    on:click={() => signOut()}>
-    Sign out
-  </button>
-{/if} -->

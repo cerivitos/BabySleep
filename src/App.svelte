@@ -15,6 +15,7 @@
 </script>
 
 <main class="overflow-hidden">
+  <SignIn class="absolute z-10" />
   <Scaffold>
     {#if $showEntry}
       <div transition:fade={{ duration: 180 }}>
@@ -32,5 +33,4 @@
       </div>
     {/if}
   </Scaffold>
-  <SignIn class="absolute" />
 </main>

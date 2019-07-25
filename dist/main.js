@@ -4989,15 +4989,203 @@
 
     const file$3 = "src\\components\\SignIn.svelte";
 
+    // (1:0) <script>    import { credentials }
+    function create_catch_block(ctx) {
+    	return {
+    		c: noop,
+    		m: noop,
+    		i: noop,
+    		o: noop,
+    		d: noop
+    	};
+    }
+
+    // (97:0) {:then}
+    function create_then_block(ctx) {
+    	var div;
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			add_location(div, file$3, 97, 2, 2290);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    		},
+
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    			}
+    		}
+    	};
+    }
+
+    // (89:25)     <div      transition:fade      class="w-full h-screen bg-black opacity-75 flex items-center justify-center      absolute"      on:click>      <LoadingSpinner text="Signing in" />    </div>  {:then}
+    function create_pending_block(ctx) {
+    	var div, div_transition, current, dispose;
+
+    	var loadingspinner = new LoadingSpinner({
+    		props: { text: "Signing in" },
+    		$$inline: true
+    	});
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			loadingspinner.$$.fragment.c();
+    			div.className = "w-full h-screen bg-black opacity-75 flex items-center justify-center\r\n    absolute";
+    			add_location(div, file$3, 89, 2, 2089);
+    			dispose = listen(div, "click", ctx.click_handler);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    			mount_component(loadingspinner, div, null);
+    			current = true;
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			loadingspinner.$$.fragment.i(local);
+
+    			add_render_callback(() => {
+    				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+    				div_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			loadingspinner.$$.fragment.o(local);
+
+    			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+    			div_transition.run(0);
+
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    			}
+
+    			loadingspinner.$destroy();
+
+    			if (detaching) {
+    				if (div_transition) div_transition.end();
+    			}
+
+    			dispose();
+    		}
+    	};
+    }
+
+    // (100:0) {#if showErrorScreen}
+    function create_if_block$2(ctx) {
+    	var div0, div0_transition, t0, div1, p, t2, button, current, dispose;
+
+    	return {
+    		c: function create() {
+    			div0 = element("div");
+    			t0 = space();
+    			div1 = element("div");
+    			p = element("p");
+    			p.textContent = "Error signing in. Please try again.";
+    			t2 = space();
+    			button = element("button");
+    			button.textContent = "Go to Settings";
+    			div0.className = "w-full h-screen bg-black opacity-75 absolute";
+    			add_location(div0, file$3, 100, 2, 2334);
+    			p.className = "w-1/2 text-center text-secondaryColor mb-4";
+    			add_location(p, file$3, 106, 4, 2529);
+    			button.className = "py-2 w-1/2 rounded-lg bg-accentColor2 text-white font-medium";
+    			add_location(button, file$3, 109, 4, 2642);
+    			div1.className = "w-full h-screen flex flex-col items-center justify-center absolute";
+    			add_location(div1, file$3, 104, 2, 2438);
+
+    			dispose = [
+    				listen(div0, "click", ctx.click_handler_1),
+    				listen(button, "click", ctx.click_handler_2)
+    			];
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div0, anchor);
+    			insert(target, t0, anchor);
+    			insert(target, div1, anchor);
+    			append(div1, p);
+    			append(div1, t2);
+    			append(div1, button);
+    			current = true;
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			add_render_callback(() => {
+    				if (!div0_transition) div0_transition = create_bidirectional_transition(div0, fade, {}, true);
+    				div0_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			if (!div0_transition) div0_transition = create_bidirectional_transition(div0, fade, {}, false);
+    			div0_transition.run(0);
+
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div0);
+    				if (div0_transition) div0_transition.end();
+    				detach(t0);
+    				detach(div1);
+    			}
+
+    			run_all(dispose);
+    		}
+    	};
+    }
+
     function create_fragment$3(ctx) {
-    	var meta, meta_content_value;
+    	var meta, meta_content_value, t0, promise, t1, if_block_anchor, current;
+
+    	let info = {
+    		ctx,
+    		current: null,
+    		pending: create_pending_block,
+    		then: create_then_block,
+    		catch: create_catch_block,
+    		value: 'null',
+    		error: 'null',
+    		blocks: Array(3)
+    	};
+
+    	handle_promise(promise = ctx.signingInPromise, info);
+
+    	var if_block = (ctx.showErrorScreen) && create_if_block$2(ctx);
 
     	return {
     		c: function create() {
     			meta = element("meta");
+    			t0 = space();
+
+    			info.block.c();
+
+    			t1 = space();
+    			if (if_block) if_block.c();
+    			if_block_anchor = empty();
     			meta.name = "google-signin-client_id";
     			meta.content = meta_content_value = credentials.CLIENT_ID;
-    			add_location(meta, file$3, 74, 2, 1736);
+    			add_location(meta, file$3, 85, 2, 1969);
     		},
 
     		l: function claim(nodes) {
@@ -5006,22 +5194,126 @@
 
     		m: function mount(target, anchor) {
     			append(document.head, meta);
+    			insert(target, t0, anchor);
+
+    			info.block.m(target, info.anchor = anchor);
+    			info.mount = () => t1.parentNode;
+    			info.anchor = t1;
+
+    			insert(target, t1, anchor);
+    			if (if_block) if_block.m(target, anchor);
+    			insert(target, if_block_anchor, anchor);
+    			current = true;
     		},
 
-    		p: noop,
-    		i: noop,
-    		o: noop,
+    		p: function update(changed, new_ctx) {
+    			ctx = new_ctx;
+    			info.ctx = ctx;
+
+    			('signingInPromise' in changed) && promise !== (promise = ctx.signingInPromise) && handle_promise(promise, info);
+
+    			if (ctx.showErrorScreen) {
+    				if (!if_block) {
+    					if_block = create_if_block$2(ctx);
+    					if_block.c();
+    					if_block.i(1);
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				} else {
+    									if_block.i(1);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+    				on_outro(() => {
+    					if_block.d(1);
+    					if_block = null;
+    				});
+
+    				if_block.o(1);
+    				check_outros();
+    			}
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			info.block.i();
+    			if (if_block) if_block.i();
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			for (let i = 0; i < 3; i += 1) {
+    				const block = info.blocks[i];
+    				if (block) block.o();
+    			}
+
+    			if (if_block) if_block.o();
+    			current = false;
+    		},
 
     		d: function destroy(detaching) {
     			detach(meta);
+
+    			if (detaching) {
+    				detach(t0);
+    			}
+
+    			info.block.d(detaching);
+    			info = null;
+
+    			if (detaching) {
+    				detach(t1);
+    			}
+
+    			if (if_block) if_block.d(detaching);
+
+    			if (detaching) {
+    				detach(if_block_anchor);
+    			}
     		}
     	};
+    }
+
+    function initAuth2() {
+      gapi.auth2
+        .init({
+          clientID: credentials.CLIENT_ID,
+          scope: credentials.SCOPES
+        })
+        .then(() => {
+          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        });
+    }
+
+    function updateSigninStatus(signedIn) {
+      if (signedIn) {
+        console.log("Signed in automatically");
+
+        gapiInstance.set(gapi);
+        userName.set(
+          gapi.auth2
+            .getAuthInstance()
+            .currentUser.get()
+            .getBasicProfile()
+            .getName()
+        );
+        userPic.set(
+          gapi.auth2
+            .getAuthInstance()
+            .currentUser.get()
+            .getBasicProfile()
+            .getImageUrl()
+        );
+      } else {
+        userName.set();
+        userPic.set();
+      }
     }
 
     function instance$3($$self, $$props, $$invalidate) {
     	
 
-      let isSignedIn = false;
+      let showErrorScreen = false;
+      let signingInPromise;
 
       onMount(() => {
         const script = document.createElement("script");
@@ -5037,7 +5329,7 @@
       });
 
       function initClient() {
-        gapi.client
+        $$invalidate('signingInPromise', signingInPromise = gapi.client
           .init({
             clientID: credentials.CLIENT_ID,
             apiKey: credentials.API_KEY,
@@ -5046,48 +5338,34 @@
           })
           .then(() => {
             gapi.load("auth2", initAuth2);
-          });
-      }
-
-      function initAuth2() {
-        gapi.auth2
-          .init({
-            clientID: credentials.CLIENT_ID,
-            scope: credentials.SCOPES
           })
-          .then(() => {
-            updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-          });
+          .catch(e => {
+            $$invalidate('showErrorScreen', showErrorScreen = true);
+          }));
       }
 
-      function updateSigninStatus(signedIn) {
-        if (signedIn) {
-          console.log("Signed in automatically");
-          $$invalidate('isSignedIn', isSignedIn = true);
+    	function click_handler(event) {
+    		bubble($$self, event);
+    	}
 
-          gapiInstance.set(gapi);
-          userName.set(
-            gapi.auth2
-              .getAuthInstance()
-              .currentUser.get()
-              .getBasicProfile()
-              .getName()
-          );
-          userPic.set(
-            gapi.auth2
-              .getAuthInstance()
-              .currentUser.get()
-              .getBasicProfile()
-              .getImageUrl()
-          );
-        } else {
-          $$invalidate('isSignedIn', isSignedIn = false);
-          userName.set();
-          userPic.set();
-        }
-      }
+    	function click_handler_1(event) {
+    		bubble($$self, event);
+    	}
 
-    	return {};
+    	function click_handler_2() {
+    	        showEntry.set(false);
+    	        showSummary.set(false);
+    	        showSettings.set(true);
+    	        showErrorScreen = false; $$invalidate('showErrorScreen', showErrorScreen);
+    	      }
+
+    	return {
+    		showErrorScreen,
+    		signingInPromise,
+    		click_handler,
+    		click_handler_1,
+    		click_handler_2
+    	};
     }
 
     class SignIn extends SvelteComponentDev {
@@ -5335,7 +5613,7 @@
     }
 
     // (105:6) {#if loadingSheetName}
-    function create_if_block$2(ctx) {
+    function create_if_block$3(ctx) {
     	var current;
 
     	var loadingspinner = new LoadingSpinner({ $$inline: true });
@@ -5382,7 +5660,7 @@
     	var if_block0 = current_block_type(ctx);
 
     	var if_block_creators = [
-    		create_if_block$2,
+    		create_if_block$3,
     		create_else_block
     	];
 
@@ -5577,7 +5855,7 @@
     }
 
     // (1:0) <script>    import { onMount }
-    function create_catch_block(ctx) {
+    function create_catch_block$1(ctx) {
     	return {
     		c: noop,
     		m: noop,
@@ -5589,7 +5867,7 @@
     }
 
     // (72:4) {:then}
-    function create_then_block(ctx) {
+    function create_then_block$1(ctx) {
     	var each_1_anchor;
 
     	var each_value = ctx.todayDatas;
@@ -5782,7 +6060,7 @@
     }
 
     // (70:25)         <LoadingSpinner />      {:then}
-    function create_pending_block(ctx) {
+    function create_pending_block$1(ctx) {
     	var current;
 
     	var loadingspinner = new LoadingSpinner({ $$inline: true });
@@ -5823,9 +6101,9 @@
     	let info = {
     		ctx,
     		current: null,
-    		pending: create_pending_block,
-    		then: create_then_block,
-    		catch: create_catch_block,
+    		pending: create_pending_block$1,
+    		then: create_then_block$1,
+    		catch: create_catch_block$1,
     		value: 'null',
     		error: 'null',
     		blocks: Array(3)
@@ -6244,7 +6522,7 @@
 
     const file$7 = "src\\App.svelte";
 
-    // (19:4) {#if $showEntry}
+    // (20:4) {#if $showEntry}
     function create_if_block_2(ctx) {
     	var div, div_transition, current;
 
@@ -6254,7 +6532,7 @@
     		c: function create() {
     			div = element("div");
     			entry.$$.fragment.c();
-    			add_location(div, file$7, 19, 6, 703);
+    			add_location(div, file$7, 20, 6, 739);
     		},
 
     		m: function mount(target, anchor) {
@@ -6298,7 +6576,7 @@
     	};
     }
 
-    // (24:4) {#if $showSettings}
+    // (25:4) {#if $showSettings}
     function create_if_block_1$1(ctx) {
     	var div, div_transition, current;
 
@@ -6308,7 +6586,7 @@
     		c: function create() {
     			div = element("div");
     			settings.$$.fragment.c();
-    			add_location(div, file$7, 24, 6, 821);
+    			add_location(div, file$7, 25, 6, 857);
     		},
 
     		m: function mount(target, anchor) {
@@ -6352,8 +6630,8 @@
     	};
     }
 
-    // (29:4) {#if $showSummary}
-    function create_if_block$3(ctx) {
+    // (30:4) {#if $showSummary}
+    function create_if_block$4(ctx) {
     	var div, div_transition, current;
 
     	var summary = new Summary({ $$inline: true });
@@ -6362,7 +6640,7 @@
     		c: function create() {
     			div = element("div");
     			summary.$$.fragment.c();
-    			add_location(div, file$7, 29, 6, 941);
+    			add_location(div, file$7, 30, 6, 977);
     		},
 
     		m: function mount(target, anchor) {
@@ -6406,7 +6684,7 @@
     	};
     }
 
-    // (18:2) <Scaffold>
+    // (19:2) <Scaffold>
     function create_default_slot$1(ctx) {
     	var t0, t1, if_block2_anchor, current;
 
@@ -6414,7 +6692,7 @@
 
     	var if_block1 = (ctx.$showSettings) && create_if_block_1$1(ctx);
 
-    	var if_block2 = (ctx.$showSummary) && create_if_block$3(ctx);
+    	var if_block2 = (ctx.$showSummary) && create_if_block$4(ctx);
 
     	return {
     		c: function create() {
@@ -6479,7 +6757,7 @@
 
     			if (ctx.$showSummary) {
     				if (!if_block2) {
-    					if_block2 = create_if_block$3(ctx);
+    					if_block2 = create_if_block$4(ctx);
     					if_block2.c();
     					if_block2.i(1);
     					if_block2.m(if_block2_anchor.parentNode, if_block2_anchor);
@@ -6538,6 +6816,11 @@
     function create_fragment$7(ctx) {
     	var main, t, current;
 
+    	var signin = new SignIn({
+    		props: { class: "absolute z-10" },
+    		$$inline: true
+    	});
+
     	var scaffold = new Scaffold({
     		props: {
     		$$slots: { default: [create_default_slot$1] },
@@ -6546,17 +6829,12 @@
     		$$inline: true
     	});
 
-    	var signin = new SignIn({
-    		props: { class: "absolute" },
-    		$$inline: true
-    	});
-
     	return {
     		c: function create() {
     			main = element("main");
-    			scaffold.$$.fragment.c();
-    			t = space();
     			signin.$$.fragment.c();
+    			t = space();
+    			scaffold.$$.fragment.c();
     			main.className = "overflow-hidden";
     			add_location(main, file$7, 16, 0, 629);
     		},
@@ -6567,9 +6845,9 @@
 
     		m: function mount(target, anchor) {
     			insert(target, main, anchor);
-    			mount_component(scaffold, main, null);
-    			append(main, t);
     			mount_component(signin, main, null);
+    			append(main, t);
+    			mount_component(scaffold, main, null);
     			current = true;
     		},
 
@@ -6581,16 +6859,16 @@
 
     		i: function intro(local) {
     			if (current) return;
-    			scaffold.$$.fragment.i(local);
-
     			signin.$$.fragment.i(local);
+
+    			scaffold.$$.fragment.i(local);
 
     			current = true;
     		},
 
     		o: function outro(local) {
-    			scaffold.$$.fragment.o(local);
     			signin.$$.fragment.o(local);
+    			scaffold.$$.fragment.o(local);
     			current = false;
     		},
 
@@ -6599,9 +6877,9 @@
     				detach(main);
     			}
 
-    			scaffold.$destroy();
-
     			signin.$destroy();
+
+    			scaffold.$destroy();
     		}
     	};
     }
