@@ -14,7 +14,7 @@
   let loadingSheetName = false;
 
   onMount(() => {
-    if ($sheetName.length === 0) {
+    if ($sheetName === credentials.SPREADSHEET_ID) {
       getSheetName(credentials.SPREADSHEET_ID);
     }
   });
@@ -22,14 +22,18 @@
   function getSheetName(id) {
     loadingSheetName = true;
 
-    $gapiInstance.client.sheets.spreadsheets
-      .get({
-        spreadsheetId: id
-      })
-      .then(response => {
-        sheetName.set(response.result.properties.title);
-        loadingSheetName = false;
-      });
+    if ($gapiInstance !== undefined) {
+      $gapiInstance.client.sheets.spreadsheets
+        .get({
+          spreadsheetId: id
+        })
+        .then(response => {
+          sheetName.set(response.result.properties.title);
+          loadingSheetName = false;
+        });
+    } else {
+      loadingSheetName = false;
+    }
   }
 
   function openSheet(id) {
@@ -125,7 +129,7 @@
       {#if loadingSheetName}
         <LoadingSpinner />
       {:else}
-        <body class="flex-1">{$sheetName}</body>
+        <body class="flex-1 truncate">{$sheetName}</body>
         <button
           class="button"
           on:click={() => openSheet(credentials.SPREADSHEET_ID)}>
