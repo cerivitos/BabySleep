@@ -6246,8 +6246,132 @@
 
     const file$7 = "src\\App.svelte";
 
-    // (19:4) {#if $showEntry}
-    function create_if_block_2(ctx) {
+    // (40:2) {:else}
+    function create_else_block$1(ctx) {
+    	var div3, div0, t0, div1, t1, div2, current;
+
+    	var entry = new Entry({ $$inline: true });
+
+    	var summary = new Summary({ $$inline: true });
+
+    	var settings = new Settings({ $$inline: true });
+
+    	return {
+    		c: function create() {
+    			div3 = element("div");
+    			div0 = element("div");
+    			entry.$$.fragment.c();
+    			t0 = space();
+    			div1 = element("div");
+    			summary.$$.fragment.c();
+    			t1 = space();
+    			div2 = element("div");
+    			settings.$$.fragment.c();
+    			div0.className = "w-1/3";
+    			add_location(div0, file$7, 41, 6, 1263);
+    			div1.className = "w-1/3";
+    			add_location(div1, file$7, 44, 6, 1323);
+    			div2.className = "w-1/3";
+    			add_location(div2, file$7, 47, 6, 1385);
+    			div3.className = "w-full h-screen flex flex-row overflow-auto bg-backgroundColor";
+    			add_location(div3, file$7, 40, 4, 1179);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div3, anchor);
+    			append(div3, div0);
+    			mount_component(entry, div0, null);
+    			append(div3, t0);
+    			append(div3, div1);
+    			mount_component(summary, div1, null);
+    			append(div3, t1);
+    			append(div3, div2);
+    			mount_component(settings, div2, null);
+    			current = true;
+    		},
+
+    		p: noop,
+
+    		i: function intro(local) {
+    			if (current) return;
+    			entry.$$.fragment.i(local);
+
+    			summary.$$.fragment.i(local);
+
+    			settings.$$.fragment.i(local);
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			entry.$$.fragment.o(local);
+    			summary.$$.fragment.o(local);
+    			settings.$$.fragment.o(local);
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div3);
+    			}
+
+    			entry.$destroy();
+
+    			summary.$destroy();
+
+    			settings.$destroy();
+    		}
+    	};
+    }
+
+    // (22:2) {#if innerWidth < 1024}
+    function create_if_block$3(ctx) {
+    	var current;
+
+    	var scaffold = new Scaffold({
+    		props: {
+    		$$slots: { default: [create_default_slot$1] },
+    		$$scope: { ctx }
+    	},
+    		$$inline: true
+    	});
+
+    	return {
+    		c: function create() {
+    			scaffold.$$.fragment.c();
+    		},
+
+    		m: function mount(target, anchor) {
+    			mount_component(scaffold, target, anchor);
+    			current = true;
+    		},
+
+    		p: function update(changed, ctx) {
+    			var scaffold_changes = {};
+    			if (changed.$$scope || changed.$showSummary || changed.$showSettings || changed.$showEntry) scaffold_changes.$$scope = { changed, ctx };
+    			scaffold.$set(scaffold_changes);
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			scaffold.$$.fragment.i(local);
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			scaffold.$$.fragment.o(local);
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			scaffold.$destroy(detaching);
+    		}
+    	};
+    }
+
+    // (24:6) {#if $showEntry}
+    function create_if_block_3(ctx) {
     	var div, div_transition, current;
 
     	var entry = new Entry({ $$inline: true });
@@ -6256,7 +6380,7 @@
     		c: function create() {
     			div = element("div");
     			entry.$$.fragment.c();
-    			add_location(div, file$7, 19, 6, 703);
+    			add_location(div, file$7, 24, 8, 794);
     		},
 
     		m: function mount(target, anchor) {
@@ -6300,8 +6424,8 @@
     	};
     }
 
-    // (24:4) {#if $showSettings}
-    function create_if_block_1$1(ctx) {
+    // (29:6) {#if $showSettings}
+    function create_if_block_2(ctx) {
     	var div, div_transition, current;
 
     	var settings = new Settings({ $$inline: true });
@@ -6310,7 +6434,7 @@
     		c: function create() {
     			div = element("div");
     			settings.$$.fragment.c();
-    			add_location(div, file$7, 24, 6, 821);
+    			add_location(div, file$7, 29, 8, 922);
     		},
 
     		m: function mount(target, anchor) {
@@ -6354,8 +6478,8 @@
     	};
     }
 
-    // (29:4) {#if $showSummary}
-    function create_if_block$3(ctx) {
+    // (34:6) {#if $showSummary}
+    function create_if_block_1$1(ctx) {
     	var div, div_transition, current;
 
     	var summary = new Summary({ $$inline: true });
@@ -6364,7 +6488,7 @@
     		c: function create() {
     			div = element("div");
     			summary.$$.fragment.c();
-    			add_location(div, file$7, 29, 6, 941);
+    			add_location(div, file$7, 34, 8, 1052);
     		},
 
     		m: function mount(target, anchor) {
@@ -6408,15 +6532,15 @@
     	};
     }
 
-    // (18:2) <Scaffold>
+    // (23:4) <Scaffold>
     function create_default_slot$1(ctx) {
     	var t0, t1, if_block2_anchor, current;
 
-    	var if_block0 = (ctx.$showEntry) && create_if_block_2(ctx);
+    	var if_block0 = (ctx.$showEntry) && create_if_block_3(ctx);
 
-    	var if_block1 = (ctx.$showSettings) && create_if_block_1$1(ctx);
+    	var if_block1 = (ctx.$showSettings) && create_if_block_2(ctx);
 
-    	var if_block2 = (ctx.$showSummary) && create_if_block$3(ctx);
+    	var if_block2 = (ctx.$showSummary) && create_if_block_1$1(ctx);
 
     	return {
     		c: function create() {
@@ -6441,7 +6565,7 @@
     		p: function update(changed, ctx) {
     			if (ctx.$showEntry) {
     				if (!if_block0) {
-    					if_block0 = create_if_block_2(ctx);
+    					if_block0 = create_if_block_3(ctx);
     					if_block0.c();
     					if_block0.i(1);
     					if_block0.m(t0.parentNode, t0);
@@ -6461,7 +6585,7 @@
 
     			if (ctx.$showSettings) {
     				if (!if_block1) {
-    					if_block1 = create_if_block_1$1(ctx);
+    					if_block1 = create_if_block_2(ctx);
     					if_block1.c();
     					if_block1.i(1);
     					if_block1.m(t1.parentNode, t1);
@@ -6481,7 +6605,7 @@
 
     			if (ctx.$showSummary) {
     				if (!if_block2) {
-    					if_block2 = create_if_block$3(ctx);
+    					if_block2 = create_if_block_1$1(ctx);
     					if_block2.c();
     					if_block2.i(1);
     					if_block2.m(if_block2_anchor.parentNode, if_block2_anchor);
@@ -6538,15 +6662,24 @@
     }
 
     function create_fragment$7(ctx) {
-    	var main, t, current;
+    	var main, current_block_type_index, if_block, t, current, dispose;
 
-    	var scaffold = new Scaffold({
-    		props: {
-    		$$slots: { default: [create_default_slot$1] },
-    		$$scope: { ctx }
-    	},
-    		$$inline: true
-    	});
+    	add_render_callback(ctx.onwindowresize);
+
+    	var if_block_creators = [
+    		create_if_block$3,
+    		create_else_block$1
+    	];
+
+    	var if_blocks = [];
+
+    	function select_block_type(ctx) {
+    		if (ctx.innerWidth < 1024) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx);
+    	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
 
     	var signin = new SignIn({
     		props: { class: "absolute" },
@@ -6556,11 +6689,12 @@
     	return {
     		c: function create() {
     			main = element("main");
-    			scaffold.$$.fragment.c();
+    			if_block.c();
     			t = space();
     			signin.$$.fragment.c();
     			main.className = "overflow-hidden";
-    			add_location(main, file$7, 16, 0, 629);
+    			add_location(main, file$7, 20, 0, 687);
+    			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
     		l: function claim(nodes) {
@@ -6569,21 +6703,39 @@
 
     		m: function mount(target, anchor) {
     			insert(target, main, anchor);
-    			mount_component(scaffold, main, null);
+    			if_blocks[current_block_type_index].m(main, null);
     			append(main, t);
     			mount_component(signin, main, null);
     			current = true;
     		},
 
     		p: function update(changed, ctx) {
-    			var scaffold_changes = {};
-    			if (changed.$$scope || changed.$showSummary || changed.$showSettings || changed.$showEntry) scaffold_changes.$$scope = { changed, ctx };
-    			scaffold.$set(scaffold_changes);
+    			var previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(changed, ctx);
+    			} else {
+    				group_outros();
+    				on_outro(() => {
+    					if_blocks[previous_block_index].d(1);
+    					if_blocks[previous_block_index] = null;
+    				});
+    				if_block.o(1);
+    				check_outros();
+
+    				if_block = if_blocks[current_block_type_index];
+    				if (!if_block) {
+    					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block.c();
+    				}
+    				if_block.i(1);
+    				if_block.m(main, t);
+    			}
     		},
 
     		i: function intro(local) {
     			if (current) return;
-    			scaffold.$$.fragment.i(local);
+    			if (if_block) if_block.i();
 
     			signin.$$.fragment.i(local);
 
@@ -6591,7 +6743,7 @@
     		},
 
     		o: function outro(local) {
-    			scaffold.$$.fragment.o(local);
+    			if (if_block) if_block.o();
     			signin.$$.fragment.o(local);
     			current = false;
     		},
@@ -6601,9 +6753,11 @@
     				detach(main);
     			}
 
-    			scaffold.$destroy();
+    			if_blocks[current_block_type_index].d();
 
     			signin.$destroy();
+
+    			dispose();
     		}
     	};
     }
@@ -6620,11 +6774,23 @@
 
     	
 
+      let innerWidth;
+
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/service-worker.js");
       }
 
-    	return { $showEntry, $showSettings, $showSummary };
+    	function onwindowresize() {
+    		innerWidth = window.innerWidth; $$invalidate('innerWidth', innerWidth);
+    	}
+
+    	return {
+    		innerWidth,
+    		$showEntry,
+    		$showSettings,
+    		$showSummary,
+    		onwindowresize
+    	};
     }
 
     class App extends SvelteComponentDev {
