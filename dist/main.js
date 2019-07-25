@@ -5371,7 +5371,7 @@
     }
 
     function create_fragment$4(ctx) {
-    	var div2, t0, div1, h2, t2, div0, current_block_type_index, if_block1, current;
+    	var div3, t0, div2, h2, t2, div0, current_block_type_index, if_block1, t3, div1, current;
 
     	function select_block_type(ctx) {
     		if (ctx.$userName !== undefined && ctx.$userPic !== undefined) return create_if_block_1;
@@ -5398,23 +5398,28 @@
 
     	return {
     		c: function create() {
-    			div2 = element("div");
+    			div3 = element("div");
     			if_block0.c();
     			t0 = space();
-    			div1 = element("div");
+    			div2 = element("div");
     			h2 = element("h2");
     			h2.textContent = "Connected to";
     			t2 = space();
     			div0 = element("div");
     			if_block1.c();
+    			t3 = space();
+    			div1 = element("div");
+    			div1.textContent = "v1.0";
     			h2.className = "svelte-13hyeae";
     			add_location(h2, file$4, 98, 4, 3432);
     			div0.className = "flex items-center";
     			add_location(div0, file$4, 99, 4, 3459);
-    			div1.className = "mt-8 flex-col";
-    			add_location(div1, file$4, 97, 2, 3399);
-    			div2.className = "w-full bg-backgroundColor p-4";
-    			add_location(div2, file$4, 41, 0, 1327);
+    			div1.className = "mt-4 w-full text-center text-primaryColor text-sm";
+    			add_location(div1, file$4, 111, 4, 3789);
+    			div2.className = "mt-8 flex-col";
+    			add_location(div2, file$4, 97, 2, 3399);
+    			div3.className = "w-full bg-backgroundColor p-4";
+    			add_location(div3, file$4, 41, 0, 1327);
     		},
 
     		l: function claim(nodes) {
@@ -5422,14 +5427,16 @@
     		},
 
     		m: function mount(target, anchor) {
-    			insert(target, div2, anchor);
-    			if_block0.m(div2, null);
-    			append(div2, t0);
-    			append(div2, div1);
-    			append(div1, h2);
-    			append(div1, t2);
-    			append(div1, div0);
+    			insert(target, div3, anchor);
+    			if_block0.m(div3, null);
+    			append(div3, t0);
+    			append(div3, div2);
+    			append(div2, h2);
+    			append(div2, t2);
+    			append(div2, div0);
     			if_blocks[current_block_type_index].m(div0, null);
+    			append(div2, t3);
+    			append(div2, div1);
     			current = true;
     		},
 
@@ -5442,7 +5449,7 @@
     				if (if_block0) {
     					if_block0.c();
     					if_block0.i(1);
-    					if_block0.m(div2, t0);
+    					if_block0.m(div3, t0);
     				}
     			}
 
@@ -5483,7 +5490,7 @@
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach(div2);
+    				detach(div3);
     			}
 
     			if_block0.d();
