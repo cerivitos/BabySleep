@@ -509,7 +509,7 @@
       </button>
     </div>
   </div>
-  <div class="flex items-center justify-center">
+  <div class="flex items-center justify-center w-full">
     <button
       class="py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white
       font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 {check2v1 && check3v2 && check4v3 ? '' : 'opacity-50'}"

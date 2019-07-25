@@ -34,7 +34,7 @@
   }
 
   .background {
-    @apply bg-backgroundColor text-primaryColor;
+    @apply bg-backgroundColor text-primaryColor flex flex-col items-center justify-center;
   }
 
   .background-selected {
