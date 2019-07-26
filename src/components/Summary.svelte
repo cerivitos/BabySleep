@@ -7,7 +7,6 @@
   import { isSameDay, format } from "date-fns";
   import { convertToMins, convertToDuration } from "../util.js";
   import Chart from "chart.js";
-  import "chartjs-adapter-date-fns";
 
   const historicalRows = 20;
   let loading = true;
@@ -39,7 +38,6 @@
           .then(response => {
             loading = false;
 
-            console.log(response);
             const sheetData = response.result.valueRanges[0].values;
             const napSleepData = response.result.valueRanges[1].values;
 

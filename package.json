@@ -58,7 +58,6 @@
   },
   "dependencies": {
     "chart.js": "^2.8.0",
-    "chartjs-adapter-date-fns": "^0.1.2",
     "date-fns": "^2.0.0-beta.3"
   }
 }
