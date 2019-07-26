@@ -45,3 +45,15 @@ export function convertToMins(duration) {
     parseInt(duration.split(":")[0]) * 60 + parseInt(duration.split(":")[1])
   );
 }
+
+/**
+ * Converts minutes to a duration string of format "hh:mm:ss"
+ * @param {number} mins The number of minutes to convert
+ * @returns {string} The duration in the format "hh:mm:ss"
+ */
+export function convertToDuration(mins) {
+  const hours = mins / 60;
+  const mins = mins % 60;
+
+  return hours + ":" + mins + ":00";
+}

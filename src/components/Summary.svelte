@@ -5,7 +5,9 @@
   import LoadingSpinner from "./LoadingSpinner.svelte";
   import { credentials } from "../../credentials.js";
   import { isSameDay, format } from "date-fns";
+  import { convertToMins, convertToDuration } from "../util.js";
   import Chart from "chart.js";
+  import "chartjs-adapter-date-fns";
 
   const historicalRows = 20;
   let loading = true;
@@ -70,6 +72,7 @@
             console.log(todayDatas);
 
             plotPutDownVsTimeToFallAsleep();
+            plotNapSleepTime();
           });
       });
   }
@@ -81,21 +84,33 @@
     for (let i = 0; i < historicalDatas.length; i++) {
       if (historicalDatas[i][11] === "Sleep") {
         const pair = {
-          x:
-            parseInt(historicalDatas[i][5].split(":")[0] * 60) +
-            parseInt(historicalDatas[i][5].split(":")[1]),
-          y:
-            parseInt(historicalDatas[i][7].split(":")[0] * 60) +
-            parseInt(historicalDatas[i][7].split(":")[1])
+          x: convertToMins(historicalDatas[i][5]),
+          y: convertToMins(historicalDatas[i][7])
         };
 
         scatterChartData.push(pair);
       }
     }
 
-    console.log(scatterChartData);
-
     Chart.defaults.scale.gridLines.display = false;
+    Chart.defaults.global.title.display = true;
+    Chart.defaults.global.title.fontColor = "#8D99AE";
+    Chart.defaults.global.title.fontSize = 16;
+    Chart.defaults.global.title.padding = 16;
+    Chart.defaults.global.legend.display = false;
+
+    Chart.scaleService.updateScaleDefaults("linear", {
+      scaleLabel: {
+        display: true,
+        fontColor: "#EDF2F4"
+      },
+      ticks: {
+        fontColor: "#EDF2F4"
+      },
+      gridLines: {
+        color: "#8D99AE"
+      }
+    });
 
     let chart = new Chart(ctx, {
       type: "scatter",
@@ -123,49 +138,147 @@
           }
         },
         title: {
-          display: true,
-          fontColor: "#8D99AE",
-          text: "Put Down vs. Time to Fall Asleep",
-          fontSize: 16,
-          padding: 16
-        },
-        legend: {
-          display: false
+          text: "Put Down vs. Time to Fall Asleep"
         },
         scales: {
           xAxes: [
             {
               scaleLabel: {
-                display: true,
-                labelString: "Time to Fall Asleep (min)",
-                fontColor: "#EDF2F4"
-              },
-              ticks: {
-                fontColor: "#EDF2F4"
-              },
-              gridLines: {
-                color: "#8D99AE"
+                labelString: "Time to Fall Asleep (min)"
               }
             }
           ],
           yAxes: [
             {
               scaleLabel: {
-                display: true,
-                labelString: "Put Down (min)",
-                fontColor: "#EDF2F4"
-              },
-              ticks: {
-                fontColor: "#EDF2F4"
-              },
-              gridLines: {
-                color: "#8D99AE"
+                labelString: "Put Down (min)"
               }
             }
           ]
         }
       }
     });
+  }
+
+  function plotNapSleepTime() {
+    const ctx = document.getElementById("napSleepTime");
+
+    let napData = [];
+    let sleepData = [];
+
+    for (let i = 0; i < historicalDatas.length; i++) {
+      if (historicalDatas[i][11] === "Sleep") {
+        sleepData.push({
+          date: historicalDatas[i][14],
+          duration: historicalDatas[i][6]
+        });
+      } else if (historicalDatas[i][11] === "Nap") {
+        napData.push({
+          date: historicalDatas[i][14],
+          duration: historicalDatas[i][6]
+        });
+      }
+    }
+
+    const summedNapData = sumSleepDurationsByDate(napData);
+    const labels = summedNapData.labels.reverse();
+    const napChartData = summedNapData.sums.reverse();
+    const sleepChartData = sumSleepDurationsByDate(sleepData).sums.reverse();
+
+    let chart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Nap",
+            data: napChartData,
+            backgroundColor: "#FF9F1C"
+          },
+          {
+            label: "Sleep",
+            data: sleepChartData,
+            backgroundColor: "#EF233C"
+          }
+        ]
+      },
+      options: {
+        aspectRatio: 1,
+        tooltips: {
+          callbacks: {
+            label: (tooltipItem, data) => {
+              console.log(tooltipItem);
+              console.log(data);
+              if (tooltipItem.datasetIndex === 0) {
+                return "Nap: " + convertToDuration(tooltipItem.value);
+              } else {
+                return "Sleep: " + convertToDuration(tooltipItem.value);
+              }
+            }
+          }
+        },
+        title: {
+          text: "Nap and Sleep"
+        },
+        scales: {
+          xAxes: [
+            {
+              stacked: true,
+              ticks: {
+                fontColor: "#EDF2F4"
+              },
+              gridLines: {
+                color: "#8D99AE"
+              },
+              scaleLabel: {
+                labelString: "Date",
+                display: true,
+                fontColor: "#EDF2F4"
+              }
+            }
+          ],
+          yAxes: [
+            {
+              stacked: true,
+              scaleLabel: {
+                labelString: "Duration"
+              },
+              ticks: {
+                callback: function(label, index, labels) {
+                  return convertToDuration(label);
+                }
+              }
+            }
+          ]
+        }
+      }
+    });
+  }
+
+  function sumSleepDurationsByDate(array) {
+    let collapsedSums = [];
+    let dateLabels = [];
+    let returnObj;
+
+    for (let i = 0; i < array.length; i++) {
+      let currentTotal = 0;
+
+      if (i > 0 && array[i].date === array[i - 1].date) {
+        currentTotal = currentTotal + convertToMins(array[i].duration);
+      } else {
+        currentTotal = convertToMins(array[i].duration);
+        dateLabels.push(array[i].date);
+      }
+
+      collapsedSums.push(currentTotal);
+    }
+
+    returnObj = {
+      labels: dateLabels,
+      sums: collapsedSums
+    };
+
+    return returnObj;
   }
 
   $: if ($gapiInstance !== undefined) {
@@ -254,7 +367,12 @@
     {:else}
       <div />
     {/if}
-    <div class="overflow-auto w-full" transition:fade>
+    <div class="overflow-auto w-full mb-12">
+      <div class={innerWidth >= 375 ? 'w-full' : 'graphContainer'}>
+        <canvas id="napSleepTime" />
+      </div>
+    </div>
+    <div class="overflow-auto w-full">
       <div class={innerWidth >= 375 ? 'w-full' : 'graphContainer'}>
         <canvas id="putDownVsTimeToFallAsleep" />
       </div>
