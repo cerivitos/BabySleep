@@ -52,8 +52,14 @@ export function convertToMins(duration) {
  * @returns {string} The duration in the format "hh:mm:ss"
  */
 export function convertToDuration(mins) {
-  const hours = mins / 60;
-  const minutes = mins % 60;
+  const hours = Math.round(mins / 60);
+  let minutes;
+
+  if (mins % 60 < 10) {
+    minutes = "0" + (mins % 60);
+  } else {
+    minutes = mins % 60;
+  }
 
   return hours + ":" + minutes + ":00";
 }

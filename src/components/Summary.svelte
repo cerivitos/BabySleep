@@ -198,7 +198,7 @@
           {
             label: "Sleep",
             data: sleepChartData,
-            backgroundColor: "#EF233C"
+            backgroundColor: "#2EC4B6"
           }
         ]
       },
@@ -207,8 +207,6 @@
         tooltips: {
           callbacks: {
             label: (tooltipItem, data) => {
-              console.log(tooltipItem);
-              console.log(data);
               if (tooltipItem.datasetIndex === 0) {
                 return "Nap: " + convertToDuration(tooltipItem.value);
               } else {
