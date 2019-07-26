@@ -53,7 +53,7 @@ export function convertToMins(duration) {
  */
 export function convertToDuration(mins) {
   const hours = mins / 60;
-  const mins = mins % 60;
+  const minutes = mins % 60;
 
-  return hours + ":" + mins + ":00";
+  return hours + ":" + minutes + ":00";
 }
