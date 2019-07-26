@@ -1,9 +1,10 @@
 import { writable } from "svelte/store";
+import { credentials } from "../../credentials.js";
 
 //Signed in user info
 export const userName = writable();
 export const userPic = writable();
-export const sheetName = writable("");
+export const sheetName = writable(credentials.SPREADSHEET_ID);
 
 //gapi instance
 export const gapiInstance = writable();
