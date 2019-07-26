@@ -24880,7 +24880,7 @@
     	};
     }
 
-    // (174:4) {:then}
+    // (177:4) {:then}
     function create_then_block(ctx) {
     	var table, thead, tr, th0, p0, t1, th1, p1, t3, th2, p2, t5, th3, p3, t7;
 
@@ -24917,22 +24917,22 @@
     			for (var i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
-    			add_location(p0, file$5, 178, 14, 5072);
-    			th0.className = "svelte-g8zp0f";
-    			add_location(th0, file$5, 177, 12, 5052);
-    			add_location(p1, file$5, 181, 14, 5140);
-    			th1.className = "svelte-g8zp0f";
-    			add_location(th1, file$5, 180, 12, 5120);
-    			add_location(p2, file$5, 184, 14, 5211);
-    			th2.className = "svelte-g8zp0f";
-    			add_location(th2, file$5, 183, 12, 5191);
-    			add_location(p3, file$5, 187, 14, 5278);
-    			th3.className = "svelte-g8zp0f";
-    			add_location(th3, file$5, 186, 12, 5258);
-    			add_location(tr, file$5, 176, 10, 5034);
-    			add_location(thead, file$5, 175, 8, 5015);
+    			add_location(p0, file$5, 181, 14, 5181);
+    			th0.className = "svelte-14hrhiv";
+    			add_location(th0, file$5, 180, 12, 5161);
+    			add_location(p1, file$5, 184, 14, 5249);
+    			th1.className = "svelte-14hrhiv";
+    			add_location(th1, file$5, 183, 12, 5229);
+    			add_location(p2, file$5, 187, 14, 5320);
+    			th2.className = "svelte-14hrhiv";
+    			add_location(th2, file$5, 186, 12, 5300);
+    			add_location(p3, file$5, 190, 14, 5387);
+    			th3.className = "svelte-14hrhiv";
+    			add_location(th3, file$5, 189, 12, 5367);
+    			add_location(tr, file$5, 179, 10, 5143);
+    			add_location(thead, file$5, 178, 8, 5124);
     			table.className = "w-full";
-    			add_location(table, file$5, 174, 6, 4983);
+    			add_location(table, file$5, 177, 6, 5092);
     		},
 
     		m: function mount(target, anchor) {
@@ -24993,7 +24993,7 @@
     	};
     }
 
-    // (192:8) {#each todayDatas as todayData}
+    // (195:8) {#each todayDatas as todayData}
     function create_each_block(ctx) {
     	var h3, t0_value = ctx.todayData[11], t0, t1, t2_value = ctx.todayData[12], t2, t3, tbody, tr, td0, t4_value = ctx.todayData[0].split(', ')[1].toLowerCase(), t4, t5, td1, t6_value = ctx.todayData[1].split(', ')[1].toLowerCase(), t6, t7, td2, t8_value = ctx.todayData[2].split(', ')[1].toLowerCase(), t8, t9, td3, t10_value = ctx.todayData[3].split(', ')[1].toLowerCase(), t10;
 
@@ -25018,18 +25018,18 @@
     			td3 = element("td");
     			t10 = text(t10_value);
     			h3.className = "text-sm text-accentColor3";
-    			add_location(h3, file$5, 192, 10, 5401);
-    			td0.className = "svelte-g8zp0f";
-    			add_location(td0, file$5, 197, 14, 5582);
-    			td1.className = "svelte-g8zp0f";
-    			add_location(td1, file$5, 198, 14, 5650);
-    			td2.className = "svelte-g8zp0f";
-    			add_location(td2, file$5, 199, 14, 5718);
-    			td3.className = "svelte-g8zp0f";
-    			add_location(td3, file$5, 200, 14, 5786);
+    			add_location(h3, file$5, 195, 10, 5510);
+    			td0.className = "svelte-14hrhiv";
+    			add_location(td0, file$5, 200, 14, 5691);
+    			td1.className = "svelte-14hrhiv";
+    			add_location(td1, file$5, 201, 14, 5759);
+    			td2.className = "svelte-14hrhiv";
+    			add_location(td2, file$5, 202, 14, 5827);
+    			td3.className = "svelte-14hrhiv";
+    			add_location(td3, file$5, 203, 14, 5895);
     			tr.className = "text-secondaryColor";
-    			add_location(tr, file$5, 196, 12, 5534);
-    			add_location(tbody, file$5, 195, 10, 5513);
+    			add_location(tr, file$5, 199, 12, 5643);
+    			add_location(tbody, file$5, 198, 10, 5622);
     		},
 
     		m: function mount(target, anchor) {
@@ -25065,7 +25065,7 @@
     	};
     }
 
-    // (172:25)         <LoadingSpinner />      {:then}
+    // (175:25)         <LoadingSpinner />      {:then}
     function create_pending_block(ctx) {
     	var current;
 
@@ -25102,7 +25102,9 @@
     }
 
     function create_fragment$5(ctx) {
-    	var div2, div0, h20, t1, promise, t2, div1, h21, t4, canvas, current;
+    	var div4, div0, h20, t1, promise, t2, div3, h21, t4, div2, div1, canvas, div1_class_value, current, dispose;
+
+    	add_render_callback(ctx.onwindowresize);
 
     	let info = {
     		ctx,
@@ -25119,7 +25121,7 @@
 
     	return {
     		c: function create() {
-    			div2 = element("div");
+    			div4 = element("div");
     			div0 = element("div");
     			h20 = element("h2");
     			h20.textContent = "Today";
@@ -25128,23 +25130,29 @@
     			info.block.c();
 
     			t2 = space();
-    			div1 = element("div");
+    			div3 = element("div");
     			h21 = element("h2");
     			h21.textContent = "Trends";
     			t4 = space();
+    			div2 = element("div");
+    			div1 = element("div");
     			canvas = element("canvas");
-    			h20.className = "svelte-g8zp0f";
-    			add_location(h20, file$5, 170, 4, 4895);
-    			add_location(div0, file$5, 169, 2, 4884);
-    			h21.className = "svelte-g8zp0f";
-    			add_location(h21, file$5, 208, 4, 5962);
+    			h20.className = "svelte-14hrhiv";
+    			add_location(h20, file$5, 173, 4, 5004);
+    			add_location(div0, file$5, 172, 2, 4993);
+    			h21.className = "svelte-14hrhiv";
+    			add_location(h21, file$5, 211, 4, 6071);
     			canvas.id = "putDownVsTimeToFallAsleep";
-    			canvas.className = "w-full h-48";
-    			add_location(canvas, file$5, 209, 4, 5983);
-    			div1.className = "mt-8";
-    			add_location(div1, file$5, 207, 2, 5938);
-    			div2.className = "w-full bg-backgroundColor p-4";
-    			add_location(div2, file$5, 168, 0, 4837);
+    			add_location(canvas, file$5, 214, 8, 6205);
+    			div1.className = div1_class_value = "" + (ctx.innerWidth > 1024 ? 'w-full' : 'graphContainer') + " svelte-14hrhiv";
+    			add_location(div1, file$5, 213, 6, 6134);
+    			div2.className = "overflow-auto w-full";
+    			add_location(div2, file$5, 212, 4, 6092);
+    			div3.className = "mt-8";
+    			add_location(div3, file$5, 210, 2, 6047);
+    			div4.className = "w-full bg-backgroundColor p-4";
+    			add_location(div4, file$5, 171, 0, 4946);
+    			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
     		l: function claim(nodes) {
@@ -25152,8 +25160,8 @@
     		},
 
     		m: function mount(target, anchor) {
-    			insert(target, div2, anchor);
-    			append(div2, div0);
+    			insert(target, div4, anchor);
+    			append(div4, div0);
     			append(div0, h20);
     			append(div0, t1);
 
@@ -25161,10 +25169,12 @@
     			info.mount = () => div0;
     			info.anchor = null;
 
-    			append(div2, t2);
+    			append(div4, t2);
+    			append(div4, div3);
+    			append(div3, h21);
+    			append(div3, t4);
+    			append(div3, div2);
     			append(div2, div1);
-    			append(div1, h21);
-    			append(div1, t4);
     			append(div1, canvas);
     			current = true;
     		},
@@ -25175,6 +25185,10 @@
 
     			if (('getTodayData' in changed) && promise !== (promise = ctx.getTodayData) && handle_promise(promise, info)) ; else {
     				info.block.p(changed, assign(assign({}, ctx), info.resolved));
+    			}
+
+    			if ((!current || changed.innerWidth) && div1_class_value !== (div1_class_value = "" + (ctx.innerWidth > 1024 ? 'w-full' : 'graphContainer') + " svelte-14hrhiv")) {
+    				div1.className = div1_class_value;
     			}
     		},
 
@@ -25195,11 +25209,13 @@
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach(div2);
+    				detach(div4);
     			}
 
     			info.block.d();
     			info = null;
+
+    			dispose();
     		}
     	};
     }
@@ -25218,6 +25234,8 @@
 
       let todayDatas = [];
       let historicalDatas = [];
+
+      let innerWidth;
 
       function getData() {
         $$invalidate('loading', loading = true);
@@ -25360,6 +25378,10 @@
         });
       }
 
+    	function onwindowresize() {
+    		innerWidth = window.innerWidth; $$invalidate('innerWidth', innerWidth);
+    	}
+
     	$$self.$$.update = ($$dirty = { $gapiInstance: 1, historicalDatas: 1 }) => {
     		if ($$dirty.$gapiInstance) { if ($gapiInstance !== undefined) {
             getData();
@@ -25369,7 +25391,12 @@
           } }
     	};
 
-    	return { getTodayData, todayDatas };
+    	return {
+    		getTodayData,
+    		todayDatas,
+    		innerWidth,
+    		onwindowresize
+    	};
     }
 
     class Summary extends SvelteComponentDev {

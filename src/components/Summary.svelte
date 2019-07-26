@@ -14,6 +14,8 @@
   let todayDatas = [];
   let historicalDatas = [];
 
+  let innerWidth;
+
   function getData() {
     loading = true;
 
@@ -182,8 +184,14 @@
   th {
     @apply text-primaryColor font-bold p-2;
   }
+
+  .graphContainer {
+    min-width: 480px;
+    scrollbar-width: none;
+  }
 </style>
 
+<svelte:window bind:innerWidth />
 <div class="w-full bg-backgroundColor p-4">
   <div>
     <h2>Today</h2>
@@ -225,6 +233,11 @@
   </div>
   <div class="mt-8">
     <h2>Trends</h2>
-    <canvas id="putDownVsTimeToFallAsleep" class="w-full h-48" />
+    <div class="overflow-auto w-full">
+      <div class={innerWidth > 1024 ? 'w-full' : 'graphContainer'}>
+        <canvas id="putDownVsTimeToFallAsleep" />
+      </div>
+    </div>
+
   </div>
 </div>
