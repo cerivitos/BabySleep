@@ -29,15 +29,19 @@
         const firstRow = lastRow - historicalRows + 1;
 
         getTodayData = $gapiInstance.client.sheets.spreadsheets.values
-          .get({
+          .batchGet({
             spreadsheetId: credentials.SPREADSHEET_ID,
-            range: credentials.SHEET_NAME + `!A${firstRow}:Q${lastRow}`
+            ranges: [
+              credentials.SHEET_NAME + `!A${firstRow}:Q${lastRow}`,
+              "NapSleepTrend!A2:D"
+            ]
           })
           .then(response => {
             loading = false;
 
             console.log(response);
-            const sheetData = response.result.values;
+            const sheetData = response.result.valueRanges[0].values;
+            const napSleepData = response.result.valueRanges[1].values;
 
             historicalDatas = sheetData.reverse();
 
@@ -69,23 +73,22 @@
             }
 
             todayDatas.reverse();
-            console.log(todayDatas);
 
-            plotPutDownVsTimeToFallAsleep();
-            plotNapSleepTime();
+            plotPutDownVsTimeToFallAsleep(historicalDatas);
+            plotNapSleepTime(napSleepData);
           });
       });
   }
 
-  function plotPutDownVsTimeToFallAsleep() {
+  function plotPutDownVsTimeToFallAsleep(data) {
     const ctx = document.getElementById("putDownVsTimeToFallAsleep");
     let scatterChartData = [];
 
-    for (let i = 0; i < historicalDatas.length; i++) {
-      if (historicalDatas[i][11] === "Sleep") {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i][11] === "Sleep") {
         const pair = {
-          x: convertToMins(historicalDatas[i][5]),
-          y: convertToMins(historicalDatas[i][7])
+          x: convertToMins(data[i][5]),
+          y: convertToMins(data[i][7])
         };
 
         scatterChartData.push(pair);
@@ -160,30 +163,18 @@
     });
   }
 
-  function plotNapSleepTime() {
+  function plotNapSleepTime(data) {
     const ctx = document.getElementById("napSleepTime");
 
-    let napData = [];
-    let sleepData = [];
+    let naps = [];
+    let sleeps = [];
+    let labels = [];
 
-    for (let i = 0; i < historicalDatas.length; i++) {
-      if (historicalDatas[i][11] === "Sleep") {
-        sleepData.push({
-          date: historicalDatas[i][14],
-          duration: historicalDatas[i][6]
-        });
-      } else if (historicalDatas[i][11] === "Nap") {
-        napData.push({
-          date: historicalDatas[i][14],
-          duration: historicalDatas[i][6]
-        });
-      }
-    }
-
-    const summedNapData = sumSleepDurationsByDate(napData);
-    const labels = summedNapData.labels.reverse();
-    const napChartData = summedNapData.sums.reverse();
-    const sleepChartData = sumSleepDurationsByDate(sleepData).sums.reverse();
+    data.forEach(duration => {
+      naps.push(convertToMins(duration[1]));
+      sleeps.push(convertToMins(duration[2]));
+      labels.push(duration[0]);
+    });
 
     let chart = new Chart(ctx, {
       type: "bar",
@@ -192,12 +183,12 @@
         datasets: [
           {
             label: "Nap",
-            data: napChartData,
+            data: naps,
             backgroundColor: "#FF9F1C"
           },
           {
             label: "Sleep",
-            data: sleepChartData,
+            data: sleeps,
             backgroundColor: "#2EC4B6"
           }
         ]
@@ -251,32 +242,6 @@
         }
       }
     });
-  }
-
-  function sumSleepDurationsByDate(array) {
-    let collapsedSums = [];
-    let dateLabels = [];
-    let returnObj;
-
-    for (let i = 0; i < array.length; i++) {
-      let currentTotal = 0;
-
-      if (i > 0 && array[i].date === array[i - 1].date) {
-        currentTotal = currentTotal + convertToMins(array[i].duration);
-      } else {
-        currentTotal = convertToMins(array[i].duration);
-        dateLabels.push(array[i].date);
-      }
-
-      collapsedSums.push(currentTotal);
-    }
-
-    returnObj = {
-      labels: dateLabels,
-      sums: collapsedSums
-    };
-
-    return returnObj;
   }
 
   $: if ($gapiInstance !== undefined) {

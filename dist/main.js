@@ -34607,7 +34607,7 @@
     	return child_ctx;
     }
 
-    // (295:4) {:else}
+    // (260:4) {:else}
     function create_else_block_1$1(ctx) {
     	var div1, div0, table, thead, tr, th0, p0, t1, th1, p1, t3, th2, p2, t5, th3, p3, t7, div0_class_value, div1_transition, current;
 
@@ -34646,27 +34646,27 @@
     			for (var i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
-    			add_location(p0, file$5, 301, 18, 8555);
+    			add_location(p0, file$5, 266, 18, 7550);
     			th0.className = "svelte-9cucub";
-    			add_location(th0, file$5, 300, 16, 8531);
-    			add_location(p1, file$5, 304, 18, 8635);
+    			add_location(th0, file$5, 265, 16, 7526);
+    			add_location(p1, file$5, 269, 18, 7630);
     			th1.className = "svelte-9cucub";
-    			add_location(th1, file$5, 303, 16, 8611);
-    			add_location(p2, file$5, 307, 18, 8718);
+    			add_location(th1, file$5, 268, 16, 7606);
+    			add_location(p2, file$5, 272, 18, 7713);
     			th2.className = "svelte-9cucub";
-    			add_location(th2, file$5, 306, 16, 8694);
-    			add_location(p3, file$5, 310, 18, 8797);
+    			add_location(th2, file$5, 271, 16, 7689);
+    			add_location(p3, file$5, 275, 18, 7792);
     			th3.className = "svelte-9cucub";
-    			add_location(th3, file$5, 309, 16, 8773);
+    			add_location(th3, file$5, 274, 16, 7768);
     			tr.className = "text-sm";
-    			add_location(tr, file$5, 299, 14, 8493);
-    			add_location(thead, file$5, 298, 12, 8470);
+    			add_location(tr, file$5, 264, 14, 7488);
+    			add_location(thead, file$5, 263, 12, 7465);
     			table.className = "w-full";
-    			add_location(table, file$5, 297, 10, 8434);
+    			add_location(table, file$5, 262, 10, 7429);
     			div0.className = div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-9cucub";
-    			add_location(div0, file$5, 296, 8, 8361);
+    			add_location(div0, file$5, 261, 8, 7356);
     			div1.className = "overflow-auto w-full";
-    			add_location(div1, file$5, 295, 6, 8301);
+    			add_location(div1, file$5, 260, 6, 7296);
     		},
 
     		m: function mount(target, anchor) {
@@ -34753,7 +34753,7 @@
     	};
     }
 
-    // (293:4) {#if loading}
+    // (258:4) {#if loading}
     function create_if_block_1$1(ctx) {
     	var current;
 
@@ -34789,7 +34789,7 @@
     	};
     }
 
-    // (315:12) {#each todayDatas as todayData}
+    // (280:12) {#each todayDatas as todayData}
     function create_each_block(ctx) {
     	var h3, t0_value = ctx.todayData[11], t0, t1, t2_value = ctx.todayData[11] === 'Sleep' ? '' : ctx.todayData[12], t2, t3, tbody, tr, td0, t4_value = ctx.todayData[0].split(', ')[1].toLowerCase(), t4, t5, td1, t6_value = ctx.todayData[1].split(', ')[1].toLowerCase(), t6, t7, td2, t8_value = ctx.todayData[2].split(', ')[1].toLowerCase(), t8, t9, td3, t10_value = ctx.todayData[3].split(', ')[1].toLowerCase(), t10;
 
@@ -34814,18 +34814,18 @@
     			td3 = element("td");
     			t10 = text(t10_value);
     			h3.className = "text-sm text-accentColor3";
-    			add_location(h3, file$5, 315, 14, 8940);
+    			add_location(h3, file$5, 280, 14, 7935);
     			td0.className = "svelte-9cucub";
-    			add_location(td0, file$5, 320, 18, 9174);
+    			add_location(td0, file$5, 285, 18, 8169);
     			td1.className = "svelte-9cucub";
-    			add_location(td1, file$5, 321, 18, 9246);
+    			add_location(td1, file$5, 286, 18, 8241);
     			td2.className = "svelte-9cucub";
-    			add_location(td2, file$5, 322, 18, 9318);
+    			add_location(td2, file$5, 287, 18, 8313);
     			td3.className = "svelte-9cucub";
-    			add_location(td3, file$5, 323, 18, 9390);
+    			add_location(td3, file$5, 288, 18, 8385);
     			tr.className = "text-secondaryColor";
-    			add_location(tr, file$5, 319, 16, 9122);
-    			add_location(tbody, file$5, 318, 14, 9097);
+    			add_location(tr, file$5, 284, 16, 8117);
+    			add_location(tbody, file$5, 283, 14, 8092);
     		},
 
     		m: function mount(target, anchor) {
@@ -34861,14 +34861,14 @@
     	};
     }
 
-    // (337:4) {:else}
+    // (302:4) {:else}
     function create_else_block$1(ctx) {
     	var div;
 
     	return {
     		c: function create() {
     			div = element("div");
-    			add_location(div, file$5, 337, 6, 9690);
+    			add_location(div, file$5, 302, 6, 8685);
     		},
 
     		m: function mount(target, anchor) {
@@ -34886,7 +34886,7 @@
     	};
     }
 
-    // (335:4) {#if loading}
+    // (300:4) {#if loading}
     function create_if_block$3(ctx) {
     	var current;
 
@@ -34978,26 +34978,26 @@
     			div3 = element("div");
     			canvas1 = element("canvas");
     			h20.className = "svelte-9cucub";
-    			add_location(h20, file$5, 291, 4, 8221);
-    			add_location(div0, file$5, 290, 2, 8210);
+    			add_location(h20, file$5, 256, 4, 7216);
+    			add_location(div0, file$5, 255, 2, 7205);
     			h21.className = "svelte-9cucub";
-    			add_location(h21, file$5, 333, 4, 9609);
+    			add_location(h21, file$5, 298, 4, 8604);
     			canvas0.id = "napSleepTime";
-    			add_location(canvas0, file$5, 341, 8, 9833);
+    			add_location(canvas0, file$5, 306, 8, 8828);
     			div1.className = div1_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-9cucub";
-    			add_location(div1, file$5, 340, 6, 9762);
+    			add_location(div1, file$5, 305, 6, 8757);
     			div2.className = "overflow-auto w-full mb-12";
-    			add_location(div2, file$5, 339, 4, 9714);
+    			add_location(div2, file$5, 304, 4, 8709);
     			canvas1.id = "putDownVsTimeToFallAsleep";
-    			add_location(canvas1, file$5, 346, 8, 10006);
+    			add_location(canvas1, file$5, 311, 8, 9001);
     			div3.className = div3_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-9cucub";
-    			add_location(div3, file$5, 345, 6, 9935);
+    			add_location(div3, file$5, 310, 6, 8930);
     			div4.className = "overflow-auto w-full";
-    			add_location(div4, file$5, 344, 4, 9893);
+    			add_location(div4, file$5, 309, 4, 8888);
     			div5.className = "mt-8";
-    			add_location(div5, file$5, 332, 2, 9585);
+    			add_location(div5, file$5, 297, 2, 8580);
     			div6.className = "w-full bg-backgroundColor p-4";
-    			add_location(div6, file$5, 289, 0, 8163);
+    			add_location(div6, file$5, 254, 0, 7158);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -35106,30 +35106,168 @@
 
     const historicalRows = 20;
 
-    function sumSleepDurationsByDate(array) {
-      let collapsedSums = [];
-      let dateLabels = [];
-      let returnObj;
+    function plotPutDownVsTimeToFallAsleep(data) {
+      const ctx = document.getElementById("putDownVsTimeToFallAsleep");
+      let scatterChartData = [];
 
-      for (let i = 0; i < array.length; i++) {
-        let currentTotal = 0;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i][11] === "Sleep") {
+          const pair = {
+            x: convertToMins(data[i][5]),
+            y: convertToMins(data[i][7])
+          };
 
-        if (i > 0 && array[i].date === array[i - 1].date) {
-          currentTotal = currentTotal + convertToMins(array[i].duration);
-        } else {
-          currentTotal = convertToMins(array[i].duration);
-          dateLabels.push(array[i].date);
+          scatterChartData.push(pair);
         }
-
-        collapsedSums.push(currentTotal);
       }
 
-      returnObj = {
-        labels: dateLabels,
-        sums: collapsedSums
-      };
+      Chart.defaults.scale.gridLines.display = false;
+      Chart.defaults.global.title.display = true;
+      Chart.defaults.global.title.fontColor = "#8D99AE";
+      Chart.defaults.global.title.fontSize = 16;
+      Chart.defaults.global.title.padding = 16;
+      Chart.defaults.global.legend.display = false;
 
-      return returnObj;
+      Chart.scaleService.updateScaleDefaults("linear", {
+        scaleLabel: {
+          display: true,
+          fontColor: "#EDF2F4"
+        },
+        ticks: {
+          fontColor: "#EDF2F4"
+        },
+        gridLines: {
+          color: "#8D99AE"
+        }
+      });
+
+      let chart = new Chart(ctx, {
+        type: "scatter",
+        data: {
+          datasets: [
+            {
+              label: "Put Down vs. Time to Fall Asleep",
+              data: scatterChartData,
+              pointBackgroundColor: "#2EC4B6"
+            }
+          ]
+        },
+        options: {
+          aspectRatio: 1,
+          tooltips: {
+            callbacks: {
+              label: (tooltipItem, data) => {
+                return (
+                  "Time to Fall Asleep: " +
+                  tooltipItem.label +
+                  " Put Down: " +
+                  tooltipItem.value
+                );
+              }
+            }
+          },
+          title: {
+            text: "Put Down vs. Time to Fall Asleep"
+          },
+          scales: {
+            xAxes: [
+              {
+                scaleLabel: {
+                  labelString: "Time to Fall Asleep (min)"
+                }
+              }
+            ],
+            yAxes: [
+              {
+                scaleLabel: {
+                  labelString: "Put Down (min)"
+                }
+              }
+            ]
+          }
+        }
+      });
+    }
+
+    function plotNapSleepTime(data) {
+      const ctx = document.getElementById("napSleepTime");
+
+      let naps = [];
+      let sleeps = [];
+      let labels = [];
+
+      data.forEach(duration => {
+        naps.push(convertToMins(duration[1]));
+        sleeps.push(convertToMins(duration[2]));
+        labels.push(duration[0]);
+      });
+
+      let chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Nap",
+              data: naps,
+              backgroundColor: "#FF9F1C"
+            },
+            {
+              label: "Sleep",
+              data: sleeps,
+              backgroundColor: "#2EC4B6"
+            }
+          ]
+        },
+        options: {
+          aspectRatio: 1,
+          tooltips: {
+            callbacks: {
+              label: (tooltipItem, data) => {
+                if (tooltipItem.datasetIndex === 0) {
+                  return "Nap: " + convertToDuration(tooltipItem.value);
+                } else {
+                  return "Sleep: " + convertToDuration(tooltipItem.value);
+                }
+              }
+            }
+          },
+          title: {
+            text: "Nap and Sleep"
+          },
+          scales: {
+            xAxes: [
+              {
+                stacked: true,
+                ticks: {
+                  fontColor: "#EDF2F4"
+                },
+                gridLines: {
+                  color: "#8D99AE"
+                },
+                scaleLabel: {
+                  labelString: "Date",
+                  display: true,
+                  fontColor: "#EDF2F4"
+                }
+              }
+            ],
+            yAxes: [
+              {
+                stacked: true,
+                scaleLabel: {
+                  labelString: "Duration"
+                },
+                ticks: {
+                  callback: function(label, index, labels) {
+                    return convertToDuration(label);
+                  }
+                }
+              }
+            ]
+          }
+        }
+      });
     }
 
     function instance$5($$self, $$props, $$invalidate) {
@@ -35158,15 +35296,19 @@
             const firstRow = lastRow - historicalRows + 1;
 
             $$invalidate('getTodayData', getTodayData = $gapiInstance.client.sheets.spreadsheets.values
-              .get({
+              .batchGet({
                 spreadsheetId: credentials.SPREADSHEET_ID,
-                range: credentials.SHEET_NAME + `!A${firstRow}:Q${lastRow}`
+                ranges: [
+                  credentials.SHEET_NAME + `!A${firstRow}:Q${lastRow}`,
+                  "NapSleepTrend!A2:D"
+                ]
               })
               .then(response => {
                 $$invalidate('loading', loading = false);
 
                 console.log(response);
-                const sheetData = response.result.values;
+                const sheetData = response.result.valueRanges[0].values;
+                const napSleepData = response.result.valueRanges[1].values;
 
                 $$invalidate('historicalDatas', historicalDatas = sheetData.reverse());
 
@@ -35198,188 +35340,11 @@
                 }
 
                 todayDatas.reverse();
-                console.log(todayDatas);
 
-                plotPutDownVsTimeToFallAsleep();
-                plotNapSleepTime();
+                plotPutDownVsTimeToFallAsleep(historicalDatas);
+                plotNapSleepTime(napSleepData);
               }));
           });
-      }
-
-      function plotPutDownVsTimeToFallAsleep() {
-        const ctx = document.getElementById("putDownVsTimeToFallAsleep");
-        let scatterChartData = [];
-
-        for (let i = 0; i < historicalDatas.length; i++) {
-          if (historicalDatas[i][11] === "Sleep") {
-            const pair = {
-              x: convertToMins(historicalDatas[i][5]),
-              y: convertToMins(historicalDatas[i][7])
-            };
-
-            scatterChartData.push(pair);
-          }
-        }
-
-        Chart.defaults.scale.gridLines.display = false;
-        Chart.defaults.global.title.display = true;
-        Chart.defaults.global.title.fontColor = "#8D99AE";
-        Chart.defaults.global.title.fontSize = 16;
-        Chart.defaults.global.title.padding = 16;
-        Chart.defaults.global.legend.display = false;
-
-        Chart.scaleService.updateScaleDefaults("linear", {
-          scaleLabel: {
-            display: true,
-            fontColor: "#EDF2F4"
-          },
-          ticks: {
-            fontColor: "#EDF2F4"
-          },
-          gridLines: {
-            color: "#8D99AE"
-          }
-        });
-
-        let chart = new Chart(ctx, {
-          type: "scatter",
-          data: {
-            datasets: [
-              {
-                label: "Put Down vs. Time to Fall Asleep",
-                data: scatterChartData,
-                pointBackgroundColor: "#2EC4B6"
-              }
-            ]
-          },
-          options: {
-            aspectRatio: 1,
-            tooltips: {
-              callbacks: {
-                label: (tooltipItem, data) => {
-                  return (
-                    "Time to Fall Asleep: " +
-                    tooltipItem.label +
-                    " Put Down: " +
-                    tooltipItem.value
-                  );
-                }
-              }
-            },
-            title: {
-              text: "Put Down vs. Time to Fall Asleep"
-            },
-            scales: {
-              xAxes: [
-                {
-                  scaleLabel: {
-                    labelString: "Time to Fall Asleep (min)"
-                  }
-                }
-              ],
-              yAxes: [
-                {
-                  scaleLabel: {
-                    labelString: "Put Down (min)"
-                  }
-                }
-              ]
-            }
-          }
-        });
-      }
-
-      function plotNapSleepTime() {
-        const ctx = document.getElementById("napSleepTime");
-
-        let napData = [];
-        let sleepData = [];
-
-        for (let i = 0; i < historicalDatas.length; i++) {
-          if (historicalDatas[i][11] === "Sleep") {
-            sleepData.push({
-              date: historicalDatas[i][14],
-              duration: historicalDatas[i][6]
-            });
-          } else if (historicalDatas[i][11] === "Nap") {
-            napData.push({
-              date: historicalDatas[i][14],
-              duration: historicalDatas[i][6]
-            });
-          }
-        }
-
-        const summedNapData = sumSleepDurationsByDate(napData);
-        const labels = summedNapData.labels.reverse();
-        const napChartData = summedNapData.sums.reverse();
-        const sleepChartData = sumSleepDurationsByDate(sleepData).sums.reverse();
-
-        let chart = new Chart(ctx, {
-          type: "bar",
-          data: {
-            labels: labels,
-            datasets: [
-              {
-                label: "Nap",
-                data: napChartData,
-                backgroundColor: "#FF9F1C"
-              },
-              {
-                label: "Sleep",
-                data: sleepChartData,
-                backgroundColor: "#2EC4B6"
-              }
-            ]
-          },
-          options: {
-            aspectRatio: 1,
-            tooltips: {
-              callbacks: {
-                label: (tooltipItem, data) => {
-                  if (tooltipItem.datasetIndex === 0) {
-                    return "Nap: " + convertToDuration(tooltipItem.value);
-                  } else {
-                    return "Sleep: " + convertToDuration(tooltipItem.value);
-                  }
-                }
-              }
-            },
-            title: {
-              text: "Nap and Sleep"
-            },
-            scales: {
-              xAxes: [
-                {
-                  stacked: true,
-                  ticks: {
-                    fontColor: "#EDF2F4"
-                  },
-                  gridLines: {
-                    color: "#8D99AE"
-                  },
-                  scaleLabel: {
-                    labelString: "Date",
-                    display: true,
-                    fontColor: "#EDF2F4"
-                  }
-                }
-              ],
-              yAxes: [
-                {
-                  stacked: true,
-                  scaleLabel: {
-                    labelString: "Duration"
-                  },
-                  ticks: {
-                    callback: function(label, index, labels) {
-                      return convertToDuration(label);
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        });
       }
 
     	function onwindowresize() {
