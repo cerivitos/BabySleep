@@ -12,10 +12,6 @@
     	return tar;
     }
 
-    function is_promise(value) {
-    	return value && typeof value.then === 'function';
-    }
-
     function add_location(element, file, line, column, char) {
     	element.__svelte_meta = {
     		loc: { file, line, column, char }
@@ -590,67 +586,6 @@
     			running_program = pending_program = null;
     		}
     	};
-    }
-
-    function handle_promise(promise, info) {
-    	const token = info.token = {};
-
-    	function update(type, index, key, value) {
-    		if (info.token !== token) return;
-
-    		info.resolved = key && { [key]: value };
-
-    		const child_ctx = assign(assign({}, info.ctx), info.resolved);
-    		const block = type && (info.current = type)(child_ctx);
-
-    		if (info.block) {
-    			if (info.blocks) {
-    				info.blocks.forEach((block, i) => {
-    					if (i !== index && block) {
-    						group_outros();
-    						on_outro(() => {
-    							block.d(1);
-    							info.blocks[i] = null;
-    						});
-    						block.o(1);
-    						check_outros();
-    					}
-    				});
-    			} else {
-    				info.block.d(1);
-    			}
-
-    			block.c();
-    			if (block.i) block.i(1);
-    			block.m(info.mount(), info.anchor);
-
-    			flush();
-    		}
-
-    		info.block = block;
-    		if (info.blocks) info.blocks[index] = block;
-    	}
-
-    	if (is_promise(promise)) {
-    		promise.then(value => {
-    			update(info.then, 1, info.value, value);
-    		}, error => {
-    			update(info.catch, 2, info.error, error);
-    		});
-
-    		// if we previously had a then/catch block, destroy it
-    		if (info.current !== info.pending) {
-    			update(info.pending, 0);
-    			return true;
-    		}
-    	} else {
-    		if (info.current !== info.then) {
-    			update(info.then, 1, info.value, promise);
-    			return true;
-    		}
-
-    		info.resolved = { [info.value]: promise };
-    	}
     }
 
     function mount_component(component, target, anchor) {
@@ -24934,21 +24869,9 @@
     	return child_ctx;
     }
 
-    // (1:0) <script>    import { onMount }
-    function create_catch_block(ctx) {
-    	return {
-    		c: noop,
-    		m: noop,
-    		p: noop,
-    		i: noop,
-    		o: noop,
-    		d: noop
-    	};
-    }
-
-    // (187:4) {:then}
-    function create_then_block(ctx) {
-    	var div1, div0, table, thead, tr, th0, p0, t1, th1, p1, t3, th2, p2, t5, th3, p3, t7, div0_class_value;
+    // (184:4) {:else}
+    function create_else_block_1$1(ctx) {
+    	var div1, div0, table, thead, tr, th0, p0, t1, th1, p1, t3, th2, p2, t5, th3, p3, t7, div0_class_value, div1_transition, current;
 
     	var each_value = ctx.todayDatas;
 
@@ -24985,27 +24908,27 @@
     			for (var i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
-    			add_location(p0, file$5, 193, 18, 5714);
-    			th0.className = "svelte-128qp3s";
-    			add_location(th0, file$5, 192, 16, 5690);
-    			add_location(p1, file$5, 196, 18, 5794);
-    			th1.className = "svelte-128qp3s";
-    			add_location(th1, file$5, 195, 16, 5770);
-    			add_location(p2, file$5, 199, 18, 5877);
-    			th2.className = "svelte-128qp3s";
-    			add_location(th2, file$5, 198, 16, 5853);
-    			add_location(p3, file$5, 202, 18, 5956);
-    			th3.className = "svelte-128qp3s";
-    			add_location(th3, file$5, 201, 16, 5932);
+    			add_location(p0, file$5, 190, 18, 5626);
+    			th0.className = "svelte-9cucub";
+    			add_location(th0, file$5, 189, 16, 5602);
+    			add_location(p1, file$5, 193, 18, 5706);
+    			th1.className = "svelte-9cucub";
+    			add_location(th1, file$5, 192, 16, 5682);
+    			add_location(p2, file$5, 196, 18, 5789);
+    			th2.className = "svelte-9cucub";
+    			add_location(th2, file$5, 195, 16, 5765);
+    			add_location(p3, file$5, 199, 18, 5868);
+    			th3.className = "svelte-9cucub";
+    			add_location(th3, file$5, 198, 16, 5844);
     			tr.className = "text-sm";
-    			add_location(tr, file$5, 191, 14, 5652);
-    			add_location(thead, file$5, 190, 12, 5629);
+    			add_location(tr, file$5, 188, 14, 5564);
+    			add_location(thead, file$5, 187, 12, 5541);
     			table.className = "w-full";
-    			add_location(table, file$5, 189, 10, 5593);
-    			div0.className = div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-128qp3s";
-    			add_location(div0, file$5, 188, 8, 5520);
+    			add_location(table, file$5, 186, 10, 5505);
+    			div0.className = div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-9cucub";
+    			add_location(div0, file$5, 185, 8, 5432);
     			div1.className = "overflow-auto w-full";
-    			add_location(div1, file$5, 187, 6, 5476);
+    			add_location(div1, file$5, 184, 6, 5372);
     		},
 
     		m: function mount(target, anchor) {
@@ -25030,6 +24953,8 @@
     			for (var i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(table, null);
     			}
+
+    			current = true;
     		},
 
     		p: function update(changed, ctx) {
@@ -25054,13 +24979,27 @@
     				each_blocks.length = each_value.length;
     			}
 
-    			if ((changed.innerWidth) && div0_class_value !== (div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-128qp3s")) {
+    			if ((!current || changed.innerWidth) && div0_class_value !== (div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-9cucub")) {
     				div0.className = div0_class_value;
     			}
     		},
 
-    		i: noop,
-    		o: noop,
+    		i: function intro(local) {
+    			if (current) return;
+    			add_render_callback(() => {
+    				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, true);
+    				div1_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, false);
+    			div1_transition.run(0);
+
+    			current = false;
+    		},
 
     		d: function destroy(detaching) {
     			if (detaching) {
@@ -25068,11 +25007,51 @@
     			}
 
     			destroy_each(each_blocks, detaching);
+
+    			if (detaching) {
+    				if (div1_transition) div1_transition.end();
+    			}
     		}
     	};
     }
 
-    // (207:12) {#each todayDatas as todayData}
+    // (182:4) {#if loading}
+    function create_if_block_1$1(ctx) {
+    	var current;
+
+    	var loadingspinner = new LoadingSpinner({ $$inline: true });
+
+    	return {
+    		c: function create() {
+    			loadingspinner.$$.fragment.c();
+    		},
+
+    		m: function mount(target, anchor) {
+    			mount_component(loadingspinner, target, anchor);
+    			current = true;
+    		},
+
+    		p: noop,
+
+    		i: function intro(local) {
+    			if (current) return;
+    			loadingspinner.$$.fragment.i(local);
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			loadingspinner.$$.fragment.o(local);
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			loadingspinner.$destroy(detaching);
+    		}
+    	};
+    }
+
+    // (204:12) {#each todayDatas as todayData}
     function create_each_block(ctx) {
     	var h3, t0_value = ctx.todayData[11], t0, t1, t2_value = ctx.todayData[11] === 'Sleep' ? '' : ctx.todayData[12], t2, t3, tbody, tr, td0, t4_value = ctx.todayData[0].split(', ')[1].toLowerCase(), t4, t5, td1, t6_value = ctx.todayData[1].split(', ')[1].toLowerCase(), t6, t7, td2, t8_value = ctx.todayData[2].split(', ')[1].toLowerCase(), t8, t9, td3, t10_value = ctx.todayData[3].split(', ')[1].toLowerCase(), t10;
 
@@ -25097,18 +25076,18 @@
     			td3 = element("td");
     			t10 = text(t10_value);
     			h3.className = "text-sm text-accentColor3";
-    			add_location(h3, file$5, 207, 14, 6099);
-    			td0.className = "svelte-128qp3s";
-    			add_location(td0, file$5, 212, 18, 6333);
-    			td1.className = "svelte-128qp3s";
-    			add_location(td1, file$5, 213, 18, 6405);
-    			td2.className = "svelte-128qp3s";
-    			add_location(td2, file$5, 214, 18, 6477);
-    			td3.className = "svelte-128qp3s";
-    			add_location(td3, file$5, 215, 18, 6549);
+    			add_location(h3, file$5, 204, 14, 6011);
+    			td0.className = "svelte-9cucub";
+    			add_location(td0, file$5, 209, 18, 6245);
+    			td1.className = "svelte-9cucub";
+    			add_location(td1, file$5, 210, 18, 6317);
+    			td2.className = "svelte-9cucub";
+    			add_location(td2, file$5, 211, 18, 6389);
+    			td3.className = "svelte-9cucub";
+    			add_location(td3, file$5, 212, 18, 6461);
     			tr.className = "text-secondaryColor";
-    			add_location(tr, file$5, 211, 16, 6281);
-    			add_location(tbody, file$5, 210, 14, 6256);
+    			add_location(tr, file$5, 208, 16, 6193);
+    			add_location(tbody, file$5, 207, 14, 6168);
     		},
 
     		m: function mount(target, anchor) {
@@ -25144,8 +25123,33 @@
     	};
     }
 
-    // (185:25)         <LoadingSpinner />      {:then}
-    function create_pending_block(ctx) {
+    // (226:4) {:else}
+    function create_else_block$1(ctx) {
+    	var div;
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			add_location(div, file$5, 226, 6, 6761);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    		},
+
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    			}
+    		}
+    	};
+    }
+
+    // (224:4) {#if loading}
+    function create_if_block$3(ctx) {
     	var current;
 
     	var loadingspinner = new LoadingSpinner({ $$inline: true });
@@ -25159,8 +25163,6 @@
     			mount_component(loadingspinner, target, anchor);
     			current = true;
     		},
-
-    		p: noop,
 
     		i: function intro(local) {
     			if (current) return;
@@ -25181,22 +25183,39 @@
     }
 
     function create_fragment$5(ctx) {
-    	var div4, div0, h20, t1, promise, t2, div3, h21, t4, div2, div1, canvas, div1_class_value, current, dispose;
+    	var div4, div0, h20, t1, current_block_type_index, if_block0, t2, div3, h21, t4, current_block_type_index_1, if_block1, t5, div2, div1, canvas, div1_class_value, div2_transition, current, dispose;
 
     	add_render_callback(ctx.onwindowresize);
 
-    	let info = {
-    		ctx,
-    		current: null,
-    		pending: create_pending_block,
-    		then: create_then_block,
-    		catch: create_catch_block,
-    		value: 'null',
-    		error: 'null',
-    		blocks: Array(3)
-    	};
+    	var if_block_creators = [
+    		create_if_block_1$1,
+    		create_else_block_1$1
+    	];
 
-    	handle_promise(promise = ctx.getTodayData, info);
+    	var if_blocks = [];
+
+    	function select_block_type(ctx) {
+    		if (ctx.loading) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx);
+    	if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+
+    	var if_block_creators_1 = [
+    		create_if_block$3,
+    		create_else_block$1
+    	];
+
+    	var if_blocks_1 = [];
+
+    	function select_block_type_1(ctx) {
+    		if (ctx.loading) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index_1 = select_block_type_1(ctx);
+    	if_block1 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx);
 
     	return {
     		c: function create() {
@@ -25205,32 +25224,32 @@
     			h20 = element("h2");
     			h20.textContent = "Today";
     			t1 = space();
-
-    			info.block.c();
-
+    			if_block0.c();
     			t2 = space();
     			div3 = element("div");
     			h21 = element("h2");
     			h21.textContent = "Trends";
     			t4 = space();
+    			if_block1.c();
+    			t5 = space();
     			div2 = element("div");
     			div1 = element("div");
     			canvas = element("canvas");
-    			h20.className = "svelte-128qp3s";
-    			add_location(h20, file$5, 183, 4, 5388);
-    			add_location(div0, file$5, 182, 2, 5377);
-    			h21.className = "svelte-128qp3s";
-    			add_location(h21, file$5, 225, 4, 6771);
+    			h20.className = "svelte-9cucub";
+    			add_location(h20, file$5, 180, 4, 5292);
+    			add_location(div0, file$5, 179, 2, 5281);
+    			h21.className = "svelte-9cucub";
+    			add_location(h21, file$5, 222, 4, 6680);
     			canvas.id = "putDownVsTimeToFallAsleep";
-    			add_location(canvas, file$5, 228, 8, 6906);
-    			div1.className = div1_class_value = "" + (ctx.innerWidth >= 1024 ? 'w-full' : 'graphContainer') + " svelte-128qp3s";
-    			add_location(div1, file$5, 227, 6, 6834);
+    			add_location(canvas, file$5, 230, 8, 6914);
+    			div1.className = div1_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-9cucub";
+    			add_location(div1, file$5, 229, 6, 6843);
     			div2.className = "overflow-auto w-full";
-    			add_location(div2, file$5, 226, 4, 6792);
+    			add_location(div2, file$5, 228, 4, 6785);
     			div3.className = "mt-8";
-    			add_location(div3, file$5, 224, 2, 6747);
+    			add_location(div3, file$5, 221, 2, 6656);
     			div4.className = "w-full bg-backgroundColor p-4";
-    			add_location(div4, file$5, 181, 0, 5330);
+    			add_location(div4, file$5, 178, 0, 5234);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -25243,45 +25262,86 @@
     			append(div4, div0);
     			append(div0, h20);
     			append(div0, t1);
-
-    			info.block.m(div0, info.anchor = null);
-    			info.mount = () => div0;
-    			info.anchor = null;
-
+    			if_blocks[current_block_type_index].m(div0, null);
     			append(div4, t2);
     			append(div4, div3);
     			append(div3, h21);
     			append(div3, t4);
+    			if_blocks_1[current_block_type_index_1].m(div3, null);
+    			append(div3, t5);
     			append(div3, div2);
     			append(div2, div1);
     			append(div1, canvas);
     			current = true;
     		},
 
-    		p: function update(changed, new_ctx) {
-    			ctx = new_ctx;
-    			info.ctx = ctx;
+    		p: function update(changed, ctx) {
+    			var previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(changed, ctx);
+    			} else {
+    				group_outros();
+    				on_outro(() => {
+    					if_blocks[previous_block_index].d(1);
+    					if_blocks[previous_block_index] = null;
+    				});
+    				if_block0.o(1);
+    				check_outros();
 
-    			if (('getTodayData' in changed) && promise !== (promise = ctx.getTodayData) && handle_promise(promise, info)) ; else {
-    				info.block.p(changed, assign(assign({}, ctx), info.resolved));
+    				if_block0 = if_blocks[current_block_type_index];
+    				if (!if_block0) {
+    					if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block0.c();
+    				}
+    				if_block0.i(1);
+    				if_block0.m(div0, null);
     			}
 
-    			if ((!current || changed.innerWidth) && div1_class_value !== (div1_class_value = "" + (ctx.innerWidth >= 1024 ? 'w-full' : 'graphContainer') + " svelte-128qp3s")) {
+    			var previous_block_index_1 = current_block_type_index_1;
+    			current_block_type_index_1 = select_block_type_1(ctx);
+    			if (current_block_type_index_1 !== previous_block_index_1) {
+    				group_outros();
+    				on_outro(() => {
+    					if_blocks_1[previous_block_index_1].d(1);
+    					if_blocks_1[previous_block_index_1] = null;
+    				});
+    				if_block1.o(1);
+    				check_outros();
+
+    				if_block1 = if_blocks_1[current_block_type_index_1];
+    				if (!if_block1) {
+    					if_block1 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx);
+    					if_block1.c();
+    				}
+    				if_block1.i(1);
+    				if_block1.m(div3, t5);
+    			}
+
+    			if ((!current || changed.innerWidth) && div1_class_value !== (div1_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-9cucub")) {
     				div1.className = div1_class_value;
     			}
     		},
 
     		i: function intro(local) {
     			if (current) return;
-    			info.block.i();
+    			if (if_block0) if_block0.i();
+    			if (if_block1) if_block1.i();
+
+    			add_render_callback(() => {
+    				if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, {}, true);
+    				div2_transition.run(1);
+    			});
+
     			current = true;
     		},
 
     		o: function outro(local) {
-    			for (let i = 0; i < 3; i += 1) {
-    				const block = info.blocks[i];
-    				if (block) block.o();
-    			}
+    			if (if_block0) if_block0.o();
+    			if (if_block1) if_block1.o();
+
+    			if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, {}, false);
+    			div2_transition.run(0);
 
     			current = false;
     		},
@@ -25291,8 +25351,12 @@
     				detach(div4);
     			}
 
-    			info.block.d();
-    			info = null;
+    			if_blocks[current_block_type_index].d();
+    			if_blocks_1[current_block_type_index_1].d();
+
+    			if (detaching) {
+    				if (div2_transition) div2_transition.end();
+    			}
 
     			dispose();
     		}
@@ -25308,7 +25372,7 @@
     	subscribe($$self, gapiInstance, $$value => { $gapiInstance = $$value; $$invalidate('$gapiInstance', $gapiInstance); });
 
     	
-      let loading = false;
+      let loading = true;
       let getTodayData;
 
       let todayDatas = [];
@@ -25317,8 +25381,6 @@
       let innerWidth;
 
       function getData() {
-        $$invalidate('loading', loading = true);
-
         $gapiInstance.client.sheets.spreadsheets.values
           .get({
             spreadsheetId: credentials.SPREADSHEET_ID,
@@ -25335,6 +25397,7 @@
               })
               .then(response => {
                 $$invalidate('loading', loading = false);
+
                 console.log(response);
                 const sheetData = response.result.values;
 
@@ -25369,6 +25432,8 @@
 
                 todayDatas.reverse();
                 console.log(todayDatas);
+
+                plotPutDownVsTimeToFallAsleep();
               }));
           });
       }
@@ -25471,17 +25536,14 @@
     		innerWidth = window.innerWidth; $$invalidate('innerWidth', innerWidth);
     	}
 
-    	$$self.$$.update = ($$dirty = { $gapiInstance: 1, historicalDatas: 1 }) => {
+    	$$self.$$.update = ($$dirty = { $gapiInstance: 1 }) => {
     		if ($$dirty.$gapiInstance) { if ($gapiInstance !== undefined) {
             getData();
-          } }
-    		if ($$dirty.historicalDatas) { if (historicalDatas.length > 0) {
-            plotPutDownVsTimeToFallAsleep();
           } }
     	};
 
     	return {
-    		getTodayData,
+    		loading,
     		todayDatas,
     		innerWidth,
     		onwindowresize
@@ -25765,7 +25827,7 @@
     const file$7 = "src\\App.svelte";
 
     // (40:2) {:else}
-    function create_else_block$1(ctx) {
+    function create_else_block$2(ctx) {
     	var div3, div0, t0, div1, t1, div2, current;
 
     	var entry = new Entry({ $$inline: true });
@@ -25843,7 +25905,7 @@
     }
 
     // (22:2) {#if innerWidth < 1024}
-    function create_if_block$3(ctx) {
+    function create_if_block$4(ctx) {
     	var current;
 
     	var scaffold = new Scaffold({
@@ -25997,7 +26059,7 @@
     }
 
     // (34:6) {#if $showSummary}
-    function create_if_block_1$1(ctx) {
+    function create_if_block_1$2(ctx) {
     	var div, div_transition, current;
 
     	var summary = new Summary({ $$inline: true });
@@ -26058,7 +26120,7 @@
 
     	var if_block1 = (ctx.$showSettings) && create_if_block_2(ctx);
 
-    	var if_block2 = (ctx.$showSummary) && create_if_block_1$1(ctx);
+    	var if_block2 = (ctx.$showSummary) && create_if_block_1$2(ctx);
 
     	return {
     		c: function create() {
@@ -26123,7 +26185,7 @@
 
     			if (ctx.$showSummary) {
     				if (!if_block2) {
-    					if_block2 = create_if_block_1$1(ctx);
+    					if_block2 = create_if_block_1$2(ctx);
     					if_block2.c();
     					if_block2.i(1);
     					if_block2.m(if_block2_anchor.parentNode, if_block2_anchor);
@@ -26185,8 +26247,8 @@
     	add_render_callback(ctx.onwindowresize);
 
     	var if_block_creators = [
-    		create_if_block$3,
-    		create_else_block$1
+    		create_if_block$4,
+    		create_else_block$2
     	];
 
     	var if_blocks = [];

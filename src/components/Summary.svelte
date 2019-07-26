@@ -8,7 +8,7 @@
   import Chart from "chart.js";
 
   const historicalRows = 20;
-  let loading = false;
+  let loading = true;
   let getTodayData;
 
   let todayDatas = [];
@@ -17,8 +17,6 @@
   let innerWidth;
 
   function getData() {
-    loading = true;
-
     $gapiInstance.client.sheets.spreadsheets.values
       .get({
         spreadsheetId: credentials.SPREADSHEET_ID,
@@ -35,6 +33,7 @@
           })
           .then(response => {
             loading = false;
+
             console.log(response);
             const sheetData = response.result.values;
 
@@ -69,6 +68,8 @@
 
             todayDatas.reverse();
             console.log(todayDatas);
+
+            plotPutDownVsTimeToFallAsleep();
           });
       });
   }
@@ -170,10 +171,6 @@
   $: if ($gapiInstance !== undefined) {
     getData();
   }
-
-  $: if (historicalDatas.length > 0) {
-    plotPutDownVsTimeToFallAsleep();
-  }
 </script>
 
 <style type="text/postcss">
@@ -196,7 +193,7 @@
   }
 
   .graphContainer {
-    min-width: 480px;
+    min-width: 375px;
     scrollbar-width: none;
   }
 
@@ -210,10 +207,10 @@
 <div class="w-full bg-backgroundColor p-4">
   <div>
     <h2>Today</h2>
-    {#await getTodayData}
+    {#if loading}
       <LoadingSpinner />
-    {:then}
-      <div class="overflow-auto w-full">
+    {:else}
+      <div transition:fade class="overflow-auto w-full">
         <div class={innerWidth >= 375 ? 'w-full' : 'tableContainer'}>
           <table class="w-full">
             <thead>
@@ -248,12 +245,17 @@
           </table>
         </div>
       </div>
-    {/await}
+    {/if}
   </div>
   <div class="mt-8">
     <h2>Trends</h2>
-    <div class="overflow-auto w-full">
-      <div class={innerWidth >= 1024 ? 'w-full' : 'graphContainer'}>
+    {#if loading}
+      <LoadingSpinner />
+    {:else}
+      <div />
+    {/if}
+    <div class="overflow-auto w-full" transition:fade>
+      <div class={innerWidth >= 375 ? 'w-full' : 'graphContainer'}>
         <canvas id="putDownVsTimeToFallAsleep" />
       </div>
     </div>
