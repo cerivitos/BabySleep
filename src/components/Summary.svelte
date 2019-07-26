@@ -189,6 +189,11 @@
     min-width: 480px;
     scrollbar-width: none;
   }
+
+  .tableContainer {
+    min-width: 375px;
+    scrollbar-width: none;
+  }
 </style>
 
 <svelte:window bind:innerWidth />
@@ -198,46 +203,49 @@
     {#await getTodayData}
       <LoadingSpinner />
     {:then}
-      <table class="w-full">
-        <thead>
-          <tr>
-            <th>
-              <p>Put down</p>
-            </th>
-            <th>
-              <p>Fell asleep</p>
-            </th>
-            <th>
-              <p>Woke up</p>
-            </th>
-            <th>
-              <p>Picked up</p>
-            </th>
-          </tr>
-        </thead>
-        {#each todayDatas as todayData}
-          <h3 class="text-sm text-accentColor3">
-            {todayData[11]} {todayData[12]}
-          </h3>
-          <tbody>
-            <tr class="text-secondaryColor">
-              <td>{todayData[0].split(', ')[1].toLowerCase()}</td>
-              <td>{todayData[1].split(', ')[1].toLowerCase()}</td>
-              <td>{todayData[2].split(', ')[1].toLowerCase()}</td>
-              <td>{todayData[3].split(', ')[1].toLowerCase()}</td>
-            </tr>
-          </tbody>
-        {/each}
-      </table>
+      <div class="overflow-auto w-full">
+        <div class={innerWidth >= 375 ? 'w-full' : 'tableContainer'}>
+          <table class="w-full">
+            <thead>
+              <tr class="text-sm">
+                <th>
+                  <p>Put down</p>
+                </th>
+                <th>
+                  <p>Fell asleep</p>
+                </th>
+                <th>
+                  <p>Woke up</p>
+                </th>
+                <th>
+                  <p>Picked up</p>
+                </th>
+              </tr>
+            </thead>
+            {#each todayDatas as todayData}
+              <h3 class="text-sm text-accentColor3">
+                {todayData[11]} {todayData[12]}
+              </h3>
+              <tbody>
+                <tr class="text-secondaryColor">
+                  <td>{todayData[0].split(', ')[1].toLowerCase()}</td>
+                  <td>{todayData[1].split(', ')[1].toLowerCase()}</td>
+                  <td>{todayData[2].split(', ')[1].toLowerCase()}</td>
+                  <td>{todayData[3].split(', ')[1].toLowerCase()}</td>
+                </tr>
+              </tbody>
+            {/each}
+          </table>
+        </div>
+      </div>
     {/await}
   </div>
   <div class="mt-8">
     <h2>Trends</h2>
     <div class="overflow-auto w-full">
-      <div class={innerWidth > 1024 ? 'w-full' : 'graphContainer'}>
+      <div class={innerWidth >= 1024 ? 'w-full' : 'graphContainer'}>
         <canvas id="putDownVsTimeToFallAsleep" />
       </div>
     </div>
-
   </div>
 </div>

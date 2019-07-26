@@ -24882,7 +24882,7 @@
 
     // (177:4) {:then}
     function create_then_block(ctx) {
-    	var table, thead, tr, th0, p0, t1, th1, p1, t3, th2, p2, t5, th3, p3, t7;
+    	var div1, div0, table, thead, tr, th0, p0, t1, th1, p1, t3, th2, p2, t5, th3, p3, t7, div0_class_value;
 
     	var each_value = ctx.todayDatas;
 
@@ -24894,6 +24894,8 @@
 
     	return {
     		c: function create() {
+    			div1 = element("div");
+    			div0 = element("div");
     			table = element("table");
     			thead = element("thead");
     			tr = element("tr");
@@ -24917,26 +24919,33 @@
     			for (var i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
-    			add_location(p0, file$5, 181, 14, 5181);
-    			th0.className = "svelte-14hrhiv";
-    			add_location(th0, file$5, 180, 12, 5161);
-    			add_location(p1, file$5, 184, 14, 5249);
-    			th1.className = "svelte-14hrhiv";
-    			add_location(th1, file$5, 183, 12, 5229);
-    			add_location(p2, file$5, 187, 14, 5320);
-    			th2.className = "svelte-14hrhiv";
-    			add_location(th2, file$5, 186, 12, 5300);
-    			add_location(p3, file$5, 190, 14, 5387);
-    			th3.className = "svelte-14hrhiv";
-    			add_location(th3, file$5, 189, 12, 5367);
-    			add_location(tr, file$5, 179, 10, 5143);
-    			add_location(thead, file$5, 178, 8, 5124);
+    			add_location(p0, file$5, 183, 18, 5383);
+    			th0.className = "svelte-128qp3s";
+    			add_location(th0, file$5, 182, 16, 5359);
+    			add_location(p1, file$5, 186, 18, 5463);
+    			th1.className = "svelte-128qp3s";
+    			add_location(th1, file$5, 185, 16, 5439);
+    			add_location(p2, file$5, 189, 18, 5546);
+    			th2.className = "svelte-128qp3s";
+    			add_location(th2, file$5, 188, 16, 5522);
+    			add_location(p3, file$5, 192, 18, 5625);
+    			th3.className = "svelte-128qp3s";
+    			add_location(th3, file$5, 191, 16, 5601);
+    			tr.className = "text-sm";
+    			add_location(tr, file$5, 181, 14, 5321);
+    			add_location(thead, file$5, 180, 12, 5298);
     			table.className = "w-full";
-    			add_location(table, file$5, 177, 6, 5092);
+    			add_location(table, file$5, 179, 10, 5262);
+    			div0.className = div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-128qp3s";
+    			add_location(div0, file$5, 178, 8, 5189);
+    			div1.className = "overflow-auto w-full";
+    			add_location(div1, file$5, 177, 6, 5145);
     		},
 
     		m: function mount(target, anchor) {
-    			insert(target, table, anchor);
+    			insert(target, div1, anchor);
+    			append(div1, div0);
+    			append(div0, table);
     			append(table, thead);
     			append(thead, tr);
     			append(tr, th0);
@@ -24978,6 +24987,10 @@
     				}
     				each_blocks.length = each_value.length;
     			}
+
+    			if ((changed.innerWidth) && div0_class_value !== (div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-128qp3s")) {
+    				div0.className = div0_class_value;
+    			}
     		},
 
     		i: noop,
@@ -24985,7 +24998,7 @@
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach(table);
+    				detach(div1);
     			}
 
     			destroy_each(each_blocks, detaching);
@@ -24993,7 +25006,7 @@
     	};
     }
 
-    // (195:8) {#each todayDatas as todayData}
+    // (197:12) {#each todayDatas as todayData}
     function create_each_block(ctx) {
     	var h3, t0_value = ctx.todayData[11], t0, t1, t2_value = ctx.todayData[12], t2, t3, tbody, tr, td0, t4_value = ctx.todayData[0].split(', ')[1].toLowerCase(), t4, t5, td1, t6_value = ctx.todayData[1].split(', ')[1].toLowerCase(), t6, t7, td2, t8_value = ctx.todayData[2].split(', ')[1].toLowerCase(), t8, t9, td3, t10_value = ctx.todayData[3].split(', ')[1].toLowerCase(), t10;
 
@@ -25018,18 +25031,18 @@
     			td3 = element("td");
     			t10 = text(t10_value);
     			h3.className = "text-sm text-accentColor3";
-    			add_location(h3, file$5, 195, 10, 5510);
-    			td0.className = "svelte-14hrhiv";
-    			add_location(td0, file$5, 200, 14, 5691);
-    			td1.className = "svelte-14hrhiv";
-    			add_location(td1, file$5, 201, 14, 5759);
-    			td2.className = "svelte-14hrhiv";
-    			add_location(td2, file$5, 202, 14, 5827);
-    			td3.className = "svelte-14hrhiv";
-    			add_location(td3, file$5, 203, 14, 5895);
+    			add_location(h3, file$5, 197, 14, 5768);
+    			td0.className = "svelte-128qp3s";
+    			add_location(td0, file$5, 202, 18, 5969);
+    			td1.className = "svelte-128qp3s";
+    			add_location(td1, file$5, 203, 18, 6041);
+    			td2.className = "svelte-128qp3s";
+    			add_location(td2, file$5, 204, 18, 6113);
+    			td3.className = "svelte-128qp3s";
+    			add_location(td3, file$5, 205, 18, 6185);
     			tr.className = "text-secondaryColor";
-    			add_location(tr, file$5, 199, 12, 5643);
-    			add_location(tbody, file$5, 198, 10, 5622);
+    			add_location(tr, file$5, 201, 16, 5917);
+    			add_location(tbody, file$5, 200, 14, 5892);
     		},
 
     		m: function mount(target, anchor) {
@@ -25137,21 +25150,21 @@
     			div2 = element("div");
     			div1 = element("div");
     			canvas = element("canvas");
-    			h20.className = "svelte-14hrhiv";
-    			add_location(h20, file$5, 173, 4, 5004);
-    			add_location(div0, file$5, 172, 2, 4993);
-    			h21.className = "svelte-14hrhiv";
-    			add_location(h21, file$5, 211, 4, 6071);
+    			h20.className = "svelte-128qp3s";
+    			add_location(h20, file$5, 173, 4, 5057);
+    			add_location(div0, file$5, 172, 2, 5046);
+    			h21.className = "svelte-128qp3s";
+    			add_location(h21, file$5, 215, 4, 6407);
     			canvas.id = "putDownVsTimeToFallAsleep";
-    			add_location(canvas, file$5, 214, 8, 6205);
-    			div1.className = div1_class_value = "" + (ctx.innerWidth > 1024 ? 'w-full' : 'graphContainer') + " svelte-14hrhiv";
-    			add_location(div1, file$5, 213, 6, 6134);
+    			add_location(canvas, file$5, 218, 8, 6542);
+    			div1.className = div1_class_value = "" + (ctx.innerWidth >= 1024 ? 'w-full' : 'graphContainer') + " svelte-128qp3s";
+    			add_location(div1, file$5, 217, 6, 6470);
     			div2.className = "overflow-auto w-full";
-    			add_location(div2, file$5, 212, 4, 6092);
+    			add_location(div2, file$5, 216, 4, 6428);
     			div3.className = "mt-8";
-    			add_location(div3, file$5, 210, 2, 6047);
+    			add_location(div3, file$5, 214, 2, 6383);
     			div4.className = "w-full bg-backgroundColor p-4";
-    			add_location(div4, file$5, 171, 0, 4946);
+    			add_location(div4, file$5, 171, 0, 4999);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -25187,7 +25200,7 @@
     				info.block.p(changed, assign(assign({}, ctx), info.resolved));
     			}
 
-    			if ((!current || changed.innerWidth) && div1_class_value !== (div1_class_value = "" + (ctx.innerWidth > 1024 ? 'w-full' : 'graphContainer') + " svelte-14hrhiv")) {
+    			if ((!current || changed.innerWidth) && div1_class_value !== (div1_class_value = "" + (ctx.innerWidth >= 1024 ? 'w-full' : 'graphContainer') + " svelte-128qp3s")) {
     				div1.className = div1_class_value;
     			}
     		},
