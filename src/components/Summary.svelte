@@ -50,11 +50,18 @@
             //   todayDatas.push(sheetData[i]);
             // }
 
-            for (let i = sheetData.length - 1; i > 0; i--) {
+            for (let i = 0; i < sheetData.length; i++) {
               const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
 
               if (isSameDay(date, new Date())) {
-                todayDatas.push(sheetData[i]);
+                if (
+                  sheetData[i][0] !== undefined &&
+                  sheetData[i][1] !== undefined &&
+                  sheetData[i][2] !== undefined &&
+                  sheetData[i][3] !== undefined
+                ) {
+                  todayDatas.push(sheetData[i]);
+                }
               } else {
                 break;
               }
@@ -227,7 +234,7 @@
             </thead>
             {#each todayDatas as todayData}
               <h3 class="text-sm text-accentColor3">
-                {todayData[11]} {todayData[12]}
+                {todayData[11]} {todayData[11] === 'Sleep' ? '' : todayData[12]}
               </h3>
               <tbody>
                 <tr class="text-secondaryColor">

@@ -24946,7 +24946,7 @@
     	};
     }
 
-    // (180:4) {:then}
+    // (187:4) {:then}
     function create_then_block(ctx) {
     	var div1, div0, table, thead, tr, th0, p0, t1, th1, p1, t3, th2, p2, t5, th3, p3, t7, div0_class_value;
 
@@ -24985,27 +24985,27 @@
     			for (var i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
-    			add_location(p0, file$5, 186, 18, 5449);
+    			add_location(p0, file$5, 193, 18, 5714);
     			th0.className = "svelte-128qp3s";
-    			add_location(th0, file$5, 185, 16, 5425);
-    			add_location(p1, file$5, 189, 18, 5529);
+    			add_location(th0, file$5, 192, 16, 5690);
+    			add_location(p1, file$5, 196, 18, 5794);
     			th1.className = "svelte-128qp3s";
-    			add_location(th1, file$5, 188, 16, 5505);
-    			add_location(p2, file$5, 192, 18, 5612);
+    			add_location(th1, file$5, 195, 16, 5770);
+    			add_location(p2, file$5, 199, 18, 5877);
     			th2.className = "svelte-128qp3s";
-    			add_location(th2, file$5, 191, 16, 5588);
-    			add_location(p3, file$5, 195, 18, 5691);
+    			add_location(th2, file$5, 198, 16, 5853);
+    			add_location(p3, file$5, 202, 18, 5956);
     			th3.className = "svelte-128qp3s";
-    			add_location(th3, file$5, 194, 16, 5667);
+    			add_location(th3, file$5, 201, 16, 5932);
     			tr.className = "text-sm";
-    			add_location(tr, file$5, 184, 14, 5387);
-    			add_location(thead, file$5, 183, 12, 5364);
+    			add_location(tr, file$5, 191, 14, 5652);
+    			add_location(thead, file$5, 190, 12, 5629);
     			table.className = "w-full";
-    			add_location(table, file$5, 182, 10, 5328);
+    			add_location(table, file$5, 189, 10, 5593);
     			div0.className = div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-128qp3s";
-    			add_location(div0, file$5, 181, 8, 5255);
+    			add_location(div0, file$5, 188, 8, 5520);
     			div1.className = "overflow-auto w-full";
-    			add_location(div1, file$5, 180, 6, 5211);
+    			add_location(div1, file$5, 187, 6, 5476);
     		},
 
     		m: function mount(target, anchor) {
@@ -25072,9 +25072,9 @@
     	};
     }
 
-    // (200:12) {#each todayDatas as todayData}
+    // (207:12) {#each todayDatas as todayData}
     function create_each_block(ctx) {
-    	var h3, t0_value = ctx.todayData[11], t0, t1, t2_value = ctx.todayData[12], t2, t3, tbody, tr, td0, t4_value = ctx.todayData[0].split(', ')[1].toLowerCase(), t4, t5, td1, t6_value = ctx.todayData[1].split(', ')[1].toLowerCase(), t6, t7, td2, t8_value = ctx.todayData[2].split(', ')[1].toLowerCase(), t8, t9, td3, t10_value = ctx.todayData[3].split(', ')[1].toLowerCase(), t10;
+    	var h3, t0_value = ctx.todayData[11], t0, t1, t2_value = ctx.todayData[11] === 'Sleep' ? '' : ctx.todayData[12], t2, t3, tbody, tr, td0, t4_value = ctx.todayData[0].split(', ')[1].toLowerCase(), t4, t5, td1, t6_value = ctx.todayData[1].split(', ')[1].toLowerCase(), t6, t7, td2, t8_value = ctx.todayData[2].split(', ')[1].toLowerCase(), t8, t9, td3, t10_value = ctx.todayData[3].split(', ')[1].toLowerCase(), t10;
 
     	return {
     		c: function create() {
@@ -25097,18 +25097,18 @@
     			td3 = element("td");
     			t10 = text(t10_value);
     			h3.className = "text-sm text-accentColor3";
-    			add_location(h3, file$5, 200, 14, 5834);
+    			add_location(h3, file$5, 207, 14, 6099);
     			td0.className = "svelte-128qp3s";
-    			add_location(td0, file$5, 205, 18, 6035);
+    			add_location(td0, file$5, 212, 18, 6333);
     			td1.className = "svelte-128qp3s";
-    			add_location(td1, file$5, 206, 18, 6107);
+    			add_location(td1, file$5, 213, 18, 6405);
     			td2.className = "svelte-128qp3s";
-    			add_location(td2, file$5, 207, 18, 6179);
+    			add_location(td2, file$5, 214, 18, 6477);
     			td3.className = "svelte-128qp3s";
-    			add_location(td3, file$5, 208, 18, 6251);
+    			add_location(td3, file$5, 215, 18, 6549);
     			tr.className = "text-secondaryColor";
-    			add_location(tr, file$5, 204, 16, 5983);
-    			add_location(tbody, file$5, 203, 14, 5958);
+    			add_location(tr, file$5, 211, 16, 6281);
+    			add_location(tbody, file$5, 210, 14, 6256);
     		},
 
     		m: function mount(target, anchor) {
@@ -25144,7 +25144,7 @@
     	};
     }
 
-    // (178:25)         <LoadingSpinner />      {:then}
+    // (185:25)         <LoadingSpinner />      {:then}
     function create_pending_block(ctx) {
     	var current;
 
@@ -25217,20 +25217,20 @@
     			div1 = element("div");
     			canvas = element("canvas");
     			h20.className = "svelte-128qp3s";
-    			add_location(h20, file$5, 176, 4, 5123);
-    			add_location(div0, file$5, 175, 2, 5112);
+    			add_location(h20, file$5, 183, 4, 5388);
+    			add_location(div0, file$5, 182, 2, 5377);
     			h21.className = "svelte-128qp3s";
-    			add_location(h21, file$5, 218, 4, 6473);
+    			add_location(h21, file$5, 225, 4, 6771);
     			canvas.id = "putDownVsTimeToFallAsleep";
-    			add_location(canvas, file$5, 221, 8, 6608);
+    			add_location(canvas, file$5, 228, 8, 6906);
     			div1.className = div1_class_value = "" + (ctx.innerWidth >= 1024 ? 'w-full' : 'graphContainer') + " svelte-128qp3s";
-    			add_location(div1, file$5, 220, 6, 6536);
+    			add_location(div1, file$5, 227, 6, 6834);
     			div2.className = "overflow-auto w-full";
-    			add_location(div2, file$5, 219, 4, 6494);
+    			add_location(div2, file$5, 226, 4, 6792);
     			div3.className = "mt-8";
-    			add_location(div3, file$5, 217, 2, 6449);
+    			add_location(div3, file$5, 224, 2, 6747);
     			div4.className = "w-full bg-backgroundColor p-4";
-    			add_location(div4, file$5, 174, 0, 5065);
+    			add_location(div4, file$5, 181, 0, 5330);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -25350,11 +25350,18 @@
                 //   todayDatas.push(sheetData[i]);
                 // }
 
-                for (let i = sheetData.length - 1; i > 0; i--) {
+                for (let i = 0; i < sheetData.length; i++) {
                   const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
 
                   if (isSameDay(date, new Date())) {
-                    todayDatas.push(sheetData[i]);
+                    if (
+                      sheetData[i][0] !== undefined &&
+                      sheetData[i][1] !== undefined &&
+                      sheetData[i][2] !== undefined &&
+                      sheetData[i][3] !== undefined
+                    ) {
+                      todayDatas.push(sheetData[i]);
+                    }
                   } else {
                     break;
                   }
