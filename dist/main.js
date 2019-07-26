@@ -1097,6 +1097,39 @@
     }
 
     /**
+     * @name startOfDay
+     * @category Day Helpers
+     * @summary Return the start of a day for the given date.
+     *
+     * @description
+     * Return the start of a day for the given date.
+     * The result will be in the local timezone.
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} date - the original date
+     * @returns {Date} the start of a day
+     * @throws {TypeError} 1 argument required
+     *
+     * @example
+     * // The start of a day for 2 September 2014 11:55:00:
+     * var result = startOfDay(new Date(2014, 8, 2, 11, 55, 0))
+     * //=> Tue Sep 02 2014 00:00:00
+     */
+
+    function startOfDay(dirtyDate) {
+      if (arguments.length < 1) {
+        throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+      }
+
+      var date = toDate(dirtyDate);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+
+    /**
      * @name isValid
      * @category Common Helpers
      * @summary Is the given date valid?
@@ -3581,6 +3614,39 @@
       var dateLeft = toDate(dirtyLeftDate);
       var dateRight = toDate(dirtyRightDate);
       return dateLeft.getTime() === dateRight.getTime();
+    }
+
+    /**
+     * @name isSameDay
+     * @category Day Helpers
+     * @summary Are the given dates in the same day?
+     *
+     * @description
+     * Are the given dates in the same day?
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} dateLeft - the first date to check
+     * @param {Date|Number} dateRight - the second date to check
+     * @returns {Boolean} the dates are in the same day
+     * @throws {TypeError} 2 arguments required
+     *
+     * @example
+     * // Are 4 September 06:00:00 and 4 September 18:00:00 in the same day?
+     * var result = isSameDay(new Date(2014, 8, 4, 6, 0), new Date(2014, 8, 4, 18, 0))
+     * //=> true
+     */
+
+    function isSameDay(dirtyDateLeft, dirtyDateRight) {
+      if (arguments.length < 2) {
+        throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+      }
+
+      var dateLeftStartOfDay = startOfDay(dirtyDateLeft);
+      var dateRightStartOfDay = startOfDay(dirtyDateRight);
+      return dateLeftStartOfDay.getTime() === dateRightStartOfDay.getTime();
     }
 
     /**
@@ -24880,7 +24946,7 @@
     	};
     }
 
-    // (177:4) {:then}
+    // (180:4) {:then}
     function create_then_block(ctx) {
     	var div1, div0, table, thead, tr, th0, p0, t1, th1, p1, t3, th2, p2, t5, th3, p3, t7, div0_class_value;
 
@@ -24919,27 +24985,27 @@
     			for (var i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
-    			add_location(p0, file$5, 183, 18, 5383);
+    			add_location(p0, file$5, 186, 18, 5449);
     			th0.className = "svelte-128qp3s";
-    			add_location(th0, file$5, 182, 16, 5359);
-    			add_location(p1, file$5, 186, 18, 5463);
+    			add_location(th0, file$5, 185, 16, 5425);
+    			add_location(p1, file$5, 189, 18, 5529);
     			th1.className = "svelte-128qp3s";
-    			add_location(th1, file$5, 185, 16, 5439);
-    			add_location(p2, file$5, 189, 18, 5546);
+    			add_location(th1, file$5, 188, 16, 5505);
+    			add_location(p2, file$5, 192, 18, 5612);
     			th2.className = "svelte-128qp3s";
-    			add_location(th2, file$5, 188, 16, 5522);
-    			add_location(p3, file$5, 192, 18, 5625);
+    			add_location(th2, file$5, 191, 16, 5588);
+    			add_location(p3, file$5, 195, 18, 5691);
     			th3.className = "svelte-128qp3s";
-    			add_location(th3, file$5, 191, 16, 5601);
+    			add_location(th3, file$5, 194, 16, 5667);
     			tr.className = "text-sm";
-    			add_location(tr, file$5, 181, 14, 5321);
-    			add_location(thead, file$5, 180, 12, 5298);
+    			add_location(tr, file$5, 184, 14, 5387);
+    			add_location(thead, file$5, 183, 12, 5364);
     			table.className = "w-full";
-    			add_location(table, file$5, 179, 10, 5262);
+    			add_location(table, file$5, 182, 10, 5328);
     			div0.className = div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-128qp3s";
-    			add_location(div0, file$5, 178, 8, 5189);
+    			add_location(div0, file$5, 181, 8, 5255);
     			div1.className = "overflow-auto w-full";
-    			add_location(div1, file$5, 177, 6, 5145);
+    			add_location(div1, file$5, 180, 6, 5211);
     		},
 
     		m: function mount(target, anchor) {
@@ -25006,7 +25072,7 @@
     	};
     }
 
-    // (197:12) {#each todayDatas as todayData}
+    // (200:12) {#each todayDatas as todayData}
     function create_each_block(ctx) {
     	var h3, t0_value = ctx.todayData[11], t0, t1, t2_value = ctx.todayData[12], t2, t3, tbody, tr, td0, t4_value = ctx.todayData[0].split(', ')[1].toLowerCase(), t4, t5, td1, t6_value = ctx.todayData[1].split(', ')[1].toLowerCase(), t6, t7, td2, t8_value = ctx.todayData[2].split(', ')[1].toLowerCase(), t8, t9, td3, t10_value = ctx.todayData[3].split(', ')[1].toLowerCase(), t10;
 
@@ -25031,18 +25097,18 @@
     			td3 = element("td");
     			t10 = text(t10_value);
     			h3.className = "text-sm text-accentColor3";
-    			add_location(h3, file$5, 197, 14, 5768);
+    			add_location(h3, file$5, 200, 14, 5834);
     			td0.className = "svelte-128qp3s";
-    			add_location(td0, file$5, 202, 18, 5969);
+    			add_location(td0, file$5, 205, 18, 6035);
     			td1.className = "svelte-128qp3s";
-    			add_location(td1, file$5, 203, 18, 6041);
+    			add_location(td1, file$5, 206, 18, 6107);
     			td2.className = "svelte-128qp3s";
-    			add_location(td2, file$5, 204, 18, 6113);
+    			add_location(td2, file$5, 207, 18, 6179);
     			td3.className = "svelte-128qp3s";
-    			add_location(td3, file$5, 205, 18, 6185);
+    			add_location(td3, file$5, 208, 18, 6251);
     			tr.className = "text-secondaryColor";
-    			add_location(tr, file$5, 201, 16, 5917);
-    			add_location(tbody, file$5, 200, 14, 5892);
+    			add_location(tr, file$5, 204, 16, 5983);
+    			add_location(tbody, file$5, 203, 14, 5958);
     		},
 
     		m: function mount(target, anchor) {
@@ -25078,7 +25144,7 @@
     	};
     }
 
-    // (175:25)         <LoadingSpinner />      {:then}
+    // (178:25)         <LoadingSpinner />      {:then}
     function create_pending_block(ctx) {
     	var current;
 
@@ -25151,20 +25217,20 @@
     			div1 = element("div");
     			canvas = element("canvas");
     			h20.className = "svelte-128qp3s";
-    			add_location(h20, file$5, 173, 4, 5057);
-    			add_location(div0, file$5, 172, 2, 5046);
+    			add_location(h20, file$5, 176, 4, 5123);
+    			add_location(div0, file$5, 175, 2, 5112);
     			h21.className = "svelte-128qp3s";
-    			add_location(h21, file$5, 215, 4, 6407);
+    			add_location(h21, file$5, 218, 4, 6473);
     			canvas.id = "putDownVsTimeToFallAsleep";
-    			add_location(canvas, file$5, 218, 8, 6542);
+    			add_location(canvas, file$5, 221, 8, 6608);
     			div1.className = div1_class_value = "" + (ctx.innerWidth >= 1024 ? 'w-full' : 'graphContainer') + " svelte-128qp3s";
-    			add_location(div1, file$5, 217, 6, 6470);
+    			add_location(div1, file$5, 220, 6, 6536);
     			div2.className = "overflow-auto w-full";
-    			add_location(div2, file$5, 216, 4, 6428);
+    			add_location(div2, file$5, 219, 4, 6494);
     			div3.className = "mt-8";
-    			add_location(div3, file$5, 214, 2, 6383);
+    			add_location(div3, file$5, 217, 2, 6449);
     			div4.className = "w-full bg-backgroundColor p-4";
-    			add_location(div4, file$5, 171, 0, 4999);
+    			add_location(div4, file$5, 174, 0, 5065);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -25279,20 +25345,20 @@
                  */
                 const year = format(new Date(), "yyyy");
 
-                for (let i = sheetData.length - 1; i > 15; i--) {
-                  const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
-                  todayDatas.push(sheetData[i]);
-                }
-
-                // for (let i = sheetData.length - 1; i > 0; i--) {
+                // for (let i = sheetData.length - 1; i > 15; i--) {
                 //   const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
-
-                //   if (isSameDay(date, new Date())) {
-                //     todayDatas.push(sheetData[i]);
-                //   } else {
-                //     break;
-                //   }
+                //   todayDatas.push(sheetData[i]);
                 // }
+
+                for (let i = sheetData.length - 1; i > 0; i--) {
+                  const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
+
+                  if (isSameDay(date, new Date())) {
+                    todayDatas.push(sheetData[i]);
+                  } else {
+                    break;
+                  }
+                }
 
                 todayDatas.reverse();
                 console.log(todayDatas);
@@ -25305,15 +25371,18 @@
         let scatterChartData = [];
 
         for (let i = 0; i < historicalDatas.length; i++) {
-          const pair = {
-            x:
-              parseInt(historicalDatas[i][5].split(":")[0] * 60) +
-              parseInt(historicalDatas[i][5].split(":")[1]),
-            y:
-              parseInt(historicalDatas[i][7].split(":")[0] * 60) +
-              parseInt(historicalDatas[i][7].split(":")[1])
-          };
-          scatterChartData.push(pair);
+          if (historicalDatas[i][11] === "Sleep") {
+            const pair = {
+              x:
+                parseInt(historicalDatas[i][5].split(":")[0] * 60) +
+                parseInt(historicalDatas[i][5].split(":")[1]),
+              y:
+                parseInt(historicalDatas[i][7].split(":")[0] * 60) +
+                parseInt(historicalDatas[i][7].split(":")[1])
+            };
+
+            scatterChartData.push(pair);
+          }
         }
 
         console.log(scatterChartData);

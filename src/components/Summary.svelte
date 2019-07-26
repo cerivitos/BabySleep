@@ -45,20 +45,20 @@
              */
             const year = format(new Date(), "yyyy");
 
-            for (let i = sheetData.length - 1; i > 15; i--) {
-              const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
-              todayDatas.push(sheetData[i]);
-            }
-
-            // for (let i = sheetData.length - 1; i > 0; i--) {
+            // for (let i = sheetData.length - 1; i > 15; i--) {
             //   const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
-
-            //   if (isSameDay(date, new Date())) {
-            //     todayDatas.push(sheetData[i]);
-            //   } else {
-            //     break;
-            //   }
+            //   todayDatas.push(sheetData[i]);
             // }
+
+            for (let i = sheetData.length - 1; i > 0; i--) {
+              const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
+
+              if (isSameDay(date, new Date())) {
+                todayDatas.push(sheetData[i]);
+              } else {
+                break;
+              }
+            }
 
             todayDatas.reverse();
             console.log(todayDatas);
@@ -71,15 +71,18 @@
     let scatterChartData = [];
 
     for (let i = 0; i < historicalDatas.length; i++) {
-      const pair = {
-        x:
-          parseInt(historicalDatas[i][5].split(":")[0] * 60) +
-          parseInt(historicalDatas[i][5].split(":")[1]),
-        y:
-          parseInt(historicalDatas[i][7].split(":")[0] * 60) +
-          parseInt(historicalDatas[i][7].split(":")[1])
-      };
-      scatterChartData.push(pair);
+      if (historicalDatas[i][11] === "Sleep") {
+        const pair = {
+          x:
+            parseInt(historicalDatas[i][5].split(":")[0] * 60) +
+            parseInt(historicalDatas[i][5].split(":")[1]),
+          y:
+            parseInt(historicalDatas[i][7].split(":")[0] * 60) +
+            parseInt(historicalDatas[i][7].split(":")[1])
+        };
+
+        scatterChartData.push(pair);
+      }
     }
 
     console.log(scatterChartData);
