@@ -357,7 +357,7 @@
         <canvas id="napSleepTime" />
       </div>
     </div>
-    <div class="overflow-auto w-full">
+    <div class="overflow-auto w-full mb-12">
       <div class={innerWidth >= 375 ? 'w-full' : 'graphContainer'}>
         <canvas id="putDownVsTimeToFallAsleep" />
       </div>

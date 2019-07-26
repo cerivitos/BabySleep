@@ -25628,10 +25628,10 @@
     			div2.className = "overflow-auto w-full mb-12";
     			add_location(div2, file$5, 326, 4, 9449);
     			canvas1.id = "putDownVsTimeToFallAsleep";
-    			add_location(canvas1, file$5, 333, 8, 9741);
+    			add_location(canvas1, file$5, 333, 8, 9747);
     			div3.className = div3_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-9cucub";
-    			add_location(div3, file$5, 332, 6, 9670);
-    			div4.className = "overflow-auto w-full";
+    			add_location(div3, file$5, 332, 6, 9676);
+    			div4.className = "overflow-auto w-full mb-12";
     			add_location(div4, file$5, 331, 4, 9628);
     			div5.className = "mt-8";
     			add_location(div5, file$5, 319, 2, 9320);
