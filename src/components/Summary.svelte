@@ -170,10 +170,12 @@
     let sleeps = [];
     let labels = [];
 
-    data.forEach(duration => {
-      naps.push(convertToMins(duration[1]));
-      sleeps.push(convertToMins(duration[2]));
-      labels.push(duration[0]);
+    data.forEach((duration, i) => {
+      if (i < historicalRows) {
+        naps.push(convertToMins(duration[1]));
+        sleeps.push(convertToMins(duration[2]));
+        labels.push(duration[0]);
+      }
     });
 
     let chart = new Chart(ctx, {
@@ -184,18 +186,21 @@
           {
             label: "Nap",
             data: naps,
-            backgroundColor: "#FF9F1C"
+            backgroundColor: "#FF9F1C",
+            borderWidth: 0
           },
           {
             label: "Sleep",
             data: sleeps,
-            backgroundColor: "#2EC4B6"
+            backgroundColor: "#2EC4B6",
+            borderWidth: 0
           }
         ]
       },
       options: {
         aspectRatio: 1,
         tooltips: {
+          bodySpacing: 4,
           callbacks: {
             label: (tooltipItem, data) => {
               if (tooltipItem.datasetIndex === 0) {
@@ -203,6 +208,20 @@
               } else {
                 return "Sleep: " + convertToDuration(tooltipItem.value);
               }
+            },
+            footer: (tooltipItem, data) => {
+              let nap = data.datasets[0].data[tooltipItem[0].index];
+              let sleep = data.datasets[1].data[tooltipItem[0].index];
+
+              if (Number.isNaN(nap)) {
+                nap = 0;
+              }
+
+              if (Number.isNaN(sleep)) {
+                sleep = 0;
+              }
+
+              return "Total: " + convertToDuration(nap + sleep);
             }
           }
         },
@@ -212,9 +231,14 @@
         scales: {
           xAxes: [
             {
+              categoryPercentage: 1.0,
+              barPercentage: 1.0,
               stacked: true,
               ticks: {
-                fontColor: "#EDF2F4"
+                fontColor: "#EDF2F4",
+                callback: function(label, index, labels) {
+                  return label.split("-")[2] + "/" + label.split("-")[1];
+                }
               },
               gridLines: {
                 color: "#8D99AE"
