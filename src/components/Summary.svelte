@@ -8,7 +8,7 @@
   import { convertToMins, convertToDuration } from "../util.js";
   import Chart from "chart.js";
 
-  const historicalRows = 20;
+  const historicalRows = 34;
   let loading = true;
   let requiresSignIn = false;
   let getTodayData;
@@ -73,21 +73,21 @@
 
             todayDatas.reverse();
 
-            plotPutDownVsTimeToFallAsleep(historicalDatas);
+            plotTWTVsFirstSleep(historicalDatas);
             plotNapSleepTime(napSleepData);
           });
       });
   }
 
-  function plotPutDownVsTimeToFallAsleep(data) {
-    const ctx = document.getElementById("putDownVsTimeToFallAsleep");
+  function plotTWTVsFirstSleep(data) {
+    const ctx = document.getElementById("TWTVsFirstSleep");
     let scatterChartData = [];
 
     for (let i = 0; i < data.length; i++) {
-      if (data[i][11] === "Sleep") {
+      if (data[i][11] === "Sleep" && data[i][12] === "1") {
         const pair = {
-          x: convertToMins(data[i][5]),
-          y: convertToMins(data[i][7])
+          x: convertToMins(data[i][6]),
+          y: convertToMins(data[i][10])
         };
 
         scatterChartData.push(pair);
@@ -119,7 +119,7 @@
       data: {
         datasets: [
           {
-            label: "Put Down vs. Time to Fall Asleep",
+            label: "TWT vs. First Sleep Duration",
             data: scatterChartData,
             pointBackgroundColor: "#2EC4B6"
           }
@@ -131,29 +131,39 @@
           callbacks: {
             label: (tooltipItem, data) => {
               return (
-                "Time to Fall Asleep: " +
-                tooltipItem.label +
-                " Put Down: " +
-                tooltipItem.value
+                "First Sleep Duration: " +
+                convertToDuration(tooltipItem.label) +
+                " TWT: " +
+                convertToDuration(tooltipItem.value)
               );
             }
           }
         },
         title: {
-          text: "Put Down vs. Time to Fall Asleep"
+          text: "TWT vs. First Sleep Duration"
         },
         scales: {
           xAxes: [
             {
               scaleLabel: {
-                labelString: "Time to Fall Asleep (min)"
+                labelString: "First Sleep Duration"
+              },
+              ticks: {
+                callback: function(label, index, labels) {
+                  return convertToDuration(label);
+                }
               }
             }
           ],
           yAxes: [
             {
               scaleLabel: {
-                labelString: "Put Down (min)"
+                labelString: "TWT"
+              },
+              ticks: {
+                callback: function(label, index, labels) {
+                  return convertToDuration(label);
+                }
               }
             }
           ]
@@ -371,7 +381,7 @@
     </div>
     <div class="overflow-auto w-full mb-12">
       <div class={innerWidth >= 375 ? 'w-full' : 'graphContainer'}>
-        <canvas id="putDownVsTimeToFallAsleep" />
+        <canvas id="TWTVsFirstSleep" />
       </div>
     </div>
   </div>
