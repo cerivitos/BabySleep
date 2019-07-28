@@ -8,7 +8,7 @@
   import { convertToMins, convertToDuration } from "../util.js";
   import Chart from "chart.js";
 
-  const historicalRows = 34;
+  const historicalRows = 100;
   let loading = true;
   let requiresSignIn = false;
   let getTodayData;
@@ -83,8 +83,16 @@
     const ctx = document.getElementById("TWTVsFirstSleep");
     let scatterChartData = [];
 
+    /**
+     * Only include data pairs where the Sleep number was 1, but ignore when the Sleep Duration was recorded as 0:00:00 or when the TWT was manually set to 0
+     */
     for (let i = 0; i < data.length; i++) {
-      if (data[i][11] === "Sleep" && data[i][12] === "1") {
+      if (
+        data[i][11] === "Sleep" &&
+        data[i][12] === "1" &&
+        data[i][6] !== "0:00:00" &&
+        data[i][10] !== "0"
+      ) {
         const pair = {
           x: convertToMins(data[i][6]),
           y: convertToMins(data[i][10])
