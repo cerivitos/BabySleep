@@ -25285,27 +25285,27 @@
     			for (var i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
-    			add_location(p0, file$5, 288, 18, 8290);
-    			th0.className = "svelte-9cucub";
-    			add_location(th0, file$5, 287, 16, 8266);
-    			add_location(p1, file$5, 291, 18, 8370);
-    			th1.className = "svelte-9cucub";
-    			add_location(th1, file$5, 290, 16, 8346);
-    			add_location(p2, file$5, 294, 18, 8453);
-    			th2.className = "svelte-9cucub";
-    			add_location(th2, file$5, 293, 16, 8429);
-    			add_location(p3, file$5, 297, 18, 8532);
-    			th3.className = "svelte-9cucub";
-    			add_location(th3, file$5, 296, 16, 8508);
+    			add_location(p0, file$5, 288, 18, 8269);
+    			th0.className = "svelte-w8nxyn";
+    			add_location(th0, file$5, 287, 16, 8245);
+    			add_location(p1, file$5, 291, 18, 8349);
+    			th1.className = "svelte-w8nxyn";
+    			add_location(th1, file$5, 290, 16, 8325);
+    			add_location(p2, file$5, 294, 18, 8432);
+    			th2.className = "svelte-w8nxyn";
+    			add_location(th2, file$5, 293, 16, 8408);
+    			add_location(p3, file$5, 297, 18, 8511);
+    			th3.className = "svelte-w8nxyn";
+    			add_location(th3, file$5, 296, 16, 8487);
     			tr.className = "text-sm";
-    			add_location(tr, file$5, 286, 14, 8228);
-    			add_location(thead, file$5, 285, 12, 8205);
+    			add_location(tr, file$5, 286, 14, 8207);
+    			add_location(thead, file$5, 285, 12, 8184);
     			table.className = "w-full";
-    			add_location(table, file$5, 284, 10, 8169);
-    			div0.className = div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-9cucub";
-    			add_location(div0, file$5, 283, 8, 8096);
+    			add_location(table, file$5, 284, 10, 8148);
+    			div0.className = div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-w8nxyn";
+    			add_location(div0, file$5, 283, 8, 8075);
     			div1.className = "overflow-auto w-full";
-    			add_location(div1, file$5, 282, 6, 8036);
+    			add_location(div1, file$5, 282, 6, 8015);
     		},
 
     		m: function mount(target, anchor) {
@@ -25356,7 +25356,7 @@
     				each_blocks.length = each_value.length;
     			}
 
-    			if ((!current || changed.innerWidth) && div0_class_value !== (div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-9cucub")) {
+    			if ((!current || changed.innerWidth) && div0_class_value !== (div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-w8nxyn")) {
     				div0.className = div0_class_value;
     			}
     		},
@@ -25453,18 +25453,18 @@
     			td3 = element("td");
     			t10 = text(t10_value);
     			h3.className = "text-sm text-accentColor3";
-    			add_location(h3, file$5, 302, 14, 8675);
-    			td0.className = "svelte-9cucub";
-    			add_location(td0, file$5, 307, 18, 8909);
-    			td1.className = "svelte-9cucub";
-    			add_location(td1, file$5, 308, 18, 8981);
-    			td2.className = "svelte-9cucub";
-    			add_location(td2, file$5, 309, 18, 9053);
-    			td3.className = "svelte-9cucub";
-    			add_location(td3, file$5, 310, 18, 9125);
+    			add_location(h3, file$5, 302, 14, 8654);
+    			td0.className = "svelte-w8nxyn";
+    			add_location(td0, file$5, 307, 18, 8888);
+    			td1.className = "svelte-w8nxyn";
+    			add_location(td1, file$5, 308, 18, 8960);
+    			td2.className = "svelte-w8nxyn";
+    			add_location(td2, file$5, 309, 18, 9032);
+    			td3.className = "svelte-w8nxyn";
+    			add_location(td3, file$5, 310, 18, 9104);
     			tr.className = "text-secondaryColor";
-    			add_location(tr, file$5, 306, 16, 8857);
-    			add_location(tbody, file$5, 305, 14, 8832);
+    			add_location(tr, file$5, 306, 16, 8836);
+    			add_location(tbody, file$5, 305, 14, 8811);
     		},
 
     		m: function mount(target, anchor) {
@@ -25507,7 +25507,7 @@
     	return {
     		c: function create() {
     			div = element("div");
-    			add_location(div, file$5, 324, 6, 9425);
+    			add_location(div, file$5, 324, 6, 9404);
     		},
 
     		m: function mount(target, anchor) {
@@ -25616,27 +25616,27 @@
     			div4 = element("div");
     			div3 = element("div");
     			canvas1 = element("canvas");
-    			h20.className = "svelte-9cucub";
-    			add_location(h20, file$5, 278, 4, 7956);
-    			add_location(div0, file$5, 277, 2, 7945);
-    			h21.className = "svelte-9cucub";
-    			add_location(h21, file$5, 320, 4, 9344);
+    			h20.className = "svelte-w8nxyn";
+    			add_location(h20, file$5, 278, 4, 7935);
+    			add_location(div0, file$5, 277, 2, 7924);
+    			h21.className = "svelte-w8nxyn";
+    			add_location(h21, file$5, 320, 4, 9323);
     			canvas0.id = "napSleepTime";
-    			add_location(canvas0, file$5, 328, 8, 9568);
-    			div1.className = div1_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-9cucub";
-    			add_location(div1, file$5, 327, 6, 9497);
+    			add_location(canvas0, file$5, 328, 8, 9547);
+    			div1.className = div1_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
+    			add_location(div1, file$5, 327, 6, 9476);
     			div2.className = "overflow-auto w-full mb-12";
-    			add_location(div2, file$5, 326, 4, 9449);
+    			add_location(div2, file$5, 326, 4, 9428);
     			canvas1.id = "putDownVsTimeToFallAsleep";
-    			add_location(canvas1, file$5, 333, 8, 9747);
-    			div3.className = div3_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-9cucub";
-    			add_location(div3, file$5, 332, 6, 9676);
+    			add_location(canvas1, file$5, 333, 8, 9726);
+    			div3.className = div3_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
+    			add_location(div3, file$5, 332, 6, 9655);
     			div4.className = "overflow-auto w-full mb-12";
-    			add_location(div4, file$5, 331, 4, 9628);
+    			add_location(div4, file$5, 331, 4, 9607);
     			div5.className = "mt-8";
-    			add_location(div5, file$5, 319, 2, 9320);
+    			add_location(div5, file$5, 319, 2, 9299);
     			div6.className = "w-full bg-backgroundColor p-4";
-    			add_location(div6, file$5, 276, 0, 7898);
+    			add_location(div6, file$5, 276, 0, 7877);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -25709,11 +25709,11 @@
     				if_block1.m(div5, t5);
     			}
 
-    			if ((!current || changed.innerWidth) && div1_class_value !== (div1_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-9cucub")) {
+    			if ((!current || changed.innerWidth) && div1_class_value !== (div1_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn")) {
     				div1.className = div1_class_value;
     			}
 
-    			if ((!current || changed.innerWidth) && div3_class_value !== (div3_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-9cucub")) {
+    			if ((!current || changed.innerWidth) && div3_class_value !== (div3_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn")) {
     				div3.className = div3_class_value;
     			}
     		},

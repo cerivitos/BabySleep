@@ -292,12 +292,10 @@
 
   .graphContainer {
     min-width: 375px;
-    scrollbar-width: none;
   }
 
   .tableContainer {
     min-width: 375px;
-    scrollbar-width: none;
   }
 </style>
 
