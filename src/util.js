@@ -42,7 +42,9 @@ export function signOut() {
  */
 export function convertToMins(duration) {
   return (
-    parseInt(duration.split(":")[0]) * 60 + parseInt(duration.split(":")[1])
+    parseInt(duration.split(":")[0]) * 60 +
+    parseInt(duration.split(":")[1]) +
+    parseInt(duration.split(":")[2]) / 60
   );
 }
 
@@ -56,9 +58,9 @@ export function convertToDuration(mins) {
   let minutes;
 
   if (mins % 60 < 10) {
-    minutes = "0" + (mins % 60);
+    minutes = "0" + Math.round(mins % 60);
   } else {
-    minutes = mins % 60;
+    minutes = Math.round(mins % 60);
   }
 
   return hours + ":" + minutes;

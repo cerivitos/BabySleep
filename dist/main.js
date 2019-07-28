@@ -4090,7 +4090,9 @@
      */
     function convertToMins(duration) {
       return (
-        parseInt(duration.split(":")[0]) * 60 + parseInt(duration.split(":")[1])
+        parseInt(duration.split(":")[0]) * 60 +
+        parseInt(duration.split(":")[1]) +
+        parseInt(duration.split(":")[2]) / 60
       );
     }
 
@@ -4104,9 +4106,9 @@
       let minutes;
 
       if (mins % 60 < 10) {
-        minutes = "0" + (mins % 60);
+        minutes = "0" + Math.round(mins % 60);
       } else {
-        minutes = mins % 60;
+        minutes = Math.round(mins % 60);
       }
 
       return hours + ":" + minutes;
@@ -25268,7 +25270,7 @@
     	return child_ctx;
     }
 
-    // (290:4) {:else}
+    // (308:4) {:else}
     function create_else_block_1$1(ctx) {
     	var div1, div0, table, t, div0_class_value, div1_transition, current;
 
@@ -25294,11 +25296,11 @@
     				each_blocks[i].c();
     			}
     			table.className = "w-full";
-    			add_location(table, file$5, 292, 10, 8488);
+    			add_location(table, file$5, 310, 10, 9112);
     			div0.className = div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-w8nxyn";
-    			add_location(div0, file$5, 291, 8, 8415);
+    			add_location(div0, file$5, 309, 8, 9039);
     			div1.className = "overflow-auto w-full";
-    			add_location(div1, file$5, 290, 6, 8355);
+    			add_location(div1, file$5, 308, 6, 8979);
     		},
 
     		m: function mount(target, anchor) {
@@ -25386,7 +25388,7 @@
     	};
     }
 
-    // (286:40) 
+    // (304:40) 
     function create_if_block_3(ctx) {
     	var p, p_transition, current;
 
@@ -25395,7 +25397,7 @@
     			p = element("p");
     			p.textContent = "Sign in to view data";
     			p.className = "text-center text-secondaryColor";
-    			add_location(p, file$5, 286, 6, 8233);
+    			add_location(p, file$5, 304, 6, 8857);
     		},
 
     		m: function mount(target, anchor) {
@@ -25431,7 +25433,7 @@
     	};
     }
 
-    // (284:4) {#if loading && !requiresSignIn}
+    // (302:4) {#if loading && !requiresSignIn}
     function create_if_block_2(ctx) {
     	var current;
 
@@ -25467,7 +25469,7 @@
     	};
     }
 
-    // (294:12) {#if todayDatas.length > 0}
+    // (312:12) {#if todayDatas.length > 0}
     function create_if_block_4(ctx) {
     	var thead, tr, th0, p0, t1, th1, p1, t3, th2, p2, t5, th3, p3;
 
@@ -25490,21 +25492,21 @@
     			th3 = element("th");
     			p3 = element("p");
     			p3.textContent = "Picked up";
-    			add_location(p0, file$5, 297, 20, 8658);
+    			add_location(p0, file$5, 315, 20, 9282);
     			th0.className = "svelte-w8nxyn";
-    			add_location(th0, file$5, 296, 18, 8632);
-    			add_location(p1, file$5, 300, 20, 8744);
+    			add_location(th0, file$5, 314, 18, 9256);
+    			add_location(p1, file$5, 318, 20, 9368);
     			th1.className = "svelte-w8nxyn";
-    			add_location(th1, file$5, 299, 18, 8718);
-    			add_location(p2, file$5, 303, 20, 8833);
+    			add_location(th1, file$5, 317, 18, 9342);
+    			add_location(p2, file$5, 321, 20, 9457);
     			th2.className = "svelte-w8nxyn";
-    			add_location(th2, file$5, 302, 18, 8807);
-    			add_location(p3, file$5, 306, 20, 8918);
+    			add_location(th2, file$5, 320, 18, 9431);
+    			add_location(p3, file$5, 324, 20, 9542);
     			th3.className = "svelte-w8nxyn";
-    			add_location(th3, file$5, 305, 18, 8892);
+    			add_location(th3, file$5, 323, 18, 9516);
     			tr.className = "text-sm";
-    			add_location(tr, file$5, 295, 16, 8592);
-    			add_location(thead, file$5, 294, 14, 8567);
+    			add_location(tr, file$5, 313, 16, 9216);
+    			add_location(thead, file$5, 312, 14, 9191);
     		},
 
     		m: function mount(target, anchor) {
@@ -25531,7 +25533,7 @@
     	};
     }
 
-    // (312:12) {#each todayDatas as todayData}
+    // (330:12) {#each todayDatas as todayData}
     function create_each_block(ctx) {
     	var h3, t0_value = ctx.todayData[11], t0, t1, t2_value = ctx.todayData[11] === 'Sleep' ? '' : ctx.todayData[12], t2, t3, tbody, tr, td0, t4_value = ctx.todayData[0].split(', ')[1].toLowerCase(), t4, t5, td1, t6_value = ctx.todayData[1].split(', ')[1].toLowerCase(), t6, t7, td2, t8_value = ctx.todayData[2].split(', ')[1].toLowerCase(), t8, t9, td3, t10_value = ctx.todayData[3].split(', ')[1].toLowerCase(), t10;
 
@@ -25556,18 +25558,18 @@
     			td3 = element("td");
     			t10 = text(t10_value);
     			h3.className = "text-sm text-accentColor3";
-    			add_location(h3, file$5, 312, 14, 9086);
+    			add_location(h3, file$5, 330, 14, 9710);
     			td0.className = "svelte-w8nxyn";
-    			add_location(td0, file$5, 317, 18, 9320);
+    			add_location(td0, file$5, 335, 18, 9944);
     			td1.className = "svelte-w8nxyn";
-    			add_location(td1, file$5, 318, 18, 9392);
+    			add_location(td1, file$5, 336, 18, 10016);
     			td2.className = "svelte-w8nxyn";
-    			add_location(td2, file$5, 319, 18, 9464);
+    			add_location(td2, file$5, 337, 18, 10088);
     			td3.className = "svelte-w8nxyn";
-    			add_location(td3, file$5, 320, 18, 9536);
+    			add_location(td3, file$5, 338, 18, 10160);
     			tr.className = "text-secondaryColor";
-    			add_location(tr, file$5, 316, 16, 9268);
-    			add_location(tbody, file$5, 315, 14, 9243);
+    			add_location(tr, file$5, 334, 16, 9892);
+    			add_location(tbody, file$5, 333, 14, 9867);
     		},
 
     		m: function mount(target, anchor) {
@@ -25603,14 +25605,14 @@
     	};
     }
 
-    // (338:4) {:else}
+    // (356:4) {:else}
     function create_else_block$1(ctx) {
     	var div;
 
     	return {
     		c: function create() {
     			div = element("div");
-    			add_location(div, file$5, 338, 6, 10006);
+    			add_location(div, file$5, 356, 6, 10630);
     		},
 
     		m: function mount(target, anchor) {
@@ -25628,7 +25630,7 @@
     	};
     }
 
-    // (334:40) 
+    // (352:40) 
     function create_if_block_1$1(ctx) {
     	var p, p_transition, current;
 
@@ -25637,7 +25639,7 @@
     			p = element("p");
     			p.textContent = "Sign in to view data";
     			p.className = "text-center text-secondaryColor";
-    			add_location(p, file$5, 334, 6, 9884);
+    			add_location(p, file$5, 352, 6, 10508);
     		},
 
     		m: function mount(target, anchor) {
@@ -25671,7 +25673,7 @@
     	};
     }
 
-    // (332:4) {#if loading && !requiresSignIn}
+    // (350:4) {#if loading && !requiresSignIn}
     function create_if_block$4(ctx) {
     	var current;
 
@@ -25767,26 +25769,26 @@
     			div3 = element("div");
     			canvas1 = element("canvas");
     			h20.className = "svelte-w8nxyn";
-    			add_location(h20, file$5, 282, 4, 8105);
-    			add_location(div0, file$5, 281, 2, 8094);
+    			add_location(h20, file$5, 300, 4, 8729);
+    			add_location(div0, file$5, 299, 2, 8718);
     			h21.className = "svelte-w8nxyn";
-    			add_location(h21, file$5, 330, 4, 9755);
+    			add_location(h21, file$5, 348, 4, 10379);
     			canvas0.id = "napSleepTime";
-    			add_location(canvas0, file$5, 342, 8, 10149);
+    			add_location(canvas0, file$5, 360, 8, 10773);
     			div1.className = div1_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
-    			add_location(div1, file$5, 341, 6, 10078);
+    			add_location(div1, file$5, 359, 6, 10702);
     			div2.className = "overflow-auto w-full mb-12";
-    			add_location(div2, file$5, 340, 4, 10030);
-    			canvas1.id = "putDownVsTimeToFallAsleep";
-    			add_location(canvas1, file$5, 347, 8, 10328);
+    			add_location(div2, file$5, 358, 4, 10654);
+    			canvas1.id = "TWTVsFirstSleep";
+    			add_location(canvas1, file$5, 365, 8, 10952);
     			div3.className = div3_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
-    			add_location(div3, file$5, 346, 6, 10257);
+    			add_location(div3, file$5, 364, 6, 10881);
     			div4.className = "overflow-auto w-full mb-12";
-    			add_location(div4, file$5, 345, 4, 10209);
+    			add_location(div4, file$5, 363, 4, 10833);
     			div5.className = "mt-8";
-    			add_location(div5, file$5, 329, 2, 9731);
+    			add_location(div5, file$5, 347, 2, 10355);
     			div6.className = "w-full bg-backgroundColor p-4";
-    			add_location(div6, file$5, 280, 0, 8047);
+    			add_location(div6, file$5, 298, 0, 8671);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -25893,17 +25895,25 @@
     	};
     }
 
-    const historicalRows = 20;
+    const historicalRows = 100;
 
-    function plotPutDownVsTimeToFallAsleep(data) {
-      const ctx = document.getElementById("putDownVsTimeToFallAsleep");
+    function plotTWTVsFirstSleep(data) {
+      const ctx = document.getElementById("TWTVsFirstSleep");
       let scatterChartData = [];
 
+      /**
+       * Only include data pairs where the Sleep number was 1, but ignore when the Sleep Duration was recorded as 0:00:00 or when the TWT was manually set to 0
+       */
       for (let i = 0; i < data.length; i++) {
-        if (data[i][11] === "Sleep") {
+        if (
+          data[i][11] === "Sleep" &&
+          data[i][12] === "1" &&
+          data[i][6] !== "0:00:00" &&
+          data[i][10] !== "0"
+        ) {
           const pair = {
-            x: convertToMins(data[i][5]),
-            y: convertToMins(data[i][7])
+            x: convertToMins(data[i][6]),
+            y: convertToMins(data[i][10])
           };
 
           scatterChartData.push(pair);
@@ -25935,7 +25945,7 @@
         data: {
           datasets: [
             {
-              label: "Put Down vs. Time to Fall Asleep",
+              label: "TWT vs. First Sleep Duration",
               data: scatterChartData,
               pointBackgroundColor: "#2EC4B6"
             }
@@ -25947,29 +25957,39 @@
             callbacks: {
               label: (tooltipItem, data) => {
                 return (
-                  "Time to Fall Asleep: " +
-                  tooltipItem.label +
-                  " Put Down: " +
-                  tooltipItem.value
+                  "First Sleep Duration: " +
+                  convertToDuration(tooltipItem.label) +
+                  " TWT: " +
+                  convertToDuration(tooltipItem.value)
                 );
               }
             }
           },
           title: {
-            text: "Put Down vs. Time to Fall Asleep"
+            text: "TWT vs. First Sleep Duration"
           },
           scales: {
             xAxes: [
               {
                 scaleLabel: {
-                  labelString: "Time to Fall Asleep (min)"
+                  labelString: "First Sleep Duration"
+                },
+                ticks: {
+                  callback: function(label, index, labels) {
+                    return convertToDuration(label);
+                  }
                 }
               }
             ],
             yAxes: [
               {
                 scaleLabel: {
-                  labelString: "Put Down (min)"
+                  labelString: "TWT"
+                },
+                ticks: {
+                  callback: function(label, index, labels) {
+                    return convertToDuration(label);
+                  }
                 }
               }
             ]
@@ -26156,7 +26176,7 @@
 
                 todayDatas.reverse();
 
-                plotPutDownVsTimeToFallAsleep(historicalDatas);
+                plotTWTVsFirstSleep(historicalDatas);
                 plotNapSleepTime(napSleepData);
               }));
           });
