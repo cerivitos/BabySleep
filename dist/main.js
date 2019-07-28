@@ -5804,7 +5804,7 @@
     			if_block1.c();
     			t3 = space();
     			div1 = element("div");
-    			div1.textContent = "v1.0";
+    			div1.textContent = "v1.1";
     			h2.className = "svelte-13hyeae";
     			add_location(h2, file$4, 102, 4, 3560);
     			div0.className = "flex items-center";

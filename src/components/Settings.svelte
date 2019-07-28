@@ -137,6 +137,6 @@
         </button>
       {/if}
     </div>
-    <div class="mt-4 w-full text-center text-primaryColor text-sm">v1.0</div>
+    <div class="mt-4 w-full text-center text-primaryColor text-sm">v1.1</div>
   </div>
 </div>

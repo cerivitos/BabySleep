@@ -1,4 +1,4 @@
-var cacheName = "babysleep-cache" + Date.now();
+var cacheName = "babysleep-cache-v1.1";
 var filesToCache = [
   "/",
   "/index.html",
