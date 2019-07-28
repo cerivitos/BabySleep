@@ -1,4 +1,4 @@
-var cacheName = "sgtoilet-cache-" + Date.now();
+var cacheName = "babysleep-cache" + Date.now();
 var filesToCache = [
   "/",
   "/index.html",
@@ -15,6 +15,7 @@ self.addEventListener("install", function(e) {
     })
   );
 });
+
 self.addEventListener("activate", e => {
   e.waitUntil(
     caches.keys().then(function(cacheNames) {
@@ -28,11 +29,11 @@ self.addEventListener("activate", e => {
     })
   );
 });
-self.addEventListener("fetch", e => {
-  e.respondWith(
-    (async function() {
-      const response = await caches.match(e.request);
-      return response || fetch(e.request);
-    })()
+
+self.addEventListener("fetch", function(event) {
+  event.respondWith(
+    fetch(event.request).catch(function() {
+      return caches.match(event.request);
+    })
   );
 });

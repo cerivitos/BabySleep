@@ -3740,7 +3740,7 @@
     const file = "src\\components\\EntryBlock.svelte";
 
     function create_fragment(ctx) {
-    	var div2, h1, t0, t1, body, div0, label0, t3, input0, input0_class_value, t4, div1, label1, t6, input1, input1_class_value, t7, div2_class_value, current, dispose;
+    	var div2, h1, t0, t1, body, div0, label0, t2, label0_for_value, t3, input0, input0_class_value, input0_id_value, t4, div1, label1, t5, label1_for_value, t6, input1, input1_class_value, input1_id_value, t7, div2_class_value, current, dispose;
 
     	const default_slot_1 = ctx.$$slots.default;
     	const default_slot = create_slot(default_slot_1, ctx, null);
@@ -3754,33 +3754,37 @@
     			body = element("body");
     			div0 = element("div");
     			label0 = element("label");
-    			label0.textContent = "DATE";
+    			t2 = text("DATE");
     			t3 = space();
     			input0 = element("input");
     			t4 = space();
     			div1 = element("div");
     			label1 = element("label");
-    			label1.textContent = "TIME";
+    			t5 = text("TIME");
     			t6 = space();
     			input1 = element("input");
     			t7 = space();
 
     			if (default_slot) default_slot.c();
+    			label0.htmlFor = label0_for_value = ctx.title.replace(/\s+/g, '').toLowerCase() + '-date';
     			label0.className = "svelte-15w8dxk";
     			add_location(label0, file, 28, 8, 1003);
     			input0.className = input0_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-15w8dxk";
     			attr(input0, "type", "date");
+    			input0.id = input0_id_value = ctx.title.replace(/\s+/g, '').toLowerCase() + '-date';
     			input0.min = ctx.minDate;
-    			add_location(input0, file, 29, 8, 1032);
+    			add_location(input0, file, 31, 8, 1110);
     			div0.className = "flex-wrap";
     			add_location(div0, file, 27, 6, 970);
+    			label1.htmlFor = label1_for_value = ctx.title.replace(/\s+/g, '').toLowerCase() + '-time';
     			label1.className = "svelte-15w8dxk";
-    			add_location(label1, file, 39, 8, 1367);
+    			add_location(label1, file, 42, 8, 1511);
     			input1.className = input1_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-15w8dxk";
     			attr(input1, "type", "time");
-    			add_location(input1, file, 40, 8, 1396);
+    			input1.id = input1_id_value = ctx.title.replace(/\s+/g, '').toLowerCase() + '-time';
+    			add_location(input1, file, 45, 8, 1618);
     			div1.className = "flex-wrap";
-    			add_location(div1, file, 38, 6, 1334);
+    			add_location(div1, file, 41, 6, 1478);
     			add_location(body, file, 26, 4, 956);
     			add_location(h1, file, 24, 2, 933);
 
@@ -3812,6 +3816,7 @@
     			append(h1, body);
     			append(body, div0);
     			append(div0, label0);
+    			append(label0, t2);
     			append(div0, t3);
     			append(div0, input0);
 
@@ -3820,6 +3825,7 @@
     			append(body, t4);
     			append(body, div1);
     			append(div1, label1);
+    			append(label1, t5);
     			append(div1, t6);
     			append(div1, input1);
 
@@ -3839,20 +3845,36 @@
     				set_data(t0, ctx.title);
     			}
 
+    			if ((!current || changed.title) && label0_for_value !== (label0_for_value = ctx.title.replace(/\s+/g, '').toLowerCase() + '-date')) {
+    				label0.htmlFor = label0_for_value;
+    			}
+
     			if (changed.date) input0.value = ctx.date;
 
     			if ((!current || changed.check) && input0_class_value !== (input0_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-15w8dxk")) {
     				input0.className = input0_class_value;
     			}
 
+    			if ((!current || changed.title) && input0_id_value !== (input0_id_value = ctx.title.replace(/\s+/g, '').toLowerCase() + '-date')) {
+    				input0.id = input0_id_value;
+    			}
+
     			if (!current || changed.minDate) {
     				input0.min = ctx.minDate;
+    			}
+
+    			if ((!current || changed.title) && label1_for_value !== (label1_for_value = ctx.title.replace(/\s+/g, '').toLowerCase() + '-time')) {
+    				label1.htmlFor = label1_for_value;
     			}
 
     			if (changed.time) input1.value = ctx.time;
 
     			if ((!current || changed.check) && input1_class_value !== (input1_class_value = "input " + (ctx.check ? 'input-ok' : 'input-error') + " svelte-15w8dxk")) {
     				input1.className = input1_class_value;
+    			}
+
+    			if ((!current || changed.title) && input1_id_value !== (input1_id_value = ctx.title.replace(/\s+/g, '').toLowerCase() + '-time')) {
+    				input1.id = input1_id_value;
     			}
 
     			if (default_slot && default_slot.p && changed.$$scope) {
