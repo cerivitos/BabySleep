@@ -43,7 +43,8 @@ export function signOut() {
 export function convertToMins(duration) {
   return (
     parseInt(duration.split(":")[0]) * 60 +
-    parseInt(duration.split(":")[1] + parseInt(duration.split(":")[2]) / 60)
+    parseInt(duration.split(":")[1]) +
+    parseInt(duration.split(":")[2]) / 60
   );
 }
 
