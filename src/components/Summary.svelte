@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
-  import { gapiInstance } from "../store/store.js";
+  import { gapiInstance, userName } from "../store/store.js";
   import LoadingSpinner from "./LoadingSpinner.svelte";
   import { credentials } from "../../credentials.js";
   import { isSameDay, format } from "date-fns";
@@ -10,6 +10,7 @@
 
   const historicalRows = 20;
   let loading = true;
+  let requiresSignIn = false;
   let getTodayData;
 
   let todayDatas = [];
@@ -266,8 +267,11 @@
     });
   }
 
-  $: if ($gapiInstance !== undefined) {
+  $: if ($userName !== undefined && $gapiInstance !== undefined) {
+    requiresSignIn = false;
     getData();
+  } else if ($gapiInstance !== undefined) {
+    requiresSignIn = true;
   }
 </script>
 
@@ -303,28 +307,34 @@
 <div class="w-full bg-backgroundColor p-4">
   <div>
     <h2>Today</h2>
-    {#if loading}
+    {#if loading && !requiresSignIn}
       <LoadingSpinner />
+    {:else if loading && requiresSignIn}
+      <p transition:fade class="text-center text-secondaryColor">
+        Sign in to view data
+      </p>
     {:else}
       <div transition:fade class="overflow-auto w-full">
         <div class={innerWidth >= 375 ? 'w-full' : 'tableContainer'}>
           <table class="w-full">
-            <thead>
-              <tr class="text-sm">
-                <th>
-                  <p>Put down</p>
-                </th>
-                <th>
-                  <p>Fell asleep</p>
-                </th>
-                <th>
-                  <p>Woke up</p>
-                </th>
-                <th>
-                  <p>Picked up</p>
-                </th>
-              </tr>
-            </thead>
+            {#if todayDatas.length > 0}
+              <thead>
+                <tr class="text-sm">
+                  <th>
+                    <p>Put down</p>
+                  </th>
+                  <th>
+                    <p>Fell asleep</p>
+                  </th>
+                  <th>
+                    <p>Woke up</p>
+                  </th>
+                  <th>
+                    <p>Picked up</p>
+                  </th>
+                </tr>
+              </thead>
+            {/if}
             {#each todayDatas as todayData}
               <h3 class="text-sm text-accentColor3">
                 {todayData[11]} {todayData[11] === 'Sleep' ? '' : todayData[12]}
@@ -345,8 +355,12 @@
   </div>
   <div class="mt-8">
     <h2>Trends</h2>
-    {#if loading}
+    {#if loading && !requiresSignIn}
       <LoadingSpinner />
+    {:else if loading && requiresSignIn}
+      <p transition:fade class="text-center text-secondaryColor">
+        Sign in to view data
+      </p>
     {:else}
       <div />
     {/if}
