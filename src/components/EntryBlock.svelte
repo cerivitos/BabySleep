@@ -51,10 +51,13 @@
     {title}
     <body>
       <div class="flex-wrap">
-        <label>DATE</label>
+        <label for={title.replace(/\s+/g, '').toLowerCase() + '-date'}>
+          DATE
+        </label>
         <input
           class="input {check ? 'input-ok' : 'input-error'}"
           type="date"
+          id={title.replace(/\s+/g, '').toLowerCase() + '-date'}
           bind:value={date}
           on:focus={() => (isFocused = true)}
           on:blur={() => (isFocused = false)}
@@ -62,10 +65,13 @@
           min={minDate} />
       </div>
       <div class="flex-wrap">
-        <label>TIME</label>
+        <label for={title.replace(/\s+/g, '').toLowerCase() + '-time'}>
+          TIME
+        </label>
         <input
           class="input {check ? 'input-ok' : 'input-error'}"
           type="time"
+          id={title.replace(/\s+/g, '').toLowerCase() + '-time'}
           bind:value={time}
           on:focus={() => (isFocused = true)}
           on:blur={() => (isFocused = false)}
