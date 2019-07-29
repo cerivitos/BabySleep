@@ -25270,126 +25270,37 @@
     	return child_ctx;
     }
 
-    // (308:4) {:else}
-    function create_else_block_1$1(ctx) {
-    	var div1, div0, table, t, div0_class_value, div1_transition, current;
-
-    	var if_block = (ctx.todayDatas.length > 0) && create_if_block_4(ctx);
-
-    	var each_value = ctx.todayDatas;
-
-    	var each_blocks = [];
-
-    	for (var i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
-    	}
+    // (322:4) {:else}
+    function create_else_block_3(ctx) {
+    	var p, t_value = getPutDownTime(ctx.todayDatas) !== ctx.undefined ? getPutDownTime(ctx.todayDatas) : 'No data yet', t, p_class_value;
 
     	return {
     		c: function create() {
-    			div1 = element("div");
-    			div0 = element("div");
-    			table = element("table");
-    			if (if_block) if_block.c();
-    			t = space();
-
-    			for (var i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].c();
-    			}
-    			table.className = "w-full";
-    			add_location(table, file$5, 310, 10, 9112);
-    			div0.className = div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-w8nxyn";
-    			add_location(div0, file$5, 309, 8, 9039);
-    			div1.className = "overflow-auto w-full";
-    			add_location(div1, file$5, 308, 6, 8979);
+    			p = element("p");
+    			t = text(t_value);
+    			p.className = p_class_value = "w-full text-center " + (getPutDownTime(ctx.todayDatas) !== ctx.undefined ? 'text-accentColor3 font-bold text-2xl' : 'text-secondaryColor') + "\r\n        " + " svelte-w8nxyn";
+    			add_location(p, file$5, 322, 6, 9327);
     		},
 
     		m: function mount(target, anchor) {
-    			insert(target, div1, anchor);
-    			append(div1, div0);
-    			append(div0, table);
-    			if (if_block) if_block.m(table, null);
-    			append(table, t);
-
-    			for (var i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(table, null);
-    			}
-
-    			current = true;
+    			insert(target, p, anchor);
+    			append(p, t);
     		},
 
-    		p: function update(changed, ctx) {
-    			if (ctx.todayDatas.length > 0) {
-    				if (!if_block) {
-    					if_block = create_if_block_4(ctx);
-    					if_block.c();
-    					if_block.m(table, t);
-    				}
-    			} else if (if_block) {
-    				if_block.d(1);
-    				if_block = null;
-    			}
-
-    			if (changed.todayDatas) {
-    				each_value = ctx.todayDatas;
-
-    				for (var i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context(ctx, each_value, i);
-
-    					if (each_blocks[i]) {
-    						each_blocks[i].p(changed, child_ctx);
-    					} else {
-    						each_blocks[i] = create_each_block(child_ctx);
-    						each_blocks[i].c();
-    						each_blocks[i].m(table, null);
-    					}
-    				}
-
-    				for (; i < each_blocks.length; i += 1) {
-    					each_blocks[i].d(1);
-    				}
-    				each_blocks.length = each_value.length;
-    			}
-
-    			if ((!current || changed.innerWidth) && div0_class_value !== (div0_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'tableContainer') + " svelte-w8nxyn")) {
-    				div0.className = div0_class_value;
-    			}
-    		},
-
-    		i: function intro(local) {
-    			if (current) return;
-    			add_render_callback(() => {
-    				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, true);
-    				div1_transition.run(1);
-    			});
-
-    			current = true;
-    		},
-
-    		o: function outro(local) {
-    			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, false);
-    			div1_transition.run(0);
-
-    			current = false;
-    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach(div1);
-    			}
-
-    			if (if_block) if_block.d();
-
-    			destroy_each(each_blocks, detaching);
-
-    			if (detaching) {
-    				if (div1_transition) div1_transition.end();
+    				detach(p);
     			}
     		}
     	};
     }
 
-    // (304:40) 
-    function create_if_block_3(ctx) {
+    // (318:40) 
+    function create_if_block_6(ctx) {
     	var p, p_transition, current;
 
     	return {
@@ -25397,7 +25308,7 @@
     			p = element("p");
     			p.textContent = "Sign in to view data";
     			p.className = "text-center text-secondaryColor";
-    			add_location(p, file$5, 304, 6, 8857);
+    			add_location(p, file$5, 318, 6, 9205);
     		},
 
     		m: function mount(target, anchor) {
@@ -25433,7 +25344,210 @@
     	};
     }
 
-    // (302:4) {#if loading && !requiresSignIn}
+    // (316:4) {#if loading && !requiresSignIn}
+    function create_if_block_5(ctx) {
+    	var current;
+
+    	var loadingspinner = new LoadingSpinner({ $$inline: true });
+
+    	return {
+    		c: function create() {
+    			loadingspinner.$$.fragment.c();
+    		},
+
+    		m: function mount(target, anchor) {
+    			mount_component(loadingspinner, target, anchor);
+    			current = true;
+    		},
+
+    		p: noop,
+
+    		i: function intro(local) {
+    			if (current) return;
+    			loadingspinner.$$.fragment.i(local);
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			loadingspinner.$$.fragment.o(local);
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			loadingspinner.$destroy(detaching);
+    		}
+    	};
+    }
+
+    // (338:4) {:else}
+    function create_else_block_1$1(ctx) {
+    	var div1, div0, table, t, div0_class_value, div1_transition, current;
+
+    	function select_block_type_2(ctx) {
+    		if (ctx.todayDatas.length > 0) return create_if_block_4;
+    		return create_else_block_2;
+    	}
+
+    	var current_block_type = select_block_type_2(ctx);
+    	var if_block = current_block_type(ctx);
+
+    	var each_value = ctx.todayDatas;
+
+    	var each_blocks = [];
+
+    	for (var i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    	}
+
+    	return {
+    		c: function create() {
+    			div1 = element("div");
+    			div0 = element("div");
+    			table = element("table");
+    			if_block.c();
+    			t = space();
+
+    			for (var i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+    			table.className = "w-full";
+    			add_location(table, file$5, 341, 10, 10063);
+    			div0.className = div0_class_value = "" + (ctx.innerWidth >= 375 || ctx.todayDatas.length === 0 ? 'w-full' : 'tableContainer') + " svelte-w8nxyn";
+    			add_location(div0, file$5, 339, 8, 9952);
+    			div1.className = "overflow-auto w-full";
+    			add_location(div1, file$5, 338, 6, 9892);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div1, anchor);
+    			append(div1, div0);
+    			append(div0, table);
+    			if_block.m(table, null);
+    			append(table, t);
+
+    			for (var i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(table, null);
+    			}
+
+    			current = true;
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (current_block_type !== (current_block_type = select_block_type_2(ctx))) {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(table, t);
+    				}
+    			}
+
+    			if (changed.todayDatas) {
+    				each_value = ctx.todayDatas;
+
+    				for (var i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(changed, child_ctx);
+    					} else {
+    						each_blocks[i] = create_each_block(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(table, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+    				each_blocks.length = each_value.length;
+    			}
+
+    			if ((!current || changed.innerWidth) && div0_class_value !== (div0_class_value = "" + (ctx.innerWidth >= 375 || ctx.todayDatas.length === 0 ? 'w-full' : 'tableContainer') + " svelte-w8nxyn")) {
+    				div0.className = div0_class_value;
+    			}
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			add_render_callback(() => {
+    				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, true);
+    				div1_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, false);
+    			div1_transition.run(0);
+
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div1);
+    			}
+
+    			if_block.d();
+
+    			destroy_each(each_blocks, detaching);
+
+    			if (detaching) {
+    				if (div1_transition) div1_transition.end();
+    			}
+    		}
+    	};
+    }
+
+    // (334:40) 
+    function create_if_block_3(ctx) {
+    	var p, p_transition, current;
+
+    	return {
+    		c: function create() {
+    			p = element("p");
+    			p.textContent = "Sign in to view data";
+    			p.className = "text-center text-secondaryColor";
+    			add_location(p, file$5, 334, 6, 9770);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, p, anchor);
+    			current = true;
+    		},
+
+    		p: noop,
+
+    		i: function intro(local) {
+    			if (current) return;
+    			add_render_callback(() => {
+    				if (!p_transition) p_transition = create_bidirectional_transition(p, fade, {}, true);
+    				p_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			if (!p_transition) p_transition = create_bidirectional_transition(p, fade, {}, false);
+    			p_transition.run(0);
+
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(p);
+    				if (p_transition) p_transition.end();
+    			}
+    		}
+    	};
+    }
+
+    // (332:4) {#if loading && !requiresSignIn}
     function create_if_block_2(ctx) {
     	var current;
 
@@ -25469,7 +25583,34 @@
     	};
     }
 
-    // (312:12) {#if todayDatas.length > 0}
+    // (360:12) {:else}
+    function create_else_block_2(ctx) {
+    	var div, p;
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			p = element("p");
+    			p.textContent = "No data yet";
+    			add_location(p, file$5, 361, 16, 10688);
+    			div.className = "text-center text-secondaryColor w-full";
+    			add_location(div, file$5, 360, 14, 10618);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    			append(div, p);
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    			}
+    		}
+    	};
+    }
+
+    // (343:12) {#if todayDatas.length > 0}
     function create_if_block_4(ctx) {
     	var thead, tr, th0, p0, t1, th1, p1, t3, th2, p2, t5, th3, p3;
 
@@ -25492,21 +25633,21 @@
     			th3 = element("th");
     			p3 = element("p");
     			p3.textContent = "Picked up";
-    			add_location(p0, file$5, 315, 20, 9282);
+    			add_location(p0, file$5, 346, 20, 10233);
     			th0.className = "svelte-w8nxyn";
-    			add_location(th0, file$5, 314, 18, 9256);
-    			add_location(p1, file$5, 318, 20, 9368);
+    			add_location(th0, file$5, 345, 18, 10207);
+    			add_location(p1, file$5, 349, 20, 10319);
     			th1.className = "svelte-w8nxyn";
-    			add_location(th1, file$5, 317, 18, 9342);
-    			add_location(p2, file$5, 321, 20, 9457);
+    			add_location(th1, file$5, 348, 18, 10293);
+    			add_location(p2, file$5, 352, 20, 10408);
     			th2.className = "svelte-w8nxyn";
-    			add_location(th2, file$5, 320, 18, 9431);
-    			add_location(p3, file$5, 324, 20, 9542);
+    			add_location(th2, file$5, 351, 18, 10382);
+    			add_location(p3, file$5, 355, 20, 10493);
     			th3.className = "svelte-w8nxyn";
-    			add_location(th3, file$5, 323, 18, 9516);
+    			add_location(th3, file$5, 354, 18, 10467);
     			tr.className = "text-sm";
-    			add_location(tr, file$5, 313, 16, 9216);
-    			add_location(thead, file$5, 312, 14, 9191);
+    			add_location(tr, file$5, 344, 16, 10167);
+    			add_location(thead, file$5, 343, 14, 10142);
     		},
 
     		m: function mount(target, anchor) {
@@ -25533,7 +25674,7 @@
     	};
     }
 
-    // (330:12) {#each todayDatas as todayData}
+    // (365:12) {#each todayDatas as todayData}
     function create_each_block(ctx) {
     	var h3, t0_value = ctx.todayData[11], t0, t1, t2_value = ctx.todayData[11] === 'Sleep' ? '' : ctx.todayData[12], t2, t3, tbody, tr, td0, t4_value = ctx.todayData[0].split(', ')[1].toLowerCase(), t4, t5, td1, t6_value = ctx.todayData[1].split(', ')[1].toLowerCase(), t6, t7, td2, t8_value = ctx.todayData[2].split(', ')[1].toLowerCase(), t8, t9, td3, t10_value = ctx.todayData[3].split(', ')[1].toLowerCase(), t10;
 
@@ -25558,18 +25699,18 @@
     			td3 = element("td");
     			t10 = text(t10_value);
     			h3.className = "text-sm text-accentColor3";
-    			add_location(h3, file$5, 330, 14, 9710);
+    			add_location(h3, file$5, 365, 14, 10808);
     			td0.className = "svelte-w8nxyn";
-    			add_location(td0, file$5, 335, 18, 9944);
+    			add_location(td0, file$5, 370, 18, 11042);
     			td1.className = "svelte-w8nxyn";
-    			add_location(td1, file$5, 336, 18, 10016);
+    			add_location(td1, file$5, 371, 18, 11114);
     			td2.className = "svelte-w8nxyn";
-    			add_location(td2, file$5, 337, 18, 10088);
+    			add_location(td2, file$5, 372, 18, 11186);
     			td3.className = "svelte-w8nxyn";
-    			add_location(td3, file$5, 338, 18, 10160);
+    			add_location(td3, file$5, 373, 18, 11258);
     			tr.className = "text-secondaryColor";
-    			add_location(tr, file$5, 334, 16, 9892);
-    			add_location(tbody, file$5, 333, 14, 9867);
+    			add_location(tr, file$5, 369, 16, 10990);
+    			add_location(tbody, file$5, 368, 14, 10965);
     		},
 
     		m: function mount(target, anchor) {
@@ -25605,14 +25746,14 @@
     	};
     }
 
-    // (356:4) {:else}
+    // (391:4) {:else}
     function create_else_block$1(ctx) {
     	var div;
 
     	return {
     		c: function create() {
     			div = element("div");
-    			add_location(div, file$5, 356, 6, 10630);
+    			add_location(div, file$5, 391, 6, 11728);
     		},
 
     		m: function mount(target, anchor) {
@@ -25630,7 +25771,7 @@
     	};
     }
 
-    // (352:40) 
+    // (387:40) 
     function create_if_block_1$1(ctx) {
     	var p, p_transition, current;
 
@@ -25639,7 +25780,7 @@
     			p = element("p");
     			p.textContent = "Sign in to view data";
     			p.className = "text-center text-secondaryColor";
-    			add_location(p, file$5, 352, 6, 10508);
+    			add_location(p, file$5, 387, 6, 11606);
     		},
 
     		m: function mount(target, anchor) {
@@ -25673,7 +25814,7 @@
     	};
     }
 
-    // (350:4) {#if loading && !requiresSignIn}
+    // (385:4) {#if loading && !requiresSignIn}
     function create_if_block$4(ctx) {
     	var current;
 
@@ -25708,14 +25849,14 @@
     }
 
     function create_fragment$5(ctx) {
-    	var div6, div0, h20, t1, current_block_type_index, if_block0, t2, div5, h21, t4, current_block_type_index_1, if_block1, t5, div2, div1, canvas0, div1_class_value, t6, div4, div3, canvas1, div3_class_value, current, dispose;
+    	var div7, div0, h20, t1, current_block_type_index, if_block0, t2, div1, h21, t4, current_block_type_index_1, if_block1, t5, div6, h22, t7, current_block_type_index_2, if_block2, t8, div3, div2, canvas0, div2_class_value, t9, div5, div4, canvas1, div4_class_value, current, dispose;
 
     	add_render_callback(ctx.onwindowresize);
 
     	var if_block_creators = [
-    		create_if_block_2,
-    		create_if_block_3,
-    		create_else_block_1$1
+    		create_if_block_5,
+    		create_if_block_6,
+    		create_else_block_3
     	];
 
     	var if_blocks = [];
@@ -25730,9 +25871,9 @@
     	if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
 
     	var if_block_creators_1 = [
-    		create_if_block$4,
-    		create_if_block_1$1,
-    		create_else_block$1
+    		create_if_block_2,
+    		create_if_block_3,
+    		create_else_block_1$1
     	];
 
     	var if_blocks_1 = [];
@@ -25746,49 +25887,76 @@
     	current_block_type_index_1 = select_block_type_1(ctx);
     	if_block1 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx);
 
+    	var if_block_creators_2 = [
+    		create_if_block$4,
+    		create_if_block_1$1,
+    		create_else_block$1
+    	];
+
+    	var if_blocks_2 = [];
+
+    	function select_block_type_3(ctx) {
+    		if (ctx.loading && !ctx.requiresSignIn) return 0;
+    		if (ctx.loading && ctx.requiresSignIn) return 1;
+    		return 2;
+    	}
+
+    	current_block_type_index_2 = select_block_type_3(ctx);
+    	if_block2 = if_blocks_2[current_block_type_index_2] = if_block_creators_2[current_block_type_index_2](ctx);
+
     	return {
     		c: function create() {
-    			div6 = element("div");
+    			div7 = element("div");
     			div0 = element("div");
     			h20 = element("h2");
-    			h20.textContent = "Today";
+    			h20.textContent = "Next Put Down";
     			t1 = space();
     			if_block0.c();
     			t2 = space();
-    			div5 = element("div");
+    			div1 = element("div");
     			h21 = element("h2");
-    			h21.textContent = "Trends";
+    			h21.textContent = "Today";
     			t4 = space();
     			if_block1.c();
     			t5 = space();
-    			div2 = element("div");
-    			div1 = element("div");
-    			canvas0 = element("canvas");
-    			t6 = space();
-    			div4 = element("div");
+    			div6 = element("div");
+    			h22 = element("h2");
+    			h22.textContent = "Trends";
+    			t7 = space();
+    			if_block2.c();
+    			t8 = space();
     			div3 = element("div");
+    			div2 = element("div");
+    			canvas0 = element("canvas");
+    			t9 = space();
+    			div5 = element("div");
+    			div4 = element("div");
     			canvas1 = element("canvas");
     			h20.className = "svelte-w8nxyn";
-    			add_location(h20, file$5, 300, 4, 8729);
-    			add_location(div0, file$5, 299, 2, 8718);
+    			add_location(h20, file$5, 314, 4, 9069);
+    			add_location(div0, file$5, 313, 2, 9058);
     			h21.className = "svelte-w8nxyn";
-    			add_location(h21, file$5, 348, 4, 10379);
+    			add_location(h21, file$5, 330, 4, 9642);
+    			div1.className = "mt-8";
+    			add_location(div1, file$5, 329, 2, 9618);
+    			h22.className = "svelte-w8nxyn";
+    			add_location(h22, file$5, 383, 4, 11477);
     			canvas0.id = "napSleepTime";
-    			add_location(canvas0, file$5, 360, 8, 10773);
-    			div1.className = div1_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
-    			add_location(div1, file$5, 359, 6, 10702);
-    			div2.className = "overflow-auto w-full mb-12";
-    			add_location(div2, file$5, 358, 4, 10654);
+    			add_location(canvas0, file$5, 395, 8, 11871);
+    			div2.className = div2_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
+    			add_location(div2, file$5, 394, 6, 11800);
+    			div3.className = "overflow-auto w-full mb-12";
+    			add_location(div3, file$5, 393, 4, 11752);
     			canvas1.id = "TWTVsFirstSleep";
-    			add_location(canvas1, file$5, 365, 8, 10952);
-    			div3.className = div3_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
-    			add_location(div3, file$5, 364, 6, 10881);
-    			div4.className = "overflow-auto w-full mb-12";
-    			add_location(div4, file$5, 363, 4, 10833);
-    			div5.className = "mt-8";
-    			add_location(div5, file$5, 347, 2, 10355);
-    			div6.className = "w-full bg-backgroundColor p-4";
-    			add_location(div6, file$5, 298, 0, 8671);
+    			add_location(canvas1, file$5, 400, 8, 12050);
+    			div4.className = div4_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
+    			add_location(div4, file$5, 399, 6, 11979);
+    			div5.className = "overflow-auto w-full mb-12";
+    			add_location(div5, file$5, 398, 4, 11931);
+    			div6.className = "mt-8";
+    			add_location(div6, file$5, 382, 2, 11453);
+    			div7.className = "w-full bg-backgroundColor p-4";
+    			add_location(div7, file$5, 312, 0, 9011);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -25797,24 +25965,29 @@
     		},
 
     		m: function mount(target, anchor) {
-    			insert(target, div6, anchor);
-    			append(div6, div0);
+    			insert(target, div7, anchor);
+    			append(div7, div0);
     			append(div0, h20);
     			append(div0, t1);
     			if_blocks[current_block_type_index].m(div0, null);
-    			append(div6, t2);
+    			append(div7, t2);
+    			append(div7, div1);
+    			append(div1, h21);
+    			append(div1, t4);
+    			if_blocks_1[current_block_type_index_1].m(div1, null);
+    			append(div7, t5);
+    			append(div7, div6);
+    			append(div6, h22);
+    			append(div6, t7);
+    			if_blocks_2[current_block_type_index_2].m(div6, null);
+    			append(div6, t8);
+    			append(div6, div3);
+    			append(div3, div2);
+    			append(div2, canvas0);
+    			append(div6, t9);
     			append(div6, div5);
-    			append(div5, h21);
-    			append(div5, t4);
-    			if_blocks_1[current_block_type_index_1].m(div5, null);
-    			append(div5, t5);
-    			append(div5, div2);
-    			append(div2, div1);
-    			append(div1, canvas0);
-    			append(div5, t6);
     			append(div5, div4);
-    			append(div4, div3);
-    			append(div3, canvas1);
+    			append(div4, canvas1);
     			current = true;
     		},
 
@@ -25843,7 +26016,9 @@
 
     			var previous_block_index_1 = current_block_type_index_1;
     			current_block_type_index_1 = select_block_type_1(ctx);
-    			if (current_block_type_index_1 !== previous_block_index_1) {
+    			if (current_block_type_index_1 === previous_block_index_1) {
+    				if_blocks_1[current_block_type_index_1].p(changed, ctx);
+    			} else {
     				group_outros();
     				on_outro(() => {
     					if_blocks_1[previous_block_index_1].d(1);
@@ -25858,15 +26033,35 @@
     					if_block1.c();
     				}
     				if_block1.i(1);
-    				if_block1.m(div5, t5);
+    				if_block1.m(div1, null);
     			}
 
-    			if ((!current || changed.innerWidth) && div1_class_value !== (div1_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn")) {
-    				div1.className = div1_class_value;
+    			var previous_block_index_2 = current_block_type_index_2;
+    			current_block_type_index_2 = select_block_type_3(ctx);
+    			if (current_block_type_index_2 !== previous_block_index_2) {
+    				group_outros();
+    				on_outro(() => {
+    					if_blocks_2[previous_block_index_2].d(1);
+    					if_blocks_2[previous_block_index_2] = null;
+    				});
+    				if_block2.o(1);
+    				check_outros();
+
+    				if_block2 = if_blocks_2[current_block_type_index_2];
+    				if (!if_block2) {
+    					if_block2 = if_blocks_2[current_block_type_index_2] = if_block_creators_2[current_block_type_index_2](ctx);
+    					if_block2.c();
+    				}
+    				if_block2.i(1);
+    				if_block2.m(div6, t8);
     			}
 
-    			if ((!current || changed.innerWidth) && div3_class_value !== (div3_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn")) {
-    				div3.className = div3_class_value;
+    			if ((!current || changed.innerWidth) && div2_class_value !== (div2_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn")) {
+    				div2.className = div2_class_value;
+    			}
+
+    			if ((!current || changed.innerWidth) && div4_class_value !== (div4_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn")) {
+    				div4.className = div4_class_value;
     			}
     		},
 
@@ -25874,28 +26069,41 @@
     			if (current) return;
     			if (if_block0) if_block0.i();
     			if (if_block1) if_block1.i();
+    			if (if_block2) if_block2.i();
     			current = true;
     		},
 
     		o: function outro(local) {
     			if (if_block0) if_block0.o();
     			if (if_block1) if_block1.o();
+    			if (if_block2) if_block2.o();
     			current = false;
     		},
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach(div6);
+    				detach(div7);
     			}
 
     			if_blocks[current_block_type_index].d();
     			if_blocks_1[current_block_type_index_1].d();
+    			if_blocks_2[current_block_type_index_2].d();
     			dispose();
     		}
     	};
     }
 
     const historicalRows = 100;
+
+    function getPutDownTime(data) {
+      let nextPutDown;
+
+      if (data.length > 0) {
+        nextPutDown = data[data.length - 1][4].split(", ")[1];
+      }
+
+      return nextPutDown;
+    }
 
     function plotTWTVsFirstSleep(data) {
       const ctx = document.getElementById("TWTVsFirstSleep");
@@ -26200,6 +26408,7 @@
     		requiresSignIn,
     		todayDatas,
     		innerWidth,
+    		undefined,
     		onwindowresize
     	};
     }
