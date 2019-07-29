@@ -79,6 +79,20 @@
       });
   }
 
+  /**
+   * @param {string[]} data Array of sheet data
+   * @returns {string} The time component of the put down time, formatted as a string
+   */
+  function getPutDownTime(data) {
+    let nextPutDown;
+
+    if (data.length > 0) {
+      nextPutDown = data[data.length - 1][4].split(", ")[1];
+    }
+
+    return nextPutDown;
+  }
+
   function plotTWTVsFirstSleep(data) {
     const ctx = document.getElementById("TWTVsFirstSleep");
     let scatterChartData = [];
@@ -324,6 +338,22 @@
 <svelte:window bind:innerWidth />
 <div class="w-full bg-backgroundColor p-4">
   <div>
+    <h2>Next Put Down</h2>
+    {#if loading && !requiresSignIn}
+      <LoadingSpinner />
+    {:else if loading && requiresSignIn}
+      <p transition:fade class="text-center text-secondaryColor">
+        Sign in to view data
+      </p>
+    {:else}
+      <p
+        class="w-full text-center {getPutDownTime(todayDatas) !== undefined ? 'text-accentColor3 font-bold text-2xl' : 'text-secondaryColor'}
+        ">
+        {getPutDownTime(todayDatas) !== undefined ? getPutDownTime(todayDatas) : 'No data yet'}
+      </p>
+    {/if}
+  </div>
+  <div class="mt-8">
     <h2>Today</h2>
     {#if loading && !requiresSignIn}
       <LoadingSpinner />
@@ -333,7 +363,8 @@
       </p>
     {:else}
       <div transition:fade class="overflow-auto w-full">
-        <div class={innerWidth >= 375 ? 'w-full' : 'tableContainer'}>
+        <div
+          class={innerWidth >= 375 || todayDatas.length === 0 ? 'w-full' : 'tableContainer'}>
           <table class="w-full">
             {#if todayDatas.length > 0}
               <thead>
@@ -352,6 +383,10 @@
                   </th>
                 </tr>
               </thead>
+            {:else}
+              <div class="text-center text-secondaryColor w-full">
+                <p>No data yet</p>
+              </div>
             {/if}
             {#each todayDatas as todayData}
               <h3 class="text-sm text-accentColor3">
