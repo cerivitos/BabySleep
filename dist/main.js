@@ -26488,60 +26488,60 @@
     			span2.textContent = "Settings";
 
     			div0.className = "mb-8";
-    			add_location(div0, file$6, 30, 2, 1387);
+    			add_location(div0, file$6, 42, 2, 1581);
     			attr(path0, "d", "M80.197,44.939v-9.746c0-1.761,1.433-3.193,3.193-3.193h60.053c1.761,0,3.193,1.433,3.193,3.193v9.746\r\n          c0,1.761-1.433,3.193-3.193,3.193H83.391C81.63,48.133,80.197,46.7,80.197,44.939z\r\n          M131.841,17c-0.768-9.5-8.729-17-18.424-17\r\n          S95.761,7.5,94.993,17H131.841z\r\n          M192.309,55.334v151.333c0,11.12-9.047,20.167-20.167,20.167H54.692\r\n          c-11.12,0-20.167-9.047-20.167-20.167V55.334c0-11.12,9.047-20.167,20.167-20.167h10.506c0,0.009-0.001,0.018-0.001,0.026v9.746\r\n          c0,10.032,8.162,18.193,18.193,18.193h60.053c10.032,0,18.193-8.161,18.193-18.193v-9.746c0-0.009-0.001-0.018-0.001-0.026h10.506\r\n          C183.262,35.167,192.309,44.214,192.309,55.334z\r\n          M88.183,143.449c-3.526-2.173-8.147-1.077-10.32,2.449l-7.092,11.504l-3.661-2.884\r\n          c-3.252-2.563-7.97-2.002-10.532,1.252c-2.563,3.255-2.002,7.97,1.252,10.533l10.271,8.089c1.332,1.049,2.969,1.607,4.64,1.607\r\n          c0.436,0,0.875-0.038,1.311-0.115c2.105-0.374,3.952-1.629,5.074-3.449l11.506-18.666C92.806,150.243,91.709,145.623,88.183,143.449\r\n          z\r\n          M88.183,89.449c-3.526-2.174-8.147-1.076-10.32,2.449l-7.092,11.504l-3.661-2.884c-3.252-2.562-7.97-2.002-10.532,1.252\r\n          c-2.563,3.255-2.002,7.97,1.252,10.533l10.271,8.089c1.332,1.049,2.969,1.607,4.64,1.607c0.436,0,0.875-0.038,1.311-0.115\r\n          c2.105-0.374,3.952-1.629,5.074-3.449L90.632,99.77C92.806,96.243,91.709,91.623,88.183,89.449z\r\n          M165.858,168.5\r\n          c0-4.143-3.357-7.5-7.5-7.5h-49c-4.142,0-7.5,3.357-7.5,7.5s3.358,7.5,7.5,7.5h49C162.501,176,165.858,172.643,165.858,168.5z\r\n          M165.858,114.5c0-4.143-3.357-7.5-7.5-7.5h-49c-4.142,0-7.5,3.357-7.5,7.5s3.358,7.5,7.5,7.5h49\r\n          C162.501,122,165.858,118.643,165.858,114.5z");
-    			add_location(path0, file$6, 41, 8, 1697);
+    			add_location(path0, file$6, 53, 8, 1891);
     			attr(svg0, "class", "icon svelte-66w5rm");
     			attr(svg0, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg0, "viewBox", "0 0 226.834 226.834");
-    			add_location(svg0, file$6, 37, 6, 1577);
-    			add_location(span0, file$6, 62, 6, 3489);
+    			add_location(svg0, file$6, 49, 6, 1771);
+    			add_location(span0, file$6, 74, 6, 3683);
     			button0.className = button0_class_value = "button " + (ctx.$showEntry ? 'selected' : '') + " svelte-66w5rm";
-    			add_location(button0, file$6, 34, 4, 1463);
+    			add_location(button0, file$6, 46, 4, 1657);
     			attr(path1, "d", "M534.75,68.238c-8.945-8.945-19.694-13.417-32.261-13.417H45.681c-12.562,0-23.313,4.471-32.264,13.417\r\n          C4.471,77.185,0,87.936,0,100.499v347.173c0,12.566,4.471,23.318,13.417,32.264c8.951,8.946,19.702,13.419,32.264,13.419h456.815\r\n          c12.56,0,23.312-4.473,32.258-13.419c8.945-8.945,13.422-19.697,13.422-32.264V100.499\r\n          C548.176,87.936,543.699,77.185,534.75,68.238z\r\n          M511.627,447.672c0,2.478-0.903,4.62-2.711,6.427\r\n          c-1.81,1.807-3.952,2.71-6.427,2.71H45.681c-2.473,0-4.615-0.903-6.423-2.71c-1.807-1.813-2.712-3.949-2.712-6.427V100.499\r\n          c0-2.474,0.902-4.611,2.712-6.423c1.809-1.804,3.951-2.708,6.423-2.708h456.815c2.471,0,4.613,0.902,6.42,2.708\r\n          c1.808,1.812,2.711,3.949,2.711,6.423V447.672L511.627,447.672z");
-    			add_location(path1, file$6, 71, 8, 3766);
+    			add_location(path1, file$6, 83, 8, 3960);
     			attr(rect0, "x", "73.092");
     			attr(rect0, "y", "310.635");
     			attr(rect0, "width", "73.089");
     			attr(rect0, "height", "109.632");
-    			add_location(rect0, file$6, 80, 8, 4568);
+    			add_location(rect0, file$6, 92, 8, 4762);
     			attr(rect1, "x", "182.728");
     			attr(rect1, "y", "164.452");
     			attr(rect1, "width", "73.085");
     			attr(rect1, "height", "255.814");
-    			add_location(rect1, file$6, 81, 8, 4641);
+    			add_location(rect1, file$6, 93, 8, 4835);
     			attr(rect2, "x", "292.362");
     			attr(rect2, "y", "237.541");
     			attr(rect2, "width", "73.083");
     			attr(rect2, "height", "182.726");
-    			add_location(rect2, file$6, 82, 8, 4715);
+    			add_location(rect2, file$6, 94, 8, 4909);
     			attr(rect3, "x", "401.994");
     			attr(rect3, "y", "127.907");
     			attr(rect3, "width", "73.091");
     			attr(rect3, "height", "292.36");
-    			add_location(rect3, file$6, 83, 8, 4789);
+    			add_location(rect3, file$6, 95, 8, 4983);
     			attr(svg1, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg1, "class", "icon svelte-66w5rm");
     			attr(svg1, "viewBox", "0 0 548.176 548.176");
-    			add_location(svg1, file$6, 67, 6, 3646);
-    			add_location(span1, file$6, 85, 6, 4874);
+    			add_location(svg1, file$6, 79, 6, 3840);
+    			add_location(span1, file$6, 97, 6, 5068);
     			button1.className = button1_class_value = "button " + (ctx.$showSummary ? 'selected' : '') + " svelte-66w5rm";
-    			add_location(button1, file$6, 64, 4, 3528);
+    			add_location(button1, file$6, 76, 4, 3722);
     			set_style(path2, "fill-rule", "evenodd");
     			set_style(path2, "clip-rule", "evenodd");
     			attr(path2, "d", "M267.92,119.461c-0.425-3.778-4.83-6.617-8.639-6.617\r\n          c-12.315,0-23.243-7.231-27.826-18.414c-4.682-11.454-1.663-24.812,7.515-33.231c2.889-2.641,3.24-7.062,0.817-10.133\r\n          c-6.303-8.004-13.467-15.234-21.289-21.5c-3.063-2.458-7.557-2.116-10.213,0.825c-8.01,8.871-22.398,12.168-33.516,7.529\r\n          c-11.57-4.867-18.866-16.591-18.152-29.176c0.235-3.953-2.654-7.39-6.595-7.849c-10.038-1.161-20.164-1.197-30.232-0.08\r\n          c-3.896,0.43-6.785,3.786-6.654,7.689c0.438,12.461-6.946,23.98-18.401,28.672c-10.985,4.487-25.272,1.218-33.266-7.574\r\n          c-2.642-2.896-7.063-3.252-10.141-0.853c-8.054,6.319-15.379,13.555-21.74,21.493c-2.481,3.086-2.116,7.559,0.802,10.214\r\n          c9.353,8.47,12.373,21.944,7.514,33.53c-4.639,11.046-16.109,18.165-29.24,18.165c-4.261-0.137-7.296,2.723-7.762,6.597\r\n          c-1.182,10.096-1.196,20.383-0.058,30.561c0.422,3.794,4.961,6.608,8.812,6.608c11.702-0.299,22.937,6.946,27.65,18.415\r\n          c4.698,11.454,1.678,24.804-7.514,33.23c-2.875,2.641-3.24,7.055-0.817,10.126c6.244,7.953,13.409,15.19,21.259,21.508\r\n          c3.079,2.481,7.559,2.131,10.228-0.81c8.04-8.893,22.427-12.184,33.501-7.536c11.599,4.852,18.895,16.575,18.181,29.167\r\n          c-0.233,3.955,2.67,7.398,6.595,7.85c5.135,0.599,10.301,0.898,15.481,0.898c4.917,0,9.835-0.27,14.752-0.817\r\n          c3.897-0.43,6.784-3.786,6.653-7.696c-0.451-12.454,6.946-23.973,18.386-28.657c11.059-4.517,25.286-1.211,33.281,7.572\r\n          c2.657,2.89,7.047,3.239,10.142,0.848c8.039-6.304,15.349-13.534,21.74-21.494c2.48-3.079,2.13-7.559-0.803-10.213\r\n          c-9.353-8.47-12.388-21.946-7.529-33.524c4.568-10.899,15.612-18.217,27.491-18.217l1.662,0.043\r\n          c3.853,0.313,7.398-2.655,7.865-6.588C269.044,139.917,269.058,129.639,267.92,119.461z\r\n          M134.595,179.491\r\n          c-24.718,0-44.824-20.106-44.824-44.824c0-24.717,20.106-44.824,44.824-44.824c24.717,0,44.823,20.107,44.823,44.824\r\n          C179.418,159.385,159.312,179.491,134.595,179.491z");
-    			add_location(path2, file$6, 94, 8, 5155);
+    			add_location(path2, file$6, 106, 8, 5349);
     			attr(svg2, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg2, "viewBox", "0 0 268.765 268.765");
     			attr(svg2, "class", "icon svelte-66w5rm");
-    			add_location(svg2, file$6, 90, 6, 5035);
-    			add_location(span2, file$6, 115, 6, 7229);
+    			add_location(svg2, file$6, 102, 6, 5229);
+    			add_location(span2, file$6, 127, 6, 7423);
     			button2.className = button2_class_value = "button " + (ctx.$showSettings ? 'selected' : '') + " svelte-66w5rm";
-    			add_location(button2, file$6, 87, 4, 4915);
+    			add_location(button2, file$6, 99, 4, 5109);
     			div1.className = "bottom-bar svelte-66w5rm";
-    			add_location(div1, file$6, 33, 2, 1433);
+    			add_location(div1, file$6, 45, 2, 1627);
     			div2.className = "w-full h-screen bg-backgroundColor overflow-scroll ";
-    			add_location(div2, file$6, 29, 0, 1318);
+    			add_location(div2, file$6, 41, 0, 1512);
 
     			dispose = [
     				listen(window, "resize", ctx.onwindowresize),
@@ -26631,6 +26631,8 @@
     }
 
     function handleClick(target) {
+      handleRouting(target);
+
       if (target === "entry") {
         showEntry.set(true);
         showSummary.set(false);
@@ -26644,6 +26646,16 @@
         showSummary.set(false);
         showSettings.set(true);
       }
+    }
+
+    function handleRouting(newPage) {
+      window.history.pushState(
+        {
+          page: newPage
+        },
+        null,
+        "?page=" + newPage
+      );
     }
 
     function instance$6($$self, $$props, $$invalidate) {
@@ -26711,7 +26723,7 @@
 
     const file$7 = "src\\App.svelte";
 
-    // (40:2) {:else}
+    // (82:2) {:else}
     function create_else_block$2(ctx) {
     	var div3, div0, t0, div1, t1, div2, current;
 
@@ -26733,13 +26745,13 @@
     			div2 = element("div");
     			settings.$$.fragment.c();
     			div0.className = "w-1/3";
-    			add_location(div0, file$7, 41, 6, 1263);
+    			add_location(div0, file$7, 83, 6, 2368);
     			div1.className = "w-1/3";
-    			add_location(div1, file$7, 44, 6, 1323);
+    			add_location(div1, file$7, 86, 6, 2428);
     			div2.className = "w-1/3";
-    			add_location(div2, file$7, 47, 6, 1385);
+    			add_location(div2, file$7, 89, 6, 2490);
     			div3.className = "w-full h-screen flex flex-row overflow-auto bg-backgroundColor";
-    			add_location(div3, file$7, 40, 4, 1179);
+    			add_location(div3, file$7, 82, 4, 2284);
     		},
 
     		m: function mount(target, anchor) {
@@ -26789,7 +26801,7 @@
     	};
     }
 
-    // (22:2) {#if innerWidth < 1024}
+    // (64:2) {#if innerWidth < 1024}
     function create_if_block$5(ctx) {
     	var current;
 
@@ -26835,7 +26847,7 @@
     	};
     }
 
-    // (24:6) {#if $showEntry}
+    // (66:6) {#if $showEntry}
     function create_if_block_3$1(ctx) {
     	var div, div_transition, current;
 
@@ -26845,7 +26857,7 @@
     		c: function create() {
     			div = element("div");
     			entry.$$.fragment.c();
-    			add_location(div, file$7, 24, 8, 794);
+    			add_location(div, file$7, 66, 8, 1899);
     		},
 
     		m: function mount(target, anchor) {
@@ -26889,7 +26901,7 @@
     	};
     }
 
-    // (29:6) {#if $showSettings}
+    // (71:6) {#if $showSettings}
     function create_if_block_2$1(ctx) {
     	var div, div_transition, current;
 
@@ -26899,7 +26911,7 @@
     		c: function create() {
     			div = element("div");
     			settings.$$.fragment.c();
-    			add_location(div, file$7, 29, 8, 922);
+    			add_location(div, file$7, 71, 8, 2027);
     		},
 
     		m: function mount(target, anchor) {
@@ -26943,7 +26955,7 @@
     	};
     }
 
-    // (34:6) {#if $showSummary}
+    // (76:6) {#if $showSummary}
     function create_if_block_1$2(ctx) {
     	var div, div_transition, current;
 
@@ -26953,7 +26965,7 @@
     		c: function create() {
     			div = element("div");
     			summary.$$.fragment.c();
-    			add_location(div, file$7, 34, 8, 1052);
+    			add_location(div, file$7, 76, 8, 2157);
     		},
 
     		m: function mount(target, anchor) {
@@ -26997,7 +27009,7 @@
     	};
     }
 
-    // (23:4) <Scaffold>
+    // (65:4) <Scaffold>
     function create_default_slot$1(ctx) {
     	var t0, t1, if_block2_anchor, current;
 
@@ -27158,7 +27170,7 @@
     			t = space();
     			signin.$$.fragment.c();
     			main.className = "overflow-hidden";
-    			add_location(main, file$7, 20, 0, 687);
+    			add_location(main, file$7, 62, 0, 1792);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -27227,6 +27239,22 @@
     	};
     }
 
+    function updatePage(pageToRouteTo) {
+      if (pageToRouteTo === "entry") {
+        showEntry.set(true);
+        showSettings.set(false);
+        showSummary.set(false);
+      } else if (pageToRouteTo === "summary") {
+        showEntry.set(false);
+        showSettings.set(false);
+        showSummary.set(true);
+      } else if (pageToRouteTo === "settings") {
+        showEntry.set(false);
+        showSettings.set(true);
+        showSummary.set(false);
+      }
+    }
+
     function instance$7($$self, $$props, $$invalidate) {
     	let $showEntry, $showSettings, $showSummary;
 
@@ -27244,6 +27272,32 @@
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/service-worker.js");
       }
+
+      /**
+       * Handle routing to desired page on window load
+       */
+      window.onload = function() {
+        if (window.location.search.length > 0) {
+          const params = window.location.search.substr(1);
+          params.split("&").forEach(param => {
+            const key = param.split("=")[0];
+            const value = param.split("=")[1];
+
+            if (key === "page") {
+              updatePage(value);
+            }
+          });
+        }
+      };
+
+      /**
+       * Handle broswer back events here, pick up the new state and show relevant page
+       */
+      window.onpopstate = function(event) {
+        if (event.state) {
+          updatePage(event.state.page);
+        }
+      };
 
     	function onwindowresize() {
     		innerWidth = window.innerWidth; $$invalidate('innerWidth', innerWidth);
