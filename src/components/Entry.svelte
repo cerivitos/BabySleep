@@ -57,18 +57,29 @@
   let time = new Date();
 
   onMount(() => {
-    if (localStorage.getItem("cache") != undefined) {
-      const cache = JSON.parse(localStorage.getItem("cache"));
+    if (window.location.search.length > 0) {
+      let incomingParams = {};
 
-      putDownDate = cache.putDownDate;
-      putDownTime = cache.putDownTime;
-      sleepDate = cache.sleepDate;
-      sleepTime = cache.sleepTime;
-      pickUpDate = cache.pickUpDate;
-      pickUpTime = cache.pickUpTime;
-      wakeDate = cache.wakeDate;
-      wakeTime = cache.wakeTime;
-      cache.isNap !== undefined ? (isNap = cache.isNap) : (isNap = true);
+      const params = window.location.search.substr(1);
+      params.split("&").forEach(param => {
+        const key = param.split("=")[0];
+        const value = param.split("=")[1];
+
+        if (key !== "page") {
+          incomingParams[key] = value;
+        }
+      });
+
+      console.log(incomingParams);
+
+      if (Object.keys(incomingParams).length > 0) {
+        localStorage.setItem("cache", JSON.stringify(incomingParams));
+
+        readFromCache();
+      }
+    } else
+    if (localStorage.getItem("cache") != undefined) {
+      readFromCache();
     }
 
     const interval = setInterval(() => {
@@ -102,6 +113,23 @@
 
     localStorage.setItem("cache", JSON.stringify(cache));
   }
+
+  /**
+   * Read saved form entries from either url params or localStorage and assign to variables
+  */
+ function readFromCache() {
+   const cache = JSON.parse(localStorage.getItem("cache"));
+
+      putDownDate = cache.putDownDate;
+      putDownTime = cache.putDownTime;
+      sleepDate = cache.sleepDate;
+      sleepTime = cache.sleepTime;
+      pickUpDate = cache.pickUpDate;
+      pickUpTime = cache.pickUpTime;
+      wakeDate = cache.wakeDate;
+      wakeTime = cache.wakeTime;
+      cache.isNap !== undefined ? (isNap = cache.isNap) : (isNap = true);
+ }
 
   /**
    * @param {string} dateString The string representing the date component in yyyy-MM-dd format
@@ -356,6 +384,8 @@
         const value = cache[key];
         url = url + "&" + key + "=" + value;
       }
+
+      console.log(url)
     }
 
     if (navigator.share) {
