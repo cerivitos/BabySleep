@@ -4262,7 +4262,7 @@
 
     const file$2 = "src\\components\\Entry.svelte";
 
-    // (433:0) {#if sending}
+    // (444:0) {#if sending}
     function create_if_block$1(ctx) {
     	var div, div_transition, current, dispose;
 
@@ -4276,7 +4276,7 @@
     			div = element("div");
     			loadingspinner.$$.fragment.c();
     			div.className = "w-full h-screen bg-black opacity-75 flex items-center justify-center\r\n    absolute";
-    			add_location(div, file$2, 433, 2, 13733);
+    			add_location(div, file$2, 444, 2, 13955);
     			dispose = listen(div, "click", ctx.click_handler);
     		},
 
@@ -4323,7 +4323,7 @@
     	};
     }
 
-    // (487:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
+    // (498:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
     function create_default_slot(ctx) {
     	var div1, div0, button0, t0, button0_class_value, t1, button1, t2, button1_class_value, t3, div2, button2, t4, button2_class_value, dispose;
 
@@ -4341,17 +4341,17 @@
     			button2 = element("button");
     			t4 = text("Submit");
     			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-l" + " svelte-cy5gki";
-    			add_location(button0, file$2, 495, 6, 15430);
+    			add_location(button0, file$2, 506, 6, 15652);
     			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-r" + " svelte-cy5gki";
-    			add_location(button1, file$2, 500, 6, 15595);
+    			add_location(button1, file$2, 511, 6, 15817);
     			div0.className = "inline-flex";
-    			add_location(div0, file$2, 494, 4, 15397);
+    			add_location(div0, file$2, 505, 4, 15619);
     			div1.className = "w-full flex justify-center mt-8";
-    			add_location(div1, file$2, 493, 2, 15346);
+    			add_location(div1, file$2, 504, 2, 15568);
     			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50') + " svelte-cy5gki";
-    			add_location(button2, file$2, 508, 4, 15829);
+    			add_location(button2, file$2, 519, 4, 16051);
     			div2.className = "flex items-center justify-center w-full";
-    			add_location(div2, file$2, 507, 2, 15770);
+    			add_location(div2, file$2, 518, 2, 15992);
 
     			dispose = [
     				listen(button0, "click", ctx.click_handler_1),
@@ -4479,20 +4479,20 @@
     			t11 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold text-backgroundColor";
-    			add_location(div0, file$2, 447, 4, 14146);
+    			add_location(div0, file$2, 458, 4, 14368);
     			body0.className = "text-2xl justify-center items-center flex";
-    			add_location(body0, file$2, 445, 2, 14063);
+    			add_location(body0, file$2, 456, 2, 14285);
     			div1.id = "topBlock";
     			div1.className = "w-full overflow-hidden bg-accentColor text-white";
     			set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
-    			add_location(div1, file$2, 441, 0, 13927);
+    			add_location(div1, file$2, 452, 0, 14149);
     			div2.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div2, file$2, 471, 4, 14810);
+    			add_location(div2, file$2, 482, 4, 15032);
     			body1.className = "text-2xl justify-center items-center flex";
-    			add_location(body1, file$2, 469, 2, 14732);
+    			add_location(body1, file$2, 480, 2, 14954);
     			div3.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div3, file$2, 466, 0, 14622);
+    			add_location(div3, file$2, 477, 0, 14844);
     		},
 
     		l: function claim(nodes) {
@@ -4723,7 +4723,14 @@
       });
 
       onDestroy(() => {
-        let cache = {
+        saveToCache();
+      });
+
+      /**
+       * Save form entries to localStorage with each update to prevent data loss
+      */
+     function saveToCache() {
+      let cache = {
           putDownDate: putDownDate,
           putDownTime: putDownTime,
           sleepDate: sleepDate,
@@ -4736,7 +4743,7 @@
         };
 
         localStorage.setItem("cache", JSON.stringify(cache));
-      });
+     }
 
       /**
        * Ensures all validation criteria are met before sending to Sheets API
@@ -4941,21 +4948,25 @@
       function receivePutDown(event) {
         $$invalidate('putDownDate', putDownDate = event.detail.date);
         $$invalidate('putDownTime', putDownTime = event.detail.time);
+        saveToCache();
       }
 
       function receiveFellAsleep(event) {
         $$invalidate('sleepDate', sleepDate = event.detail.date);
         $$invalidate('sleepTime', sleepTime = event.detail.time);
+        saveToCache();
       }
 
       function receiveWokeUp(event) {
         $$invalidate('wakeDate', wakeDate = event.detail.date);
         $$invalidate('wakeTime', wakeTime = event.detail.time);
+        saveToCache();
       }
 
       function receivePickedUp(event) {
         $$invalidate('pickUpDate', pickUpDate = event.detail.date);
         $$invalidate('pickUpTime', pickUpTime = event.detail.time);
+        saveToCache();
       }
 
     	function click_handler(event) {

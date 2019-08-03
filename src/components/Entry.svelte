@@ -79,7 +79,14 @@
   });
 
   onDestroy(() => {
-    let cache = {
+    saveToCache();
+  });
+
+  /**
+   * Save form entries to localStorage with each update to prevent data loss
+  */
+ function saveToCache() {
+  let cache = {
       putDownDate: putDownDate,
       putDownTime: putDownTime,
       sleepDate: sleepDate,
@@ -92,7 +99,7 @@
     };
 
     localStorage.setItem("cache", JSON.stringify(cache));
-  });
+ }
 
   /**
    * @param {string} dateString The string representing the date component in yyyy-MM-dd format
@@ -314,21 +321,25 @@
   function receivePutDown(event) {
     putDownDate = event.detail.date;
     putDownTime = event.detail.time;
+    saveToCache();
   }
 
   function receiveFellAsleep(event) {
     sleepDate = event.detail.date;
     sleepTime = event.detail.time;
+    saveToCache();
   }
 
   function receiveWokeUp(event) {
     wakeDate = event.detail.date;
     wakeTime = event.detail.time;
+    saveToCache();
   }
 
   function receivePickedUp(event) {
     pickUpDate = event.detail.date;
     pickUpTime = event.detail.time;
+    saveToCache();
   }
 
   /**
