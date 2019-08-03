@@ -4262,8 +4262,8 @@
 
     const file$2 = "src\\components\\Entry.svelte";
 
-    // (444:0) {#if sending}
-    function create_if_block$1(ctx) {
+    // (472:0) {#if sending}
+    function create_if_block_1(ctx) {
     	var div, div_transition, current, dispose;
 
     	var loadingspinner = new LoadingSpinner({
@@ -4276,7 +4276,7 @@
     			div = element("div");
     			loadingspinner.$$.fragment.c();
     			div.className = "w-full h-screen bg-black opacity-75 flex items-center justify-center\r\n    absolute";
-    			add_location(div, file$2, 444, 2, 13955);
+    			add_location(div, file$2, 472, 2, 14607);
     			dispose = listen(div, "click", ctx.click_handler);
     		},
 
@@ -4323,7 +4323,43 @@
     	};
     }
 
-    // (498:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
+    // (494:0) {#if innerWidth < 1024}
+    function create_if_block$1(ctx) {
+    	var button, svg, path, dispose;
+
+    	return {
+    		c: function create() {
+    			button = element("button");
+    			svg = svg_element("svg");
+    			path = svg_element("path");
+    			attr(path, "d", "M385.513,301.214c-27.438,0-51.64,13.072-67.452,33.09l-146.66-75.002\r\n        c1.92-7.161,3.3-14.56,3.3-22.347c0-8.477-1.639-16.458-3.926-24.224l146.013-74.656c15.725,20.924,40.553,34.6,68.746,34.6\r\n        c47.758,0,86.391-38.633,86.391-86.348C471.926,38.655,433.292,0,385.535,0c-47.65,0-86.326,38.655-86.326,86.326\r\n        c0,7.809,1.381,15.229,3.322,22.412L155.892,183.74c-15.833-20.039-40.079-33.154-67.56-33.154\r\n        c-47.715,0-86.326,38.676-86.326,86.369s38.612,86.348,86.326,86.348c28.236,0,53.043-13.719,68.832-34.664l145.948,74.656\r\n        c-2.287,7.744-3.947,15.79-3.947,24.289c0,47.693,38.676,86.348,86.326,86.348c47.758,0,86.391-38.655,86.391-86.348\r\n        C471.904,339.848,433.271,301.214,385.513,301.214z");
+    			add_location(path, file$2, 502, 6, 15550);
+    			attr(svg, "class", "w-6 h-6 fill-current text-secondaryColor");
+    			attr(svg, "xmlns", "http://www.w3.org/2000/svg");
+    			attr(svg, "viewBox", "0 0 473.932 473.932");
+    			add_location(svg, file$2, 498, 4, 15402);
+    			button.className = "mb-20 mr-4 absolute bottom-0 right-0 rounded-full shadow-lg p-4\r\n    bg-accentColor3 outline-none";
+    			add_location(button, file$2, 494, 2, 15241);
+    			dispose = listen(button, "click", ctx.click_handler_1);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, button, anchor);
+    			append(button, svg);
+    			append(svg, path);
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(button);
+    			}
+
+    			dispose();
+    		}
+    	};
+    }
+
+    // (546:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
     function create_default_slot(ctx) {
     	var div1, div0, button0, t0, button0_class_value, t1, button1, t2, button1_class_value, t3, div2, button2, t4, button2_class_value, dispose;
 
@@ -4341,22 +4377,22 @@
     			button2 = element("button");
     			t4 = text("Submit");
     			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-l" + " svelte-cy5gki";
-    			add_location(button0, file$2, 506, 6, 15652);
+    			add_location(button0, file$2, 554, 6, 17421);
     			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-r" + " svelte-cy5gki";
-    			add_location(button1, file$2, 511, 6, 15817);
+    			add_location(button1, file$2, 559, 6, 17586);
     			div0.className = "inline-flex";
-    			add_location(div0, file$2, 505, 4, 15619);
+    			add_location(div0, file$2, 553, 4, 17388);
     			div1.className = "w-full flex justify-center mt-8";
-    			add_location(div1, file$2, 504, 2, 15568);
+    			add_location(div1, file$2, 552, 2, 17337);
     			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50') + " svelte-cy5gki";
-    			add_location(button2, file$2, 519, 4, 16051);
+    			add_location(button2, file$2, 567, 4, 17820);
     			div2.className = "flex items-center justify-center w-full";
-    			add_location(div2, file$2, 518, 2, 15992);
+    			add_location(div2, file$2, 566, 2, 17761);
 
     			dispose = [
-    				listen(button0, "click", ctx.click_handler_1),
-    				listen(button1, "click", ctx.click_handler_2),
-    				listen(button2, "click", ctx.click_handler_3)
+    				listen(button0, "click", ctx.click_handler_2),
+    				listen(button1, "click", ctx.click_handler_3),
+    				listen(button2, "click", ctx.click_handler_4)
     			];
     		},
 
@@ -4401,9 +4437,13 @@
     }
 
     function create_fragment$2(ctx) {
-    	var t0, div1, body0, t1, div0, t2, t3, t4, t5, div3, body1, t6, div2, t7, t8, t9_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes', t9, t10, t11, current;
+    	var t0, div1, body0, t1, div0, t2, t3, t4, t5, t6, div3, body1, t7, div2, t8, t9, t10_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes', t10, t11, t12, current, dispose;
 
-    	var if_block = (ctx.sending) && create_if_block$1(ctx);
+    	add_render_callback(ctx.onwindowresize);
+
+    	var if_block0 = (ctx.sending) && create_if_block_1(ctx);
+
+    	var if_block1 = (ctx.innerWidth < 1024) && create_if_block$1(ctx);
 
     	var entryblock0 = new EntryBlock({
     		props: {
@@ -4455,7 +4495,7 @@
 
     	return {
     		c: function create() {
-    			if (if_block) if_block.c();
+    			if (if_block0) if_block0.c();
     			t0 = space();
     			div1 = element("div");
     			body0 = element("body");
@@ -4463,36 +4503,39 @@
     			div0 = element("div");
     			t2 = text(ctx.nextPutDownTime);
     			t3 = space();
-    			entryblock0.$$.fragment.c();
+    			if (if_block1) if_block1.c();
     			t4 = space();
-    			entryblock1.$$.fragment.c();
+    			entryblock0.$$.fragment.c();
     			t5 = space();
+    			entryblock1.$$.fragment.c();
+    			t6 = space();
     			div3 = element("div");
     			body1 = element("body");
-    			t6 = text("Asleep for\r\n    ");
+    			t7 = text("Asleep for\r\n    ");
     			div2 = element("div");
-    			t7 = text(ctx.elapsedSleepTime);
-    			t8 = space();
-    			t9 = text(t9_value);
-    			t10 = space();
-    			entryblock2.$$.fragment.c();
+    			t8 = text(ctx.elapsedSleepTime);
+    			t9 = space();
+    			t10 = text(t10_value);
     			t11 = space();
+    			entryblock2.$$.fragment.c();
+    			t12 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold text-backgroundColor";
-    			add_location(div0, file$2, 458, 4, 14368);
+    			add_location(div0, file$2, 486, 4, 15020);
     			body0.className = "text-2xl justify-center items-center flex";
-    			add_location(body0, file$2, 456, 2, 14285);
+    			add_location(body0, file$2, 484, 2, 14937);
     			div1.id = "topBlock";
     			div1.className = "w-full overflow-hidden bg-accentColor text-white";
     			set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
-    			add_location(div1, file$2, 452, 0, 14149);
+    			add_location(div1, file$2, 480, 0, 14801);
     			div2.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div2, file$2, 482, 4, 15032);
+    			add_location(div2, file$2, 530, 4, 16801);
     			body1.className = "text-2xl justify-center items-center flex";
-    			add_location(body1, file$2, 480, 2, 14954);
+    			add_location(body1, file$2, 528, 2, 16723);
     			div3.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div3, file$2, 477, 0, 14844);
+    			add_location(div3, file$2, 525, 0, 16613);
+    			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
     		l: function claim(nodes) {
@@ -4500,7 +4543,7 @@
     		},
 
     		m: function mount(target, anchor) {
-    			if (if_block) if_block.m(target, anchor);
+    			if (if_block0) if_block0.m(target, anchor);
     			insert(target, t0, anchor);
     			insert(target, div1, anchor);
     			append(div1, body0);
@@ -4508,42 +4551,44 @@
     			append(body0, div0);
     			append(div0, t2);
     			insert(target, t3, anchor);
-    			mount_component(entryblock0, target, anchor);
+    			if (if_block1) if_block1.m(target, anchor);
     			insert(target, t4, anchor);
-    			mount_component(entryblock1, target, anchor);
+    			mount_component(entryblock0, target, anchor);
     			insert(target, t5, anchor);
+    			mount_component(entryblock1, target, anchor);
+    			insert(target, t6, anchor);
     			insert(target, div3, anchor);
     			append(div3, body1);
-    			append(body1, t6);
+    			append(body1, t7);
     			append(body1, div2);
-    			append(div2, t7);
-    			append(body1, t8);
+    			append(div2, t8);
     			append(body1, t9);
-    			insert(target, t10, anchor);
-    			mount_component(entryblock2, target, anchor);
+    			append(body1, t10);
     			insert(target, t11, anchor);
+    			mount_component(entryblock2, target, anchor);
+    			insert(target, t12, anchor);
     			mount_component(entryblock3, target, anchor);
     			current = true;
     		},
 
     		p: function update(changed, ctx) {
     			if (ctx.sending) {
-    				if (!if_block) {
-    					if_block = create_if_block$1(ctx);
-    					if_block.c();
-    					if_block.i(1);
-    					if_block.m(t0.parentNode, t0);
+    				if (!if_block0) {
+    					if_block0 = create_if_block_1(ctx);
+    					if_block0.c();
+    					if_block0.i(1);
+    					if_block0.m(t0.parentNode, t0);
     				} else {
-    									if_block.i(1);
+    									if_block0.i(1);
     				}
-    			} else if (if_block) {
+    			} else if (if_block0) {
     				group_outros();
     				on_outro(() => {
-    					if_block.d(1);
-    					if_block = null;
+    					if_block0.d(1);
+    					if_block0 = null;
     				});
 
-    				if_block.o(1);
+    				if_block0.o(1);
     				check_outros();
     			}
 
@@ -4553,6 +4598,17 @@
 
     			if (!current || changed.$nextPutDownTimeDivHeight) {
     				set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
+    			}
+
+    			if (ctx.innerWidth < 1024) {
+    				if (!if_block1) {
+    					if_block1 = create_if_block$1(ctx);
+    					if_block1.c();
+    					if_block1.m(t4.parentNode, t4);
+    				}
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
     			}
 
     			var entryblock0_changes = {};
@@ -4568,11 +4624,11 @@
     			entryblock1.$set(entryblock1_changes);
 
     			if (!current || changed.elapsedSleepTime) {
-    				set_data(t7, ctx.elapsedSleepTime);
+    				set_data(t8, ctx.elapsedSleepTime);
     			}
 
-    			if ((!current || changed.elapsedSleepTime) && t9_value !== (t9_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes')) {
-    				set_data(t9, t9_value);
+    			if ((!current || changed.elapsedSleepTime) && t10_value !== (t10_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes')) {
+    				set_data(t10, t10_value);
     			}
 
     			if (!current || changed.$elapsedSleepTimeDivHeight) {
@@ -4597,7 +4653,7 @@
 
     		i: function intro(local) {
     			if (current) return;
-    			if (if_block) if_block.i();
+    			if (if_block0) if_block0.i();
 
     			entryblock0.$$.fragment.i(local);
 
@@ -4611,7 +4667,7 @@
     		},
 
     		o: function outro(local) {
-    			if (if_block) if_block.o();
+    			if (if_block0) if_block0.o();
     			entryblock0.$$.fragment.o(local);
     			entryblock1.$$.fragment.o(local);
     			entryblock2.$$.fragment.o(local);
@@ -4620,7 +4676,7 @@
     		},
 
     		d: function destroy(detaching) {
-    			if (if_block) if_block.d(detaching);
+    			if (if_block0) if_block0.d(detaching);
 
     			if (detaching) {
     				detach(t0);
@@ -4628,29 +4684,61 @@
     				detach(t3);
     			}
 
-    			entryblock0.$destroy(detaching);
+    			if (if_block1) if_block1.d(detaching);
 
     			if (detaching) {
     				detach(t4);
     			}
 
-    			entryblock1.$destroy(detaching);
+    			entryblock0.$destroy(detaching);
 
     			if (detaching) {
     				detach(t5);
+    			}
+
+    			entryblock1.$destroy(detaching);
+
+    			if (detaching) {
+    				detach(t6);
     				detach(div3);
-    				detach(t10);
+    				detach(t11);
     			}
 
     			entryblock2.$destroy(detaching);
 
     			if (detaching) {
-    				detach(t11);
+    				detach(t12);
     			}
 
     			entryblock3.$destroy(detaching);
+
+    			dispose();
     		}
     	};
+    }
+
+    function shareParams() {
+      let url = document.location.href;
+
+      if (localStorage.getItem("cache") !== undefined) {
+        const cache = JSON.parse(localStorage.getItem("cache"));
+
+        const keys = Object.keys(cache);
+        for (let i = 0; i < keys.length; i++) {
+          const key = keys[i];
+          const value = cache[key];
+          url = url + "&" + key + "=" + value;
+        }
+      }
+
+      if (navigator.share) {
+        navigator.share({
+          url: url,
+          title: document.title
+        });
+      } else {
+        console.log("Web Share failed");
+      }
     }
 
     function instance$2($$self, $$props, $$invalidate) {
@@ -4672,6 +4760,8 @@
         pickUpDate,
         pickUpTime,
         elapsedSleepTime;
+
+      let innerWidth;
 
       /**
        * Validation checks to verify if the inputted date time is after the date time of he previous field
@@ -4728,9 +4818,9 @@
 
       /**
        * Save form entries to localStorage with each update to prevent data loss
-      */
-     function saveToCache() {
-      let cache = {
+       */
+      function saveToCache() {
+        let cache = {
           putDownDate: putDownDate,
           putDownTime: putDownTime,
           sleepDate: sleepDate,
@@ -4743,7 +4833,7 @@
         };
 
         localStorage.setItem("cache", JSON.stringify(cache));
-     }
+      }
 
       /**
        * Ensures all validation criteria are met before sending to Sheets API
@@ -4973,19 +5063,27 @@
     		bubble($$self, event);
     	}
 
+    	function onwindowresize() {
+    		innerWidth = window.innerWidth; $$invalidate('innerWidth', innerWidth);
+    	}
+
     	function click_handler_1() {
+    		return shareParams();
+    	}
+
+    	function click_handler_2() {
     		const $$result = (isNap = true);
     		$$invalidate('isNap', isNap);
     		return $$result;
     	}
 
-    	function click_handler_2() {
+    	function click_handler_3() {
     		const $$result = (isNap = false);
     		$$invalidate('isNap', isNap);
     		return $$result;
     	}
 
-    	function click_handler_3() {
+    	function click_handler_4() {
     		return ($userName !== undefined ? validateAndSend() : signIn());
     	}
 
@@ -5084,6 +5182,7 @@
     		pickUpDate,
     		pickUpTime,
     		elapsedSleepTime,
+    		innerWidth,
     		check2v1,
     		check3v2,
     		check4v3,
@@ -5102,9 +5201,11 @@
     		$nextPutDownTimeDivHeight,
     		$elapsedSleepTimeDivHeight,
     		$userName,
+    		onwindowresize,
     		click_handler_1,
     		click_handler_2,
-    		click_handler_3
+    		click_handler_3,
+    		click_handler_4
     	};
     }
 
@@ -5618,7 +5719,7 @@
     }
 
     // (47:2) {#if $userName !== undefined && $userPic !== undefined}
-    function create_if_block_1(ctx) {
+    function create_if_block_1$1(ctx) {
     	var div1, h2, t1, div0, img, t2, body, t3, t4, button, div1_intro, dispose;
 
     	return {
@@ -5782,7 +5883,7 @@
     	var div4, t0, div3, h2, t2, div0, current_block_type_index, if_block1, t3, div1, a, t5, div2, current;
 
     	function select_block_type(ctx) {
-    		if (ctx.$userName !== ctx.undefined && ctx.$userPic !== ctx.undefined) return create_if_block_1;
+    		if (ctx.$userName !== ctx.undefined && ctx.$userPic !== ctx.undefined) return create_if_block_1$1;
     		return create_else_block_1;
     	}
 
@@ -25794,7 +25895,7 @@
     }
 
     // (387:40) 
-    function create_if_block_1$1(ctx) {
+    function create_if_block_1$2(ctx) {
     	var p, p_transition, current;
 
     	return {
@@ -25911,7 +26012,7 @@
 
     	var if_block_creators_2 = [
     		create_if_block$4,
-    		create_if_block_1$1,
+    		create_if_block_1$2,
     		create_else_block$1
     	];
 
@@ -26956,7 +27057,7 @@
     }
 
     // (76:6) {#if $showSummary}
-    function create_if_block_1$2(ctx) {
+    function create_if_block_1$3(ctx) {
     	var div, div_transition, current;
 
     	var summary = new Summary({ $$inline: true });
@@ -27017,7 +27118,7 @@
 
     	var if_block1 = (ctx.$showSettings) && create_if_block_2$1(ctx);
 
-    	var if_block2 = (ctx.$showSummary) && create_if_block_1$2(ctx);
+    	var if_block2 = (ctx.$showSummary) && create_if_block_1$3(ctx);
 
     	return {
     		c: function create() {
@@ -27082,7 +27183,7 @@
 
     			if (ctx.$showSummary) {
     				if (!if_block2) {
-    					if_block2 = create_if_block_1$2(ctx);
+    					if_block2 = create_if_block_1$3(ctx);
     					if_block2.c();
     					if_block2.i(1);
     					if_block2.m(if_block2_anchor.parentNode, if_block2_anchor);
