@@ -5768,7 +5768,7 @@
     }
 
     function create_fragment$4(ctx) {
-    	var div3, t0, div2, h2, t2, div0, current_block_type_index, if_block1, t3, div1, current;
+    	var div4, t0, div3, h2, t2, div0, current_block_type_index, if_block1, t3, div1, a, t5, div2, current;
 
     	function select_block_type(ctx) {
     		if (ctx.$userName !== ctx.undefined && ctx.$userPic !== ctx.undefined) return create_if_block_1;
@@ -5795,10 +5795,10 @@
 
     	return {
     		c: function create() {
-    			div3 = element("div");
+    			div4 = element("div");
     			if_block0.c();
     			t0 = space();
-    			div2 = element("div");
+    			div3 = element("div");
     			h2 = element("h2");
     			h2.textContent = "Connected to";
     			t2 = space();
@@ -5806,17 +5806,25 @@
     			if_block1.c();
     			t3 = space();
     			div1 = element("div");
-    			div1.textContent = "v1.2";
+    			a = element("a");
+    			a.textContent = "Privacy Policy";
+    			t5 = space();
+    			div2 = element("div");
+    			div2.textContent = "v1.2";
     			h2.className = "svelte-13hyeae";
     			add_location(h2, file$4, 102, 4, 3560);
     			div0.className = "flex items-center";
     			add_location(div0, file$4, 103, 4, 3587);
-    			div1.className = "mt-4 w-full text-center text-primaryColor text-sm";
+    			a.href = "/privacy-policy.html";
+    			add_location(a, file$4, 116, 6, 3979);
+    			div1.className = "mt-4 w-full text-center text-sm";
     			add_location(div1, file$4, 115, 4, 3926);
-    			div2.className = "mt-8 flex-col";
-    			add_location(div2, file$4, 101, 2, 3527);
-    			div3.className = "w-full bg-backgroundColor p-4";
-    			add_location(div3, file$4, 45, 0, 1455);
+    			div2.className = "mt-4 w-full text-center text-primaryColor text-sm";
+    			add_location(div2, file$4, 118, 4, 4046);
+    			div3.className = "mt-8 flex-col";
+    			add_location(div3, file$4, 101, 2, 3527);
+    			div4.className = "w-full bg-backgroundColor p-4";
+    			add_location(div4, file$4, 45, 0, 1455);
     		},
 
     		l: function claim(nodes) {
@@ -5824,16 +5832,19 @@
     		},
 
     		m: function mount(target, anchor) {
-    			insert(target, div3, anchor);
-    			if_block0.m(div3, null);
-    			append(div3, t0);
-    			append(div3, div2);
-    			append(div2, h2);
-    			append(div2, t2);
-    			append(div2, div0);
+    			insert(target, div4, anchor);
+    			if_block0.m(div4, null);
+    			append(div4, t0);
+    			append(div4, div3);
+    			append(div3, h2);
+    			append(div3, t2);
+    			append(div3, div0);
     			if_blocks[current_block_type_index].m(div0, null);
-    			append(div2, t3);
-    			append(div2, div1);
+    			append(div3, t3);
+    			append(div3, div1);
+    			append(div1, a);
+    			append(div3, t5);
+    			append(div3, div2);
     			current = true;
     		},
 
@@ -5846,7 +5857,7 @@
     				if (if_block0) {
     					if_block0.c();
     					if_block0.i(1);
-    					if_block0.m(div3, t0);
+    					if_block0.m(div4, t0);
     				}
     			}
 
@@ -5887,7 +5898,7 @@
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach(div3);
+    				detach(div4);
     			}
 
     			if_block0.d();
