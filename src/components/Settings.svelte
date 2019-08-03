@@ -137,6 +137,9 @@
         </button>
       {/if}
     </div>
+    <div class="mt-4 w-full text-center text-sm">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+    </div>
     <div class="mt-4 w-full text-center text-primaryColor text-sm">v1.2</div>
   </div>
 </div>
