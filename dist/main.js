@@ -4262,8 +4262,8 @@
 
     const file$2 = "src\\components\\Entry.svelte";
 
-    // (444:0) {#if sending}
-    function create_if_block$1(ctx) {
+    // (502:0) {#if sending}
+    function create_if_block_1(ctx) {
     	var div, div_transition, current, dispose;
 
     	var loadingspinner = new LoadingSpinner({
@@ -4276,7 +4276,7 @@
     			div = element("div");
     			loadingspinner.$$.fragment.c();
     			div.className = "w-full h-screen bg-black opacity-75 flex items-center justify-center\r\n    absolute";
-    			add_location(div, file$2, 444, 2, 13955);
+    			add_location(div, file$2, 502, 2, 15403);
     			dispose = listen(div, "click", ctx.click_handler);
     		},
 
@@ -4323,7 +4323,43 @@
     	};
     }
 
-    // (498:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
+    // (524:0) {#if innerWidth < 1024}
+    function create_if_block$1(ctx) {
+    	var button, svg, path, dispose;
+
+    	return {
+    		c: function create() {
+    			button = element("button");
+    			svg = svg_element("svg");
+    			path = svg_element("path");
+    			attr(path, "d", "M385.513,301.214c-27.438,0-51.64,13.072-67.452,33.09l-146.66-75.002\r\n        c1.92-7.161,3.3-14.56,3.3-22.347c0-8.477-1.639-16.458-3.926-24.224l146.013-74.656c15.725,20.924,40.553,34.6,68.746,34.6\r\n        c47.758,0,86.391-38.633,86.391-86.348C471.926,38.655,433.292,0,385.535,0c-47.65,0-86.326,38.655-86.326,86.326\r\n        c0,7.809,1.381,15.229,3.322,22.412L155.892,183.74c-15.833-20.039-40.079-33.154-67.56-33.154\r\n        c-47.715,0-86.326,38.676-86.326,86.369s38.612,86.348,86.326,86.348c28.236,0,53.043-13.719,68.832-34.664l145.948,74.656\r\n        c-2.287,7.744-3.947,15.79-3.947,24.289c0,47.693,38.676,86.348,86.326,86.348c47.758,0,86.391-38.655,86.391-86.348\r\n        C471.904,339.848,433.271,301.214,385.513,301.214z");
+    			add_location(path, file$2, 532, 6, 16346);
+    			attr(svg, "class", "w-6 h-6 fill-current text-secondaryColor");
+    			attr(svg, "xmlns", "http://www.w3.org/2000/svg");
+    			attr(svg, "viewBox", "0 0 473.932 473.932");
+    			add_location(svg, file$2, 528, 4, 16198);
+    			button.className = "mb-20 mr-4 absolute bottom-0 right-0 rounded-full shadow-lg p-4\r\n    bg-accentColor3 outline-none";
+    			add_location(button, file$2, 524, 2, 16037);
+    			dispose = listen(button, "click", ctx.click_handler_1);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, button, anchor);
+    			append(button, svg);
+    			append(svg, path);
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(button);
+    			}
+
+    			dispose();
+    		}
+    	};
+    }
+
+    // (576:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
     function create_default_slot(ctx) {
     	var div1, div0, button0, t0, button0_class_value, t1, button1, t2, button1_class_value, t3, div2, button2, t4, button2_class_value, dispose;
 
@@ -4341,22 +4377,22 @@
     			button2 = element("button");
     			t4 = text("Submit");
     			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-l" + " svelte-cy5gki";
-    			add_location(button0, file$2, 506, 6, 15652);
+    			add_location(button0, file$2, 584, 6, 18217);
     			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-r" + " svelte-cy5gki";
-    			add_location(button1, file$2, 511, 6, 15817);
+    			add_location(button1, file$2, 589, 6, 18382);
     			div0.className = "inline-flex";
-    			add_location(div0, file$2, 505, 4, 15619);
+    			add_location(div0, file$2, 583, 4, 18184);
     			div1.className = "w-full flex justify-center mt-8";
-    			add_location(div1, file$2, 504, 2, 15568);
+    			add_location(div1, file$2, 582, 2, 18133);
     			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50') + " svelte-cy5gki";
-    			add_location(button2, file$2, 519, 4, 16051);
+    			add_location(button2, file$2, 597, 4, 18616);
     			div2.className = "flex items-center justify-center w-full";
-    			add_location(div2, file$2, 518, 2, 15992);
+    			add_location(div2, file$2, 596, 2, 18557);
 
     			dispose = [
-    				listen(button0, "click", ctx.click_handler_1),
-    				listen(button1, "click", ctx.click_handler_2),
-    				listen(button2, "click", ctx.click_handler_3)
+    				listen(button0, "click", ctx.click_handler_2),
+    				listen(button1, "click", ctx.click_handler_3),
+    				listen(button2, "click", ctx.click_handler_4)
     			];
     		},
 
@@ -4401,9 +4437,13 @@
     }
 
     function create_fragment$2(ctx) {
-    	var t0, div1, body0, t1, div0, t2, t3, t4, t5, div3, body1, t6, div2, t7, t8, t9_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes', t9, t10, t11, current;
+    	var t0, div1, body0, t1, div0, t2, t3, t4, t5, t6, div3, body1, t7, div2, t8, t9, t10_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes', t10, t11, t12, current, dispose;
 
-    	var if_block = (ctx.sending) && create_if_block$1(ctx);
+    	add_render_callback(ctx.onwindowresize);
+
+    	var if_block0 = (ctx.sending) && create_if_block_1(ctx);
+
+    	var if_block1 = (ctx.innerWidth < 1024) && create_if_block$1(ctx);
 
     	var entryblock0 = new EntryBlock({
     		props: {
@@ -4455,7 +4495,7 @@
 
     	return {
     		c: function create() {
-    			if (if_block) if_block.c();
+    			if (if_block0) if_block0.c();
     			t0 = space();
     			div1 = element("div");
     			body0 = element("body");
@@ -4463,36 +4503,39 @@
     			div0 = element("div");
     			t2 = text(ctx.nextPutDownTime);
     			t3 = space();
-    			entryblock0.$$.fragment.c();
+    			if (if_block1) if_block1.c();
     			t4 = space();
-    			entryblock1.$$.fragment.c();
+    			entryblock0.$$.fragment.c();
     			t5 = space();
+    			entryblock1.$$.fragment.c();
+    			t6 = space();
     			div3 = element("div");
     			body1 = element("body");
-    			t6 = text("Asleep for\r\n    ");
+    			t7 = text("Asleep for\r\n    ");
     			div2 = element("div");
-    			t7 = text(ctx.elapsedSleepTime);
-    			t8 = space();
-    			t9 = text(t9_value);
-    			t10 = space();
-    			entryblock2.$$.fragment.c();
+    			t8 = text(ctx.elapsedSleepTime);
+    			t9 = space();
+    			t10 = text(t10_value);
     			t11 = space();
+    			entryblock2.$$.fragment.c();
+    			t12 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold text-backgroundColor";
-    			add_location(div0, file$2, 458, 4, 14368);
+    			add_location(div0, file$2, 516, 4, 15816);
     			body0.className = "text-2xl justify-center items-center flex";
-    			add_location(body0, file$2, 456, 2, 14285);
+    			add_location(body0, file$2, 514, 2, 15733);
     			div1.id = "topBlock";
     			div1.className = "w-full overflow-hidden bg-accentColor text-white";
     			set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
-    			add_location(div1, file$2, 452, 0, 14149);
+    			add_location(div1, file$2, 510, 0, 15597);
     			div2.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div2, file$2, 482, 4, 15032);
+    			add_location(div2, file$2, 560, 4, 17597);
     			body1.className = "text-2xl justify-center items-center flex";
-    			add_location(body1, file$2, 480, 2, 14954);
+    			add_location(body1, file$2, 558, 2, 17519);
     			div3.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div3, file$2, 477, 0, 14844);
+    			add_location(div3, file$2, 555, 0, 17409);
+    			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
     		l: function claim(nodes) {
@@ -4500,7 +4543,7 @@
     		},
 
     		m: function mount(target, anchor) {
-    			if (if_block) if_block.m(target, anchor);
+    			if (if_block0) if_block0.m(target, anchor);
     			insert(target, t0, anchor);
     			insert(target, div1, anchor);
     			append(div1, body0);
@@ -4508,42 +4551,44 @@
     			append(body0, div0);
     			append(div0, t2);
     			insert(target, t3, anchor);
-    			mount_component(entryblock0, target, anchor);
+    			if (if_block1) if_block1.m(target, anchor);
     			insert(target, t4, anchor);
-    			mount_component(entryblock1, target, anchor);
+    			mount_component(entryblock0, target, anchor);
     			insert(target, t5, anchor);
+    			mount_component(entryblock1, target, anchor);
+    			insert(target, t6, anchor);
     			insert(target, div3, anchor);
     			append(div3, body1);
-    			append(body1, t6);
+    			append(body1, t7);
     			append(body1, div2);
-    			append(div2, t7);
-    			append(body1, t8);
+    			append(div2, t8);
     			append(body1, t9);
-    			insert(target, t10, anchor);
-    			mount_component(entryblock2, target, anchor);
+    			append(body1, t10);
     			insert(target, t11, anchor);
+    			mount_component(entryblock2, target, anchor);
+    			insert(target, t12, anchor);
     			mount_component(entryblock3, target, anchor);
     			current = true;
     		},
 
     		p: function update(changed, ctx) {
     			if (ctx.sending) {
-    				if (!if_block) {
-    					if_block = create_if_block$1(ctx);
-    					if_block.c();
-    					if_block.i(1);
-    					if_block.m(t0.parentNode, t0);
+    				if (!if_block0) {
+    					if_block0 = create_if_block_1(ctx);
+    					if_block0.c();
+    					if_block0.i(1);
+    					if_block0.m(t0.parentNode, t0);
     				} else {
-    									if_block.i(1);
+    									if_block0.i(1);
     				}
-    			} else if (if_block) {
+    			} else if (if_block0) {
     				group_outros();
     				on_outro(() => {
-    					if_block.d(1);
-    					if_block = null;
+    					if_block0.d(1);
+    					if_block0 = null;
     				});
 
-    				if_block.o(1);
+    				if_block0.o(1);
     				check_outros();
     			}
 
@@ -4553,6 +4598,17 @@
 
     			if (!current || changed.$nextPutDownTimeDivHeight) {
     				set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
+    			}
+
+    			if (ctx.innerWidth < 1024) {
+    				if (!if_block1) {
+    					if_block1 = create_if_block$1(ctx);
+    					if_block1.c();
+    					if_block1.m(t4.parentNode, t4);
+    				}
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
     			}
 
     			var entryblock0_changes = {};
@@ -4568,11 +4624,11 @@
     			entryblock1.$set(entryblock1_changes);
 
     			if (!current || changed.elapsedSleepTime) {
-    				set_data(t7, ctx.elapsedSleepTime);
+    				set_data(t8, ctx.elapsedSleepTime);
     			}
 
-    			if ((!current || changed.elapsedSleepTime) && t9_value !== (t9_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes')) {
-    				set_data(t9, t9_value);
+    			if ((!current || changed.elapsedSleepTime) && t10_value !== (t10_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes')) {
+    				set_data(t10, t10_value);
     			}
 
     			if (!current || changed.$elapsedSleepTimeDivHeight) {
@@ -4597,7 +4653,7 @@
 
     		i: function intro(local) {
     			if (current) return;
-    			if (if_block) if_block.i();
+    			if (if_block0) if_block0.i();
 
     			entryblock0.$$.fragment.i(local);
 
@@ -4611,7 +4667,7 @@
     		},
 
     		o: function outro(local) {
-    			if (if_block) if_block.o();
+    			if (if_block0) if_block0.o();
     			entryblock0.$$.fragment.o(local);
     			entryblock1.$$.fragment.o(local);
     			entryblock2.$$.fragment.o(local);
@@ -4620,7 +4676,7 @@
     		},
 
     		d: function destroy(detaching) {
-    			if (if_block) if_block.d(detaching);
+    			if (if_block0) if_block0.d(detaching);
 
     			if (detaching) {
     				detach(t0);
@@ -4628,29 +4684,64 @@
     				detach(t3);
     			}
 
-    			entryblock0.$destroy(detaching);
+    			if (if_block1) if_block1.d(detaching);
 
     			if (detaching) {
     				detach(t4);
     			}
 
-    			entryblock1.$destroy(detaching);
+    			entryblock0.$destroy(detaching);
 
     			if (detaching) {
     				detach(t5);
+    			}
+
+    			entryblock1.$destroy(detaching);
+
+    			if (detaching) {
+    				detach(t6);
     				detach(div3);
-    				detach(t10);
+    				detach(t11);
     			}
 
     			entryblock2.$destroy(detaching);
 
     			if (detaching) {
-    				detach(t11);
+    				detach(t12);
     			}
 
     			entryblock3.$destroy(detaching);
+
+    			dispose();
     		}
     	};
+    }
+
+    function shareParams() {
+      let url = document.location.href;
+
+      if (localStorage.getItem("cache") !== undefined) {
+        const cache = JSON.parse(localStorage.getItem("cache"));
+
+        const keys = Object.keys(cache);
+        for (let i = 0; i < keys.length; i++) {
+          const key = keys[i];
+          const value = cache[key];
+          url = url + "&" + key + "=" + value;
+        }
+
+        console.log(url);
+      }
+
+      if (navigator.share) {
+        navigator.share({
+          url: url,
+          title: document.title,
+          text: "Use my recorded entries!"
+        });
+      } else {
+        console.warn("Web Share not supported");
+      }
     }
 
     function instance$2($$self, $$props, $$invalidate) {
@@ -4672,6 +4763,8 @@
         pickUpDate,
         pickUpTime,
         elapsedSleepTime;
+
+      let innerWidth;
 
       /**
        * Validation checks to verify if the inputted date time is after the date time of he previous field
@@ -4699,18 +4792,28 @@
       let time = new Date();
 
       onMount(() => {
-        if (localStorage.getItem("cache") != undefined) {
-          const cache = JSON.parse(localStorage.getItem("cache"));
+        if (window.location.search.length > 0) {
+          let incomingParams = {};
 
-          $$invalidate('putDownDate', putDownDate = cache.putDownDate);
-          $$invalidate('putDownTime', putDownTime = cache.putDownTime);
-          $$invalidate('sleepDate', sleepDate = cache.sleepDate);
-          $$invalidate('sleepTime', sleepTime = cache.sleepTime);
-          $$invalidate('pickUpDate', pickUpDate = cache.pickUpDate);
-          $$invalidate('pickUpTime', pickUpTime = cache.pickUpTime);
-          $$invalidate('wakeDate', wakeDate = cache.wakeDate);
-          $$invalidate('wakeTime', wakeTime = cache.wakeTime);
-          cache.isNap !== undefined ? (isNap = cache.isNap) : (isNap = true); $$invalidate('isNap', isNap);
+          const params = window.location.search.substr(1);
+          params.split("&").forEach(param => {
+            const key = param.split("=")[0];
+            const value = param.split("=")[1];
+
+            if (key !== "page") {
+              incomingParams[key] = value;
+            }
+          });
+
+          console.log(incomingParams);
+
+          if (Object.keys(incomingParams).length > 0) {
+            localStorage.setItem("cache", JSON.stringify(incomingParams));
+
+            readFromCache();
+          }
+        } else if (localStorage.getItem("cache") != undefined) {
+          readFromCache();
         }
 
         const interval = setInterval(() => {
@@ -4728,9 +4831,9 @@
 
       /**
        * Save form entries to localStorage with each update to prevent data loss
-      */
-     function saveToCache() {
-      let cache = {
+       */
+      function saveToCache() {
+        let cache = {
           putDownDate: putDownDate,
           putDownTime: putDownTime,
           sleepDate: sleepDate,
@@ -4743,7 +4846,24 @@
         };
 
         localStorage.setItem("cache", JSON.stringify(cache));
-     }
+      }
+
+      /**
+       * Read saved form entries from either url params or localStorage and assign to variables
+       */
+      function readFromCache() {
+        const cache = JSON.parse(localStorage.getItem("cache"));
+
+        $$invalidate('putDownDate', putDownDate = cache.putDownDate);
+        $$invalidate('putDownTime', putDownTime = cache.putDownTime);
+        $$invalidate('sleepDate', sleepDate = cache.sleepDate);
+        $$invalidate('sleepTime', sleepTime = cache.sleepTime);
+        $$invalidate('pickUpDate', pickUpDate = cache.pickUpDate);
+        $$invalidate('pickUpTime', pickUpTime = cache.pickUpTime);
+        $$invalidate('wakeDate', wakeDate = cache.wakeDate);
+        $$invalidate('wakeTime', wakeTime = cache.wakeTime);
+        cache.isNap !== undefined ? (isNap = cache.isNap) : (isNap = true); $$invalidate('isNap', isNap);
+      }
 
       /**
        * Ensures all validation criteria are met before sending to Sheets API
@@ -4973,19 +5093,27 @@
     		bubble($$self, event);
     	}
 
+    	function onwindowresize() {
+    		innerWidth = window.innerWidth; $$invalidate('innerWidth', innerWidth);
+    	}
+
     	function click_handler_1() {
+    		return shareParams();
+    	}
+
+    	function click_handler_2() {
     		const $$result = (isNap = true);
     		$$invalidate('isNap', isNap);
     		return $$result;
     	}
 
-    	function click_handler_2() {
+    	function click_handler_3() {
     		const $$result = (isNap = false);
     		$$invalidate('isNap', isNap);
     		return $$result;
     	}
 
-    	function click_handler_3() {
+    	function click_handler_4() {
     		return ($userName !== undefined ? validateAndSend() : signIn());
     	}
 
@@ -5084,6 +5212,7 @@
     		pickUpDate,
     		pickUpTime,
     		elapsedSleepTime,
+    		innerWidth,
     		check2v1,
     		check3v2,
     		check4v3,
@@ -5102,9 +5231,11 @@
     		$nextPutDownTimeDivHeight,
     		$elapsedSleepTimeDivHeight,
     		$userName,
+    		onwindowresize,
     		click_handler_1,
     		click_handler_2,
-    		click_handler_3
+    		click_handler_3,
+    		click_handler_4
     	};
     }
 
@@ -5618,7 +5749,7 @@
     }
 
     // (47:2) {#if $userName !== undefined && $userPic !== undefined}
-    function create_if_block_1(ctx) {
+    function create_if_block_1$1(ctx) {
     	var div1, h2, t1, div0, img, t2, body, t3, t4, button, div1_intro, dispose;
 
     	return {
@@ -5782,7 +5913,7 @@
     	var div4, t0, div3, h2, t2, div0, current_block_type_index, if_block1, t3, div1, a, t5, div2, current;
 
     	function select_block_type(ctx) {
-    		if (ctx.$userName !== ctx.undefined && ctx.$userPic !== ctx.undefined) return create_if_block_1;
+    		if (ctx.$userName !== ctx.undefined && ctx.$userPic !== ctx.undefined) return create_if_block_1$1;
     		return create_else_block_1;
     	}
 
@@ -25795,7 +25926,7 @@
     }
 
     // (387:40) 
-    function create_if_block_1$1(ctx) {
+    function create_if_block_1$2(ctx) {
     	var p, p_transition, current;
 
     	return {
@@ -25912,7 +26043,7 @@
 
     	var if_block_creators_2 = [
     		create_if_block$4,
-    		create_if_block_1$1,
+    		create_if_block_1$2,
     		create_else_block$1
     	];
 
@@ -26489,60 +26620,60 @@
     			span2.textContent = "Settings";
 
     			div0.className = "mb-8";
-    			add_location(div0, file$6, 30, 2, 1387);
+    			add_location(div0, file$6, 42, 2, 1581);
     			attr(path0, "d", "M80.197,44.939v-9.746c0-1.761,1.433-3.193,3.193-3.193h60.053c1.761,0,3.193,1.433,3.193,3.193v9.746\r\n          c0,1.761-1.433,3.193-3.193,3.193H83.391C81.63,48.133,80.197,46.7,80.197,44.939z\r\n          M131.841,17c-0.768-9.5-8.729-17-18.424-17\r\n          S95.761,7.5,94.993,17H131.841z\r\n          M192.309,55.334v151.333c0,11.12-9.047,20.167-20.167,20.167H54.692\r\n          c-11.12,0-20.167-9.047-20.167-20.167V55.334c0-11.12,9.047-20.167,20.167-20.167h10.506c0,0.009-0.001,0.018-0.001,0.026v9.746\r\n          c0,10.032,8.162,18.193,18.193,18.193h60.053c10.032,0,18.193-8.161,18.193-18.193v-9.746c0-0.009-0.001-0.018-0.001-0.026h10.506\r\n          C183.262,35.167,192.309,44.214,192.309,55.334z\r\n          M88.183,143.449c-3.526-2.173-8.147-1.077-10.32,2.449l-7.092,11.504l-3.661-2.884\r\n          c-3.252-2.563-7.97-2.002-10.532,1.252c-2.563,3.255-2.002,7.97,1.252,10.533l10.271,8.089c1.332,1.049,2.969,1.607,4.64,1.607\r\n          c0.436,0,0.875-0.038,1.311-0.115c2.105-0.374,3.952-1.629,5.074-3.449l11.506-18.666C92.806,150.243,91.709,145.623,88.183,143.449\r\n          z\r\n          M88.183,89.449c-3.526-2.174-8.147-1.076-10.32,2.449l-7.092,11.504l-3.661-2.884c-3.252-2.562-7.97-2.002-10.532,1.252\r\n          c-2.563,3.255-2.002,7.97,1.252,10.533l10.271,8.089c1.332,1.049,2.969,1.607,4.64,1.607c0.436,0,0.875-0.038,1.311-0.115\r\n          c2.105-0.374,3.952-1.629,5.074-3.449L90.632,99.77C92.806,96.243,91.709,91.623,88.183,89.449z\r\n          M165.858,168.5\r\n          c0-4.143-3.357-7.5-7.5-7.5h-49c-4.142,0-7.5,3.357-7.5,7.5s3.358,7.5,7.5,7.5h49C162.501,176,165.858,172.643,165.858,168.5z\r\n          M165.858,114.5c0-4.143-3.357-7.5-7.5-7.5h-49c-4.142,0-7.5,3.357-7.5,7.5s3.358,7.5,7.5,7.5h49\r\n          C162.501,122,165.858,118.643,165.858,114.5z");
-    			add_location(path0, file$6, 41, 8, 1697);
+    			add_location(path0, file$6, 53, 8, 1891);
     			attr(svg0, "class", "icon svelte-66w5rm");
     			attr(svg0, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg0, "viewBox", "0 0 226.834 226.834");
-    			add_location(svg0, file$6, 37, 6, 1577);
-    			add_location(span0, file$6, 62, 6, 3489);
+    			add_location(svg0, file$6, 49, 6, 1771);
+    			add_location(span0, file$6, 74, 6, 3683);
     			button0.className = button0_class_value = "button " + (ctx.$showEntry ? 'selected' : '') + " svelte-66w5rm";
-    			add_location(button0, file$6, 34, 4, 1463);
+    			add_location(button0, file$6, 46, 4, 1657);
     			attr(path1, "d", "M534.75,68.238c-8.945-8.945-19.694-13.417-32.261-13.417H45.681c-12.562,0-23.313,4.471-32.264,13.417\r\n          C4.471,77.185,0,87.936,0,100.499v347.173c0,12.566,4.471,23.318,13.417,32.264c8.951,8.946,19.702,13.419,32.264,13.419h456.815\r\n          c12.56,0,23.312-4.473,32.258-13.419c8.945-8.945,13.422-19.697,13.422-32.264V100.499\r\n          C548.176,87.936,543.699,77.185,534.75,68.238z\r\n          M511.627,447.672c0,2.478-0.903,4.62-2.711,6.427\r\n          c-1.81,1.807-3.952,2.71-6.427,2.71H45.681c-2.473,0-4.615-0.903-6.423-2.71c-1.807-1.813-2.712-3.949-2.712-6.427V100.499\r\n          c0-2.474,0.902-4.611,2.712-6.423c1.809-1.804,3.951-2.708,6.423-2.708h456.815c2.471,0,4.613,0.902,6.42,2.708\r\n          c1.808,1.812,2.711,3.949,2.711,6.423V447.672L511.627,447.672z");
-    			add_location(path1, file$6, 71, 8, 3766);
+    			add_location(path1, file$6, 83, 8, 3960);
     			attr(rect0, "x", "73.092");
     			attr(rect0, "y", "310.635");
     			attr(rect0, "width", "73.089");
     			attr(rect0, "height", "109.632");
-    			add_location(rect0, file$6, 80, 8, 4568);
+    			add_location(rect0, file$6, 92, 8, 4762);
     			attr(rect1, "x", "182.728");
     			attr(rect1, "y", "164.452");
     			attr(rect1, "width", "73.085");
     			attr(rect1, "height", "255.814");
-    			add_location(rect1, file$6, 81, 8, 4641);
+    			add_location(rect1, file$6, 93, 8, 4835);
     			attr(rect2, "x", "292.362");
     			attr(rect2, "y", "237.541");
     			attr(rect2, "width", "73.083");
     			attr(rect2, "height", "182.726");
-    			add_location(rect2, file$6, 82, 8, 4715);
+    			add_location(rect2, file$6, 94, 8, 4909);
     			attr(rect3, "x", "401.994");
     			attr(rect3, "y", "127.907");
     			attr(rect3, "width", "73.091");
     			attr(rect3, "height", "292.36");
-    			add_location(rect3, file$6, 83, 8, 4789);
+    			add_location(rect3, file$6, 95, 8, 4983);
     			attr(svg1, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg1, "class", "icon svelte-66w5rm");
     			attr(svg1, "viewBox", "0 0 548.176 548.176");
-    			add_location(svg1, file$6, 67, 6, 3646);
-    			add_location(span1, file$6, 85, 6, 4874);
+    			add_location(svg1, file$6, 79, 6, 3840);
+    			add_location(span1, file$6, 97, 6, 5068);
     			button1.className = button1_class_value = "button " + (ctx.$showSummary ? 'selected' : '') + " svelte-66w5rm";
-    			add_location(button1, file$6, 64, 4, 3528);
+    			add_location(button1, file$6, 76, 4, 3722);
     			set_style(path2, "fill-rule", "evenodd");
     			set_style(path2, "clip-rule", "evenodd");
     			attr(path2, "d", "M267.92,119.461c-0.425-3.778-4.83-6.617-8.639-6.617\r\n          c-12.315,0-23.243-7.231-27.826-18.414c-4.682-11.454-1.663-24.812,7.515-33.231c2.889-2.641,3.24-7.062,0.817-10.133\r\n          c-6.303-8.004-13.467-15.234-21.289-21.5c-3.063-2.458-7.557-2.116-10.213,0.825c-8.01,8.871-22.398,12.168-33.516,7.529\r\n          c-11.57-4.867-18.866-16.591-18.152-29.176c0.235-3.953-2.654-7.39-6.595-7.849c-10.038-1.161-20.164-1.197-30.232-0.08\r\n          c-3.896,0.43-6.785,3.786-6.654,7.689c0.438,12.461-6.946,23.98-18.401,28.672c-10.985,4.487-25.272,1.218-33.266-7.574\r\n          c-2.642-2.896-7.063-3.252-10.141-0.853c-8.054,6.319-15.379,13.555-21.74,21.493c-2.481,3.086-2.116,7.559,0.802,10.214\r\n          c9.353,8.47,12.373,21.944,7.514,33.53c-4.639,11.046-16.109,18.165-29.24,18.165c-4.261-0.137-7.296,2.723-7.762,6.597\r\n          c-1.182,10.096-1.196,20.383-0.058,30.561c0.422,3.794,4.961,6.608,8.812,6.608c11.702-0.299,22.937,6.946,27.65,18.415\r\n          c4.698,11.454,1.678,24.804-7.514,33.23c-2.875,2.641-3.24,7.055-0.817,10.126c6.244,7.953,13.409,15.19,21.259,21.508\r\n          c3.079,2.481,7.559,2.131,10.228-0.81c8.04-8.893,22.427-12.184,33.501-7.536c11.599,4.852,18.895,16.575,18.181,29.167\r\n          c-0.233,3.955,2.67,7.398,6.595,7.85c5.135,0.599,10.301,0.898,15.481,0.898c4.917,0,9.835-0.27,14.752-0.817\r\n          c3.897-0.43,6.784-3.786,6.653-7.696c-0.451-12.454,6.946-23.973,18.386-28.657c11.059-4.517,25.286-1.211,33.281,7.572\r\n          c2.657,2.89,7.047,3.239,10.142,0.848c8.039-6.304,15.349-13.534,21.74-21.494c2.48-3.079,2.13-7.559-0.803-10.213\r\n          c-9.353-8.47-12.388-21.946-7.529-33.524c4.568-10.899,15.612-18.217,27.491-18.217l1.662,0.043\r\n          c3.853,0.313,7.398-2.655,7.865-6.588C269.044,139.917,269.058,129.639,267.92,119.461z\r\n          M134.595,179.491\r\n          c-24.718,0-44.824-20.106-44.824-44.824c0-24.717,20.106-44.824,44.824-44.824c24.717,0,44.823,20.107,44.823,44.824\r\n          C179.418,159.385,159.312,179.491,134.595,179.491z");
-    			add_location(path2, file$6, 94, 8, 5155);
+    			add_location(path2, file$6, 106, 8, 5349);
     			attr(svg2, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg2, "viewBox", "0 0 268.765 268.765");
     			attr(svg2, "class", "icon svelte-66w5rm");
-    			add_location(svg2, file$6, 90, 6, 5035);
-    			add_location(span2, file$6, 115, 6, 7229);
+    			add_location(svg2, file$6, 102, 6, 5229);
+    			add_location(span2, file$6, 127, 6, 7423);
     			button2.className = button2_class_value = "button " + (ctx.$showSettings ? 'selected' : '') + " svelte-66w5rm";
-    			add_location(button2, file$6, 87, 4, 4915);
+    			add_location(button2, file$6, 99, 4, 5109);
     			div1.className = "bottom-bar svelte-66w5rm";
-    			add_location(div1, file$6, 33, 2, 1433);
+    			add_location(div1, file$6, 45, 2, 1627);
     			div2.className = "w-full h-screen bg-backgroundColor overflow-scroll ";
-    			add_location(div2, file$6, 29, 0, 1318);
+    			add_location(div2, file$6, 41, 0, 1512);
 
     			dispose = [
     				listen(window, "resize", ctx.onwindowresize),
@@ -26632,6 +26763,8 @@
     }
 
     function handleClick(target) {
+      handleRouting(target);
+
       if (target === "entry") {
         showEntry.set(true);
         showSummary.set(false);
@@ -26645,6 +26778,16 @@
         showSummary.set(false);
         showSettings.set(true);
       }
+    }
+
+    function handleRouting(newPage) {
+      window.history.pushState(
+        {
+          page: newPage
+        },
+        null,
+        "?page=" + newPage
+      );
     }
 
     function instance$6($$self, $$props, $$invalidate) {
@@ -26712,7 +26855,7 @@
 
     const file$7 = "src\\App.svelte";
 
-    // (40:2) {:else}
+    // (82:2) {:else}
     function create_else_block$2(ctx) {
     	var div3, div0, t0, div1, t1, div2, current;
 
@@ -26734,13 +26877,13 @@
     			div2 = element("div");
     			settings.$$.fragment.c();
     			div0.className = "w-1/3";
-    			add_location(div0, file$7, 41, 6, 1263);
+    			add_location(div0, file$7, 83, 6, 2368);
     			div1.className = "w-1/3";
-    			add_location(div1, file$7, 44, 6, 1323);
+    			add_location(div1, file$7, 86, 6, 2428);
     			div2.className = "w-1/3";
-    			add_location(div2, file$7, 47, 6, 1385);
+    			add_location(div2, file$7, 89, 6, 2490);
     			div3.className = "w-full h-screen flex flex-row overflow-auto bg-backgroundColor";
-    			add_location(div3, file$7, 40, 4, 1179);
+    			add_location(div3, file$7, 82, 4, 2284);
     		},
 
     		m: function mount(target, anchor) {
@@ -26790,7 +26933,7 @@
     	};
     }
 
-    // (22:2) {#if innerWidth < 1024}
+    // (64:2) {#if innerWidth < 1024}
     function create_if_block$5(ctx) {
     	var current;
 
@@ -26836,7 +26979,7 @@
     	};
     }
 
-    // (24:6) {#if $showEntry}
+    // (66:6) {#if $showEntry}
     function create_if_block_3$1(ctx) {
     	var div, div_transition, current;
 
@@ -26846,7 +26989,7 @@
     		c: function create() {
     			div = element("div");
     			entry.$$.fragment.c();
-    			add_location(div, file$7, 24, 8, 794);
+    			add_location(div, file$7, 66, 8, 1899);
     		},
 
     		m: function mount(target, anchor) {
@@ -26890,7 +27033,7 @@
     	};
     }
 
-    // (29:6) {#if $showSettings}
+    // (71:6) {#if $showSettings}
     function create_if_block_2$1(ctx) {
     	var div, div_transition, current;
 
@@ -26900,7 +27043,7 @@
     		c: function create() {
     			div = element("div");
     			settings.$$.fragment.c();
-    			add_location(div, file$7, 29, 8, 922);
+    			add_location(div, file$7, 71, 8, 2027);
     		},
 
     		m: function mount(target, anchor) {
@@ -26944,8 +27087,8 @@
     	};
     }
 
-    // (34:6) {#if $showSummary}
-    function create_if_block_1$2(ctx) {
+    // (76:6) {#if $showSummary}
+    function create_if_block_1$3(ctx) {
     	var div, div_transition, current;
 
     	var summary = new Summary({ $$inline: true });
@@ -26954,7 +27097,7 @@
     		c: function create() {
     			div = element("div");
     			summary.$$.fragment.c();
-    			add_location(div, file$7, 34, 8, 1052);
+    			add_location(div, file$7, 76, 8, 2157);
     		},
 
     		m: function mount(target, anchor) {
@@ -26998,7 +27141,7 @@
     	};
     }
 
-    // (23:4) <Scaffold>
+    // (65:4) <Scaffold>
     function create_default_slot$1(ctx) {
     	var t0, t1, if_block2_anchor, current;
 
@@ -27006,7 +27149,7 @@
 
     	var if_block1 = (ctx.$showSettings) && create_if_block_2$1(ctx);
 
-    	var if_block2 = (ctx.$showSummary) && create_if_block_1$2(ctx);
+    	var if_block2 = (ctx.$showSummary) && create_if_block_1$3(ctx);
 
     	return {
     		c: function create() {
@@ -27071,7 +27214,7 @@
 
     			if (ctx.$showSummary) {
     				if (!if_block2) {
-    					if_block2 = create_if_block_1$2(ctx);
+    					if_block2 = create_if_block_1$3(ctx);
     					if_block2.c();
     					if_block2.i(1);
     					if_block2.m(if_block2_anchor.parentNode, if_block2_anchor);
@@ -27159,7 +27302,7 @@
     			t = space();
     			signin.$$.fragment.c();
     			main.className = "overflow-hidden";
-    			add_location(main, file$7, 20, 0, 687);
+    			add_location(main, file$7, 62, 0, 1792);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -27228,6 +27371,22 @@
     	};
     }
 
+    function updatePage(pageToRouteTo) {
+      if (pageToRouteTo === "entry") {
+        showEntry.set(true);
+        showSettings.set(false);
+        showSummary.set(false);
+      } else if (pageToRouteTo === "summary") {
+        showEntry.set(false);
+        showSettings.set(false);
+        showSummary.set(true);
+      } else if (pageToRouteTo === "settings") {
+        showEntry.set(false);
+        showSettings.set(true);
+        showSummary.set(false);
+      }
+    }
+
     function instance$7($$self, $$props, $$invalidate) {
     	let $showEntry, $showSettings, $showSummary;
 
@@ -27245,6 +27404,32 @@
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/service-worker.js");
       }
+
+      /**
+       * Handle routing to desired page on window load
+       */
+      window.onload = function() {
+        if (window.location.search.length > 0) {
+          const params = window.location.search.substr(1);
+          params.split("&").forEach(param => {
+            const key = param.split("=")[0];
+            const value = param.split("=")[1];
+
+            if (key === "page") {
+              updatePage(value);
+            }
+          });
+        }
+      };
+
+      /**
+       * Handle broswer back events here, pick up the new state and show relevant page
+       */
+      window.onpopstate = function(event) {
+        if (event.state) {
+          updatePage(event.state.page);
+        }
+      };
 
     	function onwindowresize() {
     		innerWidth = window.innerWidth; $$invalidate('innerWidth', innerWidth);

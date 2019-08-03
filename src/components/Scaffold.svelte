@@ -3,6 +3,8 @@
   let innerHeight, contentHeight;
 
   function handleClick(target) {
+    handleRouting(target);
+
     if (target === "entry") {
       showEntry.set(true);
       showSummary.set(false);
@@ -16,6 +18,16 @@
       showSummary.set(false);
       showSettings.set(true);
     }
+  }
+
+  function handleRouting(newPage) {
+    window.history.pushState(
+      {
+        page: newPage
+      },
+      null,
+      "?page=" + newPage
+    );
   }
 
   $: contentHeight =
