@@ -4276,7 +4276,7 @@
     			div = element("div");
     			loadingspinner.$$.fragment.c();
     			div.className = "w-full h-screen bg-black opacity-75 flex items-center justify-center\r\n    absolute";
-    			add_location(div, file$2, 502, 2, 15370);
+    			add_location(div, file$2, 502, 2, 15403);
     			dispose = listen(div, "click", ctx.click_handler);
     		},
 
@@ -4333,13 +4333,13 @@
     			svg = svg_element("svg");
     			path = svg_element("path");
     			attr(path, "d", "M385.513,301.214c-27.438,0-51.64,13.072-67.452,33.09l-146.66-75.002\r\n        c1.92-7.161,3.3-14.56,3.3-22.347c0-8.477-1.639-16.458-3.926-24.224l146.013-74.656c15.725,20.924,40.553,34.6,68.746,34.6\r\n        c47.758,0,86.391-38.633,86.391-86.348C471.926,38.655,433.292,0,385.535,0c-47.65,0-86.326,38.655-86.326,86.326\r\n        c0,7.809,1.381,15.229,3.322,22.412L155.892,183.74c-15.833-20.039-40.079-33.154-67.56-33.154\r\n        c-47.715,0-86.326,38.676-86.326,86.369s38.612,86.348,86.326,86.348c28.236,0,53.043-13.719,68.832-34.664l145.948,74.656\r\n        c-2.287,7.744-3.947,15.79-3.947,24.289c0,47.693,38.676,86.348,86.326,86.348c47.758,0,86.391-38.655,86.391-86.348\r\n        C471.904,339.848,433.271,301.214,385.513,301.214z");
-    			add_location(path, file$2, 532, 6, 16313);
+    			add_location(path, file$2, 532, 6, 16346);
     			attr(svg, "class", "w-6 h-6 fill-current text-secondaryColor");
     			attr(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg, "viewBox", "0 0 473.932 473.932");
-    			add_location(svg, file$2, 528, 4, 16165);
+    			add_location(svg, file$2, 528, 4, 16198);
     			button.className = "mb-20 mr-4 absolute bottom-0 right-0 rounded-full shadow-lg p-4\r\n    bg-accentColor3 outline-none";
-    			add_location(button, file$2, 524, 2, 16004);
+    			add_location(button, file$2, 524, 2, 16037);
     			dispose = listen(button, "click", ctx.click_handler_1);
     		},
 
@@ -4377,17 +4377,17 @@
     			button2 = element("button");
     			t4 = text("Submit");
     			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-l" + " svelte-cy5gki";
-    			add_location(button0, file$2, 584, 6, 18184);
+    			add_location(button0, file$2, 584, 6, 18217);
     			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-r" + " svelte-cy5gki";
-    			add_location(button1, file$2, 589, 6, 18349);
+    			add_location(button1, file$2, 589, 6, 18382);
     			div0.className = "inline-flex";
-    			add_location(div0, file$2, 583, 4, 18151);
+    			add_location(div0, file$2, 583, 4, 18184);
     			div1.className = "w-full flex justify-center mt-8";
-    			add_location(div1, file$2, 582, 2, 18100);
+    			add_location(div1, file$2, 582, 2, 18133);
     			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50') + " svelte-cy5gki";
-    			add_location(button2, file$2, 597, 4, 18583);
+    			add_location(button2, file$2, 597, 4, 18616);
     			div2.className = "flex items-center justify-center w-full";
-    			add_location(div2, file$2, 596, 2, 18524);
+    			add_location(div2, file$2, 596, 2, 18557);
 
     			dispose = [
     				listen(button0, "click", ctx.click_handler_2),
@@ -4521,20 +4521,20 @@
     			t12 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold text-backgroundColor";
-    			add_location(div0, file$2, 516, 4, 15783);
+    			add_location(div0, file$2, 516, 4, 15816);
     			body0.className = "text-2xl justify-center items-center flex";
-    			add_location(body0, file$2, 514, 2, 15700);
+    			add_location(body0, file$2, 514, 2, 15733);
     			div1.id = "topBlock";
     			div1.className = "w-full overflow-hidden bg-accentColor text-white";
     			set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
-    			add_location(div1, file$2, 510, 0, 15564);
+    			add_location(div1, file$2, 510, 0, 15597);
     			div2.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div2, file$2, 560, 4, 17564);
+    			add_location(div2, file$2, 560, 4, 17597);
     			body1.className = "text-2xl justify-center items-center flex";
-    			add_location(body1, file$2, 558, 2, 17486);
+    			add_location(body1, file$2, 558, 2, 17519);
     			div3.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div3, file$2, 555, 0, 17376);
+    			add_location(div3, file$2, 555, 0, 17409);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -4736,10 +4736,11 @@
       if (navigator.share) {
         navigator.share({
           url: url,
-          title: document.title
+          title: document.title,
+          text: "Use my recorded entries!"
         });
       } else {
-        console.log("Web Share failed");
+        console.warn("Web Share not supported");
       }
     }
 
@@ -4811,8 +4812,7 @@
 
             readFromCache();
           }
-        } else
-        if (localStorage.getItem("cache") != undefined) {
+        } else if (localStorage.getItem("cache") != undefined) {
           readFromCache();
         }
 
@@ -4850,20 +4850,20 @@
 
       /**
        * Read saved form entries from either url params or localStorage and assign to variables
-      */
-     function readFromCache() {
-       const cache = JSON.parse(localStorage.getItem("cache"));
+       */
+      function readFromCache() {
+        const cache = JSON.parse(localStorage.getItem("cache"));
 
-          $$invalidate('putDownDate', putDownDate = cache.putDownDate);
-          $$invalidate('putDownTime', putDownTime = cache.putDownTime);
-          $$invalidate('sleepDate', sleepDate = cache.sleepDate);
-          $$invalidate('sleepTime', sleepTime = cache.sleepTime);
-          $$invalidate('pickUpDate', pickUpDate = cache.pickUpDate);
-          $$invalidate('pickUpTime', pickUpTime = cache.pickUpTime);
-          $$invalidate('wakeDate', wakeDate = cache.wakeDate);
-          $$invalidate('wakeTime', wakeTime = cache.wakeTime);
-          cache.isNap !== undefined ? (isNap = cache.isNap) : (isNap = true); $$invalidate('isNap', isNap);
-     }
+        $$invalidate('putDownDate', putDownDate = cache.putDownDate);
+        $$invalidate('putDownTime', putDownTime = cache.putDownTime);
+        $$invalidate('sleepDate', sleepDate = cache.sleepDate);
+        $$invalidate('sleepTime', sleepTime = cache.sleepTime);
+        $$invalidate('pickUpDate', pickUpDate = cache.pickUpDate);
+        $$invalidate('pickUpTime', pickUpTime = cache.pickUpTime);
+        $$invalidate('wakeDate', wakeDate = cache.wakeDate);
+        $$invalidate('wakeTime', wakeTime = cache.wakeTime);
+        cache.isNap !== undefined ? (isNap = cache.isNap) : (isNap = true); $$invalidate('isNap', isNap);
+      }
 
       /**
        * Ensures all validation criteria are met before sending to Sheets API

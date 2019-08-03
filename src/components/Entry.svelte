@@ -77,8 +77,7 @@
 
         readFromCache();
       }
-    } else
-    if (localStorage.getItem("cache") != undefined) {
+    } else if (localStorage.getItem("cache") != undefined) {
       readFromCache();
     }
 
@@ -116,20 +115,20 @@
 
   /**
    * Read saved form entries from either url params or localStorage and assign to variables
-  */
- function readFromCache() {
-   const cache = JSON.parse(localStorage.getItem("cache"));
+   */
+  function readFromCache() {
+    const cache = JSON.parse(localStorage.getItem("cache"));
 
-      putDownDate = cache.putDownDate;
-      putDownTime = cache.putDownTime;
-      sleepDate = cache.sleepDate;
-      sleepTime = cache.sleepTime;
-      pickUpDate = cache.pickUpDate;
-      pickUpTime = cache.pickUpTime;
-      wakeDate = cache.wakeDate;
-      wakeTime = cache.wakeTime;
-      cache.isNap !== undefined ? (isNap = cache.isNap) : (isNap = true);
- }
+    putDownDate = cache.putDownDate;
+    putDownTime = cache.putDownTime;
+    sleepDate = cache.sleepDate;
+    sleepTime = cache.sleepTime;
+    pickUpDate = cache.pickUpDate;
+    pickUpTime = cache.pickUpTime;
+    wakeDate = cache.wakeDate;
+    wakeTime = cache.wakeTime;
+    cache.isNap !== undefined ? (isNap = cache.isNap) : (isNap = true);
+  }
 
   /**
    * @param {string} dateString The string representing the date component in yyyy-MM-dd format
@@ -385,16 +384,17 @@
         url = url + "&" + key + "=" + value;
       }
 
-      console.log(url)
+      console.log(url);
     }
 
     if (navigator.share) {
       navigator.share({
         url: url,
-        title: document.title
+        title: document.title,
+        text: "Use my recorded entries!"
       });
     } else {
-      console.log("Web Share failed");
+      console.warn("Web Share not supported");
     }
   }
 
