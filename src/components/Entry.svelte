@@ -57,27 +57,26 @@
   let time = new Date();
 
   onMount(() => {
-    if (window.location.search.length > 0) {
-      let incomingParams = {};
+    let incomingParams = {};
 
-      const params = window.location.search.substr(1);
-      params.split("&").forEach(param => {
-        const key = param.split("=")[0];
-        const value = param.split("=")[1];
+    const params = window.location.search.substr(1);
+    params.split("&").forEach(param => {
+      const key = param.split("=")[0];
+      const value = param.split("=")[1];
 
-        if (key !== "page") {
-          incomingParams[key] = value;
-        }
-      });
-
-      console.log(incomingParams);
-
-      if (Object.keys(incomingParams).length > 0) {
-        localStorage.setItem("cache", JSON.stringify(incomingParams));
-
-        readFromCache();
+      if (key !== "page") {
+        incomingParams[key] = value;
       }
-    } else if (localStorage.getItem("cache") != undefined) {
+    });
+
+    if (Object.keys(incomingParams).length > 0) {
+      localStorage.setItem("cache", JSON.stringify(incomingParams));
+
+      readFromCache();
+    } else if (
+      localStorage.getItem("cache") !== undefined &&
+      localStorage.getItem("cache").length > 0
+    ) {
       readFromCache();
     }
 
@@ -372,7 +371,7 @@
   }
 
   function shareParams() {
-    let url = document.location.href;
+    let url = document.location.hostname + "/";
 
     if (localStorage.getItem("cache") !== undefined) {
       const cache = JSON.parse(localStorage.getItem("cache"));
@@ -383,8 +382,6 @@
         const value = cache[key];
         url = url + "&" + key + "=" + value;
       }
-
-      console.log(url);
     }
 
     if (navigator.share) {
