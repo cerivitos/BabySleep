@@ -499,7 +499,7 @@
 
 <style type="text/postcss">
   .nap-button {
-    @apply bg-accentColor3 text-white text-lg font-medium py-2 px-4 outline-none;
+    @apply bg-accentColor3 text-black text-lg font-medium py-2 px-4 outline-none;
   }
 </style>
 
@@ -534,7 +534,7 @@
     aria-label="share button"
     on:click={() => shareParams()}>
     <svg
-      class="w-6 h-6 fill-current text-secondaryColor"
+      class="w-6 h-6 fill-current text-backgroundColor"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 473.932 473.932">
       <path
@@ -603,7 +603,7 @@
   </div>
   <div class="flex items-center justify-center w-full">
     <button
-      class="py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white
+      class="py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-black
       font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 {check2v1 && check3v2 && check4v3 ? '' : 'opacity-50'}"
       on:click={() => ($userName !== undefined ? validateAndSend() : signIn())}>
       Submit
