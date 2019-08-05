@@ -531,7 +531,7 @@
   <button
     class="mb-20 mr-4 absolute bottom-0 right-0 rounded-full shadow-lg p-4
     bg-accentColor3 outline-none"
-    name="share-button"
+    aria-label="share button"
     on:click={() => shareParams()}>
     <svg
       class="w-6 h-6 fill-current text-secondaryColor"
