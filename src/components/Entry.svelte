@@ -372,7 +372,7 @@
   }
 
   function shareParams() {
-    let url = document.location.href;
+    let url = document.location.hostname + "/";
 
     if (localStorage.getItem("cache") !== undefined) {
       const cache = JSON.parse(localStorage.getItem("cache"));
@@ -383,8 +383,6 @@
         const value = cache[key];
         url = url + "&" + key + "=" + value;
       }
-
-      console.log(url);
     }
 
     if (navigator.share) {
