@@ -4262,7 +4262,7 @@
 
     const file$2 = "src\\components\\Entry.svelte";
 
-    // (499:0) {#if sending}
+    // (504:0) {#if sending}
     function create_if_block_1(ctx) {
     	var div, div_transition, current, dispose;
 
@@ -4276,7 +4276,7 @@
     			div = element("div");
     			loadingspinner.$$.fragment.c();
     			div.className = "w-full h-screen bg-black opacity-75 flex items-center justify-center\r\n    absolute";
-    			add_location(div, file$2, 499, 2, 15335);
+    			add_location(div, file$2, 504, 2, 15435);
     			dispose = listen(div, "click", ctx.click_handler);
     		},
 
@@ -4323,7 +4323,7 @@
     	};
     }
 
-    // (521:0) {#if innerWidth < 1024}
+    // (526:0) {#if innerWidth < 1024}
     function create_if_block$1(ctx) {
     	var button, svg, path, dispose;
 
@@ -4333,13 +4333,13 @@
     			svg = svg_element("svg");
     			path = svg_element("path");
     			attr(path, "d", "M385.513,301.214c-27.438,0-51.64,13.072-67.452,33.09l-146.66-75.002\r\n        c1.92-7.161,3.3-14.56,3.3-22.347c0-8.477-1.639-16.458-3.926-24.224l146.013-74.656c15.725,20.924,40.553,34.6,68.746,34.6\r\n        c47.758,0,86.391-38.633,86.391-86.348C471.926,38.655,433.292,0,385.535,0c-47.65,0-86.326,38.655-86.326,86.326\r\n        c0,7.809,1.381,15.229,3.322,22.412L155.892,183.74c-15.833-20.039-40.079-33.154-67.56-33.154\r\n        c-47.715,0-86.326,38.676-86.326,86.369s38.612,86.348,86.326,86.348c28.236,0,53.043-13.719,68.832-34.664l145.948,74.656\r\n        c-2.287,7.744-3.947,15.79-3.947,24.289c0,47.693,38.676,86.348,86.326,86.348c47.758,0,86.391-38.655,86.391-86.348\r\n        C471.904,339.848,433.271,301.214,385.513,301.214z");
-    			add_location(path, file$2, 529, 6, 16278);
+    			add_location(path, file$2, 534, 6, 16378);
     			attr(svg, "class", "w-6 h-6 fill-current text-secondaryColor");
     			attr(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg, "viewBox", "0 0 473.932 473.932");
-    			add_location(svg, file$2, 525, 4, 16130);
+    			add_location(svg, file$2, 530, 4, 16230);
     			button.className = "mb-20 mr-4 absolute bottom-0 right-0 rounded-full shadow-lg p-4\r\n    bg-accentColor3 outline-none";
-    			add_location(button, file$2, 521, 2, 15969);
+    			add_location(button, file$2, 526, 2, 16069);
     			dispose = listen(button, "click", ctx.click_handler_1);
     		},
 
@@ -4359,7 +4359,7 @@
     	};
     }
 
-    // (573:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
+    // (578:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
     function create_default_slot(ctx) {
     	var div1, div0, button0, t0, button0_class_value, t1, button1, t2, button1_class_value, t3, div2, button2, t4, button2_class_value, dispose;
 
@@ -4377,17 +4377,17 @@
     			button2 = element("button");
     			t4 = text("Submit");
     			button0.className = button0_class_value = "" + (ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-l" + " svelte-cy5gki";
-    			add_location(button0, file$2, 581, 6, 18149);
+    			add_location(button0, file$2, 586, 6, 18249);
     			button1.className = button1_class_value = "" + (!ctx.isNap ? '' : 'opacity-25') + " nap-button rounded-r" + " svelte-cy5gki";
-    			add_location(button1, file$2, 586, 6, 18314);
+    			add_location(button1, file$2, 591, 6, 18414);
     			div0.className = "inline-flex";
-    			add_location(div0, file$2, 580, 4, 18116);
+    			add_location(div0, file$2, 585, 4, 18216);
     			div1.className = "w-full flex justify-center mt-8";
-    			add_location(div1, file$2, 579, 2, 18065);
+    			add_location(div1, file$2, 584, 2, 18165);
     			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-white\r\n      font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'opacity-50') + " svelte-cy5gki";
-    			add_location(button2, file$2, 594, 4, 18548);
+    			add_location(button2, file$2, 599, 4, 18648);
     			div2.className = "flex items-center justify-center w-full";
-    			add_location(div2, file$2, 593, 2, 18489);
+    			add_location(div2, file$2, 598, 2, 18589);
 
     			dispose = [
     				listen(button0, "click", ctx.click_handler_2),
@@ -4521,20 +4521,20 @@
     			t12 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold text-backgroundColor";
-    			add_location(div0, file$2, 513, 4, 15748);
+    			add_location(div0, file$2, 518, 4, 15848);
     			body0.className = "text-2xl justify-center items-center flex";
-    			add_location(body0, file$2, 511, 2, 15665);
+    			add_location(body0, file$2, 516, 2, 15765);
     			div1.id = "topBlock";
     			div1.className = "w-full overflow-hidden bg-accentColor text-white";
     			set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
-    			add_location(div1, file$2, 507, 0, 15529);
+    			add_location(div1, file$2, 512, 0, 15629);
     			div2.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div2, file$2, 557, 4, 17529);
+    			add_location(div2, file$2, 562, 4, 17629);
     			body1.className = "text-2xl justify-center items-center flex";
-    			add_location(body1, file$2, 555, 2, 17451);
+    			add_location(body1, file$2, 560, 2, 17551);
     			div3.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div3, file$2, 552, 0, 17341);
+    			add_location(div3, file$2, 557, 0, 17441);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -4718,7 +4718,7 @@
     }
 
     function shareParams() {
-      let url = document.location.hostname + "/";
+      let url = document.location.hostname + "/?";
 
       if (localStorage.getItem("cache") !== undefined) {
         const cache = JSON.parse(localStorage.getItem("cache"));
@@ -4727,7 +4727,12 @@
         for (let i = 0; i < keys.length; i++) {
           const key = keys[i];
           const value = cache[key];
-          url = url + "&" + key + "=" + value;
+
+          if (i === 0) {
+            url = url + key + "=" + value;
+          } else {
+            url = url + "&" + key + "=" + value;
+          }
         }
       }
 

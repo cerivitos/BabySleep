@@ -371,7 +371,7 @@
   }
 
   function shareParams() {
-    let url = document.location.hostname + "/";
+    let url = document.location.hostname + "/?";
 
     if (localStorage.getItem("cache") !== undefined) {
       const cache = JSON.parse(localStorage.getItem("cache"));
@@ -380,7 +380,12 @@
       for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
         const value = cache[key];
-        url = url + "&" + key + "=" + value;
+
+        if (i === 0) {
+          url = url + key + "=" + value;
+        } else {
+          url = url + "&" + key + "=" + value;
+        }
       }
     }
 
