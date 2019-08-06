@@ -5643,7 +5643,7 @@
 
     const file$4 = "src\\components\\Settings.svelte";
 
-    // (59:2) {:else}
+    // (63:2) {:else}
     function create_else_block_1(ctx) {
     	var div1, h2, t1, div0, button, svg, defs, path0, clipPath, use, path1, path2, path3, path4, t2, span, div1_intro, dispose;
 
@@ -5668,44 +5668,44 @@
     			span = element("span");
     			span.textContent = "Sign in with Google";
     			h2.className = "svelte-13hyeae";
-    			add_location(h2, file$4, 60, 6, 2054);
+    			add_location(h2, file$4, 64, 6, 2149);
     			attr(path0, "id", "a");
     			attr(path0, "d", "M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2\r\n                0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6\r\n                4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22\r\n                0-1.3-.2-2.7-.5-4z");
-    			add_location(path0, file$4, 72, 14, 2494);
-    			add_location(defs, file$4, 71, 12, 2472);
+    			add_location(path0, file$4, 76, 14, 2589);
+    			add_location(defs, file$4, 75, 12, 2567);
     			xlink_attr(use, "xlink:href", "#a");
     			attr(use, "overflow", "visible");
-    			add_location(use, file$4, 80, 14, 2862);
+    			add_location(use, file$4, 84, 14, 2957);
     			attr(clipPath, "id", "b");
-    			add_location(clipPath, file$4, 79, 12, 2829);
+    			add_location(clipPath, file$4, 83, 12, 2924);
     			attr(path1, "clip-path", "url(#b)");
     			attr(path1, "fill", "#FBBC05");
     			attr(path1, "d", "M0 37V11l17 13z");
-    			add_location(path1, file$4, 82, 12, 2943);
+    			add_location(path1, file$4, 86, 12, 3038);
     			attr(path2, "clip-path", "url(#b)");
     			attr(path2, "fill", "#EA4335");
     			attr(path2, "d", "M0 11l17 13 7-6.1L48 14V0H0z");
-    			add_location(path2, file$4, 83, 12, 3020);
+    			add_location(path2, file$4, 87, 12, 3115);
     			attr(path3, "clip-path", "url(#b)");
     			attr(path3, "fill", "#34A853");
     			attr(path3, "d", "M0 37l30-23 7.9 1L48 0v48H0z");
-    			add_location(path3, file$4, 87, 12, 3155);
+    			add_location(path3, file$4, 91, 12, 3250);
     			attr(path4, "clip-path", "url(#b)");
     			attr(path4, "fill", "#4285F4");
     			attr(path4, "d", "M48 48L17 24l-4-3 35-10z");
-    			add_location(path4, file$4, 91, 12, 3290);
+    			add_location(path4, file$4, 95, 12, 3385);
     			attr(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg, "xmlns:xlink", "http://www.w3.org/1999/xlink");
     			attr(svg, "viewBox", "0 0 48 48");
     			attr(svg, "class", "w-6 h-6 pr-2");
-    			add_location(svg, file$4, 66, 10, 2282);
-    			add_location(span, file$4, 96, 10, 3437);
+    			add_location(svg, file$4, 70, 10, 2377);
+    			add_location(span, file$4, 100, 10, 3532);
     			button.className = "flex bg-white rounded shadow text-gray-700 py-2 px-4\r\n          font-medium";
-    			add_location(button, file$4, 62, 8, 2130);
+    			add_location(button, file$4, 66, 8, 2225);
     			div0.className = "flex justify-center";
-    			add_location(div0, file$4, 61, 6, 2087);
+    			add_location(div0, file$4, 65, 6, 2182);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$4, 59, 4, 1991);
+    			add_location(div1, file$4, 63, 4, 2086);
     			dispose = listen(button, "click", ctx.click_handler_1);
     		},
 
@@ -5751,7 +5751,7 @@
     	};
     }
 
-    // (47:2) {#if $userName !== undefined && $userPic !== undefined}
+    // (51:2) {#if $userName !== undefined && $userPic !== undefined}
     function create_if_block_1$1(ctx) {
     	var div1, h2, t1, div0, img, t2, body, t3, t4, button, div1_intro, dispose;
 
@@ -5770,19 +5770,19 @@
     			button = element("button");
     			button.textContent = "SIGN OUT";
     			h2.className = "svelte-13hyeae";
-    			add_location(h2, file$4, 48, 6, 1626);
+    			add_location(h2, file$4, 52, 6, 1721);
     			img.src = ctx.$userPic;
     			img.alt = "User profile picture";
     			img.className = "rounded-full w-8 h-8 mr-2 flex-none";
-    			add_location(img, file$4, 50, 8, 1696);
+    			add_location(img, file$4, 54, 8, 1791);
     			body.className = "flex-1 svelte-13hyeae";
-    			add_location(body, file$4, 54, 8, 1832);
+    			add_location(body, file$4, 58, 8, 1927);
     			button.className = "button svelte-13hyeae";
-    			add_location(button, file$4, 55, 8, 1881);
+    			add_location(button, file$4, 59, 8, 1976);
     			div0.className = "flex items-center";
-    			add_location(div0, file$4, 49, 6, 1655);
+    			add_location(div0, file$4, 53, 6, 1750);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$4, 47, 4, 1563);
+    			add_location(div1, file$4, 51, 4, 1658);
     			dispose = listen(button, "click", ctx.click_handler);
     		},
 
@@ -5830,7 +5830,7 @@
     	};
     }
 
-    // (107:6) {:else}
+    // (111:6) {:else}
     function create_else_block(ctx) {
     	var body, t0, t1, button, dispose;
 
@@ -5842,9 +5842,9 @@
     			button = element("button");
     			button.textContent = "OPEN";
     			body.className = "flex-1 truncate svelte-13hyeae";
-    			add_location(body, file$4, 107, 8, 3701);
+    			add_location(body, file$4, 111, 8, 3796);
     			button.className = "button svelte-13hyeae";
-    			add_location(button, file$4, 108, 8, 3760);
+    			add_location(button, file$4, 112, 8, 3855);
     			dispose = listen(button, "click", ctx.click_handler_2);
     		},
 
@@ -5876,7 +5876,7 @@
     	};
     }
 
-    // (105:6) {#if loadingSheetName}
+    // (109:6) {#if loadingSheetName}
     function create_if_block$3(ctx) {
     	var current;
 
@@ -5957,20 +5957,20 @@
     			div2 = element("div");
     			div2.textContent = "v1.3.2";
     			h2.className = "svelte-13hyeae";
-    			add_location(h2, file$4, 102, 4, 3560);
+    			add_location(h2, file$4, 106, 4, 3655);
     			div0.className = "flex items-center";
-    			add_location(div0, file$4, 103, 4, 3587);
+    			add_location(div0, file$4, 107, 4, 3682);
     			a.href = "/privacy-policy.html";
     			a.target = "_blank";
-    			add_location(a, file$4, 116, 6, 3979);
+    			add_location(a, file$4, 120, 6, 4074);
     			div1.className = "mt-4 w-full text-center text-sm";
-    			add_location(div1, file$4, 115, 4, 3926);
+    			add_location(div1, file$4, 119, 4, 4021);
     			div2.className = "mt-4 w-full text-center text-primaryColor text-sm";
-    			add_location(div2, file$4, 118, 4, 4062);
+    			add_location(div2, file$4, 122, 4, 4157);
     			div3.className = "mt-8 flex-col";
-    			add_location(div3, file$4, 101, 2, 3527);
+    			add_location(div3, file$4, 105, 2, 3622);
     			div4.className = "w-full bg-backgroundColor p-4";
-    			add_location(div4, file$4, 45, 0, 1455);
+    			add_location(div4, file$4, 49, 0, 1550);
     		},
 
     		l: function claim(nodes) {
@@ -6107,6 +6107,12 @@
     	function click_handler_2() {
     		return openSheet(credentials.SPREADSHEET_ID);
     	}
+
+    	$$self.$$.update = ($$dirty = { $gapiInstance: 1 }) => {
+    		if ($$dirty.$gapiInstance) { if ($gapiInstance !== undefined) {
+            getSheetName(credentials.SPREADSHEET_ID);
+          } }
+    	};
 
     	return {
     		loadingSheetName,

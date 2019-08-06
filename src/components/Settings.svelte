@@ -39,6 +39,10 @@
   function openSheet(id) {
     window.open(`https://docs.google.com/spreadsheets/d/${id}`, "_blank");
   }
+
+  $: if ($gapiInstance !== undefined) {
+    getSheetName(credentials.SPREADSHEET_ID);
+  }
 </script>
 
 <style type="text/postcss">
