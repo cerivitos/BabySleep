@@ -371,7 +371,7 @@
   }
 
   function shareParams() {
-    let url = document.location.hostname + "/?";
+    let url = "https://" + document.location.hostname + "/?";
 
     if (localStorage.getItem("cache") !== undefined) {
       const cache = JSON.parse(localStorage.getItem("cache"));
