@@ -4172,13 +4172,13 @@
     			t5 = space();
     			if (if_block) if_block.c();
     			add_location(div0, file$1, 9, 6, 1237);
-    			div1.className = "dot svelte-pqda";
+    			div1.className = "dot svelte-vh3wiq";
     			add_location(div1, file$1, 8, 4, 1212);
     			add_location(div2, file$1, 12, 6, 1292);
-    			div3.className = "dot svelte-pqda";
+    			div3.className = "dot svelte-vh3wiq";
     			add_location(div3, file$1, 11, 4, 1267);
     			add_location(div4, file$1, 15, 6, 1347);
-    			div5.className = "dot svelte-pqda";
+    			div5.className = "dot svelte-vh3wiq";
     			add_location(div5, file$1, 14, 4, 1322);
     			div6.className = "flex text-center justify-center items-center";
     			add_location(div6, file$1, 7, 2, 1148);

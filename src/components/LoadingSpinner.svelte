@@ -11,15 +11,15 @@
   }
 
   .dot:nth-child(1) {
-    animation-delay: 0s;
-  }
-
-  .dot:nth-child(2) {
     animation-delay: -0.32s;
   }
 
-  .dot:nth-child(3) {
+  .dot:nth-child(2) {
     animation-delay: -0.16s;
+  }
+
+  .dot:nth-child(3) {
+    animation-delay: 0s;
   }
 
   @keyframes scale {
@@ -31,7 +31,7 @@
     ,
     50% {
       transform-origin: center;
-      transform: scale(1.2);
+      transform: scale(1.5);
     }
   }
 
