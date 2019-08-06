@@ -501,6 +501,10 @@
   .nap-button {
     @apply bg-accentColor3 text-black text-lg font-medium py-2 px-4 outline-none;
   }
+
+  .inactive {
+    @apply bg-gray-500 text-gray-900 border-none font-normal;
+  }
 </style>
 
 <svelte:window bind:innerWidth />
@@ -590,12 +594,12 @@
   <div class="w-full flex justify-center mt-8">
     <div class="inline-flex">
       <button
-        class="{isNap ? '' : 'opacity-25'} nap-button rounded-l"
+        class="nap-button rounded-l {isNap ? '' : 'inactive'}"
         on:click={() => (isNap = true)}>
         &nbsp;Nap&nbsp;
       </button>
       <button
-        class="{!isNap ? '' : 'opacity-25'} nap-button rounded-r"
+        class="nap-button rounded-r {!isNap ? '' : 'inactive'}"
         on:click={() => (isNap = false)}>
         Sleep
       </button>
@@ -604,7 +608,7 @@
   <div class="flex items-center justify-center w-full">
     <button
       class="py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-black
-      font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 {check2v1 && check3v2 && check4v3 ? '' : 'opacity-50'}"
+      font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 {check2v1 && check3v2 && check4v3 ? '' : 'inactive'}"
       on:click={() => ($userName !== undefined ? validateAndSend() : signIn())}>
       Submit
     </button>
