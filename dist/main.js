@@ -25433,7 +25433,7 @@
     	return child_ctx;
     }
 
-    // (322:4) {:else}
+    // (323:4) {:else}
     function create_else_block_3(ctx) {
     	var p, t_value = getPutDownTime(ctx.todayDatas) !== ctx.undefined ? getPutDownTime(ctx.todayDatas) : 'No data yet', t, p_class_value;
 
@@ -25442,7 +25442,7 @@
     			p = element("p");
     			t = text(t_value);
     			p.className = p_class_value = "w-full text-center " + (getPutDownTime(ctx.todayDatas) !== ctx.undefined ? 'text-accentColor3 font-bold text-2xl' : 'text-secondaryColor') + "\r\n        " + " svelte-w8nxyn";
-    			add_location(p, file$5, 322, 6, 9327);
+    			add_location(p, file$5, 323, 6, 9337);
     		},
 
     		m: function mount(target, anchor) {
@@ -25462,7 +25462,7 @@
     	};
     }
 
-    // (318:40) 
+    // (319:29) 
     function create_if_block_6(ctx) {
     	var p, p_transition, current;
 
@@ -25471,7 +25471,7 @@
     			p = element("p");
     			p.textContent = "Sign in to view data";
     			p.className = "text-center text-secondaryColor";
-    			add_location(p, file$5, 318, 6, 9205);
+    			add_location(p, file$5, 319, 6, 9215);
     		},
 
     		m: function mount(target, anchor) {
@@ -25507,7 +25507,7 @@
     	};
     }
 
-    // (316:4) {#if loading && !requiresSignIn}
+    // (317:4) {#if loading && !requiresSignIn}
     function create_if_block_5(ctx) {
     	var current;
 
@@ -25543,7 +25543,7 @@
     	};
     }
 
-    // (338:4) {:else}
+    // (339:4) {:else}
     function create_else_block_1$1(ctx) {
     	var div1, div0, table, t, div0_class_value, div1_transition, current;
 
@@ -25575,11 +25575,11 @@
     				each_blocks[i].c();
     			}
     			table.className = "w-full";
-    			add_location(table, file$5, 341, 10, 10063);
+    			add_location(table, file$5, 342, 10, 10062);
     			div0.className = div0_class_value = "" + (ctx.innerWidth >= 375 || ctx.todayDatas.length === 0 ? 'w-full' : 'tableContainer') + " svelte-w8nxyn";
-    			add_location(div0, file$5, 339, 8, 9952);
+    			add_location(div0, file$5, 340, 8, 9951);
     			div1.className = "overflow-auto w-full";
-    			add_location(div1, file$5, 338, 6, 9892);
+    			add_location(div1, file$5, 339, 6, 9891);
     		},
 
     		m: function mount(target, anchor) {
@@ -25665,7 +25665,7 @@
     	};
     }
 
-    // (334:40) 
+    // (335:29) 
     function create_if_block_3(ctx) {
     	var p, p_transition, current;
 
@@ -25674,7 +25674,7 @@
     			p = element("p");
     			p.textContent = "Sign in to view data";
     			p.className = "text-center text-secondaryColor";
-    			add_location(p, file$5, 334, 6, 9770);
+    			add_location(p, file$5, 335, 6, 9769);
     		},
 
     		m: function mount(target, anchor) {
@@ -25710,7 +25710,7 @@
     	};
     }
 
-    // (332:4) {#if loading && !requiresSignIn}
+    // (333:4) {#if loading && !requiresSignIn}
     function create_if_block_2(ctx) {
     	var current;
 
@@ -25746,7 +25746,7 @@
     	};
     }
 
-    // (360:12) {:else}
+    // (361:12) {:else}
     function create_else_block_2(ctx) {
     	var div, p;
 
@@ -25755,9 +25755,9 @@
     			div = element("div");
     			p = element("p");
     			p.textContent = "No data yet";
-    			add_location(p, file$5, 361, 16, 10688);
+    			add_location(p, file$5, 362, 16, 10687);
     			div.className = "text-center text-secondaryColor w-full";
-    			add_location(div, file$5, 360, 14, 10618);
+    			add_location(div, file$5, 361, 14, 10617);
     		},
 
     		m: function mount(target, anchor) {
@@ -25773,7 +25773,7 @@
     	};
     }
 
-    // (343:12) {#if todayDatas.length > 0}
+    // (344:12) {#if todayDatas.length > 0}
     function create_if_block_4(ctx) {
     	var thead, tr, th0, p0, t1, th1, p1, t3, th2, p2, t5, th3, p3;
 
@@ -25796,21 +25796,21 @@
     			th3 = element("th");
     			p3 = element("p");
     			p3.textContent = "Picked up";
-    			add_location(p0, file$5, 346, 20, 10233);
+    			add_location(p0, file$5, 347, 20, 10232);
     			th0.className = "svelte-w8nxyn";
-    			add_location(th0, file$5, 345, 18, 10207);
-    			add_location(p1, file$5, 349, 20, 10319);
+    			add_location(th0, file$5, 346, 18, 10206);
+    			add_location(p1, file$5, 350, 20, 10318);
     			th1.className = "svelte-w8nxyn";
-    			add_location(th1, file$5, 348, 18, 10293);
-    			add_location(p2, file$5, 352, 20, 10408);
+    			add_location(th1, file$5, 349, 18, 10292);
+    			add_location(p2, file$5, 353, 20, 10407);
     			th2.className = "svelte-w8nxyn";
-    			add_location(th2, file$5, 351, 18, 10382);
-    			add_location(p3, file$5, 355, 20, 10493);
+    			add_location(th2, file$5, 352, 18, 10381);
+    			add_location(p3, file$5, 356, 20, 10492);
     			th3.className = "svelte-w8nxyn";
-    			add_location(th3, file$5, 354, 18, 10467);
+    			add_location(th3, file$5, 355, 18, 10466);
     			tr.className = "text-sm";
-    			add_location(tr, file$5, 344, 16, 10167);
-    			add_location(thead, file$5, 343, 14, 10142);
+    			add_location(tr, file$5, 345, 16, 10166);
+    			add_location(thead, file$5, 344, 14, 10141);
     		},
 
     		m: function mount(target, anchor) {
@@ -25837,7 +25837,7 @@
     	};
     }
 
-    // (365:12) {#each todayDatas as todayData}
+    // (366:12) {#each todayDatas as todayData}
     function create_each_block(ctx) {
     	var h3, t0_value = ctx.todayData[11], t0, t1, t2_value = ctx.todayData[11] === 'Sleep' ? '' : ctx.todayData[12], t2, t3, tbody, tr, td0, t4_value = ctx.todayData[0].split(', ')[1].toLowerCase(), t4, t5, td1, t6_value = ctx.todayData[1].split(', ')[1].toLowerCase(), t6, t7, td2, t8_value = ctx.todayData[2].split(', ')[1].toLowerCase(), t8, t9, td3, t10_value = ctx.todayData[3].split(', ')[1].toLowerCase(), t10;
 
@@ -25862,18 +25862,18 @@
     			td3 = element("td");
     			t10 = text(t10_value);
     			h3.className = "text-sm text-accentColor3";
-    			add_location(h3, file$5, 365, 14, 10808);
+    			add_location(h3, file$5, 366, 14, 10807);
     			td0.className = "svelte-w8nxyn";
-    			add_location(td0, file$5, 370, 18, 11042);
+    			add_location(td0, file$5, 371, 18, 11041);
     			td1.className = "svelte-w8nxyn";
-    			add_location(td1, file$5, 371, 18, 11114);
+    			add_location(td1, file$5, 372, 18, 11113);
     			td2.className = "svelte-w8nxyn";
-    			add_location(td2, file$5, 372, 18, 11186);
+    			add_location(td2, file$5, 373, 18, 11185);
     			td3.className = "svelte-w8nxyn";
-    			add_location(td3, file$5, 373, 18, 11258);
+    			add_location(td3, file$5, 374, 18, 11257);
     			tr.className = "text-secondaryColor";
-    			add_location(tr, file$5, 369, 16, 10990);
-    			add_location(tbody, file$5, 368, 14, 10965);
+    			add_location(tr, file$5, 370, 16, 10989);
+    			add_location(tbody, file$5, 369, 14, 10964);
     		},
 
     		m: function mount(target, anchor) {
@@ -25909,14 +25909,14 @@
     	};
     }
 
-    // (391:4) {:else}
+    // (392:4) {:else}
     function create_else_block$1(ctx) {
     	var div;
 
     	return {
     		c: function create() {
     			div = element("div");
-    			add_location(div, file$5, 391, 6, 11728);
+    			add_location(div, file$5, 392, 6, 11716);
     		},
 
     		m: function mount(target, anchor) {
@@ -25934,7 +25934,7 @@
     	};
     }
 
-    // (387:40) 
+    // (388:29) 
     function create_if_block_1$2(ctx) {
     	var p, p_transition, current;
 
@@ -25943,7 +25943,7 @@
     			p = element("p");
     			p.textContent = "Sign in to view data";
     			p.className = "text-center text-secondaryColor";
-    			add_location(p, file$5, 387, 6, 11606);
+    			add_location(p, file$5, 388, 6, 11594);
     		},
 
     		m: function mount(target, anchor) {
@@ -25977,7 +25977,7 @@
     	};
     }
 
-    // (385:4) {#if loading && !requiresSignIn}
+    // (386:4) {#if loading && !requiresSignIn}
     function create_if_block$4(ctx) {
     	var current;
 
@@ -26026,7 +26026,7 @@
 
     	function select_block_type(ctx) {
     		if (ctx.loading && !ctx.requiresSignIn) return 0;
-    		if (ctx.loading && ctx.requiresSignIn) return 1;
+    		if (ctx.requiresSignIn) return 1;
     		return 2;
     	}
 
@@ -26043,7 +26043,7 @@
 
     	function select_block_type_1(ctx) {
     		if (ctx.loading && !ctx.requiresSignIn) return 0;
-    		if (ctx.loading && ctx.requiresSignIn) return 1;
+    		if (ctx.requiresSignIn) return 1;
     		return 2;
     	}
 
@@ -26060,7 +26060,7 @@
 
     	function select_block_type_3(ctx) {
     		if (ctx.loading && !ctx.requiresSignIn) return 0;
-    		if (ctx.loading && ctx.requiresSignIn) return 1;
+    		if (ctx.requiresSignIn) return 1;
     		return 2;
     	}
 
@@ -26096,30 +26096,30 @@
     			div4 = element("div");
     			canvas1 = element("canvas");
     			h20.className = "svelte-w8nxyn";
-    			add_location(h20, file$5, 314, 4, 9069);
-    			add_location(div0, file$5, 313, 2, 9058);
+    			add_location(h20, file$5, 315, 4, 9090);
+    			add_location(div0, file$5, 314, 2, 9079);
     			h21.className = "svelte-w8nxyn";
-    			add_location(h21, file$5, 330, 4, 9642);
+    			add_location(h21, file$5, 331, 4, 9652);
     			div1.className = "mt-8";
-    			add_location(div1, file$5, 329, 2, 9618);
+    			add_location(div1, file$5, 330, 2, 9628);
     			h22.className = "svelte-w8nxyn";
-    			add_location(h22, file$5, 383, 4, 11477);
+    			add_location(h22, file$5, 384, 4, 11476);
     			canvas0.id = "napSleepTime";
-    			add_location(canvas0, file$5, 395, 8, 11871);
+    			add_location(canvas0, file$5, 396, 8, 11859);
     			div2.className = div2_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
-    			add_location(div2, file$5, 394, 6, 11800);
+    			add_location(div2, file$5, 395, 6, 11788);
     			div3.className = "overflow-auto w-full mb-12";
-    			add_location(div3, file$5, 393, 4, 11752);
+    			add_location(div3, file$5, 394, 4, 11740);
     			canvas1.id = "TWTVsFirstSleep";
-    			add_location(canvas1, file$5, 400, 8, 12050);
+    			add_location(canvas1, file$5, 401, 8, 12038);
     			div4.className = div4_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
-    			add_location(div4, file$5, 399, 6, 11979);
+    			add_location(div4, file$5, 400, 6, 11967);
     			div5.className = "overflow-auto w-full mb-12";
-    			add_location(div5, file$5, 398, 4, 11931);
+    			add_location(div5, file$5, 399, 4, 11919);
     			div6.className = "mt-8";
-    			add_location(div6, file$5, 382, 2, 11453);
+    			add_location(div6, file$5, 383, 2, 11452);
     			div7.className = "w-full bg-backgroundColor p-4";
-    			add_location(div7, file$5, 312, 0, 9011);
+    			add_location(div7, file$5, 313, 0, 9032);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -26483,8 +26483,8 @@
     	subscribe($$self, userName, $$value => { $userName = $$value; $$invalidate('$userName', $userName); });
 
     	
-      let loading = true;
-      let requiresSignIn = false;
+      let loading = false;
+      let requiresSignIn = true;
       let getTodayData;
 
       let todayDatas = [];
@@ -26493,6 +26493,7 @@
       let innerWidth;
 
       function getData() {
+        $$invalidate('loading', loading = true);
         $gapiInstance.client.sheets.spreadsheets.values
           .get({
             spreadsheetId: credentials.SPREADSHEET_ID,

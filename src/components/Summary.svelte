@@ -9,8 +9,8 @@
   import Chart from "chart.js";
 
   const historicalRows = 100;
-  let loading = true;
-  let requiresSignIn = false;
+  let loading = false;
+  let requiresSignIn = true;
   let getTodayData;
 
   let todayDatas = [];
@@ -19,6 +19,7 @@
   let innerWidth;
 
   function getData() {
+    loading = true;
     $gapiInstance.client.sheets.spreadsheets.values
       .get({
         spreadsheetId: credentials.SPREADSHEET_ID,
@@ -341,7 +342,7 @@
     <h2>Next Put Down</h2>
     {#if loading && !requiresSignIn}
       <LoadingSpinner />
-    {:else if loading && requiresSignIn}
+    {:else if requiresSignIn}
       <p transition:fade class="text-center text-secondaryColor">
         Sign in to view data
       </p>
@@ -357,7 +358,7 @@
     <h2>Today</h2>
     {#if loading && !requiresSignIn}
       <LoadingSpinner />
-    {:else if loading && requiresSignIn}
+    {:else if requiresSignIn}
       <p transition:fade class="text-center text-secondaryColor">
         Sign in to view data
       </p>
@@ -410,7 +411,7 @@
     <h2>Trends</h2>
     {#if loading && !requiresSignIn}
       <LoadingSpinner />
-    {:else if loading && requiresSignIn}
+    {:else if requiresSignIn}
       <p transition:fade class="text-center text-secondaryColor">
         Sign in to view data
       </p>
