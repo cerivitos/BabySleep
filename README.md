@@ -9,21 +9,21 @@ A personal baby sleep tracker
 
 ![laptop_screen](https://github.com/cerivitos/BabySleep/blob/master/babysleep.cerivitos.now.sh_(Laptop%20with%20MDPI%20screen).png)
 
-# Why?
+## Why?
 We practice sleep training for our baby which involves tracking his wake and sleep patterns. Previously, we used a Google Sheet shared between several caregivers. Entering data into the Sheet is unwieldy especially for the less tech savvy, so I created a simple front end.
 
-# Features
+## Features
 - Responsive layout depending on mobile or large screens
 - Input form validation before submitting
 - Google OAuth2 for sign in and Sheets API for data updating and reading
 
-# Stack
+## Stack
 - [Svelte](https://svelte.dev) for front end
 - [Tailwind](https://tailwindcss.com) for styling
 - [Chart.js](https://chartjs.org) for charts
 - Hosted on [Now](https://zeit.co/now)
 
-# Try
+## Try
 As this use case is specific to my needs, the app is not immediately useful to others. If you would like a starter template for Svelte, with built in PWA, Rollup, Tailwind and Now config, head over to [svelte-pwa-now](https://github.com/cerivitos/svelte-pwa-now).
 
 Otherwise, you can play around with this repo by cloning it (make sure you have [NodeJS](https://nodejs.org) installed first). 
@@ -70,12 +70,12 @@ npm run build
 ```
 and serve the ```dist``` folder.
 
-# Further details
+## Further details
 The main data entry logic is located at ```/components/Entry.svelte```. This will be your starting point if you would like to customize how data is recorded to the Google Sheet.
 
 The function [```validateAndSend()```](https://github.com/cerivitos/BabySleep/blob/18e7ee2af4f62ff736239f573ea560997b5575e8/src/components/Entry.svelte#L117) writes to the linked Sheet, including several additional cells of custom formulas related to sleep tracking. You can view the results by opening the Google Sheet after form submission.
 
 The Summary page displays past trends and charts. The component is at ```/components/Summary.svelte```, including functions to plot charts at [```plotTWTVsFirstSleep(data)```](https://github.com/cerivitos/BabySleep/blob/18e7ee2af4f62ff736239f573ea560997b5575e8/src/components/Summary.svelte#L96) and [```plotNapSleepTime(data)```](https://github.com/cerivitos/BabySleep/blob/18e7ee2af4f62ff736239f573ea560997b5575e8/src/components/Summary.svelte#L197). For references on how to use Chart.js, start [here](https://www.chartjs.org/docs/latest/).
 
-# Licence
+## Licence
 MIT
