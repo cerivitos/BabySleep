@@ -348,6 +348,7 @@
       </p>
     {:else}
       <p
+        transition:fade
         class="w-full text-center {getPutDownTime(todayDatas) !== undefined ? 'text-accentColor3 font-bold text-2xl' : 'text-secondaryColor'}
         ">
         {getPutDownTime(todayDatas) !== undefined ? getPutDownTime(todayDatas) : 'No data yet'}
