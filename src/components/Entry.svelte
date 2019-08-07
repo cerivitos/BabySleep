@@ -213,7 +213,7 @@
                     /**
                      * Next Put Down
                      */
-                    `=C${currentRow}+(D${currentRow}-C${currentRow})/2+if(M${currentRow}=1,Rules!$B$7,if(M${currentRow}=2,Rules!$B$8,Rules!$B$9))`,
+                    `=C${currentRow}+(D${currentRow}-C${currentRow})/2+if(L${currentRow}="Sleep", Rules!$B$10, if(and(L${currentRow}="Nap",M${currentRow}=1),Rules!$B$7,if(and(L${currentRow}="Nap",M${currentRow}=2),Rules!$B$8,Rules!$B$9)))`,
                     /**
                      * Time to fall asleep
                      */
