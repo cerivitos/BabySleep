@@ -13,7 +13,7 @@
   import { fade } from "svelte/transition";
 
   let showErrorScreen = false;
-  let signingInPromise;
+  let showSigningIn = true;
   let auth2;
 
   onMount(() => {
@@ -30,7 +30,7 @@
   });
 
   function initClient() {
-    signingInPromise = gapi.client
+    gapi.client
       .init({
         clientID: credentials.CLIENT_ID,
         apiKey: credentials.API_KEY,
@@ -57,6 +57,8 @@
   }
 
   function updateSigninStatus(signedIn) {
+    showSigningIn = false;
+
     if (signedIn) {
       console.log("Signed in automatically");
 
@@ -76,6 +78,7 @@
           .getImageUrl()
       );
     } else {
+      showErrorScreen = true;
       userName.set();
       userPic.set();
     }
@@ -86,26 +89,27 @@
   <meta name="google-signin-client_id" content={credentials.CLIENT_ID} />
 </svelte:head>
 
-{#await signingInPromise}
+{#if showSigningIn}
   <div
     transition:fade
     class="w-full h-screen bg-black opacity-75 flex items-center justify-center
-    absolute"
+    absolute top-0"
     on:click>
     <LoadingSpinner text="Signing in" />
   </div>
-{:then}
+{:else}
   <div />
-{/await}
+{/if}
 {#if showErrorScreen}
   <div
     transition:fade
-    class="w-full h-screen bg-black opacity-75 absolute"
+    class="w-full h-screen bg-black opacity-75 absolute top-0"
     on:click />
   <div
-    class="w-full h-screen flex flex-col items-center justify-center absolute">
+    class="w-full h-screen flex flex-col items-center justify-center absolute
+    top-0">
     <p class="w-1/2 text-center text-secondaryColor mb-4">
-      Error signing in. Please try again.
+      You must be signed in to continue.
     </p>
     <button
       class="py-2 w-1/2 rounded-lg bg-accentColor2 text-white font-medium"

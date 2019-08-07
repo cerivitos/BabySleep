@@ -92,5 +92,5 @@
       </div>
     </div>
   {/if}
-  <SignIn class="absolute" />
+  <SignIn class="absolute top-0 left-0" />
 </main>

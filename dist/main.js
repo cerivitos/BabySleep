@@ -12,10 +12,6 @@
     	return tar;
     }
 
-    function is_promise(value) {
-    	return value && typeof value.then === 'function';
-    }
-
     function add_location(element, file, line, column, char) {
     	element.__svelte_meta = {
     		loc: { file, line, column, char }
@@ -590,67 +586,6 @@
     			running_program = pending_program = null;
     		}
     	};
-    }
-
-    function handle_promise(promise, info) {
-    	const token = info.token = {};
-
-    	function update(type, index, key, value) {
-    		if (info.token !== token) return;
-
-    		info.resolved = key && { [key]: value };
-
-    		const child_ctx = assign(assign({}, info.ctx), info.resolved);
-    		const block = type && (info.current = type)(child_ctx);
-
-    		if (info.block) {
-    			if (info.blocks) {
-    				info.blocks.forEach((block, i) => {
-    					if (i !== index && block) {
-    						group_outros();
-    						on_outro(() => {
-    							block.d(1);
-    							info.blocks[i] = null;
-    						});
-    						block.o(1);
-    						check_outros();
-    					}
-    				});
-    			} else {
-    				info.block.d(1);
-    			}
-
-    			block.c();
-    			if (block.i) block.i(1);
-    			block.m(info.mount(), info.anchor);
-
-    			flush();
-    		}
-
-    		info.block = block;
-    		if (info.blocks) info.blocks[index] = block;
-    	}
-
-    	if (is_promise(promise)) {
-    		promise.then(value => {
-    			update(info.then, 1, info.value, value);
-    		}, error => {
-    			update(info.catch, 2, info.error, error);
-    		});
-
-    		// if we previously had a then/catch block, destroy it
-    		if (info.current !== info.pending) {
-    			update(info.pending, 0);
-    			return true;
-    		}
-    	} else {
-    		if (info.current !== info.then) {
-    			update(info.then, 1, info.value, promise);
-    			return true;
-    		}
-
-    		info.resolved = { [info.value]: promise };
-    	}
     }
 
     function mount_component(component, target, anchor) {
@@ -5257,25 +5192,14 @@
 
     const file$3 = "src\\components\\SignIn.svelte";
 
-    // (1:0) <script>    import { credentials }
-    function create_catch_block(ctx) {
-    	return {
-    		c: noop,
-    		m: noop,
-    		i: noop,
-    		o: noop,
-    		d: noop
-    	};
-    }
-
-    // (97:0) {:then}
-    function create_then_block(ctx) {
+    // (100:0) {:else}
+    function create_else_block(ctx) {
     	var div;
 
     	return {
     		c: function create() {
     			div = element("div");
-    			add_location(div, file$3, 97, 2, 2290);
+    			add_location(div, file$3, 100, 2, 2336);
     		},
 
     		m: function mount(target, anchor) {
@@ -5293,8 +5217,8 @@
     	};
     }
 
-    // (89:25)     <div      transition:fade      class="w-full h-screen bg-black opacity-75 flex items-center justify-center      absolute"      on:click>      <LoadingSpinner text="Signing in" />    </div>  {:then}
-    function create_pending_block(ctx) {
+    // (92:0) {#if showSigningIn}
+    function create_if_block_1$1(ctx) {
     	var div, div_transition, current, dispose;
 
     	var loadingspinner = new LoadingSpinner({
@@ -5306,8 +5230,8 @@
     		c: function create() {
     			div = element("div");
     			loadingspinner.$$.fragment.c();
-    			div.className = "w-full h-screen bg-black opacity-75 flex items-center justify-center\r\n    absolute";
-    			add_location(div, file$3, 89, 2, 2089);
+    			div.className = "w-full h-screen bg-black opacity-75 flex items-center justify-center\r\n    absolute top-0";
+    			add_location(div, file$3, 92, 2, 2129);
     			dispose = listen(div, "click", ctx.click_handler);
     		},
 
@@ -5354,7 +5278,7 @@
     	};
     }
 
-    // (100:0) {#if showErrorScreen}
+    // (103:0) {#if showErrorScreen}
     function create_if_block$2(ctx) {
     	var div0, div0_transition, t0, div1, p, t2, button, current, dispose;
 
@@ -5364,18 +5288,18 @@
     			t0 = space();
     			div1 = element("div");
     			p = element("p");
-    			p.textContent = "Error signing in. Please try again.";
+    			p.textContent = "You must be signed in to continue.";
     			t2 = space();
     			button = element("button");
     			button.textContent = "Go to Settings";
-    			div0.className = "w-full h-screen bg-black opacity-75 absolute";
-    			add_location(div0, file$3, 100, 2, 2334);
+    			div0.className = "w-full h-screen bg-black opacity-75 absolute top-0";
+    			add_location(div0, file$3, 103, 2, 2377);
     			p.className = "w-1/2 text-center text-secondaryColor mb-4";
-    			add_location(p, file$3, 106, 4, 2529);
+    			add_location(p, file$3, 110, 4, 2589);
     			button.className = "py-2 w-1/2 rounded-lg bg-accentColor2 text-white font-medium";
-    			add_location(button, file$3, 109, 4, 2642);
-    			div1.className = "w-full h-screen flex flex-col items-center justify-center absolute";
-    			add_location(div1, file$3, 104, 2, 2438);
+    			add_location(button, file$3, 113, 4, 2701);
+    			div1.className = "w-full h-screen flex flex-col items-center justify-center absolute\r\n    top-0";
+    			add_location(div1, file$3, 107, 2, 2487);
 
     			dispose = [
     				listen(div0, "click", ctx.click_handler_1),
@@ -5424,36 +5348,36 @@
     }
 
     function create_fragment$3(ctx) {
-    	var meta, meta_content_value, t0, promise, t1, if_block_anchor, current;
+    	var meta, meta_content_value, t0, current_block_type_index, if_block0, t1, if_block1_anchor, current;
 
-    	let info = {
-    		ctx,
-    		current: null,
-    		pending: create_pending_block,
-    		then: create_then_block,
-    		catch: create_catch_block,
-    		value: 'null',
-    		error: 'null',
-    		blocks: Array(3)
-    	};
+    	var if_block_creators = [
+    		create_if_block_1$1,
+    		create_else_block
+    	];
 
-    	handle_promise(promise = ctx.signingInPromise, info);
+    	var if_blocks = [];
 
-    	var if_block = (ctx.showErrorScreen) && create_if_block$2(ctx);
+    	function select_block_type(ctx) {
+    		if (ctx.showSigningIn) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx);
+    	if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+
+    	var if_block1 = (ctx.showErrorScreen) && create_if_block$2(ctx);
 
     	return {
     		c: function create() {
     			meta = element("meta");
     			t0 = space();
-
-    			info.block.c();
-
+    			if_block0.c();
     			t1 = space();
-    			if (if_block) if_block.c();
-    			if_block_anchor = empty();
+    			if (if_block1) if_block1.c();
+    			if_block1_anchor = empty();
     			meta.name = "google-signin-client_id";
     			meta.content = meta_content_value = credentials.CLIENT_ID;
-    			add_location(meta, file$3, 85, 2, 1969);
+    			add_location(meta, file$3, 88, 2, 2015);
     		},
 
     		l: function claim(nodes) {
@@ -5463,58 +5387,65 @@
     		m: function mount(target, anchor) {
     			append(document.head, meta);
     			insert(target, t0, anchor);
-
-    			info.block.m(target, info.anchor = anchor);
-    			info.mount = () => t1.parentNode;
-    			info.anchor = t1;
-
+    			if_blocks[current_block_type_index].m(target, anchor);
     			insert(target, t1, anchor);
-    			if (if_block) if_block.m(target, anchor);
-    			insert(target, if_block_anchor, anchor);
+    			if (if_block1) if_block1.m(target, anchor);
+    			insert(target, if_block1_anchor, anchor);
     			current = true;
     		},
 
-    		p: function update(changed, new_ctx) {
-    			ctx = new_ctx;
-    			info.ctx = ctx;
-
-    			('signingInPromise' in changed) && promise !== (promise = ctx.signingInPromise) && handle_promise(promise, info);
-
-    			if (ctx.showErrorScreen) {
-    				if (!if_block) {
-    					if_block = create_if_block$2(ctx);
-    					if_block.c();
-    					if_block.i(1);
-    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
-    				} else {
-    									if_block.i(1);
-    				}
-    			} else if (if_block) {
+    		p: function update(changed, ctx) {
+    			var previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
+    			if (current_block_type_index !== previous_block_index) {
     				group_outros();
     				on_outro(() => {
-    					if_block.d(1);
-    					if_block = null;
+    					if_blocks[previous_block_index].d(1);
+    					if_blocks[previous_block_index] = null;
+    				});
+    				if_block0.o(1);
+    				check_outros();
+
+    				if_block0 = if_blocks[current_block_type_index];
+    				if (!if_block0) {
+    					if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block0.c();
+    				}
+    				if_block0.i(1);
+    				if_block0.m(t1.parentNode, t1);
+    			}
+
+    			if (ctx.showErrorScreen) {
+    				if (!if_block1) {
+    					if_block1 = create_if_block$2(ctx);
+    					if_block1.c();
+    					if_block1.i(1);
+    					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+    				} else {
+    									if_block1.i(1);
+    				}
+    			} else if (if_block1) {
+    				group_outros();
+    				on_outro(() => {
+    					if_block1.d(1);
+    					if_block1 = null;
     				});
 
-    				if_block.o(1);
+    				if_block1.o(1);
     				check_outros();
     			}
     		},
 
     		i: function intro(local) {
     			if (current) return;
-    			info.block.i();
-    			if (if_block) if_block.i();
+    			if (if_block0) if_block0.i();
+    			if (if_block1) if_block1.i();
     			current = true;
     		},
 
     		o: function outro(local) {
-    			for (let i = 0; i < 3; i += 1) {
-    				const block = info.blocks[i];
-    				if (block) block.o();
-    			}
-
-    			if (if_block) if_block.o();
+    			if (if_block0) if_block0.o();
+    			if (if_block1) if_block1.o();
     			current = false;
     		},
 
@@ -5525,63 +5456,26 @@
     				detach(t0);
     			}
 
-    			info.block.d(detaching);
-    			info = null;
+    			if_blocks[current_block_type_index].d(detaching);
 
     			if (detaching) {
     				detach(t1);
     			}
 
-    			if (if_block) if_block.d(detaching);
+    			if (if_block1) if_block1.d(detaching);
 
     			if (detaching) {
-    				detach(if_block_anchor);
+    				detach(if_block1_anchor);
     			}
     		}
     	};
-    }
-
-    function initAuth2() {
-      gapi.auth2
-        .init({
-          clientID: credentials.CLIENT_ID,
-          scope: credentials.SCOPES
-        })
-        .then(() => {
-          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-        });
-    }
-
-    function updateSigninStatus(signedIn) {
-      if (signedIn) {
-        console.log("Signed in automatically");
-
-        gapiInstance.set(gapi);
-        userName.set(
-          gapi.auth2
-            .getAuthInstance()
-            .currentUser.get()
-            .getBasicProfile()
-            .getName()
-        );
-        userPic.set(
-          gapi.auth2
-            .getAuthInstance()
-            .currentUser.get()
-            .getBasicProfile()
-            .getImageUrl()
-        );
-      } else {
-        userName.set();
-        userPic.set();
-      }
     }
 
     function instance$3($$self, $$props, $$invalidate) {
     	
 
       let showErrorScreen = false;
-      let signingInPromise;
+      let showSigningIn = true;
 
       onMount(() => {
         const script = document.createElement("script");
@@ -5597,7 +5491,7 @@
       });
 
       function initClient() {
-        $$invalidate('signingInPromise', signingInPromise = gapi.client
+        gapi.client
           .init({
             clientID: credentials.CLIENT_ID,
             apiKey: credentials.API_KEY,
@@ -5609,7 +5503,46 @@
           })
           .catch(e => {
             $$invalidate('showErrorScreen', showErrorScreen = true);
-          }));
+          });
+      }
+
+      function initAuth2() {
+        gapi.auth2
+          .init({
+            clientID: credentials.CLIENT_ID,
+            scope: credentials.SCOPES
+          })
+          .then(() => {
+            updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          });
+      }
+
+      function updateSigninStatus(signedIn) {
+        $$invalidate('showSigningIn', showSigningIn = false);
+
+        if (signedIn) {
+          console.log("Signed in automatically");
+
+          gapiInstance.set(gapi);
+          userName.set(
+            gapi.auth2
+              .getAuthInstance()
+              .currentUser.get()
+              .getBasicProfile()
+              .getName()
+          );
+          userPic.set(
+            gapi.auth2
+              .getAuthInstance()
+              .currentUser.get()
+              .getBasicProfile()
+              .getImageUrl()
+          );
+        } else {
+          $$invalidate('showErrorScreen', showErrorScreen = true);
+          userName.set();
+          userPic.set();
+        }
       }
 
     	function click_handler(event) {
@@ -5629,7 +5562,7 @@
 
     	return {
     		showErrorScreen,
-    		signingInPromise,
+    		showSigningIn,
     		click_handler,
     		click_handler_1,
     		click_handler_2
@@ -5756,7 +5689,7 @@
     }
 
     // (51:2) {#if $userName !== undefined && $userPic !== undefined}
-    function create_if_block_1$1(ctx) {
+    function create_if_block_1$2(ctx) {
     	var div1, h2, t1, div0, img, t2, body, t3, t4, button, div1_intro, dispose;
 
     	return {
@@ -5835,7 +5768,7 @@
     }
 
     // (111:6) {:else}
-    function create_else_block(ctx) {
+    function create_else_block$1(ctx) {
     	var body, t0, t1, button, dispose;
 
     	return {
@@ -5920,7 +5853,7 @@
     	var div4, t0, div3, h2, t2, div0, current_block_type_index, if_block1, t3, div1, a, t5, div2, current;
 
     	function select_block_type(ctx) {
-    		if (ctx.$userName !== ctx.undefined && ctx.$userPic !== ctx.undefined) return create_if_block_1$1;
+    		if (ctx.$userName !== ctx.undefined && ctx.$userPic !== ctx.undefined) return create_if_block_1$2;
     		return create_else_block_1;
     	}
 
@@ -5929,7 +5862,7 @@
 
     	var if_block_creators = [
     		create_if_block$3,
-    		create_else_block
+    		create_else_block$1
     	];
 
     	var if_blocks = [];
@@ -25914,7 +25847,7 @@
     }
 
     // (392:4) {:else}
-    function create_else_block$1(ctx) {
+    function create_else_block$2(ctx) {
     	var div;
 
     	return {
@@ -25939,7 +25872,7 @@
     }
 
     // (388:29) 
-    function create_if_block_1$2(ctx) {
+    function create_if_block_1$3(ctx) {
     	var p, p_transition, current;
 
     	return {
@@ -26056,8 +25989,8 @@
 
     	var if_block_creators_2 = [
     		create_if_block$4,
-    		create_if_block_1$2,
-    		create_else_block$1
+    		create_if_block_1$3,
+    		create_else_block$2
     	];
 
     	var if_blocks_2 = [];
@@ -26870,7 +26803,7 @@
     const file$7 = "src\\App.svelte";
 
     // (82:2) {:else}
-    function create_else_block$2(ctx) {
+    function create_else_block$3(ctx) {
     	var div3, div0, t0, div1, t1, div2, current;
 
     	var entry = new Entry({ $$inline: true });
@@ -27102,7 +27035,7 @@
     }
 
     // (76:6) {#if $showSummary}
-    function create_if_block_1$3(ctx) {
+    function create_if_block_1$4(ctx) {
     	var div, div_transition, current;
 
     	var summary = new Summary({ $$inline: true });
@@ -27163,7 +27096,7 @@
 
     	var if_block1 = (ctx.$showSettings) && create_if_block_2$1(ctx);
 
-    	var if_block2 = (ctx.$showSummary) && create_if_block_1$3(ctx);
+    	var if_block2 = (ctx.$showSummary) && create_if_block_1$4(ctx);
 
     	return {
     		c: function create() {
@@ -27228,7 +27161,7 @@
 
     			if (ctx.$showSummary) {
     				if (!if_block2) {
-    					if_block2 = create_if_block_1$3(ctx);
+    					if_block2 = create_if_block_1$4(ctx);
     					if_block2.c();
     					if_block2.i(1);
     					if_block2.m(if_block2_anchor.parentNode, if_block2_anchor);
@@ -27291,7 +27224,7 @@
 
     	var if_block_creators = [
     		create_if_block$5,
-    		create_else_block$2
+    		create_else_block$3
     	];
 
     	var if_blocks = [];
@@ -27305,7 +27238,7 @@
     	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
 
     	var signin = new SignIn({
-    		props: { class: "absolute" },
+    		props: { class: "absolute top-0 left-0" },
     		$$inline: true
     	});
 
