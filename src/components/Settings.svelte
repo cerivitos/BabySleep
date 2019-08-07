@@ -71,7 +71,7 @@
   }
 </style>
 
-<div class="w-full bg-backgroundColor p-4">
+<div class="w-full h-screen bg-backgroundColor p-4">
   {#if $userName !== undefined && $userPic !== undefined}
     <div class="mt-2 flex-col" in:fade={{ duration: 400 }}>
       <h2>Signed in as</h2>
