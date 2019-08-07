@@ -69,7 +69,9 @@
       }
     });
 
-    if (Object.keys(incomingParams).length > 0) {
+    const keys = Object.keys(incomingParams);
+
+    if (keys.length > 0 && keys[0] !== "") {
       localStorage.setItem("cache", JSON.stringify(incomingParams));
 
       readFromCache();
@@ -211,7 +213,7 @@
                     /**
                      * Next Put Down
                      */
-                    `=C${currentRow}+(D${currentRow}-C${currentRow})/2+if(M${currentRow}=1,Rules!$B$7,if(M${currentRow}=2,Rules!$B$8,Rules!$B$9))`,
+                    `=C${currentRow}+(D${currentRow}-C${currentRow})/2+if(L${currentRow}="Sleep", Rules!$B$10, if(and(L${currentRow}="Nap",M${currentRow}=1),Rules!$B$7,if(and(L${currentRow}="Nap",M${currentRow}=2),Rules!$B$8,Rules!$B$9)))`,
                     /**
                      * Time to fall asleep
                      */
@@ -349,24 +351,32 @@
   function receivePutDown(event) {
     putDownDate = event.detail.date;
     putDownTime = event.detail.time;
+    sleepDate = putDownDate;
     saveToCache();
   }
 
   function receiveFellAsleep(event) {
     sleepDate = event.detail.date;
     sleepTime = event.detail.time;
+    wakeDate = sleepDate;
     saveToCache();
   }
 
   function receiveWokeUp(event) {
     wakeDate = event.detail.date;
     wakeTime = event.detail.time;
+    pickUpDate = wakeDate;
     saveToCache();
   }
 
   function receivePickedUp(event) {
     pickUpDate = event.detail.date;
     pickUpTime = event.detail.time;
+    saveToCache();
+  }
+
+  function receiveNap(nap) {
+    isNap = nap;
     saveToCache();
   }
 
@@ -447,12 +457,6 @@
   } else {
     check4v3 = false;
   }
-
-  $: sleepDate = putDownDate;
-
-  $: wakeDate = putDownDate;
-
-  $: pickUpDate = putDownDate;
 
   /**
    * Calculates sleep time by taking the difference between falling asleep and either the current time or wake time (whichever is lower). Also animates the div height to show number of minutes asleep if it is more than zero.
@@ -595,12 +599,12 @@
     <div class="inline-flex">
       <button
         class="nap-button rounded-l {isNap ? '' : 'inactive'}"
-        on:click={() => (isNap = true)}>
+        on:click={() => receiveNap(true)}>
         &nbsp;Nap&nbsp;
       </button>
       <button
         class="nap-button rounded-r {!isNap ? '' : 'inactive'}"
-        on:click={() => (isNap = false)}>
+        on:click={() => receiveNap(false)}>
         Sleep
       </button>
     </div>

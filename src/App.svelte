@@ -79,7 +79,7 @@
         </div>
       {/if}
     </Scaffold>
-  {:else}
+  {:else if innerWidth !== undefined}
     <div class="w-full h-screen flex flex-row overflow-auto bg-backgroundColor">
       <div class="w-1/3">
         <Entry />
@@ -92,5 +92,5 @@
       </div>
     </div>
   {/if}
-  <SignIn class="absolute" />
+  <SignIn class="absolute top-0 left-0" />
 </main>

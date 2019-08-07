@@ -71,7 +71,7 @@
   }
 </style>
 
-<div class="w-full bg-backgroundColor p-4">
+<div class="w-full h-screen bg-backgroundColor p-4">
   {#if $userName !== undefined && $userPic !== undefined}
     <div class="mt-2 flex-col" in:fade={{ duration: 400 }}>
       <h2>Signed in as</h2>
@@ -144,6 +144,6 @@
     <div class="mt-4 w-full text-center text-sm">
       <a href="/privacy-policy.html" target="_blank">Privacy Policy</a>
     </div>
-    <div class="mt-4 w-full text-center text-primaryColor text-sm">v1.3.3</div>
+    <div class="mt-4 w-full text-center text-primaryColor text-sm">v1.3.4</div>
   </div>
 </div>
