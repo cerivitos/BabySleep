@@ -5892,7 +5892,7 @@
     			a.textContent = "Privacy Policy";
     			t5 = space();
     			div2 = element("div");
-    			div2.textContent = "v1.3.3";
+    			div2.textContent = "v1.3.4";
     			h2.className = "svelte-13hyeae";
     			add_location(h2, file$4, 106, 4, 3664);
     			div0.className = "flex items-center";
