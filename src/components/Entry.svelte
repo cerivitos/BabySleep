@@ -99,7 +99,6 @@
    * Save form entries to localStorage with each update to prevent data loss
    */
   function saveToCache() {
-    console.log(`put down date: ${putDownDate} sleep date: ${sleepDate}`)
     let cache = {
       putDownDate: putDownDate,
       putDownTime: putDownTime,
