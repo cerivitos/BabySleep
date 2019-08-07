@@ -99,6 +99,7 @@
    * Save form entries to localStorage with each update to prevent data loss
    */
   function saveToCache() {
+    console.log(`put down date: ${putDownDate} sleep date: ${sleepDate}`)
     let cache = {
       putDownDate: putDownDate,
       putDownTime: putDownTime,
@@ -351,18 +352,21 @@
   function receivePutDown(event) {
     putDownDate = event.detail.date;
     putDownTime = event.detail.time;
+    sleepDate = putDownDate;
     saveToCache();
   }
 
   function receiveFellAsleep(event) {
     sleepDate = event.detail.date;
     sleepTime = event.detail.time;
+    wakeDate = sleepDate;
     saveToCache();
   }
 
   function receiveWokeUp(event) {
     wakeDate = event.detail.date;
     wakeTime = event.detail.time;
+    pickUpDate = wakeDate;
     saveToCache();
   }
 
@@ -454,12 +458,6 @@
   } else {
     check4v3 = false;
   }
-
-  $: sleepDate = putDownDate;
-
-  $: wakeDate = putDownDate;
-
-  $: pickUpDate = putDownDate;
 
   /**
    * Calculates sleep time by taking the difference between falling asleep and either the current time or wake time (whichever is lower). Also animates the div height to show number of minutes asleep if it is more than zero.

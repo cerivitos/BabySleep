@@ -4197,7 +4197,7 @@
 
     const file$2 = "src\\components\\Entry.svelte";
 
-    // (511:0) {#if sending}
+    // (509:0) {#if sending}
     function create_if_block_1(ctx) {
     	var div, div_transition, current, dispose;
 
@@ -4211,7 +4211,7 @@
     			div = element("div");
     			loadingspinner.$$.fragment.c();
     			div.className = "w-full h-screen bg-black opacity-75 flex items-center justify-center\r\n    absolute";
-    			add_location(div, file$2, 511, 2, 15650);
+    			add_location(div, file$2, 509, 2, 15711);
     			dispose = listen(div, "click", ctx.click_handler);
     		},
 
@@ -4258,7 +4258,7 @@
     	};
     }
 
-    // (533:0) {#if innerWidth < 1024}
+    // (531:0) {#if innerWidth < 1024}
     function create_if_block$1(ctx) {
     	var button, svg, path, dispose;
 
@@ -4268,14 +4268,14 @@
     			svg = svg_element("svg");
     			path = svg_element("path");
     			attr(path, "d", "M385.513,301.214c-27.438,0-51.64,13.072-67.452,33.09l-146.66-75.002\r\n        c1.92-7.161,3.3-14.56,3.3-22.347c0-8.477-1.639-16.458-3.926-24.224l146.013-74.656c15.725,20.924,40.553,34.6,68.746,34.6\r\n        c47.758,0,86.391-38.633,86.391-86.348C471.926,38.655,433.292,0,385.535,0c-47.65,0-86.326,38.655-86.326,86.326\r\n        c0,7.809,1.381,15.229,3.322,22.412L155.892,183.74c-15.833-20.039-40.079-33.154-67.56-33.154\r\n        c-47.715,0-86.326,38.676-86.326,86.369s38.612,86.348,86.326,86.348c28.236,0,53.043-13.719,68.832-34.664l145.948,74.656\r\n        c-2.287,7.744-3.947,15.79-3.947,24.289c0,47.693,38.676,86.348,86.326,86.348c47.758,0,86.391-38.655,86.391-86.348\r\n        C471.904,339.848,433.271,301.214,385.513,301.214z");
-    			add_location(path, file$2, 542, 6, 16625);
+    			add_location(path, file$2, 540, 6, 16686);
     			attr(svg, "class", "w-6 h-6 fill-current text-backgroundColor");
     			attr(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg, "viewBox", "0 0 473.932 473.932");
-    			add_location(svg, file$2, 538, 4, 16476);
+    			add_location(svg, file$2, 536, 4, 16537);
     			button.className = "mb-20 mr-4 absolute bottom-0 right-0 rounded-full shadow-lg p-4\r\n    bg-accentColor3 outline-none";
     			attr(button, "aria-label", "share button");
-    			add_location(button, file$2, 533, 2, 16284);
+    			add_location(button, file$2, 531, 2, 16345);
     			dispose = listen(button, "click", ctx.click_handler_1);
     		},
 
@@ -4295,7 +4295,7 @@
     	};
     }
 
-    // (586:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
+    // (584:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
     function create_default_slot(ctx) {
     	var div1, div0, button0, t0, button0_class_value, t1, button1, t2, button1_class_value, t3, div2, button2, t4, button2_class_value, dispose;
 
@@ -4313,17 +4313,17 @@
     			button2 = element("button");
     			t4 = text("Submit");
     			button0.className = button0_class_value = "nap-button rounded-l " + (ctx.isNap ? '' : 'inactive') + " svelte-15h91l6";
-    			add_location(button0, file$2, 594, 6, 18496);
+    			add_location(button0, file$2, 592, 6, 18557);
     			button1.className = button1_class_value = "nap-button rounded-r " + (!ctx.isNap ? '' : 'inactive') + " svelte-15h91l6";
-    			add_location(button1, file$2, 599, 6, 18661);
+    			add_location(button1, file$2, 597, 6, 18722);
     			div0.className = "inline-flex";
-    			add_location(div0, file$2, 593, 4, 18463);
+    			add_location(div0, file$2, 591, 4, 18524);
     			div1.className = "w-full flex justify-center mt-8";
-    			add_location(div1, file$2, 592, 2, 18412);
+    			add_location(div1, file$2, 590, 2, 18473);
     			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-black\r\n      font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'inactive') + " svelte-15h91l6";
-    			add_location(button2, file$2, 607, 4, 18895);
+    			add_location(button2, file$2, 605, 4, 18956);
     			div2.className = "flex items-center justify-center w-full";
-    			add_location(div2, file$2, 606, 2, 18836);
+    			add_location(div2, file$2, 604, 2, 18897);
 
     			dispose = [
     				listen(button0, "click", ctx.click_handler_2),
@@ -4457,20 +4457,20 @@
     			t12 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold text-backgroundColor";
-    			add_location(div0, file$2, 525, 4, 16063);
+    			add_location(div0, file$2, 523, 4, 16124);
     			body0.className = "text-2xl justify-center items-center flex";
-    			add_location(body0, file$2, 523, 2, 15980);
+    			add_location(body0, file$2, 521, 2, 16041);
     			div1.id = "topBlock";
     			div1.className = "w-full overflow-hidden bg-accentColor text-white";
     			set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
-    			add_location(div1, file$2, 519, 0, 15844);
+    			add_location(div1, file$2, 517, 0, 15905);
     			div2.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div2, file$2, 570, 4, 17876);
+    			add_location(div2, file$2, 568, 4, 17937);
     			body1.className = "text-2xl justify-center items-center flex";
-    			add_location(body1, file$2, 568, 2, 17798);
+    			add_location(body1, file$2, 566, 2, 17859);
     			div3.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div3, file$2, 565, 0, 17688);
+    			add_location(div3, file$2, 563, 0, 17749);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -4773,6 +4773,7 @@
        * Save form entries to localStorage with each update to prevent data loss
        */
       function saveToCache() {
+        console.log(`put down date: ${putDownDate} sleep date: ${sleepDate}`);
         let cache = {
           putDownDate: putDownDate,
           putDownTime: putDownTime,
@@ -5008,18 +5009,21 @@
       function receivePutDown(event) {
         $$invalidate('putDownDate', putDownDate = event.detail.date);
         $$invalidate('putDownTime', putDownTime = event.detail.time);
+        $$invalidate('sleepDate', sleepDate = putDownDate);
         saveToCache();
       }
 
       function receiveFellAsleep(event) {
         $$invalidate('sleepDate', sleepDate = event.detail.date);
         $$invalidate('sleepTime', sleepTime = event.detail.time);
+        $$invalidate('wakeDate', wakeDate = sleepDate);
         saveToCache();
       }
 
       function receiveWokeUp(event) {
         $$invalidate('wakeDate', wakeDate = event.detail.date);
         $$invalidate('wakeTime', wakeTime = event.detail.time);
+        $$invalidate('pickUpDate', pickUpDate = wakeDate);
         saveToCache();
       }
 
@@ -5058,8 +5062,7 @@
     		return ($userName !== undefined ? validateAndSend() : signIn());
     	}
 
-    	$$self.$$.update = ($$dirty = { putDownDate: 1, sleepDate: 1, sleepTime: 1, putDownTime: 1, wakeDate: 1, wakeTime: 1, pickUpDate: 1, pickUpTime: 1, check2v1: 1, check3v2: 1, time: 1, nextPutDownTime: 1 }) => {
-    		if ($$dirty.putDownDate) { $$invalidate('sleepDate', sleepDate = putDownDate); }
+    	$$self.$$.update = ($$dirty = { sleepDate: 1, sleepTime: 1, putDownDate: 1, putDownTime: 1, wakeDate: 1, wakeTime: 1, pickUpDate: 1, pickUpTime: 1, check2v1: 1, check3v2: 1, time: 1, nextPutDownTime: 1 }) => {
     		if ($$dirty.sleepDate || $$dirty.sleepTime || $$dirty.putDownDate || $$dirty.putDownTime) { if (
             isAfter(
               new Date(sleepDate + "T" + sleepTime),
@@ -5074,7 +5077,6 @@
           } else {
             $$invalidate('check2v1', check2v1 = false);
           } }
-    		if ($$dirty.putDownDate) { $$invalidate('wakeDate', wakeDate = putDownDate); }
     		if ($$dirty.wakeDate || $$dirty.wakeTime || $$dirty.sleepDate || $$dirty.sleepTime) { if (
             isAfter(
               new Date(wakeDate + "T" + wakeTime),
@@ -5089,7 +5091,6 @@
           } else {
             $$invalidate('check3v2', check3v2 = false);
           } }
-    		if ($$dirty.putDownDate) { $$invalidate('pickUpDate', pickUpDate = putDownDate); }
     		if ($$dirty.pickUpDate || $$dirty.pickUpTime || $$dirty.wakeDate || $$dirty.wakeTime) { if (
             isAfter(
               new Date(pickUpDate + "T" + pickUpTime),
