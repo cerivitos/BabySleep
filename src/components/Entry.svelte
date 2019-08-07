@@ -372,6 +372,11 @@
     saveToCache();
   }
 
+  function receiveNap(nap) {
+    isNap = nap;
+    saveToCache();
+  }
+
   function shareParams() {
     let url = "https://" + document.location.hostname + "/?";
 
@@ -597,12 +602,12 @@
     <div class="inline-flex">
       <button
         class="nap-button rounded-l {isNap ? '' : 'inactive'}"
-        on:click={() => (isNap = true)}>
+        on:click={() => receiveNap(true)}>
         &nbsp;Nap&nbsp;
       </button>
       <button
         class="nap-button rounded-r {!isNap ? '' : 'inactive'}"
-        on:click={() => (isNap = false)}>
+        on:click={() => receiveNap(false)}>
         Sleep
       </button>
     </div>
