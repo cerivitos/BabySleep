@@ -69,7 +69,9 @@
       }
     });
 
-    if (Object.keys(incomingParams).length > 0) {
+    const keys = Object.keys(incomingParams);
+
+    if (keys.length > 0 && keys[0] !== "") {
       localStorage.setItem("cache", JSON.stringify(incomingParams));
 
       readFromCache();
