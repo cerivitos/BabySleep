@@ -225,7 +225,9 @@
                     /**
                      * WT to PD
                      */
-                    `=A${currentRow}-C${currentRow - 1}`,
+                    `=(A${currentRow}-D${currentRow -
+                      1})+(D${currentRow - 1}-C${currentRow -
+                      1})/2`,
                     /**
                      * Adjusted WT
                      */
