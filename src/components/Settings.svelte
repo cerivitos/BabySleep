@@ -144,6 +144,6 @@
     <div class="mt-4 w-full text-center text-sm">
       <a href="/privacy-policy.html" target="_blank">Privacy Policy</a>
     </div>
-    <div class="mt-4 w-full text-center text-primaryColor text-sm">v1.3.5</div>
+    <div class="mt-4 w-full text-center text-primaryColor text-sm">v1.3.6</div>
   </div>
 </div>
