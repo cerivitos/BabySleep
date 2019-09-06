@@ -56,7 +56,7 @@
             // }
 
             for (let i = 0; i < sheetData.length; i++) {
-              const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
+              const date = new Date(sheetData[i][2].replace(",", ` ${year}`));
 
               if (isSameDay(date, new Date())) {
                 if (
