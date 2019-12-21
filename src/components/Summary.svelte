@@ -1,7 +1,13 @@
 <script>
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
-  import { gapiInstance, userName } from "../store/store.js";
+  import {
+    gapiInstance,
+    userName,
+    showEntry,
+    showSettings,
+    showSummary
+  } from "../store/store.js";
   import LoadingSpinner from "./LoadingSpinner.svelte";
   import { credentials } from "../../credentials.js";
   import { isSameDay, format } from "date-fns";
@@ -369,7 +375,12 @@
       </p>
       <button
         class="py-2 w-1/2 rounded-lg bg-accentColor text-white font-medium"
-        on:click={() => getData()}>
+        on:click={() => {
+          showEntry.set(false);
+          showSummary.set(false);
+          showSettings.set(true);
+          requiresSignIn = false;
+        }}>
         Retry
       </button>
     </div>
