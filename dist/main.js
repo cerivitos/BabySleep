@@ -6141,7 +6141,7 @@
     			a.textContent = "Privacy Policy";
     			t5 = space();
     			div2 = element("div");
-    			div2.textContent = "v1.3.6";
+    			div2.textContent = "v1.3.7";
     			h2.className = "svelte-13hyeae";
     			add_location(h2, file$4, 113, 4, 3809);
     			div0.className = "flex items-center";
