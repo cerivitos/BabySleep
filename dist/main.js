@@ -12,6 +12,10 @@
     	return tar;
     }
 
+    function is_promise(value) {
+    	return value && typeof value.then === 'function';
+    }
+
     function add_location(element, file, line, column, char) {
     	element.__svelte_meta = {
     		loc: { file, line, column, char }
@@ -586,6 +590,67 @@
     			running_program = pending_program = null;
     		}
     	};
+    }
+
+    function handle_promise(promise, info) {
+    	const token = info.token = {};
+
+    	function update(type, index, key, value) {
+    		if (info.token !== token) return;
+
+    		info.resolved = key && { [key]: value };
+
+    		const child_ctx = assign(assign({}, info.ctx), info.resolved);
+    		const block = type && (info.current = type)(child_ctx);
+
+    		if (info.block) {
+    			if (info.blocks) {
+    				info.blocks.forEach((block, i) => {
+    					if (i !== index && block) {
+    						group_outros();
+    						on_outro(() => {
+    							block.d(1);
+    							info.blocks[i] = null;
+    						});
+    						block.o(1);
+    						check_outros();
+    					}
+    				});
+    			} else {
+    				info.block.d(1);
+    			}
+
+    			block.c();
+    			if (block.i) block.i(1);
+    			block.m(info.mount(), info.anchor);
+
+    			flush();
+    		}
+
+    		info.block = block;
+    		if (info.blocks) info.blocks[index] = block;
+    	}
+
+    	if (is_promise(promise)) {
+    		promise.then(value => {
+    			update(info.then, 1, info.value, value);
+    		}, error => {
+    			update(info.catch, 2, info.error, error);
+    		});
+
+    		// if we previously had a then/catch block, destroy it
+    		if (info.current !== info.pending) {
+    			update(info.pending, 0);
+    			return true;
+    		}
+    	} else {
+    		if (info.current !== info.then) {
+    			update(info.then, 1, info.value, promise);
+    			return true;
+    		}
+
+    		info.resolved = { [info.value]: promise };
+    	}
     }
 
     function mount_component(component, target, anchor) {
@@ -4197,7 +4262,69 @@
 
     const file$2 = "src\\components\\Entry.svelte";
 
-    // (510:0) {#if sending}
+    // (528:20) 
+    function create_if_block_2(ctx) {
+    	var div, p, t_1, button, div_transition, current, dispose;
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			p = element("p");
+    			p.textContent = "It looks like there was a network error";
+    			t_1 = space();
+    			button = element("button");
+    			button.textContent = "Retry";
+    			p.className = "w-1/2 text-center text-secondaryColor mb-4";
+    			add_location(p, file$2, 534, 4, 16830);
+    			button.className = "py-2 w-1/2 rounded-lg bg-accentColor text-white font-medium";
+    			add_location(button, file$2, 537, 4, 16947);
+    			div.className = "w-full h-screen fixed top-0 left-0 flex flex-col items-center\r\n    justify-center";
+    			set_style(div, "background", "rgba(0, 0, 0, 0.75)");
+    			add_location(div, file$2, 528, 2, 16615);
+
+    			dispose = [
+    				listen(button, "click", ctx.click_handler_1),
+    				listen(div, "click", ctx.click_handler_2)
+    			];
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    			append(div, p);
+    			append(div, t_1);
+    			append(div, button);
+    			current = true;
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			add_render_callback(() => {
+    				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+    				div_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+    			div_transition.run(0);
+
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    				if (div_transition) div_transition.end();
+    			}
+
+    			run_all(dispose);
+    		}
+    	};
+    }
+
+    // (520:0) {#if sending && !showError}
     function create_if_block_1(ctx) {
     	var div, div_transition, current, dispose;
 
@@ -4211,7 +4338,7 @@
     			div = element("div");
     			loadingspinner.$$.fragment.c();
     			div.className = "w-full h-screen bg-black opacity-75 flex items-center justify-center\r\n    absolute";
-    			add_location(div, file$2, 510, 2, 15819);
+    			add_location(div, file$2, 520, 2, 16404);
     			dispose = listen(div, "click", ctx.click_handler);
     		},
 
@@ -4258,7 +4385,7 @@
     	};
     }
 
-    // (532:0) {#if innerWidth < 1024}
+    // (558:0) {#if innerWidth < 1024}
     function create_if_block$1(ctx) {
     	var button, svg, path, dispose;
 
@@ -4268,15 +4395,15 @@
     			svg = svg_element("svg");
     			path = svg_element("path");
     			attr(path, "d", "M385.513,301.214c-27.438,0-51.64,13.072-67.452,33.09l-146.66-75.002\r\n        c1.92-7.161,3.3-14.56,3.3-22.347c0-8.477-1.639-16.458-3.926-24.224l146.013-74.656c15.725,20.924,40.553,34.6,68.746,34.6\r\n        c47.758,0,86.391-38.633,86.391-86.348C471.926,38.655,433.292,0,385.535,0c-47.65,0-86.326,38.655-86.326,86.326\r\n        c0,7.809,1.381,15.229,3.322,22.412L155.892,183.74c-15.833-20.039-40.079-33.154-67.56-33.154\r\n        c-47.715,0-86.326,38.676-86.326,86.369s38.612,86.348,86.326,86.348c28.236,0,53.043-13.719,68.832-34.664l145.948,74.656\r\n        c-2.287,7.744-3.947,15.79-3.947,24.289c0,47.693,38.676,86.348,86.326,86.348c47.758,0,86.391-38.655,86.391-86.348\r\n        C471.904,339.848,433.271,301.214,385.513,301.214z");
-    			add_location(path, file$2, 541, 6, 16794);
+    			add_location(path, file$2, 567, 6, 17939);
     			attr(svg, "class", "w-6 h-6 fill-current text-backgroundColor");
     			attr(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg, "viewBox", "0 0 473.932 473.932");
-    			add_location(svg, file$2, 537, 4, 16645);
+    			add_location(svg, file$2, 563, 4, 17790);
     			button.className = "mb-20 mr-4 absolute bottom-0 right-0 rounded-full shadow-lg p-4\r\n    bg-accentColor3 outline-none";
     			attr(button, "aria-label", "share button");
-    			add_location(button, file$2, 532, 2, 16453);
-    			dispose = listen(button, "click", ctx.click_handler_1);
+    			add_location(button, file$2, 558, 2, 17598);
+    			dispose = listen(button, "click", ctx.click_handler_3);
     		},
 
     		m: function mount(target, anchor) {
@@ -4295,7 +4422,7 @@
     	};
     }
 
-    // (585:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
+    // (611:0) <EntryBlock    title="Picked up at"    date={pickUpDate}    time={pickUpTime}    check={check4v3}    minDate={wakeDate}    on:pickedupat={receivePickedUp}>
     function create_default_slot(ctx) {
     	var div1, div0, button0, t0, button0_class_value, t1, button1, t2, button1_class_value, t3, div2, button2, t4, button2_class_value, dispose;
 
@@ -4313,22 +4440,22 @@
     			button2 = element("button");
     			t4 = text("Submit");
     			button0.className = button0_class_value = "nap-button rounded-l " + (ctx.isNap ? '' : 'inactive') + " svelte-15h91l6";
-    			add_location(button0, file$2, 593, 6, 18665);
+    			add_location(button0, file$2, 619, 6, 19810);
     			button1.className = button1_class_value = "nap-button rounded-r " + (!ctx.isNap ? '' : 'inactive') + " svelte-15h91l6";
-    			add_location(button1, file$2, 598, 6, 18830);
+    			add_location(button1, file$2, 624, 6, 19975);
     			div0.className = "inline-flex";
-    			add_location(div0, file$2, 592, 4, 18632);
+    			add_location(div0, file$2, 618, 4, 19777);
     			div1.className = "w-full flex justify-center mt-8";
-    			add_location(div1, file$2, 591, 2, 18581);
+    			add_location(div1, file$2, 617, 2, 19726);
     			button2.className = button2_class_value = "py-2 w-1/2 mt-12 mb-24 rounded-lg bg-accentColor2 text-black\r\n      font-medium text-2xl hover:shadow-lg border-b-4 border-teal-700 " + (ctx.check2v1 && ctx.check3v2 && ctx.check4v3 ? '' : 'inactive') + " svelte-15h91l6";
-    			add_location(button2, file$2, 606, 4, 19064);
+    			add_location(button2, file$2, 632, 4, 20209);
     			div2.className = "flex items-center justify-center w-full";
-    			add_location(div2, file$2, 605, 2, 19005);
+    			add_location(div2, file$2, 631, 2, 20150);
 
     			dispose = [
-    				listen(button0, "click", ctx.click_handler_2),
-    				listen(button1, "click", ctx.click_handler_3),
-    				listen(button2, "click", ctx.click_handler_4)
+    				listen(button0, "click", ctx.click_handler_4),
+    				listen(button1, "click", ctx.click_handler_5),
+    				listen(button2, "click", ctx.click_handler_6)
     			];
     		},
 
@@ -4373,11 +4500,26 @@
     }
 
     function create_fragment$2(ctx) {
-    	var t0, div1, body0, t1, div0, t2, t3, t4, t5, t6, div3, body1, t7, div2, t8, t9, t10_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes', t10, t11, t12, current, dispose;
+    	var current_block_type_index, if_block0, t0, div1, body0, t1, div0, t2, t3, t4, t5, t6, div3, body1, t7, div2, t8, t9, t10_value = ctx.elapsedSleepTime === 1 ? 'minute' : 'minutes', t10, t11, t12, current, dispose;
 
     	add_render_callback(ctx.onwindowresize);
 
-    	var if_block0 = (ctx.sending) && create_if_block_1(ctx);
+    	var if_block_creators = [
+    		create_if_block_1,
+    		create_if_block_2
+    	];
+
+    	var if_blocks = [];
+
+    	function select_block_type(ctx) {
+    		if (ctx.sending && !ctx.showError) return 0;
+    		if (ctx.showError) return 1;
+    		return -1;
+    	}
+
+    	if (~(current_block_type_index = select_block_type(ctx))) {
+    		if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    	}
 
     	var if_block1 = (ctx.innerWidth < 1024) && create_if_block$1(ctx);
 
@@ -4457,20 +4599,20 @@
     			t12 = space();
     			entryblock3.$$.fragment.c();
     			div0.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold text-backgroundColor";
-    			add_location(div0, file$2, 524, 4, 16232);
+    			add_location(div0, file$2, 550, 4, 17377);
     			body0.className = "text-2xl justify-center items-center flex";
-    			add_location(body0, file$2, 522, 2, 16149);
+    			add_location(body0, file$2, 548, 2, 17294);
     			div1.id = "topBlock";
     			div1.className = "w-full overflow-hidden bg-accentColor text-white";
     			set_style(div1, "height", "" + ctx.$nextPutDownTimeDivHeight + "rem");
-    			add_location(div1, file$2, 518, 0, 16013);
+    			add_location(div1, file$2, 544, 0, 17158);
     			div2.className = "inline-block mx-2 px-3 py-1 rounded-full w-auto text-center\r\n      bg-secondaryColor font-bold";
-    			add_location(div2, file$2, 569, 4, 18045);
+    			add_location(div2, file$2, 595, 4, 19190);
     			body1.className = "text-2xl justify-center items-center flex";
-    			add_location(body1, file$2, 567, 2, 17967);
+    			add_location(body1, file$2, 593, 2, 19112);
     			div3.className = "w-full overflow-hidden bg-accentColor3";
     			set_style(div3, "height", "" + ctx.$elapsedSleepTimeDivHeight + "rem");
-    			add_location(div3, file$2, 564, 0, 17857);
+    			add_location(div3, file$2, 590, 0, 19002);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -4479,7 +4621,7 @@
     		},
 
     		m: function mount(target, anchor) {
-    			if (if_block0) if_block0.m(target, anchor);
+    			if (~current_block_type_index) if_blocks[current_block_type_index].m(target, anchor);
     			insert(target, t0, anchor);
     			insert(target, div1, anchor);
     			append(div1, body0);
@@ -4508,24 +4650,30 @@
     		},
 
     		p: function update(changed, ctx) {
-    			if (ctx.sending) {
-    				if (!if_block0) {
-    					if_block0 = create_if_block_1(ctx);
-    					if_block0.c();
+    			var previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
+    			if (current_block_type_index !== previous_block_index) {
+    				if (if_block0) {
+    					group_outros();
+    					on_outro(() => {
+    						if_blocks[previous_block_index].d(1);
+    						if_blocks[previous_block_index] = null;
+    					});
+    					if_block0.o(1);
+    					check_outros();
+    				}
+
+    				if (~current_block_type_index) {
+    					if_block0 = if_blocks[current_block_type_index];
+    					if (!if_block0) {
+    						if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    						if_block0.c();
+    					}
     					if_block0.i(1);
     					if_block0.m(t0.parentNode, t0);
     				} else {
-    									if_block0.i(1);
-    				}
-    			} else if (if_block0) {
-    				group_outros();
-    				on_outro(() => {
-    					if_block0.d(1);
     					if_block0 = null;
-    				});
-
-    				if_block0.o(1);
-    				check_outros();
+    				}
     			}
 
     			if (!current || changed.nextPutDownTime) {
@@ -4612,7 +4760,7 @@
     		},
 
     		d: function destroy(detaching) {
-    			if (if_block0) if_block0.d(detaching);
+    			if (~current_block_type_index) if_blocks[current_block_type_index].d(detaching);
 
     			if (detaching) {
     				detach(t0);
@@ -4684,7 +4832,7 @@
     }
 
     function instance$2($$self, $$props, $$invalidate) {
-    	let $gapiInstance, $nextPutDownTimeDivHeight, $elapsedSleepTimeDivHeight, $userName;
+    	let $gapiInstance, $userName, $nextPutDownTimeDivHeight, $elapsedSleepTimeDivHeight;
 
     	validate_store(gapiInstance, 'gapiInstance');
     	subscribe($$self, gapiInstance, $$value => { $gapiInstance = $$value; $$invalidate('$gapiInstance', $gapiInstance); });
@@ -4717,6 +4865,7 @@
       let nextPutDownTime;
 
       let sending = false;
+      let showError = false;
 
       const elapsedSleepTimeDivHeight = tweened(0, {
         duration: 450,
@@ -4818,9 +4967,10 @@
           $gapiInstance.client.sheets !== null
         ) {
           /**
-           * Set sending flag to true and show loading spinner
+           * Set sending flag to true and show loading spinner; set showError flag to false as default
            */
           $$invalidate('sending', sending = true);
+          $$invalidate('showError', showError = false);
 
           /**
            * Saves the nap number for use later when calculating estimated next put down time.
@@ -4836,166 +4986,174 @@
               spreadsheetId: credentials.SPREADSHEET_ID,
               range: credentials.SHEET_NAME + "!A1:A"
             })
-            .then(response => {
-              currentRow = response.result.values.length + 1;
+            .then(
+              response => {
+                currentRow = response.result.values.length + 1;
 
-              /**
-               * Add data by appending after the last current row of data. Includes formulas to calculate other columns.
-               */
-              $gapiInstance.client.sheets.spreadsheets.values
-                .append({
-                  spreadsheetId: credentials.SPREADSHEET_ID,
-                  range: credentials.SHEET_NAME,
-                  valueInputOption: "USER_ENTERED",
-                  includeValuesInResponse: true,
-                  resource: {
-                    values: [
-                      [
-                        /**
-                         * Put Down (PD)
-                         * */
-                        putDownDate + " " + putDownTime,
-                        /**
-                         * Sleep Start
-                         * */
-                        sleepDate + " " + sleepTime,
-                        /**
-                         * Sleep End
-                         */
-                        wakeDate + " " + wakeTime,
-                        /**
-                         * Pick Up
-                         */
-                        pickUpDate + " " + pickUpTime,
-                        /**
-                         * Next Put Down
-                         */
-                        `=C${currentRow}+(D${currentRow}-C${currentRow})/2+if(L${currentRow}="Sleep", Rules!$B$10, if(and(L${currentRow}="Nap",M${currentRow}=1),Rules!$B$7,if(and(L${currentRow}="Nap",M${currentRow}=2),Rules!$B$8,Rules!$B$9)))`,
-                        /**
-                         * Time to fall asleep
-                         */
-                        `=if(or(A${currentRow}="",B${currentRow}=""),"",B${currentRow}-A${currentRow})`,
-                        /**
-                         * Sleep Duration
-                         */
-                        `=if(or(C${currentRow}="",B${currentRow}=""),"",C${currentRow}-B${currentRow})`,
-                        /**
-                         * WT to PD
-                         */
-                        `=(A${currentRow}-D${currentRow -
-                      1})+(D${currentRow - 1}-C${currentRow -
-                      1})/2`,
-                        /**
-                         * Adjusted WT
-                         */
-                        `=(A${currentRow}-D${currentRow -
-                      1})+(F${currentRow}/2)+(D${currentRow - 1}-C${currentRow -
-                      1})/2`,
-                        /**
-                         * Actual WT
-                         */
-                        `=B${currentRow}-C${currentRow - 1}`,
-                        /**
-                         * Total WT (TWT)
-                         */
-                        `=if(and(day(B${currentRow})=day(B${currentRow -
-                      1}),month(B${currentRow})=month(B${currentRow -
-                      1})),I${currentRow}+K${currentRow - 1},I${currentRow})`,
-                        /**
-                         * Type
-                         */
-                        isNap ? "Nap" : "Sleep",
-                        /**
-                         * Count
-                         */
-                        `=if(and(day(B${currentRow})=DAY(B${currentRow -
-                      1}),month(B${currentRow})=month(B${currentRow -
-                      1}),L${currentRow}=L${currentRow - 1}),M${currentRow -
-                      1}+1,1)`,
-                        /**
-                         * Total Sleep
-                         */
-                        `=if(and(day(B${currentRow})=day(B${currentRow -
-                      1}),month(B${currentRow})=month(B${currentRow -
-                      1})),G${currentRow}+N${currentRow - 1},G${currentRow})`,
-                        /**
-                         * Date
-                         */
-                        `=if(hour(A${currentRow}) < Rules!$B$5, date(year(A${currentRow}), month(A${currentRow}), day(A${currentRow})) - 1, date(year(A${currentRow}), month(A${currentRow}), day(A${currentRow})))`,
-                        /**
-                         * Duration
-                         */
-                        `=G${currentRow}`
-                      ]
-                    ]
-                  }
-                })
-                .then(response => {
-                  if (response.status == 200) {
-                    /**
-                     * Save the nap number to calculate estimated next put down time. The nap number is taken from the sheet as it is calculated by the formula appended above.
-                     */
-                    napNumber = parseInt(
-                      response.result.updates.updatedData.values[0][12]
-                    );
-
-                    $$invalidate('nextPutDownTime', nextPutDownTime = format(
-                      Date.parse(response.result.updates.updatedData.values[0][4]),
-                      "h:mm a"
-                    ));
-
-                    /**
-                     * Update cell format to date time for the first five columns.
-                     */
-                    $gapiInstance.client.sheets.spreadsheets
-                      .batchUpdate({
-                        spreadsheetId: credentials.SPREADSHEET_ID,
-                        requests: [
-                          {
-                            repeatCell: {
-                              range: {
-                                sheetId: credentials.SHEET_ID,
-                                startRowIndex: 1,
-                                startColumnIndex: 0,
-                                endColumnIndex: 5
-                              },
-                              cell: {
-                                userEnteredFormat: {
-                                  numberFormat: {
-                                    type: "DATE",
-                                    pattern: "d mmm, h:mm am/pm"
-                                  }
-                                }
-                              },
-                              fields: "userEnteredFormat.numberFormat"
-                            }
-                          }
+                /**
+                 * Add data by appending after the last current row of data. Includes formulas to calculate other columns.
+                 */
+                $gapiInstance.client.sheets.spreadsheets.values
+                  .append({
+                    spreadsheetId: credentials.SPREADSHEET_ID,
+                    range: credentials.SHEET_NAME,
+                    valueInputOption: "USER_ENTERED",
+                    includeValuesInResponse: true,
+                    resource: {
+                      values: [
+                        [
+                          /**
+                           * Put Down (PD)
+                           * */
+                          putDownDate + " " + putDownTime,
+                          /**
+                           * Sleep Start
+                           * */
+                          sleepDate + " " + sleepTime,
+                          /**
+                           * Sleep End
+                           */
+                          wakeDate + " " + wakeTime,
+                          /**
+                           * Pick Up
+                           */
+                          pickUpDate + " " + pickUpTime,
+                          /**
+                           * Next Put Down
+                           */
+                          `=C${currentRow}+(D${currentRow}-C${currentRow})/2+if(L${currentRow}="Sleep", Rules!$B$10, if(and(L${currentRow}="Nap",M${currentRow}=1),Rules!$B$7,if(and(L${currentRow}="Nap",M${currentRow}=2),Rules!$B$8,Rules!$B$9)))`,
+                          /**
+                           * Time to fall asleep
+                           */
+                          `=if(or(A${currentRow}="",B${currentRow}=""),"",B${currentRow}-A${currentRow})`,
+                          /**
+                           * Sleep Duration
+                           */
+                          `=if(or(C${currentRow}="",B${currentRow}=""),"",C${currentRow}-B${currentRow})`,
+                          /**
+                           * WT to PD
+                           */
+                          `=(A${currentRow}-D${currentRow - 1})+(D${currentRow -
+                        1}-C${currentRow - 1})/2`,
+                          /**
+                           * Adjusted WT
+                           */
+                          `=(A${currentRow}-D${currentRow -
+                        1})+(F${currentRow}/2)+(D${currentRow -
+                        1}-C${currentRow - 1})/2`,
+                          /**
+                           * Actual WT
+                           */
+                          `=B${currentRow}-C${currentRow - 1}`,
+                          /**
+                           * Total WT (TWT)
+                           */
+                          `=if(and(day(B${currentRow})=day(B${currentRow -
+                        1}),month(B${currentRow})=month(B${currentRow -
+                        1})),I${currentRow}+K${currentRow - 1},I${currentRow})`,
+                          /**
+                           * Type
+                           */
+                          isNap ? "Nap" : "Sleep",
+                          /**
+                           * Count
+                           */
+                          `=if(and(day(B${currentRow})=DAY(B${currentRow -
+                        1}),month(B${currentRow})=month(B${currentRow -
+                        1}),L${currentRow}=L${currentRow - 1}),M${currentRow -
+                        1}+1,1)`,
+                          /**
+                           * Total Sleep
+                           */
+                          `=if(and(day(B${currentRow})=day(B${currentRow -
+                        1}),month(B${currentRow})=month(B${currentRow -
+                        1})),G${currentRow}+N${currentRow - 1},G${currentRow})`,
+                          /**
+                           * Date
+                           */
+                          `=if(hour(A${currentRow}) < Rules!$B$5, date(year(A${currentRow}), month(A${currentRow}), day(A${currentRow})) - 1, date(year(A${currentRow}), month(A${currentRow}), day(A${currentRow})))`,
+                          /**
+                           * Duration
+                           */
+                          `=G${currentRow}`
                         ]
-                      })
-                      .then(response => {
-                        /**
-                         * Hide loading spinner
-                         */
-                        $$invalidate('sending', sending = false);
+                      ]
+                    }
+                  })
+                  .then(response => {
+                    if (response.status == 200) {
+                      /**
+                       * Save the nap number to calculate estimated next put down time. The nap number is taken from the sheet as it is calculated by the formula appended above.
+                       */
+                      napNumber = parseInt(
+                        response.result.updates.updatedData.values[0][12]
+                      );
 
-                        $$invalidate('putDownTime', putDownTime = format(new Date(), "HH:mm"));
-                        $$invalidate('sleepTime', sleepTime = undefined);
-                        $$invalidate('wakeTime', wakeTime = undefined);
-                        $$invalidate('pickUpTime', pickUpTime = undefined);
-                        $$invalidate('check2v1', check2v1 = false);
-                        $$invalidate('check3v2', check3v2 = false);
-                        $$invalidate('check4v3', check4v3 = false);
-                        $$invalidate('isNap', isNap = true);
+                      $$invalidate('nextPutDownTime', nextPutDownTime = format(
+                        Date.parse(
+                          response.result.updates.updatedData.values[0][4]
+                        ),
+                        "h:mm a"
+                      ));
 
-                        localStorage.setItem("cache", "");
+                      /**
+                       * Update cell format to date time for the first five columns.
+                       */
+                      $gapiInstance.client.sheets.spreadsheets
+                        .batchUpdate({
+                          spreadsheetId: credentials.SPREADSHEET_ID,
+                          requests: [
+                            {
+                              repeatCell: {
+                                range: {
+                                  sheetId: credentials.SHEET_ID,
+                                  startRowIndex: 1,
+                                  startColumnIndex: 0,
+                                  endColumnIndex: 5
+                                },
+                                cell: {
+                                  userEnteredFormat: {
+                                    numberFormat: {
+                                      type: "DATE",
+                                      pattern: "d mmm, h:mm am/pm"
+                                    }
+                                  }
+                                },
+                                fields: "userEnteredFormat.numberFormat"
+                              }
+                            }
+                          ]
+                        })
+                        .then(response => {
+                          /**
+                           * Hide loading spinner
+                           */
+                          $$invalidate('sending', sending = false);
 
-                        document
-                          .getElementById("topBlock")
-                          .scrollIntoView({ behavior: "smooth" });
-                      });
-                  }
-                });
-            });
+                          $$invalidate('putDownTime', putDownTime = format(new Date(), "HH:mm"));
+                          $$invalidate('sleepTime', sleepTime = undefined);
+                          $$invalidate('wakeTime', wakeTime = undefined);
+                          $$invalidate('pickUpTime', pickUpTime = undefined);
+                          $$invalidate('check2v1', check2v1 = false);
+                          $$invalidate('check3v2', check3v2 = false);
+                          $$invalidate('check4v3', check4v3 = false);
+                          $$invalidate('isNap', isNap = true);
+
+                          localStorage.setItem("cache", "");
+
+                          document
+                            .getElementById("topBlock")
+                            .scrollIntoView({ behavior: "smooth" });
+                        });
+                    }
+                  });
+              },
+              error => {
+                $$invalidate('sending', sending = false);
+                $$invalidate('showError', showError = true);
+                console.log(error);
+              }
+            );
         } else {
           console.log(
             `Failed to send:\nCheck 2 v 1: ${check2v1}\nCheck 3 v 2: ${check3v2}\nCheck 4 v 3: ${check4v3}\ngapi: ${gapiInstance}`
@@ -5048,18 +5206,28 @@
     	}
 
     	function click_handler_1() {
-    		return shareParams();
+    		return ($userName !== undefined ? validateAndSend() : signIn());
     	}
 
     	function click_handler_2() {
-    		return receiveNap(true);
+    		const $$result = (showError = false);
+    		$$invalidate('showError', showError);
+    		return $$result;
     	}
 
     	function click_handler_3() {
-    		return receiveNap(false);
+    		return shareParams();
     	}
 
     	function click_handler_4() {
+    		return receiveNap(true);
+    	}
+
+    	function click_handler_5() {
+    		return receiveNap(false);
+    	}
+
+    	function click_handler_6() {
     		return ($userName !== undefined ? validateAndSend() : signIn());
     	}
 
@@ -5162,6 +5330,7 @@
     		isNap,
     		nextPutDownTime,
     		sending,
+    		showError,
     		elapsedSleepTimeDivHeight,
     		nextPutDownTimeDivHeight,
     		validateAndSend,
@@ -5172,14 +5341,16 @@
     		receiveNap,
     		undefined,
     		click_handler,
+    		$userName,
     		$nextPutDownTimeDivHeight,
     		$elapsedSleepTimeDivHeight,
-    		$userName,
     		onwindowresize,
     		click_handler_1,
     		click_handler_2,
     		click_handler_3,
-    		click_handler_4
+    		click_handler_4,
+    		click_handler_5,
+    		click_handler_6
     	};
     }
 
@@ -5194,14 +5365,14 @@
 
     const file$3 = "src\\components\\SignIn.svelte";
 
-    // (100:0) {:else}
+    // (108:0) {:else}
     function create_else_block(ctx) {
     	var div;
 
     	return {
     		c: function create() {
     			div = element("div");
-    			add_location(div, file$3, 100, 2, 2336);
+    			add_location(div, file$3, 108, 2, 2504);
     		},
 
     		m: function mount(target, anchor) {
@@ -5219,7 +5390,7 @@
     	};
     }
 
-    // (92:0) {#if showSigningIn}
+    // (100:0) {#if showSigningIn}
     function create_if_block_1$1(ctx) {
     	var div, div_transition, current, dispose;
 
@@ -5232,8 +5403,9 @@
     		c: function create() {
     			div = element("div");
     			loadingspinner.$$.fragment.c();
-    			div.className = "w-full h-screen bg-black opacity-75 flex items-center justify-center\r\n    absolute top-0";
-    			add_location(div, file$3, 92, 2, 2129);
+    			div.className = "w-full h-screen flex items-center justify-center absolute top-0";
+    			set_style(div, "background", "rgba(0, 0, 0, 0.75)");
+    			add_location(div, file$3, 100, 2, 2276);
     			dispose = listen(div, "click", ctx.click_handler);
     		},
 
@@ -5280,7 +5452,7 @@
     	};
     }
 
-    // (103:0) {#if showErrorScreen}
+    // (111:0) {#if showErrorScreen}
     function create_if_block$2(ctx) {
     	var div0, div0_transition, t0, div1, p, t2, button, current, dispose;
 
@@ -5294,14 +5466,15 @@
     			t2 = space();
     			button = element("button");
     			button.textContent = "Go to Settings";
-    			div0.className = "w-full h-screen bg-black opacity-75 absolute top-0";
-    			add_location(div0, file$3, 103, 2, 2377);
+    			div0.className = "w-full h-screen fixed top-0 left-0";
+    			set_style(div0, "background", "rgba(0, 0, 0, 0.75)");
+    			add_location(div0, file$3, 111, 2, 2545);
     			p.className = "w-1/2 text-center text-secondaryColor mb-4";
-    			add_location(p, file$3, 110, 4, 2589);
-    			button.className = "py-2 w-1/2 rounded-lg bg-accentColor2 text-white font-medium";
-    			add_location(button, file$3, 113, 4, 2701);
-    			div1.className = "w-full h-screen flex flex-col items-center justify-center absolute\r\n    top-0";
-    			add_location(div1, file$3, 107, 2, 2487);
+    			add_location(p, file$3, 119, 4, 2791);
+    			button.className = "py-2 w-1/2 rounded-lg bg-accentColor text-white font-medium";
+    			add_location(button, file$3, 122, 4, 2903);
+    			div1.className = "w-full h-screen flex flex-col items-center justify-center fixed top-0\r\n    left-0";
+    			add_location(div1, file$3, 116, 2, 2685);
 
     			dispose = [
     				listen(div0, "click", ctx.click_handler_1),
@@ -5379,7 +5552,7 @@
     			if_block1_anchor = empty();
     			meta.name = "google-signin-client_id";
     			meta.content = meta_content_value = credentials.CLIENT_ID;
-    			add_location(meta, file$3, 88, 2, 2015);
+    			add_location(meta, file$3, 96, 2, 2162);
     		},
 
     		l: function claim(nodes) {
@@ -5500,9 +5673,14 @@
             scope: credentials.SCOPES,
             discoveryDocs: credentials.DISCOVERY_DOCS
           })
-          .then(() => {
-            gapi.load("auth2", initAuth2);
-          })
+          .then(
+            () => {
+              gapi.load("auth2", initAuth2);
+            },
+            e => {
+              $$invalidate('showErrorScreen', showErrorScreen = true);
+            }
+          )
           .catch(e => {
             $$invalidate('showErrorScreen', showErrorScreen = true);
           });
@@ -5514,9 +5692,12 @@
             clientID: credentials.CLIENT_ID,
             scope: credentials.SCOPES
           })
-          .then(() => {
-            updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-          });
+          .then(
+            () => {
+              updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+            },
+            e => { const $$result = (showErrorScreen = true); $$invalidate('showErrorScreen', showErrorScreen); return $$result; }
+          );
       }
 
       function updateSigninStatus(signedIn) {
@@ -5582,7 +5763,7 @@
 
     const file$4 = "src\\components\\Settings.svelte";
 
-    // (63:2) {:else}
+    // (70:2) {:else}
     function create_else_block_1(ctx) {
     	var div1, h2, t1, div0, button, svg, defs, path0, clipPath, use, path1, path2, path3, path4, t2, span, div1_intro, dispose;
 
@@ -5607,45 +5788,45 @@
     			span = element("span");
     			span.textContent = "Sign in with Google";
     			h2.className = "svelte-13hyeae";
-    			add_location(h2, file$4, 64, 6, 2158);
+    			add_location(h2, file$4, 71, 6, 2303);
     			attr(path0, "id", "a");
     			attr(path0, "d", "M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2\r\n                0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6\r\n                4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22\r\n                0-1.3-.2-2.7-.5-4z");
-    			add_location(path0, file$4, 76, 14, 2598);
-    			add_location(defs, file$4, 75, 12, 2576);
+    			add_location(path0, file$4, 83, 14, 2743);
+    			add_location(defs, file$4, 82, 12, 2721);
     			xlink_attr(use, "xlink:href", "#a");
     			attr(use, "overflow", "visible");
-    			add_location(use, file$4, 84, 14, 2966);
+    			add_location(use, file$4, 91, 14, 3111);
     			attr(clipPath, "id", "b");
-    			add_location(clipPath, file$4, 83, 12, 2933);
+    			add_location(clipPath, file$4, 90, 12, 3078);
     			attr(path1, "clip-path", "url(#b)");
     			attr(path1, "fill", "#FBBC05");
     			attr(path1, "d", "M0 37V11l17 13z");
-    			add_location(path1, file$4, 86, 12, 3047);
+    			add_location(path1, file$4, 93, 12, 3192);
     			attr(path2, "clip-path", "url(#b)");
     			attr(path2, "fill", "#EA4335");
     			attr(path2, "d", "M0 11l17 13 7-6.1L48 14V0H0z");
-    			add_location(path2, file$4, 87, 12, 3124);
+    			add_location(path2, file$4, 94, 12, 3269);
     			attr(path3, "clip-path", "url(#b)");
     			attr(path3, "fill", "#34A853");
     			attr(path3, "d", "M0 37l30-23 7.9 1L48 0v48H0z");
-    			add_location(path3, file$4, 91, 12, 3259);
+    			add_location(path3, file$4, 98, 12, 3404);
     			attr(path4, "clip-path", "url(#b)");
     			attr(path4, "fill", "#4285F4");
     			attr(path4, "d", "M48 48L17 24l-4-3 35-10z");
-    			add_location(path4, file$4, 95, 12, 3394);
+    			add_location(path4, file$4, 102, 12, 3539);
     			attr(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr(svg, "xmlns:xlink", "http://www.w3.org/1999/xlink");
     			attr(svg, "viewBox", "0 0 48 48");
     			attr(svg, "class", "w-6 h-6 pr-2");
-    			add_location(svg, file$4, 70, 10, 2386);
-    			add_location(span, file$4, 100, 10, 3541);
+    			add_location(svg, file$4, 77, 10, 2531);
+    			add_location(span, file$4, 107, 10, 3686);
     			button.className = "flex bg-white rounded shadow text-gray-700 py-2 px-4\r\n          font-medium";
-    			add_location(button, file$4, 66, 8, 2234);
+    			add_location(button, file$4, 73, 8, 2379);
     			div0.className = "flex justify-center";
-    			add_location(div0, file$4, 65, 6, 2191);
+    			add_location(div0, file$4, 72, 6, 2336);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$4, 63, 4, 2095);
-    			dispose = listen(button, "click", ctx.click_handler_1);
+    			add_location(div1, file$4, 70, 4, 2240);
+    			dispose = listen(button, "click", ctx.click_handler_2);
     		},
 
     		m: function mount(target, anchor) {
@@ -5690,8 +5871,8 @@
     	};
     }
 
-    // (51:2) {#if $userName !== undefined && $userPic !== undefined}
-    function create_if_block_1$2(ctx) {
+    // (58:2) {#if $userName !== undefined && $userPic !== undefined}
+    function create_if_block_2$1(ctx) {
     	var div1, h2, t1, div0, img, t2, body, t3, t4, button, div1_intro, dispose;
 
     	return {
@@ -5709,20 +5890,20 @@
     			button = element("button");
     			button.textContent = "SIGN OUT";
     			h2.className = "svelte-13hyeae";
-    			add_location(h2, file$4, 52, 6, 1730);
+    			add_location(h2, file$4, 59, 6, 1875);
     			img.src = ctx.$userPic;
     			img.alt = "User profile picture";
     			img.className = "rounded-full w-8 h-8 mr-2 flex-none";
-    			add_location(img, file$4, 54, 8, 1800);
+    			add_location(img, file$4, 61, 8, 1945);
     			body.className = "flex-1 svelte-13hyeae";
-    			add_location(body, file$4, 58, 8, 1936);
+    			add_location(body, file$4, 65, 8, 2081);
     			button.className = "button svelte-13hyeae";
-    			add_location(button, file$4, 59, 8, 1985);
+    			add_location(button, file$4, 66, 8, 2130);
     			div0.className = "flex items-center";
-    			add_location(div0, file$4, 53, 6, 1759);
+    			add_location(div0, file$4, 60, 6, 1904);
     			div1.className = "mt-2 flex-col";
-    			add_location(div1, file$4, 51, 4, 1667);
-    			dispose = listen(button, "click", ctx.click_handler);
+    			add_location(div1, file$4, 58, 4, 1812);
+    			dispose = listen(button, "click", ctx.click_handler_1);
     		},
 
     		m: function mount(target, anchor) {
@@ -5769,7 +5950,7 @@
     	};
     }
 
-    // (111:6) {:else}
+    // (134:6) {:else}
     function create_else_block$1(ctx) {
     	var body, t0, t1, button, dispose;
 
@@ -5781,10 +5962,10 @@
     			button = element("button");
     			button.textContent = "OPEN";
     			body.className = "flex-1 truncate svelte-13hyeae";
-    			add_location(body, file$4, 111, 8, 3805);
+    			add_location(body, file$4, 134, 8, 4576);
     			button.className = "button svelte-13hyeae";
-    			add_location(button, file$4, 112, 8, 3864);
-    			dispose = listen(button, "click", ctx.click_handler_2);
+    			add_location(button, file$4, 135, 8, 4635);
+    			dispose = listen(button, "click", ctx.click_handler_4);
     		},
 
     		m: function mount(target, anchor) {
@@ -5815,7 +5996,71 @@
     	};
     }
 
-    // (109:6) {#if loadingSheetName}
+    // (118:26) 
+    function create_if_block_1$2(ctx) {
+    	var div, p, t_1, button, div_transition, current, dispose;
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			p = element("p");
+    			p.textContent = "It looks like there was a network error";
+    			t_1 = space();
+    			button = element("button");
+    			button.textContent = "Retry";
+    			p.className = "w-1/2 text-center text-secondaryColor mb-4";
+    			add_location(p, file$4, 124, 10, 4200);
+    			button.className = "py-2 w-1/2 rounded-lg bg-accentColor text-white font-medium";
+    			add_location(button, file$4, 127, 10, 4335);
+    			div.className = "w-full h-screen fixed top-0 left-0 flex flex-col items-center\r\n          justify-center";
+    			set_style(div, "background", "rgba(0, 0, 0, 0.75)");
+    			add_location(div, file$4, 118, 8, 3977);
+
+    			dispose = [
+    				listen(button, "click", ctx.click_handler_3),
+    				listen(div, "click", ctx.click_handler)
+    			];
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    			append(div, p);
+    			append(div, t_1);
+    			append(div, button);
+    			current = true;
+    		},
+
+    		p: noop,
+
+    		i: function intro(local) {
+    			if (current) return;
+    			add_render_callback(() => {
+    				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+    				div_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+    			div_transition.run(0);
+
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    				if (div_transition) div_transition.end();
+    			}
+
+    			run_all(dispose);
+    		}
+    	};
+    }
+
+    // (116:6) {#if loadingSheetName && !showError}
     function create_if_block$3(ctx) {
     	var current;
 
@@ -5855,7 +6100,7 @@
     	var div4, t0, div3, h2, t2, div0, current_block_type_index, if_block1, t3, div1, a, t5, div2, current;
 
     	function select_block_type(ctx) {
-    		if (ctx.$userName !== ctx.undefined && ctx.$userPic !== ctx.undefined) return create_if_block_1$2;
+    		if (ctx.$userName !== ctx.undefined && ctx.$userPic !== ctx.undefined) return create_if_block_2$1;
     		return create_else_block_1;
     	}
 
@@ -5864,14 +6109,16 @@
 
     	var if_block_creators = [
     		create_if_block$3,
+    		create_if_block_1$2,
     		create_else_block$1
     	];
 
     	var if_blocks = [];
 
     	function select_block_type_1(ctx) {
-    		if (ctx.loadingSheetName) return 0;
-    		return 1;
+    		if (ctx.loadingSheetName && !ctx.showError) return 0;
+    		if (ctx.showError) return 1;
+    		return 2;
     	}
 
     	current_block_type_index = select_block_type_1(ctx);
@@ -5896,20 +6143,20 @@
     			div2 = element("div");
     			div2.textContent = "v1.3.6";
     			h2.className = "svelte-13hyeae";
-    			add_location(h2, file$4, 106, 4, 3664);
+    			add_location(h2, file$4, 113, 4, 3809);
     			div0.className = "flex items-center";
-    			add_location(div0, file$4, 107, 4, 3691);
+    			add_location(div0, file$4, 114, 4, 3836);
     			a.href = "/privacy-policy.html";
     			a.target = "_blank";
-    			add_location(a, file$4, 120, 6, 4083);
+    			add_location(a, file$4, 143, 6, 4854);
     			div1.className = "mt-4 w-full text-center text-sm";
-    			add_location(div1, file$4, 119, 4, 4030);
+    			add_location(div1, file$4, 142, 4, 4801);
     			div2.className = "mt-4 w-full text-center text-primaryColor text-sm";
-    			add_location(div2, file$4, 122, 4, 4166);
+    			add_location(div2, file$4, 145, 4, 4937);
     			div3.className = "mt-8 flex-col";
-    			add_location(div3, file$4, 105, 2, 3631);
+    			add_location(div3, file$4, 112, 2, 3776);
     			div4.className = "w-full h-screen bg-backgroundColor p-4";
-    			add_location(div4, file$4, 49, 0, 1550);
+    			add_location(div4, file$4, 56, 0, 1695);
     		},
 
     		l: function claim(nodes) {
@@ -6011,6 +6258,7 @@
     	
 
       let loadingSheetName = false;
+      let showError = false;
 
       onMount(() => {
         if ($sheetName === credentials.SPREADSHEET_ID) {
@@ -6020,30 +6268,44 @@
 
       function getSheetName(id) {
         $$invalidate('loadingSheetName', loadingSheetName = true);
+        $$invalidate('showError', showError = false);
 
         if ($gapiInstance !== undefined) {
           $gapiInstance.client.sheets.spreadsheets
             .get({
               spreadsheetId: id
             })
-            .then(response => {
-              sheetName.set(response.result.properties.title);
-              $$invalidate('loadingSheetName', loadingSheetName = false);
-            });
+            .then(
+              response => {
+                sheetName.set(response.result.properties.title);
+                $$invalidate('loadingSheetName', loadingSheetName = false);
+              },
+              error => {
+                $$invalidate('showError', showError = true);
+              }
+            );
         } else {
           $$invalidate('loadingSheetName', loadingSheetName = false);
         }
       }
 
-    	function click_handler() {
-    		return signOut();
+    	function click_handler(event) {
+    		bubble($$self, event);
     	}
 
     	function click_handler_1() {
-    		return signIn();
+    		return signOut();
     	}
 
     	function click_handler_2() {
+    		return signIn();
+    	}
+
+    	function click_handler_3() {
+    		return getSheetName(credentials.SPREADSHEET_ID);
+    	}
+
+    	function click_handler_4() {
     		return openSheet(credentials.SPREADSHEET_ID);
     	}
 
@@ -6055,13 +6317,17 @@
 
     	return {
     		loadingSheetName,
+    		showError,
+    		getSheetName,
     		$sheetName,
     		undefined,
     		$userName,
     		$userPic,
     		click_handler,
     		click_handler_1,
-    		click_handler_2
+    		click_handler_2,
+    		click_handler_3,
+    		click_handler_4
     	};
     }
 
@@ -25372,16 +25638,211 @@
     	return child_ctx;
     }
 
-    // (323:4) {:else}
-    function create_else_block_3(ctx) {
-    	var p, t_value = getPutDownTime(ctx.todayDatas) !== ctx.undefined ? getPutDownTime(ctx.todayDatas) : 'No data yet', t, p_class_value, p_transition, current;
+    // (350:22) 
+    function create_if_block_3(ctx) {
+    	var div, p, t_1, button, div_transition, current, dispose;
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			p = element("p");
+    			p.textContent = "It looks like there was a network error";
+    			t_1 = space();
+    			button = element("button");
+    			button.textContent = "Retry";
+    			p.className = "w-1/2 text-center text-secondaryColor mb-4";
+    			add_location(p, file$5, 356, 6, 10410);
+    			button.className = "py-2 w-1/2 rounded-lg bg-accentColor text-white font-medium";
+    			add_location(button, file$5, 359, 6, 10533);
+    			div.className = "w-full h-screen fixed top-0 left-0 flex flex-col items-center\r\n      justify-center";
+    			set_style(div, "background", "rgba(0, 0, 0, 0.75)");
+    			add_location(div, file$5, 350, 4, 10211);
+
+    			dispose = [
+    				listen(button, "click", ctx.click_handler_4),
+    				listen(div, "click", ctx.click_handler_2)
+    			];
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    			append(div, p);
+    			append(div, t_1);
+    			append(div, button);
+    			current = true;
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			add_render_callback(() => {
+    				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+    				div_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+    			div_transition.run(0);
+
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    				if (div_transition) div_transition.end();
+    			}
+
+    			run_all(dispose);
+    		}
+    	};
+    }
+
+    // (334:41) 
+    function create_if_block_2$2(ctx) {
+    	var div, p, t_1, button, div_transition, current, dispose;
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			p = element("p");
+    			p.textContent = "Sign in to view data";
+    			t_1 = space();
+    			button = element("button");
+    			button.textContent = "Retry";
+    			p.className = "w-1/2 text-center text-secondaryColor mb-4";
+    			add_location(p, file$5, 340, 6, 9912);
+    			button.className = "py-2 w-1/2 rounded-lg bg-accentColor text-white font-medium";
+    			add_location(button, file$5, 343, 6, 10016);
+    			div.className = "w-full h-screen fixed top-0 left-0 flex flex-col items-center\r\n      justify-center";
+    			set_style(div, "background", "rgba(0, 0, 0, 0.75)");
+    			add_location(div, file$5, 334, 4, 9713);
+
+    			dispose = [
+    				listen(button, "click", ctx.click_handler_3),
+    				listen(div, "click", ctx.click_handler_1)
+    			];
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    			append(div, p);
+    			append(div, t_1);
+    			append(div, button);
+    			current = true;
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			add_render_callback(() => {
+    				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+    				div_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+    			div_transition.run(0);
+
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    				if (div_transition) div_transition.end();
+    			}
+
+    			run_all(dispose);
+    		}
+    	};
+    }
+
+    // (325:2) {#if loading && !requiresSignIn && !showError}
+    function create_if_block_1$3(ctx) {
+    	var div, div_transition, current, dispose;
+
+    	var loadingspinner = new LoadingSpinner({ $$inline: true });
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			loadingspinner.$$.fragment.c();
+    			div.className = "w-full h-screen fixed top-0 left-0 flex flex-col items-center\r\n      justify-center";
+    			set_style(div, "background", "rgba(0, 0, 0, 0.75)");
+    			add_location(div, file$5, 325, 4, 9435);
+    			dispose = listen(div, "click", ctx.click_handler);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    			mount_component(loadingspinner, div, null);
+    			current = true;
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			loadingspinner.$$.fragment.i(local);
+
+    			add_render_callback(() => {
+    				if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, true);
+    				div_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			loadingspinner.$$.fragment.o(local);
+
+    			if (!div_transition) div_transition = create_bidirectional_transition(div, fade, {}, false);
+    			div_transition.run(0);
+
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    			}
+
+    			loadingspinner.$destroy();
+
+    			if (detaching) {
+    				if (div_transition) div_transition.end();
+    			}
+
+    			dispose();
+    		}
+    	};
+    }
+
+    // (1:0) <script>    import { onMount }
+    function create_catch_block(ctx) {
+    	return {
+    		c: noop,
+    		m: noop,
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: noop
+    	};
+    }
+
+    // (369:56)         <p          transition:fade          class="w-full text-center text-accentColor3 font-bold text-2xl">          {nextPutDown}
+    function create_then_block(ctx) {
+    	var p, t_value = ctx.nextPutDown, t, p_transition, current;
 
     	return {
     		c: function create() {
     			p = element("p");
     			t = text(t_value);
-    			p.className = p_class_value = "w-full text-center " + (getPutDownTime(ctx.todayDatas) !== ctx.undefined ? 'text-accentColor3 font-bold text-2xl' : 'text-secondaryColor') + "\r\n        " + " svelte-w8nxyn";
-    			add_location(p, file$5, 323, 6, 9337);
+    			p.className = "w-full text-center text-accentColor3 font-bold text-2xl";
+    			add_location(p, file$5, 369, 6, 10810);
     		},
 
     		m: function mount(target, anchor) {
@@ -25418,98 +25879,21 @@
     	};
     }
 
-    // (319:29) 
-    function create_if_block_6(ctx) {
-    	var p, p_transition, current;
-
+    // (1:0) <script>    import { onMount }
+    function create_pending_block(ctx) {
     	return {
-    		c: function create() {
-    			p = element("p");
-    			p.textContent = "Sign in to view data";
-    			p.className = "text-center text-secondaryColor";
-    			add_location(p, file$5, 319, 6, 9215);
-    		},
-
-    		m: function mount(target, anchor) {
-    			insert(target, p, anchor);
-    			current = true;
-    		},
-
+    		c: noop,
+    		m: noop,
     		p: noop,
-
-    		i: function intro(local) {
-    			if (current) return;
-    			add_render_callback(() => {
-    				if (!p_transition) p_transition = create_bidirectional_transition(p, fade, {}, true);
-    				p_transition.run(1);
-    			});
-
-    			current = true;
-    		},
-
-    		o: function outro(local) {
-    			if (!p_transition) p_transition = create_bidirectional_transition(p, fade, {}, false);
-    			p_transition.run(0);
-
-    			current = false;
-    		},
-
-    		d: function destroy(detaching) {
-    			if (detaching) {
-    				detach(p);
-    				if (p_transition) p_transition.end();
-    			}
-    		}
+    		i: noop,
+    		o: noop,
+    		d: noop
     	};
     }
 
-    // (317:4) {#if loading && !requiresSignIn}
-    function create_if_block_5(ctx) {
-    	var current;
-
-    	var loadingspinner = new LoadingSpinner({ $$inline: true });
-
-    	return {
-    		c: function create() {
-    			loadingspinner.$$.fragment.c();
-    		},
-
-    		m: function mount(target, anchor) {
-    			mount_component(loadingspinner, target, anchor);
-    			current = true;
-    		},
-
-    		p: noop,
-
-    		i: function intro(local) {
-    			if (current) return;
-    			loadingspinner.$$.fragment.i(local);
-
-    			current = true;
-    		},
-
-    		o: function outro(local) {
-    			loadingspinner.$$.fragment.o(local);
-    			current = false;
-    		},
-
-    		d: function destroy(detaching) {
-    			loadingspinner.$destroy(detaching);
-    		}
-    	};
-    }
-
-    // (340:4) {:else}
-    function create_else_block_1$1(ctx) {
-    	var div1, div0, table, t, div0_class_value, div1_transition, current;
-
-    	function select_block_type_2(ctx) {
-    		if (ctx.todayDatas.length > 0) return create_if_block_4;
-    		return create_else_block_2;
-    	}
-
-    	var current_block_type = select_block_type_2(ctx);
-    	var if_block = current_block_type(ctx);
+    // (382:8) {#if todayDatas.length > 0}
+    function create_if_block$4(ctx) {
+    	var table, thead, tr, th0, p0, t1, th1, p1, t3, th2, p2, t5, th3, p3, t7;
 
     	var each_value = ctx.todayDatas;
 
@@ -25521,47 +25905,71 @@
 
     	return {
     		c: function create() {
-    			div1 = element("div");
-    			div0 = element("div");
     			table = element("table");
-    			if_block.c();
-    			t = space();
+    			thead = element("thead");
+    			tr = element("tr");
+    			th0 = element("th");
+    			p0 = element("p");
+    			p0.textContent = "Put down";
+    			t1 = space();
+    			th1 = element("th");
+    			p1 = element("p");
+    			p1.textContent = "Fell asleep";
+    			t3 = space();
+    			th2 = element("th");
+    			p2 = element("p");
+    			p2.textContent = "Woke up";
+    			t5 = space();
+    			th3 = element("th");
+    			p3 = element("p");
+    			p3.textContent = "Picked up";
+    			t7 = space();
 
     			for (var i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
+    			add_location(p0, file$5, 386, 18, 11343);
+    			th0.className = "svelte-w8nxyn";
+    			add_location(th0, file$5, 385, 16, 11319);
+    			add_location(p1, file$5, 389, 18, 11423);
+    			th1.className = "svelte-w8nxyn";
+    			add_location(th1, file$5, 388, 16, 11399);
+    			add_location(p2, file$5, 392, 18, 11506);
+    			th2.className = "svelte-w8nxyn";
+    			add_location(th2, file$5, 391, 16, 11482);
+    			add_location(p3, file$5, 395, 18, 11585);
+    			th3.className = "svelte-w8nxyn";
+    			add_location(th3, file$5, 394, 16, 11561);
+    			tr.className = "text-sm";
+    			add_location(tr, file$5, 384, 14, 11281);
+    			add_location(thead, file$5, 383, 12, 11258);
     			table.className = "w-full";
-    			add_location(table, file$5, 343, 10, 10087);
-    			div0.className = div0_class_value = "" + (ctx.innerWidth >= 375 || ctx.todayDatas.length === 0 ? 'w-full' : 'tableContainer') + " svelte-w8nxyn";
-    			add_location(div0, file$5, 341, 8, 9976);
-    			div1.className = "overflow-auto w-full";
-    			add_location(div1, file$5, 340, 6, 9916);
+    			add_location(table, file$5, 382, 10, 11222);
     		},
 
     		m: function mount(target, anchor) {
-    			insert(target, div1, anchor);
-    			append(div1, div0);
-    			append(div0, table);
-    			if_block.m(table, null);
-    			append(table, t);
+    			insert(target, table, anchor);
+    			append(table, thead);
+    			append(thead, tr);
+    			append(tr, th0);
+    			append(th0, p0);
+    			append(tr, t1);
+    			append(tr, th1);
+    			append(th1, p1);
+    			append(tr, t3);
+    			append(tr, th2);
+    			append(th2, p2);
+    			append(tr, t5);
+    			append(tr, th3);
+    			append(th3, p3);
+    			append(table, t7);
 
     			for (var i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(table, null);
     			}
-
-    			current = true;
     		},
 
     		p: function update(changed, ctx) {
-    			if (current_block_type !== (current_block_type = select_block_type_2(ctx))) {
-    				if_block.d(1);
-    				if_block = current_block_type(ctx);
-    				if (if_block) {
-    					if_block.c();
-    					if_block.m(table, t);
-    				}
-    			}
-
     			if (changed.todayDatas) {
     				each_value = ctx.todayDatas;
 
@@ -25582,218 +25990,19 @@
     				}
     				each_blocks.length = each_value.length;
     			}
-
-    			if ((!current || changed.innerWidth) && div0_class_value !== (div0_class_value = "" + (ctx.innerWidth >= 375 || ctx.todayDatas.length === 0 ? 'w-full' : 'tableContainer') + " svelte-w8nxyn")) {
-    				div0.className = div0_class_value;
-    			}
-    		},
-
-    		i: function intro(local) {
-    			if (current) return;
-    			add_render_callback(() => {
-    				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, true);
-    				div1_transition.run(1);
-    			});
-
-    			current = true;
-    		},
-
-    		o: function outro(local) {
-    			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, {}, false);
-    			div1_transition.run(0);
-
-    			current = false;
     		},
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach(div1);
+    				detach(table);
     			}
-
-    			if_block.d();
 
     			destroy_each(each_blocks, detaching);
-
-    			if (detaching) {
-    				if (div1_transition) div1_transition.end();
-    			}
     		}
     	};
     }
 
-    // (336:29) 
-    function create_if_block_3(ctx) {
-    	var p, p_transition, current;
-
-    	return {
-    		c: function create() {
-    			p = element("p");
-    			p.textContent = "Sign in to view data";
-    			p.className = "text-center text-secondaryColor";
-    			add_location(p, file$5, 336, 6, 9794);
-    		},
-
-    		m: function mount(target, anchor) {
-    			insert(target, p, anchor);
-    			current = true;
-    		},
-
-    		p: noop,
-
-    		i: function intro(local) {
-    			if (current) return;
-    			add_render_callback(() => {
-    				if (!p_transition) p_transition = create_bidirectional_transition(p, fade, {}, true);
-    				p_transition.run(1);
-    			});
-
-    			current = true;
-    		},
-
-    		o: function outro(local) {
-    			if (!p_transition) p_transition = create_bidirectional_transition(p, fade, {}, false);
-    			p_transition.run(0);
-
-    			current = false;
-    		},
-
-    		d: function destroy(detaching) {
-    			if (detaching) {
-    				detach(p);
-    				if (p_transition) p_transition.end();
-    			}
-    		}
-    	};
-    }
-
-    // (334:4) {#if loading && !requiresSignIn}
-    function create_if_block_2(ctx) {
-    	var current;
-
-    	var loadingspinner = new LoadingSpinner({ $$inline: true });
-
-    	return {
-    		c: function create() {
-    			loadingspinner.$$.fragment.c();
-    		},
-
-    		m: function mount(target, anchor) {
-    			mount_component(loadingspinner, target, anchor);
-    			current = true;
-    		},
-
-    		p: noop,
-
-    		i: function intro(local) {
-    			if (current) return;
-    			loadingspinner.$$.fragment.i(local);
-
-    			current = true;
-    		},
-
-    		o: function outro(local) {
-    			loadingspinner.$$.fragment.o(local);
-    			current = false;
-    		},
-
-    		d: function destroy(detaching) {
-    			loadingspinner.$destroy(detaching);
-    		}
-    	};
-    }
-
-    // (362:12) {:else}
-    function create_else_block_2(ctx) {
-    	var div, p;
-
-    	return {
-    		c: function create() {
-    			div = element("div");
-    			p = element("p");
-    			p.textContent = "No data yet";
-    			add_location(p, file$5, 363, 16, 10712);
-    			div.className = "text-center text-secondaryColor w-full";
-    			add_location(div, file$5, 362, 14, 10642);
-    		},
-
-    		m: function mount(target, anchor) {
-    			insert(target, div, anchor);
-    			append(div, p);
-    		},
-
-    		d: function destroy(detaching) {
-    			if (detaching) {
-    				detach(div);
-    			}
-    		}
-    	};
-    }
-
-    // (345:12) {#if todayDatas.length > 0}
-    function create_if_block_4(ctx) {
-    	var thead, tr, th0, p0, t1, th1, p1, t3, th2, p2, t5, th3, p3;
-
-    	return {
-    		c: function create() {
-    			thead = element("thead");
-    			tr = element("tr");
-    			th0 = element("th");
-    			p0 = element("p");
-    			p0.textContent = "Put down";
-    			t1 = space();
-    			th1 = element("th");
-    			p1 = element("p");
-    			p1.textContent = "Fell asleep";
-    			t3 = space();
-    			th2 = element("th");
-    			p2 = element("p");
-    			p2.textContent = "Woke up";
-    			t5 = space();
-    			th3 = element("th");
-    			p3 = element("p");
-    			p3.textContent = "Picked up";
-    			add_location(p0, file$5, 348, 20, 10257);
-    			th0.className = "svelte-w8nxyn";
-    			add_location(th0, file$5, 347, 18, 10231);
-    			add_location(p1, file$5, 351, 20, 10343);
-    			th1.className = "svelte-w8nxyn";
-    			add_location(th1, file$5, 350, 18, 10317);
-    			add_location(p2, file$5, 354, 20, 10432);
-    			th2.className = "svelte-w8nxyn";
-    			add_location(th2, file$5, 353, 18, 10406);
-    			add_location(p3, file$5, 357, 20, 10517);
-    			th3.className = "svelte-w8nxyn";
-    			add_location(th3, file$5, 356, 18, 10491);
-    			tr.className = "text-sm";
-    			add_location(tr, file$5, 346, 16, 10191);
-    			add_location(thead, file$5, 345, 14, 10166);
-    		},
-
-    		m: function mount(target, anchor) {
-    			insert(target, thead, anchor);
-    			append(thead, tr);
-    			append(tr, th0);
-    			append(th0, p0);
-    			append(tr, t1);
-    			append(tr, th1);
-    			append(th1, p1);
-    			append(tr, t3);
-    			append(tr, th2);
-    			append(th2, p2);
-    			append(tr, t5);
-    			append(tr, th3);
-    			append(th3, p3);
-    		},
-
-    		d: function destroy(detaching) {
-    			if (detaching) {
-    				detach(thead);
-    			}
-    		}
-    	};
-    }
-
-    // (367:12) {#each todayDatas as todayData}
+    // (400:12) {#each todayDatas as todayData}
     function create_each_block(ctx) {
     	var h3, t0_value = ctx.todayData[11], t0, t1, t2_value = ctx.todayData[11] === 'Sleep' ? '' : ctx.todayData[12], t2, t3, tbody, tr, td0, t4_value = ctx.todayData[0].split(', ')[1].toLowerCase(), t4, t5, td1, t6_value = ctx.todayData[1].split(', ')[1].toLowerCase(), t6, t7, td2, t8_value = ctx.todayData[2].split(', ')[1].toLowerCase(), t8, t9, td3, t10_value = ctx.todayData[3].split(', ')[1].toLowerCase(), t10;
 
@@ -25818,18 +26027,18 @@
     			td3 = element("td");
     			t10 = text(t10_value);
     			h3.className = "text-sm text-accentColor3";
-    			add_location(h3, file$5, 367, 14, 10832);
+    			add_location(h3, file$5, 400, 14, 11728);
     			td0.className = "svelte-w8nxyn";
-    			add_location(td0, file$5, 372, 18, 11066);
+    			add_location(td0, file$5, 405, 18, 11962);
     			td1.className = "svelte-w8nxyn";
-    			add_location(td1, file$5, 373, 18, 11138);
+    			add_location(td1, file$5, 406, 18, 12034);
     			td2.className = "svelte-w8nxyn";
-    			add_location(td2, file$5, 374, 18, 11210);
+    			add_location(td2, file$5, 407, 18, 12106);
     			td3.className = "svelte-w8nxyn";
-    			add_location(td3, file$5, 375, 18, 11282);
+    			add_location(td3, file$5, 408, 18, 12178);
     			tr.className = "text-secondaryColor";
-    			add_location(tr, file$5, 371, 16, 11014);
-    			add_location(tbody, file$5, 370, 14, 10989);
+    			add_location(tr, file$5, 404, 16, 11910);
+    			add_location(tbody, file$5, 403, 14, 11885);
     		},
 
     		m: function mount(target, anchor) {
@@ -25865,217 +26074,106 @@
     	};
     }
 
-    // (393:4) {:else}
-    function create_else_block$2(ctx) {
-    	var div;
-
-    	return {
-    		c: function create() {
-    			div = element("div");
-    			add_location(div, file$5, 393, 6, 11741);
-    		},
-
-    		m: function mount(target, anchor) {
-    			insert(target, div, anchor);
-    		},
-
-    		i: noop,
-    		o: noop,
-
-    		d: function destroy(detaching) {
-    			if (detaching) {
-    				detach(div);
-    			}
-    		}
-    	};
-    }
-
-    // (389:29) 
-    function create_if_block_1$3(ctx) {
-    	var p, p_transition, current;
-
-    	return {
-    		c: function create() {
-    			p = element("p");
-    			p.textContent = "Sign in to view data";
-    			p.className = "text-center text-secondaryColor";
-    			add_location(p, file$5, 389, 6, 11619);
-    		},
-
-    		m: function mount(target, anchor) {
-    			insert(target, p, anchor);
-    			current = true;
-    		},
-
-    		i: function intro(local) {
-    			if (current) return;
-    			add_render_callback(() => {
-    				if (!p_transition) p_transition = create_bidirectional_transition(p, fade, {}, true);
-    				p_transition.run(1);
-    			});
-
-    			current = true;
-    		},
-
-    		o: function outro(local) {
-    			if (!p_transition) p_transition = create_bidirectional_transition(p, fade, {}, false);
-    			p_transition.run(0);
-
-    			current = false;
-    		},
-
-    		d: function destroy(detaching) {
-    			if (detaching) {
-    				detach(p);
-    				if (p_transition) p_transition.end();
-    			}
-    		}
-    	};
-    }
-
-    // (387:4) {#if loading && !requiresSignIn}
-    function create_if_block$4(ctx) {
-    	var current;
-
-    	var loadingspinner = new LoadingSpinner({ $$inline: true });
-
-    	return {
-    		c: function create() {
-    			loadingspinner.$$.fragment.c();
-    		},
-
-    		m: function mount(target, anchor) {
-    			mount_component(loadingspinner, target, anchor);
-    			current = true;
-    		},
-
-    		i: function intro(local) {
-    			if (current) return;
-    			loadingspinner.$$.fragment.i(local);
-
-    			current = true;
-    		},
-
-    		o: function outro(local) {
-    			loadingspinner.$$.fragment.o(local);
-    			current = false;
-    		},
-
-    		d: function destroy(detaching) {
-    			loadingspinner.$destroy(detaching);
-    		}
-    	};
-    }
-
     function create_fragment$5(ctx) {
-    	var div7, div0, h20, t1, current_block_type_index, if_block0, t2, div1, h21, t4, current_block_type_index_1, if_block1, t5, div6, h22, t7, current_block_type_index_2, if_block2, t8, div3, div2, canvas0, div2_class_value, t9, div5, div4, canvas1, div4_class_value, current, dispose;
+    	var div9, current_block_type_index, if_block0, t0, div0, h20, t2, promise, t3, div3, h21, t5, div2, div1, div1_class_value, div2_transition, t6, div8, h22, t8, div5, div4, canvas0, div4_class_value, t9, div7, div6, canvas1, div6_class_value, current, dispose;
 
     	add_render_callback(ctx.onwindowresize);
 
     	var if_block_creators = [
-    		create_if_block_5,
-    		create_if_block_6,
-    		create_else_block_3
+    		create_if_block_1$3,
+    		create_if_block_2$2,
+    		create_if_block_3
     	];
 
     	var if_blocks = [];
 
     	function select_block_type(ctx) {
-    		if (ctx.loading && !ctx.requiresSignIn) return 0;
-    		if (ctx.requiresSignIn) return 1;
-    		return 2;
+    		if (ctx.loading && !ctx.requiresSignIn && !ctx.showError) return 0;
+    		if (ctx.requiresSignIn && !ctx.showError) return 1;
+    		if (ctx.showError) return 2;
+    		return -1;
     	}
 
-    	current_block_type_index = select_block_type(ctx);
-    	if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-
-    	var if_block_creators_1 = [
-    		create_if_block_2,
-    		create_if_block_3,
-    		create_else_block_1$1
-    	];
-
-    	var if_blocks_1 = [];
-
-    	function select_block_type_1(ctx) {
-    		if (ctx.loading && !ctx.requiresSignIn) return 0;
-    		if (ctx.requiresSignIn) return 1;
-    		return 2;
+    	if (~(current_block_type_index = select_block_type(ctx))) {
+    		if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     	}
 
-    	current_block_type_index_1 = select_block_type_1(ctx);
-    	if_block1 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx);
+    	let info = {
+    		ctx,
+    		current: null,
+    		pending: create_pending_block,
+    		then: create_then_block,
+    		catch: create_catch_block,
+    		value: 'nextPutDown',
+    		error: 'null',
+    		blocks: Array(3)
+    	};
 
-    	var if_block_creators_2 = [
-    		create_if_block$4,
-    		create_if_block_1$3,
-    		create_else_block$2
-    	];
+    	handle_promise(promise = getPutDownTime(ctx.todayDatas), info);
 
-    	var if_blocks_2 = [];
-
-    	function select_block_type_3(ctx) {
-    		if (ctx.loading && !ctx.requiresSignIn) return 0;
-    		if (ctx.requiresSignIn) return 1;
-    		return 2;
-    	}
-
-    	current_block_type_index_2 = select_block_type_3(ctx);
-    	if_block2 = if_blocks_2[current_block_type_index_2] = if_block_creators_2[current_block_type_index_2](ctx);
+    	var if_block1 = (ctx.todayDatas.length > 0) && create_if_block$4(ctx);
 
     	return {
     		c: function create() {
-    			div7 = element("div");
+    			div9 = element("div");
+    			if (if_block0) if_block0.c();
+    			t0 = space();
     			div0 = element("div");
     			h20 = element("h2");
     			h20.textContent = "Next Put Down";
-    			t1 = space();
-    			if_block0.c();
     			t2 = space();
-    			div1 = element("div");
+
+    			info.block.c();
+
+    			t3 = space();
+    			div3 = element("div");
     			h21 = element("h2");
     			h21.textContent = "Today";
-    			t4 = space();
-    			if_block1.c();
     			t5 = space();
-    			div6 = element("div");
+    			div2 = element("div");
+    			div1 = element("div");
+    			if (if_block1) if_block1.c();
+    			t6 = space();
+    			div8 = element("div");
     			h22 = element("h2");
     			h22.textContent = "Trends";
-    			t7 = space();
-    			if_block2.c();
     			t8 = space();
-    			div3 = element("div");
-    			div2 = element("div");
-    			canvas0 = element("canvas");
-    			t9 = space();
     			div5 = element("div");
     			div4 = element("div");
+    			canvas0 = element("canvas");
+    			t9 = space();
+    			div7 = element("div");
+    			div6 = element("div");
     			canvas1 = element("canvas");
     			h20.className = "svelte-w8nxyn";
-    			add_location(h20, file$5, 315, 4, 9090);
-    			add_location(div0, file$5, 314, 2, 9079);
+    			add_location(h20, file$5, 367, 4, 10722);
+    			add_location(div0, file$5, 366, 2, 10711);
     			h21.className = "svelte-w8nxyn";
-    			add_location(h21, file$5, 332, 4, 9677);
-    			div1.className = "mt-8";
-    			add_location(div1, file$5, 331, 2, 9653);
+    			add_location(h21, file$5, 377, 4, 10998);
+    			div1.className = div1_class_value = "" + (ctx.innerWidth >= 375 || ctx.todayDatas.length === 0 ? 'w-full' : 'tableContainer') + " svelte-w8nxyn";
+    			add_location(div1, file$5, 379, 6, 11076);
+    			div2.className = "overflow-auto w-full";
+    			add_location(div2, file$5, 378, 4, 11018);
+    			div3.className = "mt-8";
+    			add_location(div3, file$5, 376, 2, 10974);
     			h22.className = "svelte-w8nxyn";
-    			add_location(h22, file$5, 385, 4, 11501);
+    			add_location(h22, file$5, 418, 4, 12397);
     			canvas0.id = "napSleepTime";
-    			add_location(canvas0, file$5, 397, 8, 11884);
-    			div2.className = div2_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
-    			add_location(div2, file$5, 396, 6, 11813);
-    			div3.className = "overflow-auto w-full mb-12";
-    			add_location(div3, file$5, 395, 4, 11765);
-    			canvas1.id = "TWTVsFirstSleep";
-    			add_location(canvas1, file$5, 402, 8, 12063);
+    			add_location(canvas0, file$5, 421, 8, 12537);
     			div4.className = div4_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
-    			add_location(div4, file$5, 401, 6, 11992);
+    			add_location(div4, file$5, 420, 6, 12466);
     			div5.className = "overflow-auto w-full mb-12";
-    			add_location(div5, file$5, 400, 4, 11944);
-    			div6.className = "mt-8";
-    			add_location(div6, file$5, 384, 2, 11477);
-    			div7.className = "w-full bg-backgroundColor p-4";
-    			add_location(div7, file$5, 313, 0, 9032);
+    			add_location(div5, file$5, 419, 4, 12418);
+    			canvas1.id = "TWTVsFirstSleep";
+    			add_location(canvas1, file$5, 426, 8, 12716);
+    			div6.className = div6_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
+    			add_location(div6, file$5, 425, 6, 12645);
+    			div7.className = "overflow-auto w-full mb-12";
+    			add_location(div7, file$5, 424, 4, 12597);
+    			div8.className = "mt-8";
+    			add_location(div8, file$5, 417, 2, 12373);
+    			div9.className = "w-full bg-backgroundColor p-4";
+    			add_location(div9, file$5, 323, 0, 9336);
     			dispose = listen(window, "resize", ctx.onwindowresize);
     		},
 
@@ -26084,129 +26182,141 @@
     		},
 
     		m: function mount(target, anchor) {
-    			insert(target, div7, anchor);
-    			append(div7, div0);
+    			insert(target, div9, anchor);
+    			if (~current_block_type_index) if_blocks[current_block_type_index].m(div9, null);
+    			append(div9, t0);
+    			append(div9, div0);
     			append(div0, h20);
-    			append(div0, t1);
-    			if_blocks[current_block_type_index].m(div0, null);
-    			append(div7, t2);
-    			append(div7, div1);
-    			append(div1, h21);
-    			append(div1, t4);
-    			if_blocks_1[current_block_type_index_1].m(div1, null);
-    			append(div7, t5);
-    			append(div7, div6);
-    			append(div6, h22);
-    			append(div6, t7);
-    			if_blocks_2[current_block_type_index_2].m(div6, null);
-    			append(div6, t8);
-    			append(div6, div3);
+    			append(div0, t2);
+
+    			info.block.m(div0, info.anchor = null);
+    			info.mount = () => div0;
+    			info.anchor = null;
+
+    			append(div9, t3);
+    			append(div9, div3);
+    			append(div3, h21);
+    			append(div3, t5);
     			append(div3, div2);
-    			append(div2, canvas0);
-    			append(div6, t9);
-    			append(div6, div5);
+    			append(div2, div1);
+    			if (if_block1) if_block1.m(div1, null);
+    			append(div9, t6);
+    			append(div9, div8);
+    			append(div8, h22);
+    			append(div8, t8);
+    			append(div8, div5);
     			append(div5, div4);
-    			append(div4, canvas1);
+    			append(div4, canvas0);
+    			append(div8, t9);
+    			append(div8, div7);
+    			append(div7, div6);
+    			append(div6, canvas1);
     			current = true;
     		},
 
-    		p: function update(changed, ctx) {
+    		p: function update(changed, new_ctx) {
+    			ctx = new_ctx;
     			var previous_block_index = current_block_type_index;
     			current_block_type_index = select_block_type(ctx);
-    			if (current_block_type_index === previous_block_index) {
-    				if_blocks[current_block_type_index].p(changed, ctx);
-    			} else {
-    				group_outros();
-    				on_outro(() => {
-    					if_blocks[previous_block_index].d(1);
-    					if_blocks[previous_block_index] = null;
-    				});
-    				if_block0.o(1);
-    				check_outros();
-
-    				if_block0 = if_blocks[current_block_type_index];
-    				if (!if_block0) {
-    					if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-    					if_block0.c();
+    			if (current_block_type_index !== previous_block_index) {
+    				if (if_block0) {
+    					group_outros();
+    					on_outro(() => {
+    						if_blocks[previous_block_index].d(1);
+    						if_blocks[previous_block_index] = null;
+    					});
+    					if_block0.o(1);
+    					check_outros();
     				}
-    				if_block0.i(1);
-    				if_block0.m(div0, null);
+
+    				if (~current_block_type_index) {
+    					if_block0 = if_blocks[current_block_type_index];
+    					if (!if_block0) {
+    						if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    						if_block0.c();
+    					}
+    					if_block0.i(1);
+    					if_block0.m(div9, t0);
+    				} else {
+    					if_block0 = null;
+    				}
     			}
 
-    			var previous_block_index_1 = current_block_type_index_1;
-    			current_block_type_index_1 = select_block_type_1(ctx);
-    			if (current_block_type_index_1 === previous_block_index_1) {
-    				if_blocks_1[current_block_type_index_1].p(changed, ctx);
-    			} else {
-    				group_outros();
-    				on_outro(() => {
-    					if_blocks_1[previous_block_index_1].d(1);
-    					if_blocks_1[previous_block_index_1] = null;
-    				});
-    				if_block1.o(1);
-    				check_outros();
+    			info.ctx = ctx;
 
-    				if_block1 = if_blocks_1[current_block_type_index_1];
-    				if (!if_block1) {
-    					if_block1 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx);
+    			if (promise !== (promise = getPutDownTime(ctx.todayDatas)) && handle_promise(promise, info)) ; else {
+    				info.block.p(changed, assign(assign({}, ctx), info.resolved));
+    			}
+
+    			if (ctx.todayDatas.length > 0) {
+    				if (if_block1) {
+    					if_block1.p(changed, ctx);
+    				} else {
+    					if_block1 = create_if_block$4(ctx);
     					if_block1.c();
+    					if_block1.m(div1, null);
     				}
-    				if_block1.i(1);
-    				if_block1.m(div1, null);
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
     			}
 
-    			var previous_block_index_2 = current_block_type_index_2;
-    			current_block_type_index_2 = select_block_type_3(ctx);
-    			if (current_block_type_index_2 !== previous_block_index_2) {
-    				group_outros();
-    				on_outro(() => {
-    					if_blocks_2[previous_block_index_2].d(1);
-    					if_blocks_2[previous_block_index_2] = null;
-    				});
-    				if_block2.o(1);
-    				check_outros();
-
-    				if_block2 = if_blocks_2[current_block_type_index_2];
-    				if (!if_block2) {
-    					if_block2 = if_blocks_2[current_block_type_index_2] = if_block_creators_2[current_block_type_index_2](ctx);
-    					if_block2.c();
-    				}
-    				if_block2.i(1);
-    				if_block2.m(div6, t8);
-    			}
-
-    			if ((!current || changed.innerWidth) && div2_class_value !== (div2_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn")) {
-    				div2.className = div2_class_value;
+    			if ((!current || changed.innerWidth) && div1_class_value !== (div1_class_value = "" + (ctx.innerWidth >= 375 || ctx.todayDatas.length === 0 ? 'w-full' : 'tableContainer') + " svelte-w8nxyn")) {
+    				div1.className = div1_class_value;
     			}
 
     			if ((!current || changed.innerWidth) && div4_class_value !== (div4_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn")) {
     				div4.className = div4_class_value;
+    			}
+
+    			if ((!current || changed.innerWidth) && div6_class_value !== (div6_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn")) {
+    				div6.className = div6_class_value;
     			}
     		},
 
     		i: function intro(local) {
     			if (current) return;
     			if (if_block0) if_block0.i();
-    			if (if_block1) if_block1.i();
-    			if (if_block2) if_block2.i();
+    			info.block.i();
+
+    			add_render_callback(() => {
+    				if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, {}, true);
+    				div2_transition.run(1);
+    			});
+
     			current = true;
     		},
 
     		o: function outro(local) {
     			if (if_block0) if_block0.o();
-    			if (if_block1) if_block1.o();
-    			if (if_block2) if_block2.o();
+
+    			for (let i = 0; i < 3; i += 1) {
+    				const block = info.blocks[i];
+    				if (block) block.o();
+    			}
+
+    			if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, {}, false);
+    			div2_transition.run(0);
+
     			current = false;
     		},
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach(div7);
+    				detach(div9);
     			}
 
-    			if_blocks[current_block_type_index].d();
-    			if_blocks_1[current_block_type_index_1].d();
-    			if_blocks_2[current_block_type_index_2].d();
+    			if (~current_block_type_index) if_blocks[current_block_type_index].d();
+
+    			info.block.d();
+    			info = null;
+
+    			if (if_block1) if_block1.d();
+
+    			if (detaching) {
+    				if (div2_transition) div2_transition.end();
+    			}
+
     			dispose();
     		}
     	};
@@ -26214,14 +26324,14 @@
 
     const historicalRows = 100;
 
-    function getPutDownTime(data) {
+    async function getPutDownTime(data) {
       let nextPutDown;
 
       if (data.length > 0) {
         nextPutDown = data[data.length - 1][4].split(", ")[1];
       }
 
-      return nextPutDown;
+      return nextPutDown !== undefined ? nextPutDown : "";
     }
 
     function plotTWTVsFirstSleep(data) {
@@ -26441,6 +26551,7 @@
     	
       let loading = false;
       let requiresSignIn = true;
+      let showError = false;
       let getTodayData;
 
       let todayDatas = [];
@@ -26450,86 +26561,121 @@
 
       function getData() {
         $$invalidate('loading', loading = true);
+        $$invalidate('showError', showError = false);
+
         $gapiInstance.client.sheets.spreadsheets.values
           .get({
             spreadsheetId: credentials.SPREADSHEET_ID,
             range: credentials.SHEET_NAME + "!A1:A"
           })
-          .then(response => {
-            const lastRow = response.result.values.length;
-            const firstRow = lastRow - historicalRows + 1;
+          .then(
+            response => {
+              const lastRow = response.result.values.length;
+              const firstRow = lastRow - historicalRows + 1;
 
-            $$invalidate('getTodayData', getTodayData = $gapiInstance.client.sheets.spreadsheets.values
-              .batchGet({
-                spreadsheetId: credentials.SPREADSHEET_ID,
-                ranges: [
-                  credentials.SHEET_NAME + `!A${firstRow}:Q${lastRow}`,
-                  "NapSleepTrend!A2:D"
-                ]
-              })
-              .then(response => {
-                $$invalidate('loading', loading = false);
+              $$invalidate('getTodayData', getTodayData = $gapiInstance.client.sheets.spreadsheets.values
+                .batchGet({
+                  spreadsheetId: credentials.SPREADSHEET_ID,
+                  ranges: [
+                    credentials.SHEET_NAME + `!A${firstRow}:Q${lastRow}`,
+                    "NapSleepTrend!A2:D"
+                  ]
+                })
+                .then(response => {
+                  $$invalidate('loading', loading = false);
 
-                const sheetData = response.result.valueRanges[0].values;
-                const napSleepData = response.result.valueRanges[1].values;
+                  const sheetData = response.result.valueRanges[0].values;
+                  const napSleepData = response.result.valueRanges[1].values;
 
-                $$invalidate('historicalDatas', historicalDatas = sheetData.reverse());
+                  $$invalidate('historicalDatas', historicalDatas = sheetData.reverse());
 
-                /**
-                 * Need to add year to the data from Sheets as it is received as a string
-                 */
-                const year = format(new Date(), "yyyy");
+                  /**
+                   * Need to add year to the data from Sheets as it is received as a string
+                   */
+                  const year = format(new Date(), "yyyy");
 
-                // for (let i = sheetData.length - 1; i > 15; i--) {
-                //   const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
-                //   todayDatas.push(sheetData[i]);
-                // }
+                  // for (let i = sheetData.length - 1; i > 15; i--) {
+                  //   const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
+                  //   todayDatas.push(sheetData[i]);
+                  // }
 
-                for (let i = 0; i < sheetData.length; i++) {
-                  const date = new Date(sheetData[i][2].replace(",", ` ${year}`));
+                  for (let i = 0; i < sheetData.length; i++) {
+                    const date = new Date(sheetData[i][2].replace(",", ` ${year}`));
 
-                  if (isSameDay(date, new Date())) {
-                    if (
-                      sheetData[i][0] !== undefined &&
-                      sheetData[i][1] !== undefined &&
-                      sheetData[i][2] !== undefined &&
-                      sheetData[i][3] !== undefined
-                    ) {
-                      todayDatas.push(sheetData[i]);
+                    if (isSameDay(date, new Date())) {
+                      if (
+                        sheetData[i][0] !== undefined &&
+                        sheetData[i][1] !== undefined &&
+                        sheetData[i][2] !== undefined &&
+                        sheetData[i][3] !== undefined
+                      ) {
+                        todayDatas.push(sheetData[i]);
+                      }
+                    } else {
+                      break;
                     }
-                  } else {
-                    break;
                   }
-                }
 
-                todayDatas.reverse();
+                  todayDatas.reverse();
 
-                plotTWTVsFirstSleep(historicalDatas);
-                plotNapSleepTime(napSleepData);
-              }));
-          });
+                  plotTWTVsFirstSleep(historicalDatas);
+                  plotNapSleepTime(napSleepData);
+                }));
+            },
+            error => {
+              $$invalidate('showError', showError = true);
+            }
+          );
       }
+
+    	function click_handler(event) {
+    		bubble($$self, event);
+    	}
+
+    	function click_handler_1(event) {
+    		bubble($$self, event);
+    	}
+
+    	function click_handler_2(event) {
+    		bubble($$self, event);
+    	}
 
     	function onwindowresize() {
     		innerWidth = window.innerWidth; $$invalidate('innerWidth', innerWidth);
     	}
 
+    	function click_handler_3() {
+    		return getData();
+    	}
+
+    	function click_handler_4() {
+    		return getData();
+    	}
+
     	$$self.$$.update = ($$dirty = { $userName: 1, $gapiInstance: 1 }) => {
     		if ($$dirty.$userName || $$dirty.$gapiInstance) { if ($userName !== undefined && $gapiInstance !== undefined) {
             $$invalidate('requiresSignIn', requiresSignIn = false);
+            $$invalidate('showError', showError = false);
             getData();
           } else if ($gapiInstance !== undefined) {
             $$invalidate('requiresSignIn', requiresSignIn = true);
+            $$invalidate('showError', showError = false);
           } }
     	};
 
     	return {
     		loading,
     		requiresSignIn,
+    		showError,
     		todayDatas,
     		innerWidth,
-    		undefined,
-    		onwindowresize
+    		getData,
+    		click_handler,
+    		click_handler_1,
+    		click_handler_2,
+    		onwindowresize,
+    		click_handler_3,
+    		click_handler_4
     	};
     }
 
@@ -26822,7 +26968,7 @@
     const file$7 = "src\\App.svelte";
 
     // (82:37) 
-    function create_if_block_4$1(ctx) {
+    function create_if_block_4(ctx) {
     	var div3, div0, t0, div1, t1, div2, current;
 
     	var entry = new Entry({ $$inline: true });
@@ -27000,7 +27146,7 @@
     }
 
     // (71:6) {#if $showSettings}
-    function create_if_block_2$1(ctx) {
+    function create_if_block_2$3(ctx) {
     	var div, div_transition, current;
 
     	var settings = new Settings({ $$inline: true });
@@ -27113,7 +27259,7 @@
 
     	var if_block0 = (ctx.$showEntry) && create_if_block_3$1(ctx);
 
-    	var if_block1 = (ctx.$showSettings) && create_if_block_2$1(ctx);
+    	var if_block1 = (ctx.$showSettings) && create_if_block_2$3(ctx);
 
     	var if_block2 = (ctx.$showSummary) && create_if_block_1$4(ctx);
 
@@ -27160,7 +27306,7 @@
 
     			if (ctx.$showSettings) {
     				if (!if_block1) {
-    					if_block1 = create_if_block_2$1(ctx);
+    					if_block1 = create_if_block_2$3(ctx);
     					if_block1.c();
     					if_block1.i(1);
     					if_block1.m(t1.parentNode, t1);
@@ -27243,7 +27389,7 @@
 
     	var if_block_creators = [
     		create_if_block$5,
-    		create_if_block_4$1
+    		create_if_block_4
     	];
 
     	var if_blocks = [];

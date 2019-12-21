@@ -37,9 +37,14 @@
         scope: credentials.SCOPES,
         discoveryDocs: credentials.DISCOVERY_DOCS
       })
-      .then(() => {
-        gapi.load("auth2", initAuth2);
-      })
+      .then(
+        () => {
+          gapi.load("auth2", initAuth2);
+        },
+        e => {
+          showErrorScreen = true;
+        }
+      )
       .catch(e => {
         showErrorScreen = true;
       });
@@ -51,9 +56,12 @@
         clientID: credentials.CLIENT_ID,
         scope: credentials.SCOPES
       })
-      .then(() => {
-        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-      });
+      .then(
+        () => {
+          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        },
+        e => (showErrorScreen = true)
+      );
   }
 
   function updateSigninStatus(signedIn) {
@@ -92,8 +100,8 @@
 {#if showSigningIn}
   <div
     transition:fade
-    class="w-full h-screen bg-black opacity-75 flex items-center justify-center
-    absolute top-0"
+    class="w-full h-screen flex items-center justify-center absolute top-0"
+    style="background: rgba(0, 0, 0, 0.75);"
     on:click>
     <LoadingSpinner text="Signing in" />
   </div>
@@ -103,16 +111,17 @@
 {#if showErrorScreen}
   <div
     transition:fade
-    class="w-full h-screen bg-black opacity-75 absolute top-0"
+    class="w-full h-screen fixed top-0 left-0"
+    style="background: rgba(0, 0, 0, 0.75);"
     on:click />
   <div
-    class="w-full h-screen flex flex-col items-center justify-center absolute
-    top-0">
+    class="w-full h-screen flex flex-col items-center justify-center fixed top-0
+    left-0">
     <p class="w-1/2 text-center text-secondaryColor mb-4">
       You must be signed in to continue.
     </p>
     <button
-      class="py-2 w-1/2 rounded-lg bg-accentColor2 text-white font-medium"
+      class="py-2 w-1/2 rounded-lg bg-accentColor text-white font-medium"
       on:click={() => {
         showEntry.set(false);
         showSummary.set(false);

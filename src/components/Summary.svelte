@@ -11,6 +11,7 @@
   const historicalRows = 100;
   let loading = false;
   let requiresSignIn = true;
+  let showError = false;
   let getTodayData;
 
   let todayDatas = [];
@@ -20,78 +21,85 @@
 
   function getData() {
     loading = true;
+    showError = false;
+
     $gapiInstance.client.sheets.spreadsheets.values
       .get({
         spreadsheetId: credentials.SPREADSHEET_ID,
         range: credentials.SHEET_NAME + "!A1:A"
       })
-      .then(response => {
-        const lastRow = response.result.values.length;
-        const firstRow = lastRow - historicalRows + 1;
+      .then(
+        response => {
+          const lastRow = response.result.values.length;
+          const firstRow = lastRow - historicalRows + 1;
 
-        getTodayData = $gapiInstance.client.sheets.spreadsheets.values
-          .batchGet({
-            spreadsheetId: credentials.SPREADSHEET_ID,
-            ranges: [
-              credentials.SHEET_NAME + `!A${firstRow}:Q${lastRow}`,
-              "NapSleepTrend!A2:D"
-            ]
-          })
-          .then(response => {
-            loading = false;
+          getTodayData = $gapiInstance.client.sheets.spreadsheets.values
+            .batchGet({
+              spreadsheetId: credentials.SPREADSHEET_ID,
+              ranges: [
+                credentials.SHEET_NAME + `!A${firstRow}:Q${lastRow}`,
+                "NapSleepTrend!A2:D"
+              ]
+            })
+            .then(response => {
+              loading = false;
 
-            const sheetData = response.result.valueRanges[0].values;
-            const napSleepData = response.result.valueRanges[1].values;
+              const sheetData = response.result.valueRanges[0].values;
+              const napSleepData = response.result.valueRanges[1].values;
 
-            historicalDatas = sheetData.reverse();
+              historicalDatas = sheetData.reverse();
 
-            /**
-             * Need to add year to the data from Sheets as it is received as a string
-             */
-            const year = format(new Date(), "yyyy");
+              /**
+               * Need to add year to the data from Sheets as it is received as a string
+               */
+              const year = format(new Date(), "yyyy");
 
-            // for (let i = sheetData.length - 1; i > 15; i--) {
-            //   const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
-            //   todayDatas.push(sheetData[i]);
-            // }
+              // for (let i = sheetData.length - 1; i > 15; i--) {
+              //   const date = new Date(sheetData[i][0].replace(",", ` ${year}`));
+              //   todayDatas.push(sheetData[i]);
+              // }
 
-            for (let i = 0; i < sheetData.length; i++) {
-              const date = new Date(sheetData[i][2].replace(",", ` ${year}`));
+              for (let i = 0; i < sheetData.length; i++) {
+                const date = new Date(sheetData[i][2].replace(",", ` ${year}`));
 
-              if (isSameDay(date, new Date())) {
-                if (
-                  sheetData[i][0] !== undefined &&
-                  sheetData[i][1] !== undefined &&
-                  sheetData[i][2] !== undefined &&
-                  sheetData[i][3] !== undefined
-                ) {
-                  todayDatas.push(sheetData[i]);
+                if (isSameDay(date, new Date())) {
+                  if (
+                    sheetData[i][0] !== undefined &&
+                    sheetData[i][1] !== undefined &&
+                    sheetData[i][2] !== undefined &&
+                    sheetData[i][3] !== undefined
+                  ) {
+                    todayDatas.push(sheetData[i]);
+                  }
+                } else {
+                  break;
                 }
-              } else {
-                break;
               }
-            }
 
-            todayDatas.reverse();
+              todayDatas.reverse();
 
-            plotTWTVsFirstSleep(historicalDatas);
-            plotNapSleepTime(napSleepData);
-          });
-      });
+              plotTWTVsFirstSleep(historicalDatas);
+              plotNapSleepTime(napSleepData);
+            });
+        },
+        error => {
+          showError = true;
+        }
+      );
   }
 
   /**
    * @param {string[]} data Array of sheet data
    * @returns {string} The time component of the put down time, formatted as a string
    */
-  function getPutDownTime(data) {
+  async function getPutDownTime(data) {
     let nextPutDown;
 
     if (data.length > 0) {
       nextPutDown = data[data.length - 1][4].split(", ")[1];
     }
 
-    return nextPutDown;
+    return nextPutDown !== undefined ? nextPutDown : "";
   }
 
   function plotTWTVsFirstSleep(data) {
@@ -302,9 +310,11 @@
 
   $: if ($userName !== undefined && $gapiInstance !== undefined) {
     requiresSignIn = false;
+    showError = false;
     getData();
   } else if ($gapiInstance !== undefined) {
     requiresSignIn = true;
+    showError = false;
   }
 </script>
 
@@ -338,58 +348,81 @@
 
 <svelte:window bind:innerWidth />
 <div class="w-full bg-backgroundColor p-4">
-  <div>
-    <h2>Next Put Down</h2>
-    {#if loading && !requiresSignIn}
+  {#if loading && !requiresSignIn && !showError}
+    <div
+      transition:fade
+      class="w-full h-screen fixed top-0 left-0 flex flex-col items-center
+      justify-center"
+      style="background: rgba(0, 0, 0, 0.75);"
+      on:click>
       <LoadingSpinner />
-    {:else if requiresSignIn}
-      <p transition:fade class="text-center text-secondaryColor">
+    </div>
+  {:else if requiresSignIn && !showError}
+    <div
+      transition:fade
+      class="w-full h-screen fixed top-0 left-0 flex flex-col items-center
+      justify-center"
+      style="background: rgba(0, 0, 0, 0.75);"
+      on:click>
+      <p class="w-1/2 text-center text-secondaryColor mb-4">
         Sign in to view data
       </p>
-    {:else}
+      <button
+        class="py-2 w-1/2 rounded-lg bg-accentColor text-white font-medium"
+        on:click={() => getData()}>
+        Retry
+      </button>
+    </div>
+  {:else if showError}
+    <div
+      transition:fade
+      class="w-full h-screen fixed top-0 left-0 flex flex-col items-center
+      justify-center"
+      style="background: rgba(0, 0, 0, 0.75);"
+      on:click>
+      <p class="w-1/2 text-center text-secondaryColor mb-4">
+        It looks like there was a network error
+      </p>
+      <button
+        class="py-2 w-1/2 rounded-lg bg-accentColor text-white font-medium"
+        on:click={() => getData()}>
+        Retry
+      </button>
+    </div>
+  {/if}
+  <div>
+    <h2>Next Put Down</h2>
+    {#await getPutDownTime(todayDatas) then nextPutDown}
       <p
         transition:fade
-        class="w-full text-center {getPutDownTime(todayDatas) !== undefined ? 'text-accentColor3 font-bold text-2xl' : 'text-secondaryColor'}
-        ">
-        {getPutDownTime(todayDatas) !== undefined ? getPutDownTime(todayDatas) : 'No data yet'}
+        class="w-full text-center text-accentColor3 font-bold text-2xl">
+        {nextPutDown}
       </p>
-    {/if}
+    {/await}
   </div>
   <div class="mt-8">
     <h2>Today</h2>
-    {#if loading && !requiresSignIn}
-      <LoadingSpinner />
-    {:else if requiresSignIn}
-      <p transition:fade class="text-center text-secondaryColor">
-        Sign in to view data
-      </p>
-    {:else}
-      <div transition:fade class="overflow-auto w-full">
-        <div
-          class={innerWidth >= 375 || todayDatas.length === 0 ? 'w-full' : 'tableContainer'}>
+    <div transition:fade class="overflow-auto w-full">
+      <div
+        class={innerWidth >= 375 || todayDatas.length === 0 ? 'w-full' : 'tableContainer'}>
+        {#if todayDatas.length > 0}
           <table class="w-full">
-            {#if todayDatas.length > 0}
-              <thead>
-                <tr class="text-sm">
-                  <th>
-                    <p>Put down</p>
-                  </th>
-                  <th>
-                    <p>Fell asleep</p>
-                  </th>
-                  <th>
-                    <p>Woke up</p>
-                  </th>
-                  <th>
-                    <p>Picked up</p>
-                  </th>
-                </tr>
-              </thead>
-            {:else}
-              <div class="text-center text-secondaryColor w-full">
-                <p>No data yet</p>
-              </div>
-            {/if}
+            <thead>
+              <tr class="text-sm">
+                <th>
+                  <p>Put down</p>
+                </th>
+                <th>
+                  <p>Fell asleep</p>
+                </th>
+                <th>
+                  <p>Woke up</p>
+                </th>
+                <th>
+                  <p>Picked up</p>
+                </th>
+              </tr>
+            </thead>
             {#each todayDatas as todayData}
               <h3 class="text-sm text-accentColor3">
                 {todayData[11]} {todayData[11] === 'Sleep' ? '' : todayData[12]}
@@ -404,21 +437,12 @@
               </tbody>
             {/each}
           </table>
-        </div>
+        {/if}
       </div>
-    {/if}
+    </div>
   </div>
   <div class="mt-8">
     <h2>Trends</h2>
-    {#if loading && !requiresSignIn}
-      <LoadingSpinner />
-    {:else if requiresSignIn}
-      <p transition:fade class="text-center text-secondaryColor">
-        Sign in to view data
-      </p>
-    {:else}
-      <div />
-    {/if}
     <div class="overflow-auto w-full mb-12">
       <div class={innerWidth >= 375 ? 'w-full' : 'graphContainer'}>
         <canvas id="napSleepTime" />

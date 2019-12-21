@@ -12,6 +12,7 @@
   import LoadingSpinner from "./LoadingSpinner.svelte";
 
   let loadingSheetName = false;
+  let showError = false;
 
   onMount(() => {
     if ($sheetName === credentials.SPREADSHEET_ID) {
@@ -21,16 +22,22 @@
 
   function getSheetName(id) {
     loadingSheetName = true;
+    showError = false;
 
     if ($gapiInstance !== undefined) {
       $gapiInstance.client.sheets.spreadsheets
         .get({
           spreadsheetId: id
         })
-        .then(response => {
-          sheetName.set(response.result.properties.title);
-          loadingSheetName = false;
-        });
+        .then(
+          response => {
+            sheetName.set(response.result.properties.title);
+            loadingSheetName = false;
+          },
+          error => {
+            showError = true;
+          }
+        );
     } else {
       loadingSheetName = false;
     }
@@ -130,8 +137,24 @@
   <div class="mt-8 flex-col">
     <h2>Connected to</h2>
     <div class="flex items-center">
-      {#if loadingSheetName}
+      {#if loadingSheetName && !showError}
         <LoadingSpinner />
+      {:else if showError}
+        <div
+          transition:fade
+          class="w-full h-screen fixed top-0 left-0 flex flex-col items-center
+          justify-center"
+          style="background: rgba(0, 0, 0, 0.75);"
+          on:click>
+          <p class="w-1/2 text-center text-secondaryColor mb-4">
+            It looks like there was a network error
+          </p>
+          <button
+            class="py-2 w-1/2 rounded-lg bg-accentColor text-white font-medium"
+            on:click={() => getSheetName(credentials.SPREADSHEET_ID)}>
+            Retry
+          </button>
+        </div>
       {:else}
         <body class="flex-1 truncate">{$sheetName}</body>
         <button

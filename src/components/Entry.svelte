@@ -43,6 +43,7 @@
   let nextPutDownTime;
 
   let sending = false;
+  let showError = false;
 
   const elapsedSleepTimeDivHeight = tweened(0, {
     duration: 450,
@@ -161,9 +162,10 @@
       $gapiInstance.client.sheets !== null
     ) {
       /**
-       * Set sending flag to true and show loading spinner
+       * Set sending flag to true and show loading spinner; set showError flag to false as default
        */
       sending = true;
+      showError = false;
 
       /**
        * Saves the nap number for use later when calculating estimated next put down time.
@@ -179,166 +181,174 @@
           spreadsheetId: credentials.SPREADSHEET_ID,
           range: credentials.SHEET_NAME + "!A1:A"
         })
-        .then(response => {
-          currentRow = response.result.values.length + 1;
+        .then(
+          response => {
+            currentRow = response.result.values.length + 1;
 
-          /**
-           * Add data by appending after the last current row of data. Includes formulas to calculate other columns.
-           */
-          $gapiInstance.client.sheets.spreadsheets.values
-            .append({
-              spreadsheetId: credentials.SPREADSHEET_ID,
-              range: credentials.SHEET_NAME,
-              valueInputOption: "USER_ENTERED",
-              includeValuesInResponse: true,
-              resource: {
-                values: [
-                  [
-                    /**
-                     * Put Down (PD)
-                     * */
-                    putDownDate + " " + putDownTime,
-                    /**
-                     * Sleep Start
-                     * */
-                    sleepDate + " " + sleepTime,
-                    /**
-                     * Sleep End
-                     */
-                    wakeDate + " " + wakeTime,
-                    /**
-                     * Pick Up
-                     */
-                    pickUpDate + " " + pickUpTime,
-                    /**
-                     * Next Put Down
-                     */
-                    `=C${currentRow}+(D${currentRow}-C${currentRow})/2+if(L${currentRow}="Sleep", Rules!$B$10, if(and(L${currentRow}="Nap",M${currentRow}=1),Rules!$B$7,if(and(L${currentRow}="Nap",M${currentRow}=2),Rules!$B$8,Rules!$B$9)))`,
-                    /**
-                     * Time to fall asleep
-                     */
-                    `=if(or(A${currentRow}="",B${currentRow}=""),"",B${currentRow}-A${currentRow})`,
-                    /**
-                     * Sleep Duration
-                     */
-                    `=if(or(C${currentRow}="",B${currentRow}=""),"",C${currentRow}-B${currentRow})`,
-                    /**
-                     * WT to PD
-                     */
-                    `=(A${currentRow}-D${currentRow -
-                      1})+(D${currentRow - 1}-C${currentRow -
-                      1})/2`,
-                    /**
-                     * Adjusted WT
-                     */
-                    `=(A${currentRow}-D${currentRow -
-                      1})+(F${currentRow}/2)+(D${currentRow - 1}-C${currentRow -
-                      1})/2`,
-                    /**
-                     * Actual WT
-                     */
-                    `=B${currentRow}-C${currentRow - 1}`,
-                    /**
-                     * Total WT (TWT)
-                     */
-                    `=if(and(day(B${currentRow})=day(B${currentRow -
-                      1}),month(B${currentRow})=month(B${currentRow -
-                      1})),I${currentRow}+K${currentRow - 1},I${currentRow})`,
-                    /**
-                     * Type
-                     */
-                    isNap ? "Nap" : "Sleep",
-                    /**
-                     * Count
-                     */
-                    `=if(and(day(B${currentRow})=DAY(B${currentRow -
-                      1}),month(B${currentRow})=month(B${currentRow -
-                      1}),L${currentRow}=L${currentRow - 1}),M${currentRow -
-                      1}+1,1)`,
-                    /**
-                     * Total Sleep
-                     */
-                    `=if(and(day(B${currentRow})=day(B${currentRow -
-                      1}),month(B${currentRow})=month(B${currentRow -
-                      1})),G${currentRow}+N${currentRow - 1},G${currentRow})`,
-                    /**
-                     * Date
-                     */
-                    `=if(hour(A${currentRow}) < Rules!$B$5, date(year(A${currentRow}), month(A${currentRow}), day(A${currentRow})) - 1, date(year(A${currentRow}), month(A${currentRow}), day(A${currentRow})))`,
-                    /**
-                     * Duration
-                     */
-                    `=G${currentRow}`
-                  ]
-                ]
-              }
-            })
-            .then(response => {
-              if (response.status == 200) {
-                /**
-                 * Save the nap number to calculate estimated next put down time. The nap number is taken from the sheet as it is calculated by the formula appended above.
-                 */
-                napNumber = parseInt(
-                  response.result.updates.updatedData.values[0][12]
-                );
-
-                nextPutDownTime = format(
-                  Date.parse(response.result.updates.updatedData.values[0][4]),
-                  "h:mm a"
-                );
-
-                /**
-                 * Update cell format to date time for the first five columns.
-                 */
-                $gapiInstance.client.sheets.spreadsheets
-                  .batchUpdate({
-                    spreadsheetId: credentials.SPREADSHEET_ID,
-                    requests: [
-                      {
-                        repeatCell: {
-                          range: {
-                            sheetId: credentials.SHEET_ID,
-                            startRowIndex: 1,
-                            startColumnIndex: 0,
-                            endColumnIndex: 5
-                          },
-                          cell: {
-                            userEnteredFormat: {
-                              numberFormat: {
-                                type: "DATE",
-                                pattern: "d mmm, h:mm am/pm"
-                              }
-                            }
-                          },
-                          fields: "userEnteredFormat.numberFormat"
-                        }
-                      }
+            /**
+             * Add data by appending after the last current row of data. Includes formulas to calculate other columns.
+             */
+            $gapiInstance.client.sheets.spreadsheets.values
+              .append({
+                spreadsheetId: credentials.SPREADSHEET_ID,
+                range: credentials.SHEET_NAME,
+                valueInputOption: "USER_ENTERED",
+                includeValuesInResponse: true,
+                resource: {
+                  values: [
+                    [
+                      /**
+                       * Put Down (PD)
+                       * */
+                      putDownDate + " " + putDownTime,
+                      /**
+                       * Sleep Start
+                       * */
+                      sleepDate + " " + sleepTime,
+                      /**
+                       * Sleep End
+                       */
+                      wakeDate + " " + wakeTime,
+                      /**
+                       * Pick Up
+                       */
+                      pickUpDate + " " + pickUpTime,
+                      /**
+                       * Next Put Down
+                       */
+                      `=C${currentRow}+(D${currentRow}-C${currentRow})/2+if(L${currentRow}="Sleep", Rules!$B$10, if(and(L${currentRow}="Nap",M${currentRow}=1),Rules!$B$7,if(and(L${currentRow}="Nap",M${currentRow}=2),Rules!$B$8,Rules!$B$9)))`,
+                      /**
+                       * Time to fall asleep
+                       */
+                      `=if(or(A${currentRow}="",B${currentRow}=""),"",B${currentRow}-A${currentRow})`,
+                      /**
+                       * Sleep Duration
+                       */
+                      `=if(or(C${currentRow}="",B${currentRow}=""),"",C${currentRow}-B${currentRow})`,
+                      /**
+                       * WT to PD
+                       */
+                      `=(A${currentRow}-D${currentRow - 1})+(D${currentRow -
+                        1}-C${currentRow - 1})/2`,
+                      /**
+                       * Adjusted WT
+                       */
+                      `=(A${currentRow}-D${currentRow -
+                        1})+(F${currentRow}/2)+(D${currentRow -
+                        1}-C${currentRow - 1})/2`,
+                      /**
+                       * Actual WT
+                       */
+                      `=B${currentRow}-C${currentRow - 1}`,
+                      /**
+                       * Total WT (TWT)
+                       */
+                      `=if(and(day(B${currentRow})=day(B${currentRow -
+                        1}),month(B${currentRow})=month(B${currentRow -
+                        1})),I${currentRow}+K${currentRow - 1},I${currentRow})`,
+                      /**
+                       * Type
+                       */
+                      isNap ? "Nap" : "Sleep",
+                      /**
+                       * Count
+                       */
+                      `=if(and(day(B${currentRow})=DAY(B${currentRow -
+                        1}),month(B${currentRow})=month(B${currentRow -
+                        1}),L${currentRow}=L${currentRow - 1}),M${currentRow -
+                        1}+1,1)`,
+                      /**
+                       * Total Sleep
+                       */
+                      `=if(and(day(B${currentRow})=day(B${currentRow -
+                        1}),month(B${currentRow})=month(B${currentRow -
+                        1})),G${currentRow}+N${currentRow - 1},G${currentRow})`,
+                      /**
+                       * Date
+                       */
+                      `=if(hour(A${currentRow}) < Rules!$B$5, date(year(A${currentRow}), month(A${currentRow}), day(A${currentRow})) - 1, date(year(A${currentRow}), month(A${currentRow}), day(A${currentRow})))`,
+                      /**
+                       * Duration
+                       */
+                      `=G${currentRow}`
                     ]
-                  })
-                  .then(response => {
-                    /**
-                     * Hide loading spinner
-                     */
-                    sending = false;
+                  ]
+                }
+              })
+              .then(response => {
+                if (response.status == 200) {
+                  /**
+                   * Save the nap number to calculate estimated next put down time. The nap number is taken from the sheet as it is calculated by the formula appended above.
+                   */
+                  napNumber = parseInt(
+                    response.result.updates.updatedData.values[0][12]
+                  );
 
-                    putDownTime = format(new Date(), "HH:mm");
-                    sleepTime = undefined;
-                    wakeTime = undefined;
-                    pickUpTime = undefined;
-                    check2v1 = false;
-                    check3v2 = false;
-                    check4v3 = false;
-                    isNap = true;
+                  nextPutDownTime = format(
+                    Date.parse(
+                      response.result.updates.updatedData.values[0][4]
+                    ),
+                    "h:mm a"
+                  );
 
-                    localStorage.setItem("cache", "");
+                  /**
+                   * Update cell format to date time for the first five columns.
+                   */
+                  $gapiInstance.client.sheets.spreadsheets
+                    .batchUpdate({
+                      spreadsheetId: credentials.SPREADSHEET_ID,
+                      requests: [
+                        {
+                          repeatCell: {
+                            range: {
+                              sheetId: credentials.SHEET_ID,
+                              startRowIndex: 1,
+                              startColumnIndex: 0,
+                              endColumnIndex: 5
+                            },
+                            cell: {
+                              userEnteredFormat: {
+                                numberFormat: {
+                                  type: "DATE",
+                                  pattern: "d mmm, h:mm am/pm"
+                                }
+                              }
+                            },
+                            fields: "userEnteredFormat.numberFormat"
+                          }
+                        }
+                      ]
+                    })
+                    .then(response => {
+                      /**
+                       * Hide loading spinner
+                       */
+                      sending = false;
 
-                    document
-                      .getElementById("topBlock")
-                      .scrollIntoView({ behavior: "smooth" });
-                  });
-              }
-            });
-        });
+                      putDownTime = format(new Date(), "HH:mm");
+                      sleepTime = undefined;
+                      wakeTime = undefined;
+                      pickUpTime = undefined;
+                      check2v1 = false;
+                      check3v2 = false;
+                      check4v3 = false;
+                      isNap = true;
+
+                      localStorage.setItem("cache", "");
+
+                      document
+                        .getElementById("topBlock")
+                        .scrollIntoView({ behavior: "smooth" });
+                    });
+                }
+              });
+          },
+          error => {
+            sending = false;
+            showError = true;
+            console.log(error);
+          }
+        );
     } else {
       console.log(
         `Failed to send:\nCheck 2 v 1: ${check2v1}\nCheck 3 v 2: ${check3v2}\nCheck 4 v 3: ${check4v3}\ngapi: ${gapiInstance}`
@@ -515,13 +525,29 @@
 
 <svelte:window bind:innerWidth />
 
-{#if sending}
+{#if sending && !showError}
   <div
     transition:fade
     class="w-full h-screen bg-black opacity-75 flex items-center justify-center
     absolute"
     on:click>
     <LoadingSpinner text="Sending" />
+  </div>
+{:else if showError}
+  <div
+    transition:fade
+    class="w-full h-screen fixed top-0 left-0 flex flex-col items-center
+    justify-center"
+    style="background: rgba(0, 0, 0, 0.75);"
+    on:click={() => (showError = false)}>
+    <p class="w-1/2 text-center text-secondaryColor mb-4">
+      It looks like there was a network error
+    </p>
+    <button
+      class="py-2 w-1/2 rounded-lg bg-accentColor text-white font-medium"
+      on:click={() => ($userName !== undefined ? validateAndSend() : signIn())}>
+      Retry
+    </button>
   </div>
 {/if}
 <div
