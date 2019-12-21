@@ -417,7 +417,7 @@
       <div
         class={innerWidth >= 375 || todayDatas.length === 0 ? 'w-full' : 'tableContainer'}>
         {#if todayDatas.length > 0}
-          <table class="w-full">
+          <table class="w-full whitespace-no-wrap table-fixed">
             <thead>
               <tr class="text-sm">
                 <th>

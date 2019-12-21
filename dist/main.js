@@ -25928,22 +25928,22 @@
     			for (var i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
-    			add_location(p0, file$5, 397, 18, 11550);
+    			add_location(p0, file$5, 397, 18, 11581);
     			th0.className = "svelte-w8nxyn";
-    			add_location(th0, file$5, 396, 16, 11526);
-    			add_location(p1, file$5, 400, 18, 11630);
+    			add_location(th0, file$5, 396, 16, 11557);
+    			add_location(p1, file$5, 400, 18, 11661);
     			th1.className = "svelte-w8nxyn";
-    			add_location(th1, file$5, 399, 16, 11606);
-    			add_location(p2, file$5, 403, 18, 11713);
+    			add_location(th1, file$5, 399, 16, 11637);
+    			add_location(p2, file$5, 403, 18, 11744);
     			th2.className = "svelte-w8nxyn";
-    			add_location(th2, file$5, 402, 16, 11689);
-    			add_location(p3, file$5, 406, 18, 11792);
+    			add_location(th2, file$5, 402, 16, 11720);
+    			add_location(p3, file$5, 406, 18, 11823);
     			th3.className = "svelte-w8nxyn";
-    			add_location(th3, file$5, 405, 16, 11768);
+    			add_location(th3, file$5, 405, 16, 11799);
     			tr.className = "text-sm";
-    			add_location(tr, file$5, 395, 14, 11488);
-    			add_location(thead, file$5, 394, 12, 11465);
-    			table.className = "w-full";
+    			add_location(tr, file$5, 395, 14, 11519);
+    			add_location(thead, file$5, 394, 12, 11496);
+    			table.className = "w-full whitespace-no-wrap table-fixed";
     			add_location(table, file$5, 393, 10, 11429);
     		},
 
@@ -26027,18 +26027,18 @@
     			td3 = element("td");
     			t10 = text(t10_value);
     			h3.className = "text-sm text-accentColor3";
-    			add_location(h3, file$5, 411, 14, 11935);
+    			add_location(h3, file$5, 411, 14, 11966);
     			td0.className = "svelte-w8nxyn";
-    			add_location(td0, file$5, 416, 18, 12169);
+    			add_location(td0, file$5, 416, 18, 12200);
     			td1.className = "svelte-w8nxyn";
-    			add_location(td1, file$5, 417, 18, 12241);
+    			add_location(td1, file$5, 417, 18, 12272);
     			td2.className = "svelte-w8nxyn";
-    			add_location(td2, file$5, 418, 18, 12313);
+    			add_location(td2, file$5, 418, 18, 12344);
     			td3.className = "svelte-w8nxyn";
-    			add_location(td3, file$5, 419, 18, 12385);
+    			add_location(td3, file$5, 419, 18, 12416);
     			tr.className = "text-secondaryColor";
-    			add_location(tr, file$5, 415, 16, 12117);
-    			add_location(tbody, file$5, 414, 14, 12092);
+    			add_location(tr, file$5, 415, 16, 12148);
+    			add_location(tbody, file$5, 414, 14, 12123);
     		},
 
     		m: function mount(target, anchor) {
@@ -26157,21 +26157,21 @@
     			div3.className = "mt-8";
     			add_location(div3, file$5, 387, 2, 11181);
     			h22.className = "svelte-w8nxyn";
-    			add_location(h22, file$5, 429, 4, 12604);
+    			add_location(h22, file$5, 429, 4, 12635);
     			canvas0.id = "napSleepTime";
-    			add_location(canvas0, file$5, 432, 8, 12744);
+    			add_location(canvas0, file$5, 432, 8, 12775);
     			div4.className = div4_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
-    			add_location(div4, file$5, 431, 6, 12673);
+    			add_location(div4, file$5, 431, 6, 12704);
     			div5.className = "overflow-auto w-full mb-12";
-    			add_location(div5, file$5, 430, 4, 12625);
+    			add_location(div5, file$5, 430, 4, 12656);
     			canvas1.id = "TWTVsFirstSleep";
-    			add_location(canvas1, file$5, 437, 8, 12923);
+    			add_location(canvas1, file$5, 437, 8, 12954);
     			div6.className = div6_class_value = "" + (ctx.innerWidth >= 375 ? 'w-full' : 'graphContainer') + " svelte-w8nxyn";
-    			add_location(div6, file$5, 436, 6, 12852);
+    			add_location(div6, file$5, 436, 6, 12883);
     			div7.className = "overflow-auto w-full mb-12";
-    			add_location(div7, file$5, 435, 4, 12804);
+    			add_location(div7, file$5, 435, 4, 12835);
     			div8.className = "mt-8";
-    			add_location(div8, file$5, 428, 2, 12580);
+    			add_location(div8, file$5, 428, 2, 12611);
     			div9.className = "w-full bg-backgroundColor p-4";
     			add_location(div9, file$5, 329, 0, 9402);
     			dispose = listen(window, "resize", ctx.onwindowresize);
